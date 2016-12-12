@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_top_bar" >
+
+    <ImageView
+        android:id="@+id/iv_left"
+        style="@style/backvview_top_bar"
+        android:background="@drawable/arrow_left" />
+
+    <TextView
+        android:id="@+id/page_title"
+        style="@style/text_top_bar_title"
+        android:text="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/right_tv"
+        style="@style/text_top_bar_right"
+        android:visibility="gone" />
+
+</RelativeLayout>

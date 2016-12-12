@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    android:orientation="vertical"
+    tools:context="moni.anyou.com.view.view.KindergartenFragment">
+
+    <include layout="@layout/com_top_bar" />
+
+    <RelativeLayout
+        android:id="@+id/layout_banner"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:background="@color/white">
+
+        <moni.anyou.com.view.widget.banner.AutoScrollViewPager
+            android:id="@+id/bannerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/banner" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_height="50dp">
+
+        <TextView
+            android:text="办公电话"
+            android:textColor="@color/appblack"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@mipmap/ic_launcher"
+            android:drawableRight="@mipmap/ic_launcher"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/listviewfenge"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_height="50dp">
+
+        <TextView
+            android:text="地址：上海市普陀区长城大厦2609"
+            android:textColor="@color/appblack"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@mipmap/ic_launcher"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/listviewfenge"/>
+    </LinearLayout>
+    <TextView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:text="校园简介："
+        android:gravity="center_vertical"
+        android:textColor="@color/btnexit"
+        android:paddingLeft="13dp"
+        android:layout_height="30dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_image"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:clickable="true"
+        android:numColumns="3"
+        />
+
+
+</LinearLayout>

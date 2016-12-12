@@ -1,0 +1,16 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <!--对话框大小-->
+    <dimen name="dialog_netprogress_bg_width">150dip</dimen>
+
+    <!-- 进度条大小 -->
+    <dimen name="dialog_netprogress_width">50dip</dimen>
+    <dimen name="dialog_netprogress_height">50dip</dimen>
+    <!-- 进度条边距 -->
+    <dimen name="dialog_netprogress_padding_top">10dip</dimen>
+    <dimen name="dialog_netprogress_padding_top_simple">5dip</dimen>
+    <dimen name="dialog_netprogress_padding_bottom">10dip</dimen>
+</resources>

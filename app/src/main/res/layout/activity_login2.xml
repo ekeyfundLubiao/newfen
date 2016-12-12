@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    tools:context="moni.anyou.com.view.view.daily.LoginActivity">
+
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/com_top_bar"/>
+
+    <ImageView
+        android:layout_below="@id/topbar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@mipmap/ic_launcher" />
+</RelativeLayout>

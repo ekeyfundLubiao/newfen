@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_news_pic_detai"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="moni.anyou.com.view.view.kindergarten.adapter.picshow.NewsPicDetaiActivity">
+
+    <include layout="@layout/com_top_bar" />
+
+    <moni.anyou.com.view.widget.banner.AutoScrollViewPager
+        android:id="@+id/banner_news_pics"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

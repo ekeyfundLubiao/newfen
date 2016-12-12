@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 分割线 -->
+    <color name="fengeline">#EFEEEF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="topbg">#79C4C7</color>
+    <color name="black">#000000</color>
+    <color name="setbg">#F1F1F1</color>
+    <color name="juhuang">#F2BF64</color>
+    <color name="listviewfenge">#E9EAEA</color>
+    <color name="listviewenglish">#8B763E</color>
+    <color name="nonpublic">#85C9CC</color>
+    <color name="red">#EA5D1F</color>
+    <color name="green">#2FAA5F</color>
+    <color name="reddeep">#DE0D0D</color>
+    <color name="fenge">#E9E9E9</color>
+    <color name="appcolor">#1BA979</color>
+    <color name="bgcolor">#eeeef3</color>
+    <color name="appblack">#141414</color>
+    <color name="texthint">#A0A4A3</color>
+    <color name="btnexit">#8c8c8c</color>
+    <color name="textgroup">#96D067</color>
+
+    <color name="color_index_menu_bg">#777777</color>
+    <color name="color_index_textcolor_checked">#00a0ea</color>
+</resources>

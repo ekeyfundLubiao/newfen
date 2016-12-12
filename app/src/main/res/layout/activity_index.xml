@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_index"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/index_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radio_main" >
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_main"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio_kindergarden"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/index_kindergarden_image_selector"
+            android:gravity="center"
+            android:text="幼儿园"
+            android:textColor="@color/index_menu_textcolor"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/radio_living"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/index_living_image_selector"
+            android:gravity="center"
+            android:text="直播"
+            android:textColor="@color/index_menu_textcolor"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/radio_dynamics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/index_dynamics_image_selector"
+            android:gravity="center"
+            android:text="动态"
+            android:textColor="@color/index_menu_textcolor"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/radio_daily"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/index_daily_image_selector"
+            android:gravity="center"
+            android:text="日常"
+            android:textColor="@color/index_menu_textcolor"
+            android:textSize="12sp" />
+        <RadioButton
+            android:id="@+id/radio_my"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/index_my_image_selector"
+            android:gravity="center"
+            android:text="我"
+            android:textColor="@color/index_menu_textcolor"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+</RelativeLayout>
