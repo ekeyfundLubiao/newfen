@@ -18,6 +18,7 @@
         android:id="@+id/radio_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#E5EAEB"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 

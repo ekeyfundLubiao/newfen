@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="moni.anyou.com.view.view.KindergartenFragment">
 
@@ -20,32 +20,46 @@
             android:layout_height="match_parent"
             android:background="@mipmap/banner" />
     </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="13dp"
         android:layout_width="match_parent"
         android:layout_height="106dp"/>
+
+
     <LinearLayout
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:text="办公电话"
-            android:textColor="@color/appblack"
+            android:text="学校简介"
+            android:textColor="#484848"
             android:gravity="left|center_vertical"
-            android:drawableLeft="@mipmap/ic_launcher"
             android:drawableRight="@mipmap/ic_launcher"
             android:layout_width="match_parent"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="45dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/listviewfenge"/>
+         <TextView
+             android:id="@+id/tv_intro_content"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="-------------
+
+
+
+             -----------"/>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
