@@ -20,10 +20,10 @@
         <LinearLayout
             android:id="@+id/layout_index_points"
             android:layout_width="match_parent"
-            android:layout_height="22dp"
+            android:layout_height="39dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/color_index_menu_bg"
+            android:background="#4E4A38"
             android:orientation="horizontal">
 
             <TextView
