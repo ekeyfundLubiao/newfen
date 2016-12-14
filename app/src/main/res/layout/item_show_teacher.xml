@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_id"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:minHeight="136dp"
+    android:background="@drawable/bg_selector"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="106dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/loading_null_11"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/bgcolor"
+        android:layout_height="30dp">
+        <TextView
+            android:id="@+id/tv_teachername"
+            android:textColor="#484848"
+            android:layout_marginLeft="13dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="李小华"/>
+        <TextView
+            android:id="@+id/tv_star"
+            android:text="230"
+            android:layout_alignParentRight="true"
+            android:paddingRight="13dp"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_star"
+            android:layout_width="16dp"
+            android:background="@mipmap/icon_heart"
+            android:layout_height="13dp" />
+    </RelativeLayout>
+
+</LinearLayout>
