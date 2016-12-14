@@ -13,6 +13,7 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_main);
+        init();
     }
 
 

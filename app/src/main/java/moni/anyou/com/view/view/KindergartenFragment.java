@@ -53,7 +53,7 @@ public class KindergartenFragment extends BaseFragment {
         initTitle(mView);
         ivBack.setVisibility(View.GONE);
         root = (PtrClassicFrameLayout) mView.findViewById(R.id.root);
-        root.disableWhenHorizontalMove(false);
+        root.disableWhenHorizontalMove(true);
         bannerView = (AutoScrollViewPager) mView.findViewById(R.id.bannerView);
         mTextLayout = (LinearLayout) mView.findViewById(R.id.layout_index_points);
         rvImages = (RecyclerView) mView.findViewById(R.id.rc_image);

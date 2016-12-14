@@ -188,44 +188,44 @@ public class AutoScrollViewPager extends ViewPager {
 				startAutoScroll();
 			}
 		}
-		//
-		// if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT
-		// || slideBorderMode == SLIDE_BORDER_MODE_CYCLE) {
-		// touchX = ev.getX();
-		// if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-		// downX = touchX;
-		// }
-		// if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-		// // 此句代码是为了�?�知他的父ViewPager现在进行的是本控件的操作，不要对我的操作进行干扰
-		// getParent().requestDisallowInterceptTouchEvent(true);
-		// }
-		// int currentItem = getCurrentItem();
-		// PagerAdapter adapter = getAdapter();
-		// int pageCount = adapter == null ? 0 : adapter.getCount();
-		// /**
-		// * current index is first one and slide to right or current index is
-		// * last one and slide to left.<br/>
-		// * if slide border mode is to parent, then
-		// * requestDisallowInterceptTouchEvent false.<br/>
-		// * else scroll to last one when current item is first one, scroll to
-		// * first one when current item is last one.
-		// */
-		// if ((currentItem == 0 && downX <= touchX)
-		// || (currentItem == pageCount - 1 && downX >= touchX)) {
-		// if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT) {
-		// getParent().requestDisallowInterceptTouchEvent(false);
-		// } else {
-		// if (pageCount > 1) {
-		// setCurrentItem(pageCount - currentItem - 1,
-		// isBorderAnimation);
-		// }
-		// getParent().requestDisallowInterceptTouchEvent(true);
-		// }
-		// return super.dispatchTouchEvent(ev);
-		// }
-		// }
-		// getParent().requestDisallowInterceptTouchEvent(true);
-		//
+
+		 if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT
+		 || slideBorderMode == SLIDE_BORDER_MODE_CYCLE) {
+		 touchX = ev.getX();
+		 if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+		 downX = touchX;
+		 }
+		 if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+		 // 此句代码是为了�?�知他的父ViewPager现在进行的是本控件的操作，不要对我的操作进行干扰
+		 getParent().requestDisallowInterceptTouchEvent(true);
+		 }
+		 int currentItem = getCurrentItem();
+		 PagerAdapter adapter = getAdapter();
+		 int pageCount = adapter == null ? 0 : adapter.getCount();
+		 /**
+		 * current index is first one and slide to right or current index is
+		 * last one and slide to left.<br/>
+		 * if slide border mode is to parent, then
+		 * requestDisallowInterceptTouchEvent false.<br/>
+		 * else scroll to last one when current item is first one, scroll to
+		 * first one when current item is last one.
+		 */
+		 if ((currentItem == 0 && downX <= touchX)
+		 || (currentItem == pageCount - 1 && downX >= touchX)) {
+		 if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT) {
+		 getParent().requestDisallowInterceptTouchEvent(false);
+		 } else {
+		 if (pageCount > 1) {
+		 setCurrentItem(pageCount - currentItem - 1,
+		 isBorderAnimation);
+		 }
+		 getParent().requestDisallowInterceptTouchEvent(true);
+		 }
+		 return super.dispatchTouchEvent(ev);
+		 }
+		 }
+		 getParent().requestDisallowInterceptTouchEvent(true);
+
 		return super.dispatchTouchEvent(ev);
 	}
 
@@ -253,6 +253,7 @@ public class AutoScrollViewPager extends ViewPager {
 		if (arg0.getAction() == MotionEvent.ACTION_MOVE) {
 			// 此句代码是为了�?�知他的父ViewPager现在进行的是本控件的操作，不要对我的操作进行干扰
 			getParent().requestDisallowInterceptTouchEvent(true);
+
 		}
 
 		if (arg0.getAction() == MotionEvent.ACTION_UP) {
@@ -420,4 +421,9 @@ public class AutoScrollViewPager extends ViewPager {
 	public void setBorderAnimation(boolean isBorderAnimation) {
 		this.isBorderAnimation = isBorderAnimation;
 	}
+
+
+
+
+
 }
