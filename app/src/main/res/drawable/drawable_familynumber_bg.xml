@@ -7,7 +7,7 @@
         android:color="@color/color_99999"
         />
     <!-- 圆角 -->
-    <corners android:radius="8dp" />
+    <corners android:radius="15dp" />
 
-    <!--<solid android:color="@color/white"></solid>-->
+    <solid android:color="@color/white"></solid>
 </shape>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class BaseActivity extends FragmentActivity {
     public TextView tvTitle;
     public ImageView ivBack;
     public TextView  tvRight;
+    public CheckBox checkbox;
 
     public void initView() {
     }
@@ -223,6 +225,11 @@ public class BaseActivity extends FragmentActivity {
          tvTitle=(TextView) findViewById(R.id.page_title);
          ivBack=(ImageView) findViewById(R.id.iv_left);
          tvRight=(TextView) findViewById(R.id.right_tv);
+    }
+    public void initTitlewithCheckbox(){
+        tvTitle=(TextView) findViewById(R.id.page_title);
+        ivBack=(ImageView) findViewById(R.id.iv_left);
+        checkbox=(CheckBox) findViewById(R.id.checkbox);
     }
 
 }

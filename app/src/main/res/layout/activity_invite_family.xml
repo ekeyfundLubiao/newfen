@@ -4,14 +4,26 @@
     android:id="@+id/activity_invite_family"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgcolor"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="@color/bgcolor"
     tools:context="moni.anyou.com.view.view.my.invitefamily.InviteFamilyActivity">
 
-    <include layout="@layout/com_top_bar"/>
+    <include layout="@layout/com_top_bar_withcheckbox" />
+    <LinearLayout
+        android:layout_marginTop="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_numbers"
+            android:layout_width="match_parent"
+            android:paddingLeft="12dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+    </LinearLayout>
 
 
 </LinearLayout>

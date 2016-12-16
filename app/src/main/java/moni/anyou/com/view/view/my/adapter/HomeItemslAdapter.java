@@ -16,6 +16,7 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.MyFragment;
+import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 import moni.anyou.com.view.view.my.invitefamily.InviteFamilyActivity;
 import moni.anyou.com.view.view.my.systemset.SystemSettingActivity;
 
@@ -98,6 +99,8 @@ public class HomeItemslAdapter extends BaseAdapter {
                         break;
                     case R.mipmap.home_icon_user_help:
                         //使用帮住
+                        intent.setClass(mContext.mBaseActivity, FamilyNumbersActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case R.mipmap.home_icon_suggestion:
                         //意见反馈
