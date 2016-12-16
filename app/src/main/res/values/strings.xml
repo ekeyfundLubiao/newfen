@@ -23,4 +23,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--  invite family text -->
+    <string name="invitephonenum">输入亲友手机号</string>
+    <string name="sheachintelephonebook">通讯录查找</string>
 </resources>

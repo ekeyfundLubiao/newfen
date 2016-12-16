@@ -26,7 +26,9 @@
         <activity android:name=".view.kindergarten.adapter.picshow.NewsPicDetaiActivity" />
         <activity android:name=".view.my.PersonInfoSettingActivity" />
         <activity android:name=".view.my.invitefamily.InviteFamilyActivity" />
-        <activity android:name=".view.my.systemset.SystemSettingActivity"></activity>
+        <activity android:name=".view.my.systemset.SystemSettingActivity" />
+        <activity android:name=".test.CbTestActivity" />
+        <activity android:name=".view.my.invitefamily.FamilyNumbersActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_family_numbers"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity">
+
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/com_top_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/topbar"
+        android:layout_weight="0.16"
+        android:background="@color/btnexit">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/home_icon_addressbook" />
+
+        <TextView
+            android:id="@+id/tv_who"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="45dp"
+            android:text="-----"
+            android:textColor="@color/appblack" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/et_phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:background="@drawable/drawable_edittext_login"
+            android:hint="@string/invitephonenum"
+            android:paddingLeft="5dp" />
+
+        <Button
+            android:id="@+id/btn_sheach_invitephonebook"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/drawable_btn_appcolor"
+            android:text="@string/sheachintelephonebook"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_addnumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="45dp"
+        android:height="40dp"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:background="@drawable/drawable_btn_appcolor"
+        android:text="发出邀请"
+         />
+</LinearLayout>
