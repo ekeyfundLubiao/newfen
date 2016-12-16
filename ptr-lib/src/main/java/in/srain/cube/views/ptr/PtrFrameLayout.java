@@ -20,7 +20,7 @@ import in.srain.cube.views.ptr.util.PtrCLog;
 public class PtrFrameLayout extends ViewGroup {
 
 
-
+    private int mHorizontalMoveSlop=20;
     public enum Mode {
         NONE, REFRESH, LOAD_MORE, BOTH
     }
@@ -62,7 +62,7 @@ public class PtrFrameLayout extends ViewGroup {
     private int mHeaderHeight;
     private int mFooterHeight;
 
-    private boolean mDisableWhenHorizontalMove = false;
+    private boolean mDisableWhenHorizontalMove = true;
     private int mFlag = 0x00;
 
     // disable when detect moving horizontally
@@ -123,7 +123,7 @@ public class PtrFrameLayout extends ViewGroup {
         mScrollChecker = new ScrollChecker();
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
-        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+        mPagingTouchSlop = conf.getScaledTouchSlop();
     }
 
     private Mode getModeFromIndex(int index) {
@@ -434,13 +434,26 @@ public class PtrFrameLayout extends ViewGroup {
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
 
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrIndicator.isInStartPosition()) {
-                        mPreventForHorizontal = true;
-                    }
+//              if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
+//                if (mDisableWhenHorizontalMove && !mPreventForHorizontal ) {
+//                    if (mPtrIndicator.isInStartPosition()) {
+//                        mPreventForHorizontal = true;
+//                    }
+//                }
+//                if (mPreventForHorizontal) {
+//                    return dispatchTouchEventSupper(e);
+//                }
+                if (mDisableWhenHorizontalMove && (Math.abs(offsetX) > mHorizontalMoveSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
+                    mPreventForHorizontal = true;
                 }
+/*一旦横向滑动，就禁止竖向滑动，
+  免得滑了一部分PtrFrameLayout将事件夺走
+  又开始竖向滑动了。
+  因为大拇指向左滑动时的弧线垂直导数会越来越大
+  offsetY 可能会 大过 offsetX */
                 if (mPreventForHorizontal) {
-                    return dispatchTouchEventSupper(e);
+                    dispatchTouchEventSupper(e);
+                    return true;
                 }
 
                 boolean moveDown = offsetY > 0;
