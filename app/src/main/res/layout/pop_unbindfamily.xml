@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pop_layout"
+    style="@style/MyDialogStyleBottom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlTab"
+        android:layout_width="match_parent"
+        android:layout_height="232.33dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btnByGroup"
+            android:layout_width="117.33dp"
+            android:layout_height="31.33dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="55dp"
+
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="17.33dp" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="117.33dp"
+            android:layout_height="31.33dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="55dp"
+
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="17.33dp" />
+    </RelativeLayout>
+</RelativeLayout>
