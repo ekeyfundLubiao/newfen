@@ -25,4 +25,5 @@
     <color name="color_index_menu_bg">#777777</color>
     <color name="color_index_textcolor_checked">#00a0ea</color>
     <color name="color_99999">#999999</color>
+    <color name="color_cancel">#818181</color>
 </resources>

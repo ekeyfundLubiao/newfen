@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="232.33dp"
+        android:gravity="center"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:background="@null"
+            android:text="返回"
+            android:textColor="@color/color_cancel"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/drawable_btn_appcolor"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <View
+            android:id="@+id/tv_title"
+            android:layout_width="1px"
+            android:layout_height="25px"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/appcolor"
+            android:textSize="20sp" />
+
+        <moni.anyou.com.view.widget.pikerview.view.PickerView
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="50dp"
+            android:id="@+id/relation_pv"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white"
+            android:layout_width="293dp"
+            android:layout_height="153dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+

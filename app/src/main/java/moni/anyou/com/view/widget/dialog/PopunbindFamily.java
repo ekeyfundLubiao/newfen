@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.view.MotionEvent;
@@ -17,27 +18,28 @@ import moni.anyou.com.view.R;
 /**
  * Created by lubiao on 2016/10/30.
  */
-public class TouchLongPop extends PopupWindow {
+public class PopunbindFamily extends PopupWindow {
 
-    private Button btnGroupBy;
+    private Button btnCommit;
     private Button btnCancle;
     private View mView;
+    Activity mContext;
 
-    public TouchLongPop(Activity context, View.OnClickListener itemsOnClick) {
+    public PopunbindFamily(Activity context, View.OnClickListener itemsOnClick) {
         super(context);
-
+        mContext=context;
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mView = mInflater.inflate(R.layout.pop_unbindfamily,null);
-        btnGroupBy=(Button) mView.findViewById(R.id.btnByGroup);
-        btnCancle=(Button) mView.findViewById(R.id.btnCancel);
+        btnCommit=(Button) mView.findViewById(R.id.btn_commit);
+        btnCancle=(Button) mView.findViewById(R.id.btn_cancel);
         btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
             }
         });
-        btnGroupBy.setOnClickListener(itemsOnClick);
+        btnCommit.setOnClickListener(itemsOnClick);
         //设置SelectPicPopupWindow的View
         this.setContentView(mView);
         //设置SelectPicPopupWindow弹出窗体的宽
@@ -49,7 +51,8 @@ public class TouchLongPop extends PopupWindow {
         //设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.AnimBottom);
         //实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        ColorDrawable dw = new ColorDrawable(0000000000);
+        backgroundAlpha(0.5f);
         //设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
         //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
@@ -68,6 +71,24 @@ public class TouchLongPop extends PopupWindow {
             }
         });
 
+        this.setOnDismissListener(new poponDismissListener());
+    }
+
+
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp =mContext.getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        mContext.getWindow().setAttributes(lp);
+    }
+
+
+    class poponDismissListener implements PopupWindow.OnDismissListener{
+
+        @Override
+        public void onDismiss() {
+            backgroundAlpha(1f);
+        }
 
     }
 }
