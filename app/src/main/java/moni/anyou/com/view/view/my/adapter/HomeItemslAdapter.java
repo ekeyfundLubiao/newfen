@@ -91,7 +91,7 @@ public class HomeItemslAdapter extends BaseAdapter {
                         break;
                     case R.mipmap.home_icon_invite_family:
                         //邀请家人
-                        intent.setClass(mContext.mBaseActivity, InviteFamilyActivity.class);
+                        intent.setClass(mContext.mBaseActivity, FamilyNumbersActivity.class);
                         mContext.startActivity(intent);
                         break;
                     case R.mipmap.home_icon_new:

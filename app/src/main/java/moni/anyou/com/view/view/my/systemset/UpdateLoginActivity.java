@@ -19,6 +19,7 @@ public class UpdateLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initView() {
         super.initView();
+        initTitle();
         tvTitle.setText("修改密码");
     }
 

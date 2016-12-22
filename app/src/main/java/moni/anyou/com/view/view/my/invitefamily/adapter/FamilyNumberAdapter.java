@@ -85,16 +85,21 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
         }
         mViewHold.tvPhoneNum.setText(bean.phoneNym);
         mViewHold.tvName.setText(bean.name);
-        mViewHold.ivDelete.setOnClickListener(new View.OnClickListener() {
+        mViewHold.llItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 int position = (Integer) mViewHold.itemView.getTag();
-
                 RelationBean temp=mItems.get(position);
-                temp.mark=0;
-                temp.boolDelete = false;
-                mContext.removeFamoilyNumbers(new SelectFamily(position,temp));
-                ToastTools.showShort(mContext,"position"+position);
+                if (mViewHold.ivDelete.getVisibility()==View.VISIBLE) {
+                    temp.mark=0;
+                    temp.boolDelete = false;
+                    mContext.removeFamoilyNumbers(new SelectFamily(position,temp));
+                }
+                if (mViewHold.ivMark.getVisibility()==View.VISIBLE) {
+                    mContext.addFamoilyNumbers(new SelectFamily(position,temp));
+                }
+
+
             }
         });
     }

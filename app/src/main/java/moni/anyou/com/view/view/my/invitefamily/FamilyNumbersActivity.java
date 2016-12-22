@@ -1,5 +1,6 @@
 package moni.anyou.com.view.view.my.invitefamily;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,8 +36,9 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     RecyclerView rcFamilyNumbers;
     private FamilyNumberAdapter MyAdapter;
     private ArrayList<RelationBean> numberBeans;
-    private  PopunbindFamily mPopunbindFamily;
     private PopAddFamilySuccess mPopAddFamilySuccess;
+    private PopunbindFamily mPopunbindFamily;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         tvTitle.setText("邀请家人");
         ivBack.setOnClickListener(this);
 
-        mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo("阿姨", "123456", "awsdad"), this);
-
     }
 
     @Override
@@ -65,6 +65,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.HORIZONTAL));
         // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.VERTICAL));
         numberBeans = new ArrayList<>();
+
         MyAdapter = new FamilyNumberAdapter(this, numberBeans);
         rcFamilyNumbers.setAdapter(MyAdapter);
         initData();
@@ -84,15 +85,15 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 //                    RelationBean temp = numberBeans.get(1);
 //                    temp.boolDelete = true;
                 } else {
-                   checkbox.setText("解绑");
+                    checkbox.setText("解绑");
 //                    RelationBean temp = numberBeans.get(1);
 //                    temp.boolDelete = false;
 //                    MyAdapter.notifyItemChanged(1, temp);
                 }
 
-                int size=getList(isChecked).size();
-                for (int i=0;i<size;i++) {
-                    SelectFamily tempBean=(SelectFamily) checkBeans.get(i);
+                int size = getList(isChecked).size();
+                for (int i = 0; i < size; i++) {
+                    SelectFamily tempBean = (SelectFamily) checkBeans.get(i);
                     MyAdapter.notifyItemChanged(tempBean.positon, tempBean.bean);
                 }
             }
@@ -104,6 +105,10 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.iv_left:
                 onBack();
+                break;
+            case R.id.btn_commit:
+                MyAdapter.notifyItemChanged(mBean.positon, mBean.bean);
+                mPopunbindFamily.dismiss();
                 break;
         }
     }
@@ -124,22 +129,46 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         //  MyAdapter.notifyDataSetChanged();
     }
 
+    SelectFamily mBean;
+
     /**
      * 解绑成员
+     *
      * @param bean
      */
-    public void removeFamoilyNumbers(SelectFamily bean){
+    public void removeFamoilyNumbers(SelectFamily bean) {
+        mBean = bean;
         mPopunbindFamily = new PopunbindFamily(this, this);
-        mPopunbindFamily.showAtLocation(FamilyNumbersActivity.this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+        mPopunbindFamily.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
         mPopunbindFamily.isShowing();
-//        mPopAddFamilySuccess.showAtLocation(FamilyNumbersActivity.this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
-//        mPopAddFamilySuccess.isShowing();
-        MyAdapter.notifyItemChanged(bean.positon, bean.bean);
+
+
     }
+
+    public void addFamoilyNumbers(SelectFamily bean) {
+
+        Intent addNumntent = new Intent();
+        addNumntent.setClass(mBaseActivity, InviteFamilyActivity.class);
+        startActivityForResult(addNumntent, 9111);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo("伯伯", "123456", "774590"), this);
+            mPopAddFamilySuccess.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+            mPopAddFamilySuccess.isShowing();
+        }
+
+    }
+
+
     ArrayList<SelectFamily> checkBeans = new ArrayList<>();
 
     /**
      * 获取可删除集合
+     *
      * @param isCheck
      * @return
      */
@@ -153,7 +182,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 checkBeans.add(new SelectFamily(i, tempBean));
             }
         }
-        return  checkBeans;
+        return checkBeans;
     }
 
 }
