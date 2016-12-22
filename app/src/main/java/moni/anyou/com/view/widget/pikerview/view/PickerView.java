@@ -44,7 +44,7 @@ public class PickerView extends View {
      * 选中的位置，这个位置是mDataList的中心位置，一直不变
      */
     private int mCurrentSelected;
-    private Paint mPaint, nPaint;
+    private Paint mPaint, nPaint,PRedLine,PNomalLine;
 
     private float mMaxTextSize = 80;
     private float mMinTextSize = 80;
@@ -188,12 +188,21 @@ public class PickerView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
         mPaint.setTextAlign(Align.CENTER);
-        mPaint.setColor(getResources().getColor(R.color.color_99999));
+        mPaint.setColor(getResources().getColor(R.color.color_relation_seleted));
         //第二个paint
         nPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         nPaint.setStyle(Style.FILL);
         nPaint.setTextAlign(Align.CENTER);
         nPaint.setColor(mColorText);
+        //红线
+        PRedLine= new Paint(Paint.ANTI_ALIAS_FLAG);
+        PRedLine.setStyle(Style.FILL);
+        PRedLine.setTextAlign(Align.CENTER);
+        PRedLine.setColor(getResources().getColor(R.color.color_relation_seleted));
+        PNomalLine= new Paint(Paint.ANTI_ALIAS_FLAG);
+        PNomalLine.setStyle(Style.FILL);
+        PNomalLine.setTextAlign(Align.CENTER);
+        PNomalLine.setColor(getResources().getColor(R.color.color_99999));
     }
 
     @Override
@@ -205,7 +214,13 @@ public class PickerView extends View {
     }
 
     private void drawData(Canvas canvas) {
-
+        float sWith = getWidth();
+        float sHeight = getHeight();
+        float rLineFristy = getHeight() / 3;
+        canvas.drawLine(0,0,sWith,0,PNomalLine);
+        canvas.drawLine(0,sHeight,sWith,getHeight(),PNomalLine);
+        canvas.drawLine(0,rLineFristy,sWith,rLineFristy,PRedLine);
+        canvas.drawLine(0,2*rLineFristy,sWith,2*rLineFristy,PRedLine);
         // 先绘制选中的text再往上往下绘制其余的text
         float scale = parabola(mViewHeight / 4.0f, mMoveLen);
         float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
@@ -216,9 +231,7 @@ public class PickerView extends View {
         float y = (float) (mViewHeight / 2.0 + mMoveLen);
         FontMetricsInt fmi = mPaint.getFontMetricsInt();
         float baseline = (float) (y - (fmi.bottom / 2.0 + fmi.top / 2.0));
-
         canvas.drawText(mDataList.get(mCurrentSelected), x, baseline, mPaint);
-
         // 绘制上方data
         for (int i = 1; (mCurrentSelected - i) >= 0; i++) {
             drawOtherText(canvas, i, -1);
@@ -239,8 +252,9 @@ public class PickerView extends View {
         float d = (float) (MARGIN_ALPHA * mMinTextSize * position + type
                 * mMoveLen);
         float scale = parabola(mViewHeight / 4.0f, d);
-        float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
-        nPaint.setTextSize(size);
+      //  float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
+        float  size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
+        nPaint.setTextSize(50);
         nPaint.setAlpha((int) ((mMaxTextAlpha - mMinTextAlpha) * scale + mMinTextAlpha));
         float y = (float) (mViewHeight / 2.0 + type * d);
         FontMetricsInt fmi = nPaint.getFontMetricsInt();

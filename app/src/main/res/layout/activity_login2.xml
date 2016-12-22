@@ -13,8 +13,19 @@
         layout="@layout/com_top_bar"/>
 
     <ImageView
+        android:id="@+id/open"
         android:layout_below="@id/topbar"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:background="@mipmap/ic_launcher" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_below="@id/open"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/loading_err_21"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/appcolor"/>
 </RelativeLayout>

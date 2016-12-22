@@ -23,7 +23,7 @@ public class CbTestActivity extends BaseActivity implements GestureDetector.OnGe
             setContentView(R.layout.activity_cb_test);
             init();
             //创建手势检测器
-            detector = new GestureDetector(this,this);
+           // detector = new GestureDetector(this,this);
         }
 
         //将该activity上的触碰事件交给GestureDetector处理

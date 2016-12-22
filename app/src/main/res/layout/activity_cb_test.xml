@@ -6,21 +6,10 @@
     android:layout_height="match_parent"
     tools:context="moni.anyou.com.view.test.CbTestActivity">
 
-    <!--<moni.anyou.com.view.test.widght.CScrolView-->
-        <!--android:background="#fefefe"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="测试" />
 
-        <!--<moni.anyou.com.view.test.widght.HSrollView-->
-            <!--android:background="@color/appcolor"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_marginBottom="200dp"-->
-            <!--android:layout_height="800dp">-->
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="测试"/>
-        <!--</moni.anyou.com.view.test.widght.HSrollView>-->
-    <!--</moni.anyou.com.view.test.widght.CScrolView>-->
 </RelativeLayout>

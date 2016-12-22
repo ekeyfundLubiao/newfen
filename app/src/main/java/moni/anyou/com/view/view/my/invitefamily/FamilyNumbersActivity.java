@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,11 +20,14 @@ import java.util.ArrayList;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.InvitedInfo;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SelectFamily;
 import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.VerificationTools;
 import moni.anyou.com.view.view.my.invitefamily.adapter.FamilyNumberAdapter;
+import moni.anyou.com.view.widget.dialog.PopAddFamilySuccess;
+import moni.anyou.com.view.widget.dialog.PopunbindFamily;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
 public class FamilyNumbersActivity extends BaseActivity implements View.OnClickListener {
@@ -31,7 +35,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     RecyclerView rcFamilyNumbers;
     private FamilyNumberAdapter MyAdapter;
     private ArrayList<RelationBean> numberBeans;
-
+    private  PopunbindFamily mPopunbindFamily;
+    private PopAddFamilySuccess mPopAddFamilySuccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +53,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         tvTitle.setText("邀请家人");
         ivBack.setOnClickListener(this);
 
+        mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo("阿姨", "123456", "awsdad"), this);
+
     }
 
     @Override
@@ -58,7 +65,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.HORIZONTAL));
         // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.VERTICAL));
         numberBeans = new ArrayList<>();
-
         MyAdapter = new FamilyNumberAdapter(this, numberBeans);
         rcFamilyNumbers.setAdapter(MyAdapter);
         initData();
@@ -123,6 +129,11 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
      * @param bean
      */
     public void removeFamoilyNumbers(SelectFamily bean){
+        mPopunbindFamily = new PopunbindFamily(this, this);
+        mPopunbindFamily.showAtLocation(FamilyNumbersActivity.this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+        mPopunbindFamily.isShowing();
+//        mPopAddFamilySuccess.showAtLocation(FamilyNumbersActivity.this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+//        mPopAddFamilySuccess.isShowing();
         MyAdapter.notifyItemChanged(bean.positon, bean.bean);
     }
     ArrayList<SelectFamily> checkBeans = new ArrayList<>();

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.RecycleViewBean;
@@ -44,7 +45,6 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
     public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
 
         MyViewHold holder = null;
-
         if (holder == null) {
             mView = mInflater.inflate(R.layout.item_rc_familynumber, parent, false);
             holder = new MyViewHold(mView);
@@ -117,7 +117,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
 
     class MyViewHold extends RecyclerView.ViewHolder {
         TextView tvPhoneNum;
-        ImageView ivHeadIcon;
+        CircleImageView ivHeadIcon;
         TextView tvName;
         TextView tvRelation;
         ImageView ivMark;
@@ -126,7 +126,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
 
         public MyViewHold(View itemView) {
             super(itemView);
-            ivHeadIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
+            ivHeadIcon = (CircleImageView) itemView.findViewById(R.id.iv_icon);
             ivMark=(ImageView)itemView.findViewById(R.id.iv_mark);
             llItem=(RelativeLayout) itemView.findViewById(R.id.item_id);
             tvName=(TextView) itemView.findViewById(R.id.tv_name);

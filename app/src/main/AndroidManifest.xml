@@ -14,15 +14,20 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/base_theme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+        </activity>
         <activity android:name=".view.IndexActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.daily.LoginActivity" />
+        <activity android:name=".view.daily.LoginActivity" >
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.kindergarten.adapter.picshow.NewsPicDetaiActivity" />
         <activity android:name=".view.my.PersonInfoSettingActivity" />
         <activity android:name=".view.my.invitefamily.InviteFamilyActivity" />
