@@ -1,5 +1,6 @@
 package moni.anyou.com.view.view.my;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.HomeItemBean;
+import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.view.my.systemset.UpdateLoginActivity;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.widget.NoListview;
 
@@ -30,6 +33,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private RelativeLayout rl_sex;
     private RelativeLayout rl_brithday;
     private RelativeLayout rl_relate;
+    private RelativeLayout rlUpdatepwd;
 
 
 
@@ -50,6 +54,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         rl_brithday = (RelativeLayout) findViewById(R.id.rl_brith);
         rl_relate=(RelativeLayout) findViewById(R.id.rl_relate);
         rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
+        rlUpdatepwd= (RelativeLayout) findViewById(R.id.rl_updatepwd);
         lv_setselfInfo = (NoListview) findViewById(R.id.lv_setselfInfo);
         tvHeadIcon = (ImageView) findViewById(R.id.tv_headIcon);
         ll_changepwd=(LinearLayout) findViewById(R.id.ll_changepwd);
@@ -81,6 +86,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         ll_changepwd.setOnClickListener(this);
         tvRelatetobaby.setOnClickListener(this);
         tvBrithday.setOnClickListener(this);
+        rlUpdatepwd.setOnClickListener(this);
         radiogroup_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -99,11 +105,16 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 ToastTools.showShort(mContext,"设置头像");
                 break;
             case R.id.ll_changepwd:
-                ToastTools.showShort(mContext,"修改密码");
+                startActivity(new Intent(mBaseActivity, UpdateLoginActivity.class));
+               // ToastTools.showShort(mContext,"修改密码");
                 break;
             case R.id.tv_brithday:
                 break;
             case R.id.tv_relatetobaby:
+                break;
+            case R.id.rl_updatepwd:
+                break;
+            default:
                 break;
         }
     }

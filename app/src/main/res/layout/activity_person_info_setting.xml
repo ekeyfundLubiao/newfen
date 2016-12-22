@@ -38,8 +38,7 @@
                 android:layout_marginRight="13dp"
                 android:background="@drawable/home_right_arr" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tv_headIcon"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -60,7 +59,7 @@
             android:background="@color/bgcolor" />
 
         <RelativeLayout
-
+            android:id="@+id/rl_updatepwd"
             android:layout_width="match_parent"
             android:layout_height="55dp">
 
