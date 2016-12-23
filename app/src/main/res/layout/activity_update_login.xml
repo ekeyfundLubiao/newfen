@@ -22,48 +22,89 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:background="@drawable/drawable_edittext_login"
-        android:layout_height="50dp">
+        android:layout_marginTop="13dp"
+        android:background="@drawable/drawable_edittext_changepwd">
+
         <TextView
             android:id="@+id/tv_oldpwd"
-            android:text="原密码"
-            android:layout_marginLeft="13dp"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="原密码" />
+
         <EditText
             android:id="@+id/et_oldpwd"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@null"
+            android:layout_height="45dp"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/tv_oldpwd"
             android:layout_marginRight="45dp"
             android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/tv_oldpwd"
+            android:background="@null"
+            android:maxLines="1"
             android:paddingLeft="13dp" />
     </RelativeLayout>
 
 
-
-    <EditText
-        android:id="@+id/et_newpwd"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="13dp"
-        android:drawableLeft="@mipmap/home"
-        android:paddingLeft="13dp" />
+        android:background="@drawable/drawable_edittext_changepwd">
 
-    <EditText
-        android:id="@+id/et_renewpwd"
+        <TextView
+            android:id="@+id/tv_newpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="新密码" />
+
+        <EditText
+            android:id="@+id/et_newpwd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/tv_newpwd"
+            android:background="@null"
+            android:maxLines="1"
+            android:paddingLeft="13dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="13dp"
-        android:drawableLeft="@mipmap/home"
-        android:paddingLeft="13dp" />
+        android:background="@drawable/drawable_edittext_changepwd">
+
+        <TextView
+            android:id="@+id/tv_renewpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="再次输入" />
+
+        <EditText
+            android:id="@+id/et_renewpwd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/tv_renewpwd"
+            android:background="@null"
+            android:maxLines="1"
+            android:paddingLeft="13dp" />
+    </RelativeLayout>
 </LinearLayout>

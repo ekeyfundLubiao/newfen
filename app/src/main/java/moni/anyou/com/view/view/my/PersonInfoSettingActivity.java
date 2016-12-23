@@ -21,6 +21,7 @@ import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.my.systemset.UpdateLoginActivity;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.widget.NoListview;
+import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
 public class PersonInfoSettingActivity extends BaseActivity implements View.OnClickListener{
 
@@ -34,11 +35,11 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private RelativeLayout rl_brithday;
     private RelativeLayout rl_relate;
     private RelativeLayout rlUpdatepwd;
-
-
+    private RelationSeletor mRelationSeletor;
 
     private SettingItemslAdapter myAdapter;
     ArrayList<HomeItemBean> baseInfoList;
+    ArrayList<String> mStringRelations = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,17 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         super.initView();
         initTitle();
         tvTitle.setText("个人资料");
+        mStringRelations.add("爸爸");
+        mStringRelations.add("妈妈");
+        mStringRelations.add("爷爷");
+        mStringRelations.add("奶奶");
+        mStringRelations.add("叔叔");
+        mRelationSeletor = new RelationSeletor(mBaseActivity, mStringRelations, new RelationSeletor.ResultHandler() {
+            @Override
+            public void handle(String relation) {
+                tvRelatetobaby.setText(relation);
+            }
+        }, "","");
         rl_brithday = (RelativeLayout) findViewById(R.id.rl_brith);
         rl_relate=(RelativeLayout) findViewById(R.id.rl_relate);
         rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
@@ -75,6 +87,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         baseInfoList.add(new HomeItemBean("账号","900786",false));
         baseInfoList.add(new HomeItemBean("幼儿园","双星幼儿园",false));
         myAdapter.setDatas(baseInfoList);
+        viewforFamiy();
 
     }
 
@@ -111,6 +124,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
             case R.id.tv_brithday:
                 break;
             case R.id.tv_relatetobaby:
+                mRelationSeletor.show();
                 break;
             case R.id.rl_updatepwd:
                 break;
