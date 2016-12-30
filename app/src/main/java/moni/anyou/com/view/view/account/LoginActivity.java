@@ -1,5 +1,6 @@
 package moni.anyou.com.view.view.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -51,18 +52,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_forgetpwd:
                 break;
             case R.id.btn_login:
-                if (TextUtils.isEmpty(etUserName.getText())) {
-                    ToastTools.showShort(mContext, "手机号不能为空！");
-                    return;
-                }
-                if (VerificationTools.isPhone(etUserName.getText().toString().trim())) {
-                    ToastTools.showShort(mContext, "请输入正确的手机号！！");
-                    return;
-                }
-                if (TextUtils.isEmpty(etUserPwd.getText())) {
-                    ToastTools.showShort(mContext, "密码不能为空！");
-                    return;
-                }
+//                if (TextUtils.isEmpty(etUserName.getText())) {
+//                    ToastTools.showShort(mContext, "手机号不能为空！");
+//                    return;
+//                }
+//                if (VerificationTools.isPhone(etUserName.getText().toString().trim())) {
+//                    ToastTools.showShort(mContext, "请输入正确的手机号！！");
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(etUserPwd.getText())) {
+//                    ToastTools.showShort(mContext, "密码不能为空！");
+//                    return;
+//                }
                 postLogin();
                 break;
         }
@@ -70,5 +71,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void postLogin() {
         ToastTools.showShort(mContext, "登录");
+        startActivity(new Intent(this,CompleteBaseInfoActivity.class));
     }
 }

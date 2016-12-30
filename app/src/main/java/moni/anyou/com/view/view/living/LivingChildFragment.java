@@ -72,22 +72,22 @@ public class LivingChildFragment extends BaseFragment {
     @Override
     public void setData() {
         super.setData();
-        ptrFrame.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-            }
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ptrFrame.refreshComplete();
-                    }
-                }, 1800);
-            }
-        });
+//        ptrFrame.setPtrHandler(new PtrHandler() {
+//            @Override
+//            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+//                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+//            }
+//
+//            @Override
+//            public void onRefreshBegin(PtrFrameLayout frame) {
+//                frame.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ptrFrame.refreshComplete();
+//                    }
+//                }, 1800);
+//            }
+//        });
        appArrays = new String[]{"http://pic35.nipic.com/20131114/3420027_125936007395_2.jpg",
                "http://pic35.nipic.com/20131113/3420027_175250054388_2.jpg",
                "http://pic35.nipic.com/20131113/3420027_180140002331_2.jpg",

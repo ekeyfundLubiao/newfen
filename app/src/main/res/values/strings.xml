@@ -26,4 +26,6 @@
     <!--  invite family text -->
     <string name="invitephonenum">输入亲友手机号</string>
     <string name="sheachintelephonebook">通讯录查找</string>
+
+    <string name="text_compeleinfo">第一次登录需要完善宝宝的资料哦！</string>
 </resources>

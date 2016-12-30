@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -68,8 +69,6 @@ public class TimeSelector {
     private PickerView year_pv;
     private PickerView month_pv;
     private PickerView day_pv;
-    private PickerView hour_pv;
-    private PickerView minute_pv;
 
     private final int MAXMINUTE = 59;
     private int MAXHOUR = 23;
@@ -78,8 +77,8 @@ public class TimeSelector {
     private final int MAXMONTH = 12;
 
     private ArrayList<String> year, month, day, hour, minute;
-    private int startYear, startMonth, startDay, startHour, startMininute, endYear, endMonth, endDay, endHour, endMininute, minute_workStart, minute_workEnd, hour_workStart, hour_workEnd;
-    private boolean spanYear, spanMon, spanDay, spanHour, spanMin;
+    private int startYear, startMonth, startDay, endYear, endMonth, endDay;
+    private boolean spanYear, spanMon, spanDay;
     private Calendar selectedCalender = Calendar.getInstance();
     private final long ANIMATORDELAY = 200L;
     private final long CHANGEDELAY = 90L;
@@ -87,11 +86,9 @@ public class TimeSelector {
     private String workEnd_str;
     private Calendar startCalendar;
     private Calendar endCalendar;
+    private Calendar currentCalender;
     private Button tv_cancle;
     private Button tv_select;
-    private TextView   tv_title;
-    private TextView hour_text;
-    private TextView minute_text;
 
 
     public TimeSelector(Context context, ResultHandler resultHandler, String startDate, String endDate) {
@@ -101,8 +98,10 @@ public class TimeSelector {
         endCalendar = Calendar.getInstance();
         startCalendar.setTime(DateUtil.parse(startDate, FORMAT_STR));
         endCalendar.setTime(DateUtil.parse(endDate, FORMAT_STR));
+        currentCalender = Calendar.getInstance();
         initDialog();
         initView();
+        setIsLoop(true);
     }
 
 
@@ -110,6 +109,7 @@ public class TimeSelector {
         this(context, resultHandler, startDate, endDate);
         this.workStart_str = workStartTime;
         this.workEnd_str = workEndTime;
+        setIsLoop(true);
     }
 
     public void show() {
@@ -132,7 +132,7 @@ public class TimeSelector {
             seletorDialog = new Dialog(context, R.style.time_dialog);
             seletorDialog.setCancelable(false);
             seletorDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            seletorDialog.setContentView(R.layout.dialog_selector);
+            seletorDialog.setContentView(R.layout.dialog_selector);
             Window window = seletorDialog.getWindow();
             window.setGravity(Gravity.BOTTOM);
             WindowManager.LayoutParams lp = window.getAttributes();
@@ -143,17 +143,11 @@ public class TimeSelector {
     }
 
     private void initView() {
-//        year_pv = (PickerView) seletorDialog.findViewById(R.id.year_pv);
-//        month_pv = (PickerView) seletorDialog.findViewById(R.id.month_pv);
-//        day_pv = (PickerView) seletorDialog.findViewById(R.id.day_pv);
-//        hour_pv = (PickerView) seletorDialog.findViewById(R.id.hour_pv);
-//        minute_pv = (PickerView) seletorDialog.findViewById(R.id.minute_pv);
-//        tv_cancle = (Button) seletorDialog.findViewById(R.id.tv_cancle);
-//        tv_select = (Button) seletorDialog.findViewById(R.id.tv_select);
-//        tv_title = (TextView) seletorDialog.findViewById(R.id.tv_title);
-//        hour_text = (TextView) seletorDialog.findViewById(R.id.hour_text);
-//        minute_text = (TextView) seletorDialog.findViewById(R.id.minute_text);
-
+        year_pv = (PickerView) seletorDialog.findViewById(R.id.year_pv);
+        month_pv = (PickerView) seletorDialog.findViewById(R.id.month_pv);
+        day_pv = (PickerView) seletorDialog.findViewById(R.id.day_pv);
+        tv_cancle = (Button) seletorDialog.findViewById(R.id.btn_cancle);
+        tv_select = (Button) seletorDialog.findViewById(R.id.btn_select);
         tv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,18 +168,13 @@ public class TimeSelector {
         startYear = startCalendar.get(Calendar.YEAR);
         startMonth = startCalendar.get(Calendar.MONTH) + 1;
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
-        startHour = startCalendar.get(Calendar.HOUR_OF_DAY);
-        startMininute = startCalendar.get(Calendar.MINUTE);
+        startDay = 15;
         endYear = endCalendar.get(Calendar.YEAR);
         endMonth = endCalendar.get(Calendar.MONTH) + 1;
         endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
-        endHour = endCalendar.get(Calendar.HOUR_OF_DAY);
-        endMininute = endCalendar.get(Calendar.MINUTE);
         spanYear = startYear != endYear;
         spanMon = (!spanYear) && (startMonth != endMonth);
         spanDay = (!spanMon) && (startDay != endDay);
-        spanHour = (!spanDay) && (startHour != endHour);
-        spanMin = (!spanHour) && (startMininute != endMininute);
         selectedCalender.setTime(startCalendar.getTime());
     }
 
@@ -202,21 +191,7 @@ public class TimeSelector {
             for (int i = startDay; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
                 day.add(fomatTimeUnit(i));
             }
-            if ((scrollUnits & SCROLLTYPE.HOUR.value) != SCROLLTYPE.HOUR.value) {
-                hour.add(fomatTimeUnit(startHour));
-            } else {
-                for (int i = startHour; i <= MAXHOUR; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-            }
 
-            if ((scrollUnits & SCROLLTYPE.MINUTE.value) != SCROLLTYPE.MINUTE.value) {
-                minute.add(fomatTimeUnit(startMininute));
-            } else {
-                for (int i = startMininute; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            }
 
         } else if (spanMon) {
             year.add(String.valueOf(startYear));
@@ -226,79 +201,12 @@ public class TimeSelector {
             for (int i = startDay; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
                 day.add(fomatTimeUnit(i));
             }
-            if ((scrollUnits & SCROLLTYPE.HOUR.value) != SCROLLTYPE.HOUR.value) {
-                hour.add(fomatTimeUnit(startHour));
-            } else {
-                for (int i = startHour; i <= MAXHOUR; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-            }
 
-            if ((scrollUnits & SCROLLTYPE.MINUTE.value) != SCROLLTYPE.MINUTE.value) {
-                minute.add(fomatTimeUnit(startMininute));
-            } else {
-                for (int i = startMininute; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            }
         } else if (spanDay) {
             year.add(String.valueOf(startYear));
             month.add(fomatTimeUnit(startMonth));
             for (int i = startDay; i <= endDay; i++) {
                 day.add(fomatTimeUnit(i));
-            }
-            if ((scrollUnits & SCROLLTYPE.HOUR.value) != SCROLLTYPE.HOUR.value) {
-                hour.add(fomatTimeUnit(startHour));
-            } else {
-                for (int i = startHour; i <= MAXHOUR; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-            }
-
-            if ((scrollUnits & SCROLLTYPE.MINUTE.value) != SCROLLTYPE.MINUTE.value) {
-                minute.add(fomatTimeUnit(startMininute));
-            } else {
-                for (int i = startMininute; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            }
-
-        } else if (spanHour) {
-            year.add(String.valueOf(startYear));
-            month.add(fomatTimeUnit(startMonth));
-            day.add(fomatTimeUnit(startDay));
-
-            if ((scrollUnits & SCROLLTYPE.HOUR.value) != SCROLLTYPE.HOUR.value) {
-                hour.add(fomatTimeUnit(startHour));
-            } else {
-                for (int i = startHour; i <= endHour; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-
-            }
-
-            if ((scrollUnits & SCROLLTYPE.MINUTE.value) != SCROLLTYPE.MINUTE.value) {
-                minute.add(fomatTimeUnit(startMininute));
-            } else {
-                for (int i = startMininute; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            }
-
-
-        } else if (spanMin) {
-            year.add(String.valueOf(startYear));
-            month.add(fomatTimeUnit(startMonth));
-            day.add(fomatTimeUnit(startDay));
-            hour.add(fomatTimeUnit(startHour));
-
-
-            if ((scrollUnits & SCROLLTYPE.MINUTE.value) != SCROLLTYPE.MINUTE.value) {
-                minute.add(fomatTimeUnit(startMininute));
-            } else {
-                for (int i = startMininute; i <= endMininute; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
             }
         }
 
@@ -311,29 +219,17 @@ public class TimeSelector {
         if (!TextUtil.isEmpty(workStart_str) && !TextUtil.isEmpty(workEnd_str)) {
             String[] start = workStart_str.split(":");
             String[] end = workEnd_str.split(":");
-            hour_workStart = Integer.parseInt(start[0]);
-            minute_workStart = Integer.parseInt(start[1]);
-            hour_workEnd = Integer.parseInt(end[0]);
-            minute_workEnd = Integer.parseInt(end[1]);
             Calendar workStartCalendar = Calendar.getInstance();
             Calendar workEndCalendar = Calendar.getInstance();
             workStartCalendar.setTime(startCalendar.getTime());
             workEndCalendar.setTime(endCalendar.getTime());
-            workStartCalendar.set(Calendar.HOUR_OF_DAY, hour_workStart);
-            workStartCalendar.set(Calendar.MINUTE, minute_workStart);
-            workEndCalendar.set(Calendar.HOUR_OF_DAY, hour_workEnd);
-            workEndCalendar.set(Calendar.MINUTE, minute_workEnd);
-
-
             Calendar startTime = Calendar.getInstance();
             Calendar endTime = Calendar.getInstance();
             Calendar startWorkTime = Calendar.getInstance();
             Calendar endWorkTime = Calendar.getInstance();
 
             startTime.set(Calendar.HOUR_OF_DAY, startCalendar.get(Calendar.HOUR_OF_DAY));
-            startTime.set(Calendar.MINUTE, startCalendar.get(Calendar.MINUTE));
             endTime.set(Calendar.HOUR_OF_DAY, endCalendar.get(Calendar.HOUR_OF_DAY));
-            endTime.set(Calendar.MINUTE, endCalendar.get(Calendar.MINUTE));
 
             startWorkTime.set(Calendar.HOUR_OF_DAY, workStartCalendar.get(Calendar.HOUR_OF_DAY));
             startWorkTime.set(Calendar.MINUTE, workStartCalendar.get(Calendar.MINUTE));
@@ -398,50 +294,41 @@ public class TimeSelector {
             @Override
             public void onSelect(String text) {
                 selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(text));
-                hourChange();
-
             }
         });
-        hour_pv.setOnSelectListener(new PickerView.onSelectListener() {
-            @Override
-            public void onSelect(String text) {
-                selectedCalender.set(Calendar.HOUR_OF_DAY, Integer.parseInt(text));
-                minuteChange();
 
-
-            }
-        });
-        minute_pv.setOnSelectListener(new PickerView.onSelectListener() {
-            @Override
-            public void onSelect(String text) {
-                selectedCalender.set(Calendar.MINUTE, Integer.parseInt(text));
-
-
-            }
-        });
 
     }
 
+    int currentYear;
+    int currentMonth;
+    int currentDay;
+    DateIndex dateindex;
+
     private void loadComponent() {
+        currentYear = currentCalender.get(Calendar.YEAR);
+        currentMonth = currentCalender.get(Calendar.MONTH);
+        currentDay = currentCalender.get(Calendar.DATE);
         year_pv.setData(year);
         month_pv.setData(month);
         day_pv.setData(day);
-        hour_pv.setData(hour);
-        minute_pv.setData(minute);
-        year_pv.setSelected(0);
-        month_pv.setSelected(0);
-        day_pv.setSelected(0);
-        hour_pv.setSelected(0);
-        minute_pv.setSelected(0);
+
+        DateIndex dateindex = getindex(year, month, day);
+        Log.d("TAG", "loadComponent: " + "Year" + year.get(dateindex.yearI) + "  Mon" + month.get(dateindex.monthI) + "  index" + dateindex.monthI + "  Day  " + day.get(dateindex.dayI));
+        for (int i = 0; i < month.size(); i++) {
+            //Log.d("TAG", "loadComponent: " +"  Mon" + month.get(i));
+        }
+        year_pv.setSelected(dateindex.yearI);
+        month_pv.setSelected(dateindex.monthI);
+        day_pv.setSelected(dateindex.dayI);
         excuteScroll();
+
     }
 
     private void excuteScroll() {
         year_pv.setCanScroll(year.size() > 1);
         month_pv.setCanScroll(month.size() > 1);
         day_pv.setCanScroll(day.size() > 1);
-        hour_pv.setCanScroll(hour.size() > 1 && (scrollUnits & SCROLLTYPE.HOUR.value) == SCROLLTYPE.HOUR.value);
-        minute_pv.setCanScroll(minute.size() > 1 && (scrollUnits & SCROLLTYPE.MINUTE.value) == SCROLLTYPE.MINUTE.value);
     }
 
     private void monthChange() {
@@ -497,99 +384,17 @@ public class TimeSelector {
         day_pv.setData(day);
         day_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, day_pv);
-
-        day_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hourChange();
-            }
-        }, CHANGEDELAY);
     }
 
-    private void hourChange() {
-        if ((scrollUnits & SCROLLTYPE.HOUR.value) == SCROLLTYPE.HOUR.value) {
-            hour.clear();
-            int selectedYear = selectedCalender.get(Calendar.YEAR);
-            int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
-            int selectedDay = selectedCalender.get(Calendar.DAY_OF_MONTH);
-
-            if (selectedYear == startYear && selectedMonth == startMonth && selectedDay == startDay) {
-                for (int i = startHour; i <= MAXHOUR; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-            } else if (selectedYear == endYear && selectedMonth == endMonth && selectedDay == endDay) {
-                for (int i = MINHOUR; i <= endHour; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-            } else {
-
-                for (int i = MINHOUR; i <= MAXHOUR; i++) {
-                    hour.add(fomatTimeUnit(i));
-                }
-
-            }
-            selectedCalender.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour.get(0)));
-            hour_pv.setData(hour);
-            hour_pv.setSelected(0);
-            excuteAnimator(ANIMATORDELAY, hour_pv);
-        }
-        hour_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                minuteChange();
-            }
-        }, CHANGEDELAY);
-
-    }
-
-    private void minuteChange() {
-        if ((scrollUnits & SCROLLTYPE.MINUTE.value) == SCROLLTYPE.MINUTE.value) {
-            minute.clear();
-            int selectedYear = selectedCalender.get(Calendar.YEAR);
-            int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
-            int selectedDay = selectedCalender.get(Calendar.DAY_OF_MONTH);
-            int selectedHour = selectedCalender.get(Calendar.HOUR_OF_DAY);
-
-            if (selectedYear == startYear && selectedMonth == startMonth && selectedDay == startDay && selectedHour == startHour) {
-                for (int i = startMininute; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            } else if (selectedYear == endYear && selectedMonth == endMonth && selectedDay == endDay && selectedHour == endHour) {
-                for (int i = MINMINUTE; i <= endMininute; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            } else if (selectedHour == hour_workStart) {
-                for (int i = minute_workStart; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            } else if (selectedHour == hour_workEnd) {
-                for (int i = MINMINUTE; i <= minute_workEnd; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            } else {
-                for (int i = MINMINUTE; i <= MAXMINUTE; i++) {
-                    minute.add(fomatTimeUnit(i));
-                }
-            }
-            selectedCalender.set(Calendar.MINUTE, Integer.parseInt(minute.get(0)));
-            minute_pv.setData(minute);
-            minute_pv.setSelected(0);
-            excuteAnimator(ANIMATORDELAY, minute_pv);
-
-        }
-        excuteScroll();
-
-
-    }
 
     private void excuteAnimator(long ANIMATORDELAY, View view) {
-        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f,
-                0f, 1f);
-        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f,
-                1.3f, 1f);
-        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f,
-                1.3f, 1f);
-        ObjectAnimator.ofPropertyValuesHolder(view, pvhX, pvhY, pvhZ).setDuration(ANIMATORDELAY).start();
+//        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f,
+//                0f, 1f);
+//        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f,
+//                1.3f, 1f);
+//        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f,
+//                1.3f, 1f);
+//        ObjectAnimator.ofPropertyValuesHolder(view, pvhX, pvhY, pvhZ).setDuration(ANIMATORDELAY).start();
     }
 
 
@@ -597,9 +402,6 @@ public class TimeSelector {
         tv_select.setText(str);
     }
 
-    public void setTitle(String str) {
-        tv_title.setText(str);
-    }
 
     public int disScrollUnit(SCROLLTYPE... scrolltypes) {
         if (scrolltypes == null || scrolltypes.length == 0)
@@ -610,41 +412,63 @@ public class TimeSelector {
         return scrollUnits;
     }
 
-    public void setMode(MODE mode) {
-        switch (mode.value) {
-            case 1:
-                disScrollUnit(SCROLLTYPE.HOUR, SCROLLTYPE.MINUTE);
-                hour_pv.setVisibility(View.GONE);
-                minute_pv.setVisibility(View.GONE);
-                hour_text.setVisibility(View.GONE);
-                minute_text.setVisibility(View.GONE);
-                break;
-            case 2:
-                disScrollUnit();
-                hour_pv.setVisibility(View.VISIBLE);
-                minute_pv.setVisibility(View.VISIBLE);
-                hour_text.setVisibility(View.VISIBLE);
-                minute_text.setVisibility(View.VISIBLE);
-                break;
-            case 3:
-                //  disScrollUnit(SCROLLTYPE.HOUR, SCROLLTYPE.MINUTE);
-                day_pv.setVisibility(View.GONE);
-                year_pv.setVisibility(View.GONE);
-                month_pv.setVisibility(View.GONE);
-                hour_pv.setVisibility(View.VISIBLE);
-                minute_pv.setVisibility(View.VISIBLE);
-//                hour_text.setVisibility(View.GONE);
-//                minute_text.setVisibility(View.GONE);
-
-                break;
-        }
-    }
 
     public void setIsLoop(boolean isLoop) {
         this.year_pv.setIsLoop(isLoop);
         this.month_pv.setIsLoop(isLoop);
         this.day_pv.setIsLoop(isLoop);
-        this.hour_pv.setIsLoop(isLoop);
-        this.minute_pv.setIsLoop(isLoop);
+    }
+
+    class DateIndex {
+        int yearI;
+        int monthI;
+        int dayI;
+
+        public DateIndex(int yearI, int monthI, int dayI) {
+            this.yearI = yearI;
+            this.monthI = monthI;
+            this.dayI = dayI;
+        }
+    }
+
+    private static DateIndex staticVaule = null;
+
+    private DateIndex getindex(ArrayList<String> Year, ArrayList Month, ArrayList Day) {
+        if (staticVaule != null) {
+            return staticVaule;
+        } else {
+            int yearSize = Year.size();
+            int monthSize = Month.size();
+            int daySize = Day.size();
+            int yearI = 0;
+            int monthI = 0;
+            int dayI = 0;
+            String strcurrentYear = "" + currentYear;
+            String strcurrentMonth = currentMonth + 1 + "";
+            String strcurrentDay = "" + currentDay;
+            for (int i = 0; i < yearSize; i++) {
+
+                if (Year.get(i).equals(strcurrentYear.trim())) {
+                    yearI = i;
+                    break;
+                }
+            }
+            for (int i = 0; i < monthSize; i++) {
+                Log.d("TAG", "month: " + month.get(i));
+                if (month.get(i).equals(strcurrentMonth.trim())) {
+                    monthI = i;
+                    break;
+                }
+            }
+            for (int i = 0; i < daySize; i++) {
+                Log.d("TAG", "day: " + day.get(i));
+                if (day.get(i).equals(strcurrentDay.trim())) {
+                    dayI = i;
+                    break;
+                }
+            }
+            staticVaule=new DateIndex(yearI, monthI, dayI);
+            return staticVaule;
+        }
     }
 }

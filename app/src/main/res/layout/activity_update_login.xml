@@ -22,7 +22,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="13dp"
@@ -39,20 +39,22 @@
         <EditText
             android:id="@+id/et_oldpwd"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="45dp"
-            android:layout_marginTop="13dp"
             android:layout_toRightOf="@id/tv_oldpwd"
             android:background="@null"
             android:maxLines="1"
+            android:text="Josda123"
+            android:textColor="@color/color_text_color"
             android:paddingLeft="13dp" />
     </RelativeLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="13dp"
@@ -74,6 +76,7 @@
             android:layout_marginRight="45dp"
             android:layout_marginTop="13dp"
             android:layout_toRightOf="@id/tv_newpwd"
+            android:textColor="@color/color_relation_seleted"
             android:background="@null"
             android:maxLines="1"
             android:paddingLeft="13dp" />
@@ -81,7 +84,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="13dp"
@@ -103,6 +106,7 @@
             android:layout_marginRight="45dp"
             android:layout_marginTop="13dp"
             android:layout_toRightOf="@id/tv_renewpwd"
+            android:textColor="@color/color_relation_seleted"
             android:background="@null"
             android:maxLines="1"
             android:paddingLeft="13dp" />

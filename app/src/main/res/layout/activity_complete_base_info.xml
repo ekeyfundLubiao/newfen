@@ -4,6 +4,7 @@
     android:id="@+id/activity_complete_base_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
@@ -11,6 +12,10 @@
 
     <include layout="@layout/com_top_bar" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bgcolor" />
 
     <RelativeLayout
         android:id="@+id/rl_sex"
@@ -26,8 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:text="性別"
-            android:textColor="@color/appblack" />
+            android:text="宝宝性别（必填）"
+            android:textSize="12dp"
+            android:textColor="@color/color_left_title" />
 
         <RadioGroup
             android:id="@+id/radiogroup_sex"
@@ -42,15 +48,17 @@
                 android:id="@+id/boy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12dp"
                 android:text="男孩"
-                android:textColor="@color/appblack" />
+                android:textColor="@color/color_text_color" />
 
             <RadioButton
                 android:id="@+id/girl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="女孩"
-                android:textColor="@color/appblack" />
+                android:textSize="12dp"
+                android:textColor="@color/color_text_color" />
         </RadioGroup>
 
         <View
@@ -76,7 +84,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
             android:text="出生日期"
-            android:textColor="@color/appblack" />
+            android:textSize="12dp"
+            android:textColor="@color/color_left_title" />
 
         <ImageView
             android:layout_width="6dp"
@@ -95,7 +104,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
             android:text="2012-1-1"
-            android:textColor="@color/appblack" />
+            android:textSize="18dp"
+            android:textColor="@color/color_text_color" />
 
         <View
             android:layout_width="match_parent"
@@ -120,7 +130,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
             android:text="与宝宝关系"
-            android:textColor="@color/appblack" />
+            android:textSize="12dp"
+            android:textColor="@color/color_left_title" />
 
         <ImageView
             android:layout_width="6dp"
@@ -138,8 +149,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
+            android:textSize="18dp"
+            android:textColor="@color/color_text_color"
             android:text="粑粑"
-            android:textColor="@color/appblack" />
+            />
 
         <View
             android:layout_width="match_parent"
@@ -149,5 +162,14 @@
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center_horizontal"
+        android:text="@string/text_compeleinfo"
+        android:textColor="@color/texthint"
+        android:textSize="12sp" />
 </LinearLayout>
 

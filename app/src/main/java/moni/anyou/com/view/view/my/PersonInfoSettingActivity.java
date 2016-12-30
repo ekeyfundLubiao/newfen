@@ -25,15 +25,15 @@ import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
 public class PersonInfoSettingActivity extends BaseActivity implements View.OnClickListener{
 
-    private NoListview lv_setselfInfo;
+    private NoListview lvSetselfInfo;
     private ImageView tvHeadIcon;
-    private LinearLayout ll_changepwd;
-    private TextView  tv_sex;
+    private TextView tvChangepwd;
+    private TextView  tvSex;
     private TextView tvBrithday;
     private TextView tvRelatetobaby;
-    private RelativeLayout rl_sex;
-    private RelativeLayout rl_brithday;
-    private RelativeLayout rl_relate;
+    private RelativeLayout rlSex;
+    private RelativeLayout rlBrithday;
+    private RelativeLayout rlRelate;
     private RelativeLayout rlUpdatepwd;
     private RelationSeletor mRelationSeletor;
 
@@ -63,22 +63,22 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 tvRelatetobaby.setText(relation);
             }
         }, "","");
-        rl_brithday = (RelativeLayout) findViewById(R.id.rl_brith);
-        rl_relate=(RelativeLayout) findViewById(R.id.rl_relate);
-        rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
+        rlBrithday = (RelativeLayout) findViewById(R.id.rl_brith);
+        rlRelate=(RelativeLayout) findViewById(R.id.rl_relate);
+        rlSex = (RelativeLayout) findViewById(R.id.rl_sex);
         rlUpdatepwd= (RelativeLayout) findViewById(R.id.rl_updatepwd);
-        lv_setselfInfo = (NoListview) findViewById(R.id.lv_setselfInfo);
+        lvSetselfInfo = (NoListview) findViewById(R.id.lv_setselfInfo);
         tvHeadIcon = (ImageView) findViewById(R.id.tv_headIcon);
-        ll_changepwd=(LinearLayout) findViewById(R.id.ll_changepwd);
-        tv_sex= (TextView) findViewById(R.id.tv_sex);
+        tvChangepwd=(TextView) findViewById(R.id.tv_changepwd);
+        tvSex= (TextView) findViewById(R.id.tv_sex);
         tvBrithday = (TextView) findViewById(R.id.tv_brithday);
         tvRelatetobaby=(TextView) findViewById(R.id.tv_relatetobaby);
         myAdapter=new SettingItemslAdapter(this);
         baseInfoList = new ArrayList<>();
-        lv_setselfInfo.setAdapter(myAdapter);
-        rl_brithday.setVisibility(View.GONE);
-        rl_sex.setVisibility(View.GONE);
-        rl_relate.setVisibility(View.GONE);
+        lvSetselfInfo.setAdapter(myAdapter);
+        rlBrithday.setVisibility(View.GONE);
+        rlSex.setVisibility(View.GONE);
+        rlRelate.setVisibility(View.GONE);
     }
 
     @Override
@@ -96,11 +96,11 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         super.setAction();
         ivBack.setOnClickListener(this);
         tvHeadIcon.setOnClickListener(this);
-        ll_changepwd.setOnClickListener(this);
+        tvChangepwd.setOnClickListener(this);
         tvRelatetobaby.setOnClickListener(this);
         tvBrithday.setOnClickListener(this);
         rlUpdatepwd.setOnClickListener(this);
-        
+
     }
 
     @Override
@@ -112,7 +112,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
             case R.id.tv_headIcon:
                 ToastTools.showShort(mContext,"设置头像");
                 break;
-            case R.id.ll_changepwd:
+            case R.id.tv_changepwd:
                 startActivity(new Intent(mBaseActivity, UpdateLoginActivity.class));
                // ToastTools.showShort(mContext,"修改密码");
                 break;
@@ -138,8 +138,8 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     //family
     public void viewforFamiy(){
         baseInfoList.add(new HomeItemBean("班级","class",false));
-        rl_brithday.setVisibility(View.VISIBLE);
-        rl_sex.setVisibility(View.VISIBLE);
-        rl_relate.setVisibility(View.VISIBLE);
+        rlBrithday.setVisibility(View.VISIBLE);
+        rlSex.setVisibility(View.VISIBLE);
+        rlRelate.setVisibility(View.VISIBLE);
     }
 }
