@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp">
+            android:layout_height="57dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="13dp"
                 android:text="修改头像"
-                android:textColor="@color/appblack" />
+                android:textColor="@color/color_left_title" />
 
             <ImageView
                 android:id="@+id/right_arr"
@@ -61,7 +61,7 @@
         <RelativeLayout
             android:id="@+id/rl_updatepwd"
             android:layout_width="match_parent"
-            android:layout_height="55dp">
+            android:layout_height="51dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,32 +69,40 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="13dp"
                 android:text="修改密码"
-                android:textColor="@color/appblack" />
+                android:textColor="@color/color_left_title" />
 
-            <LinearLayout
-                android:id="@+id/ll_changepwd"
-                android:layout_width="50dp"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/color_text_color"
                 android:layout_alignParentRight="true"
-                android:gravity="right">
-
-                <ImageView
-                    android:layout_width="6dp"
-                    android:layout_height="11dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="13dp"
-                    android:background="@drawable/home_right_arr" />
-            </LinearLayout>
-
+                android:layout_centerVertical="true"
+                android:layout_marginRight="13dp"
+                android:text="*****" />
 
         </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/bgcolor" />
     </LinearLayout>
 
     <moni.anyou.com.view.widget.NoListview
         android:id="@+id/lv_setselfInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:divider="@null"
         android:dividerHeight="0dip" />
 
@@ -112,31 +120,18 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
             android:text="性別"
-            android:textColor="@color/appblack" />
+            android:textColor="@color/color_left_title" />
 
-        <RadioGroup
-            android:id="@+id/radiogroup_sex"
+        <TextView
+            android:id="@+id/tv_sex"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
-            android:orientation="horizontal">
+            android:text="男"
+            android:textColor="@color/color_text_color" />
 
-            <RadioButton
-                android:id="@+id/boy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="男孩"
-                android:textColor="@color/appblack" />
-
-            <RadioButton
-                android:id="@+id/girl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="女孩"
-                android:textColor="@color/appblack" />
-        </RadioGroup>
 
         <View
             android:layout_width="match_parent"
@@ -161,16 +156,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
             android:text="出生日期"
-            android:textColor="@color/appblack" />
+            android:textColor="@color/color_left_title" />
 
-        <ImageView
-            android:layout_width="6dp"
-            android:layout_height="11dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="13dp"
-            android:background="@drawable/home_right_arr" />
 
         <TextView
             android:id="@+id/tv_brithday"
@@ -180,7 +167,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
             android:text="2012-1-1"
-            android:textColor="@color/appblack" />
+            android:textColor="@color/color_text_color" />
 
         <View
             android:layout_width="match_parent"
@@ -199,22 +186,6 @@
         android:clickable="true"
         android:minHeight="45dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13dp"
-            android:text="与宝宝关系"
-            android:textColor="@color/appblack" />
-
-        <ImageView
-            android:layout_width="6dp"
-            android:layout_height="11dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="13dp"
-            android:background="@drawable/home_right_arr" />
 
         <TextView
             android:id="@+id/tv_relatetobaby"
@@ -224,14 +195,26 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
             android:text="粑粑"
-            android:textColor="@color/appblack" />
+            android:textColor="@color/color_text_color" />
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_relatetobaby"
+            android:layout_alignBottom="@+id/tv_relatetobaby"
+            android:layout_alignLeft="@+id/view"
+            android:layout_alignStart="@+id/view"
+            android:text="与宝宝关系"
+            android:textColor="@color/color_left_title" />
     </RelativeLayout>
 </LinearLayout>

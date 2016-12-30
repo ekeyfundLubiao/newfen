@@ -28,7 +28,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private NoListview lv_setselfInfo;
     private ImageView tvHeadIcon;
     private LinearLayout ll_changepwd;
-    RadioGroup  radiogroup_sex;
+    private TextView  tv_sex;
     private TextView tvBrithday;
     private TextView tvRelatetobaby;
     private RelativeLayout rl_sex;
@@ -70,7 +70,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         lv_setselfInfo = (NoListview) findViewById(R.id.lv_setselfInfo);
         tvHeadIcon = (ImageView) findViewById(R.id.tv_headIcon);
         ll_changepwd=(LinearLayout) findViewById(R.id.ll_changepwd);
-        radiogroup_sex= (RadioGroup) findViewById(R.id.radiogroup_sex);
+        tv_sex= (TextView) findViewById(R.id.tv_sex);
         tvBrithday = (TextView) findViewById(R.id.tv_brithday);
         tvRelatetobaby=(TextView) findViewById(R.id.tv_relatetobaby);
         myAdapter=new SettingItemslAdapter(this);
@@ -100,12 +100,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvRelatetobaby.setOnClickListener(this);
         tvBrithday.setOnClickListener(this);
         rlUpdatepwd.setOnClickListener(this);
-        radiogroup_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                ToastTools.showShort(mContext,"xingbie"+checkedId);
-            }
-        });
+        
     }
 
     @Override

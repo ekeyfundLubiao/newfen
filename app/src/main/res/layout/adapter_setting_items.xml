@@ -16,7 +16,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="13dp"
         android:text="title"
-        android:textColor="@color/appblack" />
+        android:textColor="@color/color_left_title" />
 
     <ImageView
         android:id="@+id/right_arr"
@@ -35,7 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:text="titsssle"
-        android:textColor="@color/appblack" />
+        android:textColor="@color/color_text_color" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

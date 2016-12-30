@@ -14,7 +14,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/base_theme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".view.IndexActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,8 @@
         <activity android:name=".view.my.systemset.SystemSettingActivity" />
         <activity android:name=".test.CbTestActivity" />
         <activity android:name=".view.my.invitefamily.FamilyNumbersActivity" />
-        <activity android:name=".view.my.systemset.UpdateLoginActivity"></activity>
+        <activity android:name=".view.my.systemset.UpdateLoginActivity" />
+        <activity android:name=".view.account.CompleteBaseInfoActivity"></activity>
     </application>
 
 </manifest>

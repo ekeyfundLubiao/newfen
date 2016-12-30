@@ -27,4 +27,6 @@
     <color name="color_99999">#999999</color>
     <color name="color_cancel">#818181</color>
     <color name="color_relation_seleted">#FB4436</color>
+    <color name="color_text_color">#5A5A5A</color>
+    <color name="color_left_title">#A0A4A3</color>
 </resources>
