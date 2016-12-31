@@ -1,52 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:background="@color/bgcolor"
     android:id="@+id/ll_video_item"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bgcolor"
+    android:orientation="vertical">
 
     <FrameLayout
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
         <ImageView
             android:id="@+id/iv_video"
             android:layout_width="match_parent"
-            android:scaleType="fitXY"
+            android:layout_height="180dp"
             android:background="@drawable/loading_err_21"
-            android:layout_height="180dp"/>
+            android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_gravity="bottom|end"
-            android:background="@color/appblack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/appblack"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:layout_width="22dp"
-                android:background="@drawable/eyes"
-                android:layout_height="12dp" />
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/eyes" />
+
             <TextView
                 android:id="@+id/tv_alivenum"
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/white"
                 android:layout_height="match_parent"
-                android:text="11111"/>
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="11111"
+                android:textColor="@color/white" />
         </LinearLayout>
     </FrameLayout>
 
     <TextView
-    android:background="@color/white"
-    android:id="@+id/tv_classname"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="@color/appblack"
-    android:layout_gravity="center"
-    android:textSize="12dp"
-    android:text="终极一班"/>
+        android:id="@+id/tv_classname"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:text="终极一班"
+        android:textColor="@color/appblack"
+        android:textSize="12dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/listviewfenge" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="@color/white" />
 </LinearLayout>

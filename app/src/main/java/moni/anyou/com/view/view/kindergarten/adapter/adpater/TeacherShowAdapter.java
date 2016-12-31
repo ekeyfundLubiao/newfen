@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.bean.RecycleViewBean;
 import moni.anyou.com.view.view.KindergartenFragment;
@@ -79,13 +80,13 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
 
     class MyViewHold extends RecyclerView.ViewHolder {
         TextView tvTeacherName;
-        ImageView ivTeacherIcon;
+        CircleImageView ivTeacherIcon;
         TextView tvStar;
         LinearLayout llItem;
 
         public MyViewHold(View itemView) {
             super(itemView);
-            ivTeacherIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
+            ivTeacherIcon = (CircleImageView) itemView.findViewById(R.id.iv_icon);
             tvStar = (TextView) itemView.findViewById(R.id.tv_star);
             llItem=(LinearLayout) itemView.findViewById(R.id.item_id);
             mContext.mViewUtil.setViewWidth(llItem, mContext.mViewUtil.getScreenWidth() / 3);
