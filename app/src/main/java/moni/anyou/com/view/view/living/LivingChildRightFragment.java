@@ -2,6 +2,9 @@ package moni.anyou.com.view.view.living;
 
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +23,12 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.HomeItemBean;
+import moni.anyou.com.view.bean.VideoBean;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.view.living.adapter.VideoPublicAdapter;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.widget.NoListview;
+import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
 
 public class LivingChildRightFragment extends BaseFragment {
@@ -30,11 +36,11 @@ public class LivingChildRightFragment extends BaseFragment {
     private View mView;
     private PtrClassicDefaultHeader  header;
     private PtrClassicFrameLayout ptrFrame;
-    private ListView listview;
-    private ArrayList<HomeItemBean> setItems;
-    private SettingItemslAdapter myAdapter;
-private  boolean isVisible=false;
+    private RecyclerView listview;
 
+    private VideoPublicAdapter publicAdapter;
+     private  boolean isVisible=false;
+    ArrayList<VideoBean> mVideoArray;
     public LivingChildRightFragment() {
 
     }
@@ -51,7 +57,13 @@ private  boolean isVisible=false;
     @Override
     public void initView() {
         super.initView();
-        listview=(ListView) mView.findViewById(R.id.listview);
+        mVideoArray = new ArrayList<>();
+        listview=(RecyclerView) mView.findViewById(R.id.listview);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext,2);
+        listview.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.HORIZONTAL));
+        listview.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
+        listview.setLayoutManager(gridLayoutManager);
+
         header = new PtrClassicDefaultHeader (mBaseActivity);
         header.setPadding(0, PtrLocalDisplay.dp2px(15), 0, 0);
 
@@ -65,13 +77,12 @@ private  boolean isVisible=false;
     @Override
     public void setData() {
         super.setData();
-        setItems = new ArrayList<>();
-        setItems.add(new HomeItemBean("清除缓存", "111.8M"));
-        for (int i=0;i<23;i++) {
-            setItems.add(new HomeItemBean("消息通知"+i, ""));
+        mVideoArray.clear();
+        for (int i=0;i<7;i++) {
+            mVideoArray.add(new VideoBean(LivingChildFragment.appArrays[i], "" + 22 * i + 1, "终极" + i + "班"));
         }
-        myAdapter = new SettingItemslAdapter(mBaseActivity);
-        listview.setAdapter(myAdapter);
+        publicAdapter = new VideoPublicAdapter(this,mVideoArray);
+        listview.setAdapter(publicAdapter);
 
 
     }
@@ -99,15 +110,14 @@ private  boolean isVisible=false;
         ptrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(final PtrFrameLayout frame) {
-                ToastTools.showShort(mBaseActivity,"更多");
-                setItems.add(new HomeItemBean("清除缓存", "111.8M"));
-                for (int i=0;i<23;i++) {
-                    setItems.add(new HomeItemBean("消息通知"+i, ""));
+
+                for (int i=0;i<7;i++) {
+                    mVideoArray.add(new VideoBean(LivingChildFragment.appArrays[i], "" + 22 * i + 1, "终极" + i + "班"));
                 }
                 ptrFrame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        myAdapter.setDatas(setItems);
+                        publicAdapter.notifyDataSetChanged();
                         frame.refreshComplete();
                     }
                 }, 1000);
@@ -115,17 +125,16 @@ private  boolean isVisible=false;
 
             @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
-                ToastTools.showShort(mBaseActivity,"刷新");
-                setItems.clear();
-                setItems.add(new HomeItemBean("清除缓存", "111.8M"));
-                for (int i=0;i<23;i++) {
-                    setItems.add(new HomeItemBean("消息通知"+i, ""));
+                //ToastTools.showShort(mBaseActivity,"刷新");
+                mVideoArray.clear();
+                for (int i=0;i<7;i++) {
+                    mVideoArray.add(new VideoBean(LivingChildFragment.appArrays[i], "" + 22 * i + 1, "终极" + i + "班"));
                 }
                 ptrFrame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         frame.refreshComplete();
-                         myAdapter.setDatas(setItems);
+                        publicAdapter.notifyDataSetChanged();
                     }
                 }, 1000);
             }

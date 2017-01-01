@@ -68,14 +68,14 @@ public class LivingChildFragment extends BaseFragment {
         mVideoRecycleAdapter = new VideoRecycleAdapter(this,mVideoArray);
         rvBabyVideo.setAdapter(mVideoRecycleAdapter);
     }
-    String[] appArrays;
+    public  static String[] appArrays;
     @Override
     public void setData() {
         super.setData();
-       appArrays = new String[]{"http://pic35.nipic.com/20131114/3420027_125936007395_2.jpg",
-               "http://pic35.nipic.com/20131113/3420027_175250054388_2.jpg",
-               "http://pic35.nipic.com/20131113/3420027_180140002331_2.jpg",
-               "http://pic35.nipic.com/20131114/3420027_125936007395_2.jpg",
+       appArrays = new String[]{"http://4493bz.1985t.com/uploads/allimg/150127/4-15012G52133.jpg",
+               "http://4493bz.1985t.com/uploads/allimg/150127/4-15012G51944.jpg",
+               "http://4493bz.1985t.com/uploads/allimg/150127/4-15012G52133.jpg",
+               "http://4493bz.1985t.com/uploads/allimg/150127/4-15012G03630.jpg",
                "http://pic35.nipic.com/20131113/3420027_180140002331_2.jpg",
                "http://pic35.nipic.com/20131113/3420027_175250054388_2.jpg",
                "http://pic35.nipic.com/20131114/3420027_125936007395_2.jpg"};
