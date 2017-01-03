@@ -1,48 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_invite_family"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgcolor"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:background="@color/bgcolor">
-    <include layout="@layout/com_top_bar"/>
+    android:orientation="vertical">
 
-    <moni.anyou.com.view.widget.NoListview
-        android:layout_marginTop="45dp"
-        android:id="@+id/lv_setsys"
-        android:divider="@null"
-        android:dividerHeight="0dip"
-        android:listSelector="@android:color/transparent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <RelativeLayout
-        android:layout_marginTop="45dp"
+    <include layout="@layout/com_top_bar" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
-        android:minHeight="45dp"
-        android:id="@+id/rl_exit_load"
-        >
+        android:layout_marginTop="13dp"
+        android:background="@color/white">
+
+
         <TextView
-            android:id="@+id/tv_home_title"
+            android:id="@+id/tv_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
             android:layout_marginLeft="13dp"
-            android:text="退出"
-            android:textColor="@color/appblack" />
+            android:text="消息通知"
+            android:textSize="12dp"
+            android:textColor="@color/color_left_title" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_icon"
+            android:layout_width="5dp"
+            android:layout_marginTop="-12dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_news"
+            android:layout_height="5dp"
+            android:layout_marginLeft="6dp"
+            app:civ_fill_color="@color/red"
+            android:src="@color/red"
+            android:background="@color/white"
+            app:civ_border_color="@color/red"
+            app:civ_border_width="1dp" />
+
+
+        <ImageView
+            android:id="@+id/right_arr"
+            android:layout_width="6dp"
+            android:layout_height="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/home_right_arr" />
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:background="@color/bgcolor" />
+
+    </RelativeLayout>
+
+    <moni.anyou.com.view.widget.NoListview
+        android:id="@+id/lv_setsys"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dip"
+        android:listSelector="@android:color/transparent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="8dp">
+        <View
+            android:layout_marginLeft="13dp"
             android:background="@color/bgcolor"
-            android:layout_marginLeft="13dp"/>
+            android:layout_width="match_parent"
+            android:layout_marginRight="13dp"
+            android:layout_height="8dp"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_exit_load"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:minHeight="45dp">
+
+        <TextView
+            android:id="@+id/tv_home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="退出登陆"
+            android:textSize="12dp"
+            android:textColor="@color/appcolor" />
+
+
 
     </RelativeLayout>
 </LinearLayout>

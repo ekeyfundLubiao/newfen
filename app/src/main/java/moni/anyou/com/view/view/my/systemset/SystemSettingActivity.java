@@ -40,10 +40,8 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         super.setData();
         tvTitle.setText("设置");
         setItems = new ArrayList<>();
-        setItems.add(new HomeItemBean("版本更新", "v2.0.1"));
-        setItems.add(new HomeItemBean("消息通知", ""));
-        setItems.add(new HomeItemBean("清除缓存", "111.8M"));
         setItems.add(new HomeItemBean("关于我们", ""));
+        setItems.add(new HomeItemBean("清除缓存", "111.8M"));
         setItems.add(new HomeItemBean("版本更新", "v2.0.1"));
         myAdapter.setDatas(setItems);
         myAdapter.notifyDataSetChanged();

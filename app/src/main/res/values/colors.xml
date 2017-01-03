@@ -8,7 +8,7 @@
     <color name="black">#000000</color>
     <color name="setbg">#F1F1F1</color>
     <color name="juhuang">#F2BF64</color>
-    <color name="listviewfenge">#E9EAEA</color>
+    <color name="listviewfenge">#c1c1c1</color>
     <color name="listviewenglish">#8B763E</color>
     <color name="nonpublic">#85C9CC</color>
     <color name="red">#EA5D1F</color>
@@ -16,7 +16,7 @@
     <color name="reddeep">#DE0D0D</color>
     <color name="fenge">#E9E9E9</color>
     <color name="appcolor">#1BA979</color>
-    <color name="bgcolor">#eeeef3</color>
+    <color name="bgcolor">#e0e3e3</color>
     <color name="appblack">#141414</color>
     <color name="texthint">#A0A4A3</color>
     <color name="btnexit">#8c8c8c</color>
