@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_aliving"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="moni.anyou.com.view.view.living.ALivingActivity">
+
+    <include layout="@layout/com_top_bar" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="212dp"
+        android:background="@mipmap/banner" />
+    <WebView
+        android:id="@+id/wv_alivinginfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="16dp"
+        android:textSize="14dp"
+        android:layout_marginLeft="13dp"
+        android:textColor="#3B3A38"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频介绍"/>
+    <TextView
+        android:layout_marginTop="18dp"
+        android:textColor="#898987"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="5dp"
+        android:text="        原型图只做为美工设计的参考图，界面颜色、图标、字体以及布局 等需按原型图设计，尽量使软件在android和ios，及布局等需及布局等需及布局等需原型图只做为美工设计的参考图，界面颜色、图标、字体以及布局 等需按原型图设计，尽量使软件在android和ios，及布局等需及布局等需及布局等需"/>
+</LinearLayout>

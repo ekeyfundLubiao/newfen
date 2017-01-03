@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:text="出生日期"
+            android:text="出生日期（必填）"
             android:textSize="12dp"
             android:textColor="@color/color_left_title" />
 
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:text="与宝宝关系"
+            android:text="与宝宝关系（必填）"
             android:textSize="12dp"
             android:textColor="@color/color_left_title" />
 
@@ -143,7 +143,7 @@
             android:background="@drawable/home_right_arr" />
 
         <TextView
-            android:id="@+id/tv_relatetobaby"
+            android:id="@+id/tv_relatewithbaby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

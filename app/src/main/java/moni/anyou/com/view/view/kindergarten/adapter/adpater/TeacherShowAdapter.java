@@ -14,6 +14,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.bean.RecycleViewBean;
+import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.KindergartenFragment;
 
 /**
@@ -50,9 +51,9 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHold mViewHold, int position) {
+    public void onBindViewHolder(MyViewHold mViewHold, final int position) {
         mViewHold.itemView.setTag(position);
-        RecycleViewBean item = mItems.get(position);
+        final RecycleViewBean item = mItems.get(position);
         mViewHold.tvStar.setText(item.start);
         mViewHold.tvTeacherName.setText(item.teachearName);
         mContext.setBitmaptoImageView(item.Url,
@@ -60,6 +61,13 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
+        mViewHold.ivStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.likesPost(mItems.get(position));
+
+            }
+        });
     }
 
     @Override
@@ -82,6 +90,7 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
         TextView tvTeacherName;
         CircleImageView ivTeacherIcon;
         TextView tvStar;
+        ImageView ivStart;
         LinearLayout llItem;
 
         public MyViewHold(View itemView) {
@@ -91,6 +100,7 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
             llItem=(LinearLayout) itemView.findViewById(R.id.item_id);
             mContext.mViewUtil.setViewWidth(llItem, mContext.mViewUtil.getScreenWidth() / 3);
             tvTeacherName = (TextView) itemView.findViewById(R.id.tv_teachername);
+            ivStart = (ImageView) itemView.findViewById(R.id.iv_start);
 
         }
     }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_send_dynamic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:background="@color/bgcolor"
+    android:orientation="vertical">
+
+    <include layout="@layout/com_top_bar" />
+    <EditText
+        android:gravity="top|left"
+        android:padding="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textColorHint="@color/color_text_hiden"
+        android:background="@color/white"
+        android:hint="此刻你的想法..."
+        android:id="@+id/et_content_dynamic"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

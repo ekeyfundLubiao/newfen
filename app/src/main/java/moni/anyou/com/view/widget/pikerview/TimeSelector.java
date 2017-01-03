@@ -63,7 +63,7 @@ public class TimeSelector {
     private ResultHandler handler;
     private Context context;
 
-    private final String FORMAT_STR = "yyyy-MM-dd HH:mm";
+    private final String FORMAT_STR = "yyyy-MM-dd";
     private final String FORMAT_HM = "HH:mm";
     private Dialog seletorDialog;
     private PickerView year_pv;
@@ -157,7 +157,7 @@ public class TimeSelector {
         tv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handler.handle(DateUtil.format(selectedCalender.getTime(), FORMAT_HM));
+                handler.handle(DateUtil.format(selectedCalender.getTime(), FORMAT_STR));
                 seletorDialog.dismiss();
             }
         });
@@ -169,13 +169,15 @@ public class TimeSelector {
         startMonth = startCalendar.get(Calendar.MONTH) + 1;
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
         startDay = 15;
+
         endYear = endCalendar.get(Calendar.YEAR);
         endMonth = endCalendar.get(Calendar.MONTH) + 1;
         endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
         spanYear = startYear != endYear;
         spanMon = (!spanYear) && (startMonth != endMonth);
         spanDay = (!spanMon) && (startDay != endDay);
-        selectedCalender.setTime(startCalendar.getTime());
+        selectedCalender.setTime(currentCalender.getTime());
+
     }
 
     private void initTimer() {
@@ -183,30 +185,30 @@ public class TimeSelector {
 
         if (spanYear) {
             for (int i = startYear; i <= endYear; i++) {
-                year.add(String.valueOf(i));
+                year.add(String.valueOf(i)+"年");
             }
             for (int i = startMonth; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(fomatTimeUnit(i)+"月");
             }
             for (int i = startDay; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(fomatTimeUnit(i)+"日");
             }
 
 
         } else if (spanMon) {
             year.add(String.valueOf(startYear));
             for (int i = startMonth; i <= endMonth; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(fomatTimeUnit(i)+"月");
             }
             for (int i = startDay; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(fomatTimeUnit(i)+"日");
             }
 
         } else if (spanDay) {
             year.add(String.valueOf(startYear));
             month.add(fomatTimeUnit(startMonth));
             for (int i = startDay; i <= endDay; i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(fomatTimeUnit(i)+"日");
             }
         }
 
@@ -274,6 +276,7 @@ public class TimeSelector {
         year_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
+                text=text.replace("年","").replace("月","").replace("日","");
                 selectedCalender.set(Calendar.YEAR, Integer.parseInt(text));
                 monthChange();
 
@@ -283,6 +286,7 @@ public class TimeSelector {
         month_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
+                text=text.replace("年","").replace("月","").replace("日","");
                 selectedCalender.set(Calendar.DAY_OF_MONTH, 1);
                 selectedCalender.set(Calendar.MONTH, Integer.parseInt(text) - 1);
                 dayChange();
@@ -293,6 +297,7 @@ public class TimeSelector {
         day_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
+                text=text.replace("年","").replace("月","").replace("日","");
                 selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(text));
             }
         });
@@ -337,18 +342,18 @@ public class TimeSelector {
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         if (selectedYear == startYear) {
             for (int i = startMonth; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(fomatTimeUnit(i)+"月");
             }
         } else if (selectedYear == endYear) {
             for (int i = 1; i <= endMonth; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(fomatTimeUnit(i)+"月");
             }
         } else {
             for (int i = 1; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(fomatTimeUnit(i)+"月");
             }
         }
-        selectedCalender.set(Calendar.MONTH, Integer.parseInt(month.get(0)) - 1);
+        selectedCalender.set(Calendar.MONTH, Integer.parseInt(month.get(0).replace("月","")) - 1);
         month_pv.setData(month);
         month_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, month_pv);
@@ -369,18 +374,18 @@ public class TimeSelector {
         int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
         if (selectedYear == startYear && selectedMonth == startMonth) {
             for (int i = startDay; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(fomatTimeUnit(i)+"日");
             }
         } else if (selectedYear == endYear && selectedMonth == endMonth) {
             for (int i = 1; i <= endDay; i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(fomatTimeUnit(i)+"日");
             }
         } else {
             for (int i = 1; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(fomatTimeUnit(i)+"日");
             }
         }
-        selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.get(0)));
+        selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.get(0).replace("日","")));
         day_pv.setData(day);
         day_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, day_pv);

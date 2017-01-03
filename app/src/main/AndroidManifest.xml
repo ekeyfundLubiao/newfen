@@ -14,25 +14,50 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/base_theme">
-        <activity android:name=".MainActivity" />
-
-
-        <activity android:name=".view.IndexActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.IndexActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.account.LoginActivity">
+        <activity
+            android:name=".view.account.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.kindergarten.adapter.picshow.NewsPicDetaiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.my.PersonInfoSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.my.invitefamily.InviteFamilyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.my.systemset.SystemSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".test.CbTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.my.invitefamily.FamilyNumbersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.my.systemset.UpdateLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.account.CompleteBaseInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.dynamics.SendDynamicActivity"
+            android:screenOrientation="portrait">
+
         </activity>
-        <activity android:name=".view.kindergarten.adapter.picshow.NewsPicDetaiActivity" />
-        <activity android:name=".view.my.PersonInfoSettingActivity" />
-        <activity android:name=".view.my.invitefamily.InviteFamilyActivity" />
-        <activity android:name=".view.my.systemset.SystemSettingActivity" />
-        <activity android:name=".test.CbTestActivity" />
-        <activity android:name=".view.my.invitefamily.FamilyNumbersActivity" />
-        <activity android:name=".view.my.systemset.UpdateLoginActivity" />
-        <activity android:name=".view.account.CompleteBaseInfoActivity"></activity>
+        <activity android:name=".view.living.ALivingActivity"></activity>
     </application>
 
 </manifest>

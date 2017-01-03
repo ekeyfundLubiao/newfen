@@ -22,6 +22,7 @@ import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.Banner;
 import moni.anyou.com.view.bean.RecycleViewBean;
 import moni.anyou.com.view.bean.VideoBean;
+import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.KindergardenImageTextAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.RecyclerViewAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.TeacherShowAdapter;
@@ -180,5 +181,9 @@ public class KindergartenFragment extends BaseFragment {
                 }, 1000);
             }
         });
+    }
+
+    public void likesPost(RecycleViewBean teacher){
+        ToastTools.showShort(this.getContext(),"位置"+teacher.teachearName);
     }
 }

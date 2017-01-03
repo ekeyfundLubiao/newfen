@@ -29,4 +29,5 @@
     <color name="color_relation_seleted">#FB4436</color>
     <color name="color_text_color">#5A5A5A</color>
     <color name="color_left_title">#A0A4A3</color>
+    <color name="color_text_hiden">#AbAbAb</color>
 </resources>
