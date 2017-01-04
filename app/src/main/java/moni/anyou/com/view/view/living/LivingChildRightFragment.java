@@ -1,6 +1,7 @@
 package moni.anyou.com.view.view.living;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,6 +84,15 @@ public class LivingChildRightFragment extends BaseFragment {
         }
         publicAdapter = new VideoPublicAdapter(this,mVideoArray);
         listview.setAdapter(publicAdapter);
+        publicAdapter.setmOnItemClickListener(new VideoPublicAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, VideoBean data) {
+                Intent i = new Intent();
+                i.putExtra("data", data);
+                i.setClass(mBaseActivity, ALivingActivity.class);
+                startActivity(i);
+            }
+        });
 
 
     }
@@ -107,6 +117,7 @@ public class LivingChildRightFragment extends BaseFragment {
     @Override
     public void setAction() {
         super.setAction();
+
         ptrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(final PtrFrameLayout frame) {

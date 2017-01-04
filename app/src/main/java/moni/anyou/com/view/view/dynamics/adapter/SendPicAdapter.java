@@ -1,4 +1,4 @@
-package moni.anyou.com.view.view.kindergarten.adapter.adpater;
+package moni.anyou.com.view.view.dynamics.adapter;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -9,26 +9,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
+import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.RecycleViewBean;
-import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.bean.SentPicBean;
 import moni.anyou.com.view.view.KindergartenFragment;
+import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 
 /**
  * Created by Administrator on 2016/11/21.
  */
 
-public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.MyViewHold> implements View.OnClickListener {
+public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHold> implements View.OnClickListener {
 
 
-    private KindergartenFragment mContext;
+    private BaseActivity mContext;
     private LayoutInflater mInflater;
-    private List<RecycleViewBean> mItems;
+    private ArrayList<SentPicBean> mItems;
 
-    public TeacherShowAdapter(KindergartenFragment context, List<RecycleViewBean> items) {
+    public SendPicAdapter(SendDynamicActivity context, ArrayList<SentPicBean> items) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
         mItems = items;
@@ -42,40 +45,32 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
         MyViewHold holder = null;
 
         if (holder == null) {
-            mView = mInflater.inflate(R.layout.item_show_teacher, parent, false);
+            mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
             holder = new MyViewHold(mView);
             mView.setTag(holder);
         } else {
             holder = (MyViewHold) mView.getTag();
         }
-//        mView.setOnClickListener(this);
+      mView.setOnClickListener(this);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHold mViewHold, final int position) {
         mViewHold.itemView.setTag(position);
-        final RecycleViewBean item = mItems.get(position);
-        mViewHold.tvStar.setText(item.start);
-        mViewHold.tvTeacherName.setText(item.teachearName);
-        mContext.setBitmaptoImageView(item.Url,
-                mViewHold.ivTeacherIcon,
-                R.drawable.loading_null_21,
-                R.drawable.loading_null_21,
-                R.drawable.loading_err_21);
-        mViewHold.ivStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.likesPost(mItems.get(position));
+        final SentPicBean item = mItems.get(position);
 
-            }
-        });
-        mViewHold.ivTeacherIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.teacherDetailWebView(mItems.get(position));
-            }
-        });
+        if (position == mItems.size()-1) {
+            mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
+        } else {
+            mViewHold.ivSentPic.setImageBitmap(item.bitmap);
+//            mContext.setBitmaptoImageView(item.Url,
+//                    mViewHold.ivSentPic,
+//                    R.drawable.loading_null_21,
+//                    R.drawable.loading_null_21,
+//                    R.drawable.loading_err_21);
+        }
+
     }
 
     @Override
@@ -90,25 +85,19 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(v, (RecycleViewBean) mItems.get((Integer) v.getTag()));
+            mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get((Integer) v.getTag()));
         }
     }
 
     class MyViewHold extends RecyclerView.ViewHolder {
-        TextView tvTeacherName;
-        CircleImageView ivTeacherIcon;
-        TextView tvStar;
-        ImageView ivStart;
+        ImageView ivSentPic;
         LinearLayout llItem;
 
         public MyViewHold(View itemView) {
             super(itemView);
-            ivTeacherIcon = (CircleImageView) itemView.findViewById(R.id.iv_icon);
-            tvStar = (TextView) itemView.findViewById(R.id.tv_star);
             llItem = (LinearLayout) itemView.findViewById(R.id.item_id);
-            mContext.mViewUtil.setViewWidth(llItem, mContext.mViewUtil.getScreenWidth() / 3);
-            tvTeacherName = (TextView) itemView.findViewById(R.id.tv_teachername);
-            ivStart = (ImageView) itemView.findViewById(R.id.iv_start);
+            mContext.mViewUtil.setViewWidth(llItem, mContext.mViewUtil.getScreenWidth() / 4);
+            ivSentPic = (ImageView) itemView.findViewById(R.id.iv_send);
 
         }
     }
@@ -117,14 +106,14 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
 
     //define interface
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, RecycleViewBean data);
+        void onItemClick(View view, SentPicBean data);
     }
 
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
-    public void setDatas(List<RecycleViewBean> result) {
+    public void setDatas(List<SentPicBean> result) {
         if (result != null && mItems != null) {
             mItems.clear();
         }

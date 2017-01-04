@@ -183,7 +183,12 @@ public class KindergartenFragment extends BaseFragment {
         });
     }
 
+    //点赞
     public void likesPost(RecycleViewBean teacher){
+        ToastTools.showShort(this.getContext(),"位置"+teacher.teachearName);
+    }
+    //教师详情
+    public void teacherDetailWebView(RecycleViewBean teacher){
         ToastTools.showShort(this.getContext(),"位置"+teacher.teachearName);
     }
 }

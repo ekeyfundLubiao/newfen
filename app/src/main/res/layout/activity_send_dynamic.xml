@@ -4,25 +4,29 @@
     android:id="@+id/activity_send_dynamic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgcolor"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    android:background="@color/bgcolor"
     android:orientation="vertical">
 
     <include layout="@layout/com_top_bar" />
+
     <EditText
+        android:id="@+id/et_content_dynamic"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
         android:gravity="top|left"
+        android:hint="此刻你的想法..."
         android:padding="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:textColorHint="@color/color_text_hiden"
-        android:background="@color/white"
-        android:hint="此刻你的想法..."
-        android:id="@+id/et_content_dynamic"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:textColorHint="@color/color_text_hiden" />
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_pic"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

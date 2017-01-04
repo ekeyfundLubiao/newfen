@@ -57,8 +57,12 @@
                     android:id="@+id/iv_msg"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="20dp"
                     android:background="@mipmap/home_icon_addressbook" />
+                <TextView
+                    android:text="相册"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -71,10 +75,13 @@
                 <ImageView
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@id/centerview"
                     android:background="@mipmap/home_icon_invite_family" />
-
+                <TextView
+                    android:text="拍照"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </RelativeLayout>

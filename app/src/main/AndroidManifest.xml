@@ -20,10 +20,7 @@
         <activity
             android:name=".view.IndexActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".view.account.LoginActivity"
@@ -55,9 +52,13 @@
         <activity
             android:name=".view.dynamics.SendDynamicActivity"
             android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".view.living.ALivingActivity"></activity>
+        <activity android:name=".view.living.ALivingActivity" />
+        <activity android:name=".webview.WebviewActivity"></activity>
     </application>
 
 </manifest>

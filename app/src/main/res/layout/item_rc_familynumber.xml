@@ -48,11 +48,16 @@
                 android:text="[自己]"
                 android:textColor="@color/color_99999" />
 
+            <View
+                android:id="@+id/linecenter"
+                android:layout_width="1dp"
+                android:layout_centerVertical="true"
+                android:layout_height="1px"/>
             <TextView
                 android:id="@+id/tv_phonenum"
+                android:layout_below="@id/linecenter"
                 android:layout_width="wrap_content"
-                android:layout_height="13dp"
-                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:text="13908706767" />
         </RelativeLayout>

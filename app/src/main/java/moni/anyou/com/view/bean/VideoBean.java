@@ -1,10 +1,12 @@
 package moni.anyou.com.view.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/12/8.
  */
 
-public class VideoBean {
+public class VideoBean implements Serializable{
     public String Url;
     public String aliveNum;
     public String className;
