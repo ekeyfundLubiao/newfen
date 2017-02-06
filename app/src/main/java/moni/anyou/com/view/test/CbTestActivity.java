@@ -2,12 +2,17 @@ package moni.anyou.com.view.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+
 
 //activity_cb_test
 public class CbTestActivity extends BaseActivity implements GestureDetector.OnGestureListener {
@@ -24,7 +29,41 @@ public class CbTestActivity extends BaseActivity implements GestureDetector.OnGe
             init();
             //创建手势检测器
            // detector = new GestureDetector(this,this);
+            TestTextUtil();
         }
+
+
+    private  void TestTextUtil(){
+        String time=DateUtils.getAMPMString(Calendar.PM);
+        Log.d("TAG", "TAG:"+time);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //将该activity上的触碰事件交给GestureDetector处理
         public boolean onTouchEvent(MotionEvent me){

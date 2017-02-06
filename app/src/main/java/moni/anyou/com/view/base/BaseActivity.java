@@ -225,6 +225,7 @@ public class BaseActivity extends FragmentActivity {
          tvTitle=(TextView) findViewById(R.id.page_title);
          ivBack=(ImageView) findViewById(R.id.iv_left);
          tvRight=(TextView) findViewById(R.id.right_tv);
+
     }
     public void initTitlewithCheckbox(){
         tvTitle=(TextView) findViewById(R.id.page_title);

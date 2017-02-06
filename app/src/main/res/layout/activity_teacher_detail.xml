@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_teacher_detail"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="moni.anyou.com.view.view.kindergarten.TeacherDetailActivity">
+
+    <include layout="@layout/com_top_bar" />
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_marginTop="45dp"
+        android:layout_height="300dp">
+        <ImageView
+            android:background="@drawable/loading_null_11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:background="#F5F5F5"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="45dp">
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="3dp"
+            android:textSize="25dp"
+            android:text="230"
+            android:drawableLeft="@mipmap/icon_heart"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/white"
+            android:layout_height="45dp" />
+    </RelativeLayout>
+</LinearLayout>

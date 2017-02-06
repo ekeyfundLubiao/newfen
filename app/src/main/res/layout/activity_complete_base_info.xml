@@ -46,15 +46,20 @@
 
             <RadioButton
                 android:id="@+id/boy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_width="120px"
+                android:layout_height="85px"
                 android:textSize="12dp"
+                android:button="@drawable/bg_radiobutton"
                 android:text="男孩"
                 android:textColor="@color/color_text_color" />
 
             <RadioButton
                 android:id="@+id/girl"
+                android:checked="true"
                 android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/bg_radiobutton"
+                android:button="@null"
                 android:layout_height="wrap_content"
                 android:text="女孩"
                 android:textSize="12dp"

@@ -16,6 +16,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import junit.runner.Version;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import moni.anyou.com.view.R;
@@ -306,5 +308,17 @@ public class AppTools {
 			}
 		}
 		return false;
+	}
+
+
+	/**
+	 * 用时间戳生成照片名称
+	 *
+	 * @return
+	 */
+	public static String getPhotoFileName() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
+		return dateFormat.format(date) + ".png";
 	}
 }
