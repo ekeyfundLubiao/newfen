@@ -76,13 +76,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
         }
-
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_new, "系统公告"));
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_user_help, "使用帮助"));
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_suggestion, "意见反馈"));
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_pay, "安幼支付"));
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_integralmall, "积分商城"));
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_setting, "设置"));
+        itemBeens.add(new HomeItemBean(R.mipmap.tongxunlu, "通讯录"));
+        itemBeens.add(new HomeItemBean(R.mipmap.gonggao, "系统公告"));
+        itemBeens.add(new HomeItemBean(R.mipmap.bangzhu, "使用帮助"));
+        itemBeens.add(new HomeItemBean(R.mipmap.yijian, "意见反馈"));
+        itemBeens.add(new HomeItemBean(R.mipmap.yijian, "安幼支付"));
+        itemBeens.add(new HomeItemBean(R.mipmap.shangcheng, "积分商城"));
+        itemBeens.add(new HomeItemBean(R.mipmap.shezhi, "设置"));
         myAdaper.setDatas(itemBeens);
     }
 
@@ -104,7 +104,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     }
     // hmaster teacher
     public void initHeadmaster() {
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_addressbook, "通讯录"));
+        itemBeens.add(new HomeItemBean(R.mipmap.tongxunlu, "通讯录"));
     }
     //family
     public void initInvitefamily(){
