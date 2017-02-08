@@ -56,7 +56,6 @@
             android:background="@drawable/drawable_edittext_login"
             android:hint="@string/invitephonenum"
             android:paddingLeft="5dp" />
-
         <Button
             android:id="@+id/btn_sheach_invitephonebook"
             android:layout_width="75dp"
@@ -69,8 +68,6 @@
             android:textColor="@color/white"
              />
     </RelativeLayout>
-
-
     <Button
         android:id="@+id/btn_addnumber"
         android:layout_width="match_parent"
