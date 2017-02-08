@@ -74,4 +74,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         super.onBack();
         activityAnimation(RIGHT_OUT);
     }
+
+
+//    sendMsg={"cmd":"5","uid":"1000162"}
 }

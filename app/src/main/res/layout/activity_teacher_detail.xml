@@ -11,6 +11,7 @@
     tools:context="moni.anyou.com.view.view.kindergarten.TeacherDetailActivity">
 
     <include layout="@layout/com_top_bar" />
+
     <RelativeLayout
         android:layout_gravity="center"
         android:layout_width="300dp"

@@ -45,7 +45,8 @@
         android:drawableLeft="@mipmap/home"
         android:drawablePadding="8dp"
         android:hint="请输入手机号"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        android:text="13671691505" />
 
     <View
         android:layout_width="match_parent"
@@ -67,7 +68,8 @@
         android:drawablePadding="8dp"
         android:drawableLeft="@mipmap/home"
         android:hint="请输入您的密码"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        android:text="123456" />
 
     <View
         android:layout_width="match_parent"

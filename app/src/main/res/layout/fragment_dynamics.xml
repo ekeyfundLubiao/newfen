@@ -4,9 +4,5 @@
     android:layout_height="match_parent"
     tools:context="moni.anyou.com.view.view.KindergartenFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dynamics" />
-
+    <include layout="@layout/com_top_bar" />
 </FrameLayout>

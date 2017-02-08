@@ -64,4 +64,6 @@ public class UpdateLoginActivity extends BaseActivity implements View.OnClickLis
             return;
         }
     }
+
+//    {"cmd":"7","uid":"1000162","token":"20111222","oldpassword":"23232","newpassword":"1111"}
 }

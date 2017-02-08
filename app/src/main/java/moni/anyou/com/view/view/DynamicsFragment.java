@@ -29,6 +29,8 @@ public class DynamicsFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
-
+        initTitle(mView);
+        ivBack.setVisibility(View.GONE);
+        tvTitle.setText("动态");
     }
 }
