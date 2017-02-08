@@ -1,5 +1,6 @@
 package moni.anyou.com.view.view.account;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.view.IndexActivity;
 import moni.anyou.com.view.widget.pikerview.TimeSelector;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
@@ -79,6 +81,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.right_tv:
+                startActivity(new Intent(mContext, IndexActivity.class));
                 break;
             case R.id.iv_left:
                 onBack();
