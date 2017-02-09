@@ -28,7 +28,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private View mView;
     private NoListview lv_home;
     private HomeItemslAdapter myAdaper;
-    private LinearLayout llSetInfo;
+    private ImageView llSetInfo;
     ArrayList<HomeItemBean> itemBeens;
     private int typeRole=-1;
     public MyFragment() {
@@ -50,7 +50,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ivBack.setVisibility(View.GONE);
         tvTitle.setText("我");
         lv_home = (NoListview) mView.findViewById(R.id.lv_home);
-        llSetInfo = (LinearLayout) mView.findViewById(R.id.ll_setInfo);
+        llSetInfo = (ImageView) mView.findViewById(R.id.ll_setInfo);
         myAdaper = new HomeItemslAdapter(this);
         lv_home.setAdapter(myAdaper);
         itemBeens = new ArrayList<HomeItemBean>();
@@ -79,10 +79,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         itemBeens.add(new HomeItemBean(R.mipmap.tongxunlu, "通讯录"));
         itemBeens.add(new HomeItemBean(R.mipmap.gonggao, "系统公告"));
         itemBeens.add(new HomeItemBean(R.mipmap.bangzhu, "使用帮助"));
-        itemBeens.add(new HomeItemBean(R.mipmap.yijian, "意见反馈"));
-        itemBeens.add(new HomeItemBean(R.mipmap.yijian, "安幼支付"));
-        itemBeens.add(new HomeItemBean(R.mipmap.shangcheng, "积分商城"));
-        itemBeens.add(new HomeItemBean(R.mipmap.shezhi, "设置"));
         myAdaper.setDatas(itemBeens);
     }
 

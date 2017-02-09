@@ -8,153 +8,153 @@
 
     <include layout="@layout/com_top_bar" />
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bgcolor"
-        cube_ptr:ptr_duration_to_close="200"
-        cube_ptr:ptr_duration_to_close_header="1000"
-        cube_ptr:ptr_keep_header_when_refresh="true"
-        cube_ptr:ptr_pull_to_fresh="false"
-        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7">
+    <!--<in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/root"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/bgcolor"-->
+        <!--cube_ptr:ptr_duration_to_close="200"-->
+        <!--cube_ptr:ptr_duration_to_close_header="1000"-->
+        <!--cube_ptr:ptr_keep_header_when_refresh="true"-->
+        <!--cube_ptr:ptr_pull_to_fresh="false"-->
+        <!--cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"-->
+        <!--cube_ptr:ptr_resistance="1.7">-->
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_banner"
+                android:layout_width="match_parent"
+                android:layout_height="199dp"
+                android:background="@color/white"
+                android:padding="7dp">
+
+                <moni.anyou.com.view.widget.banner.AutoScrollViewPager
+
+                    android:id="@+id/bannerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/banner" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/white"
                 android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/layout_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="199dp"
-                    android:background="@color/white"
-                    android:padding="7dp">
-
-                    <moni.anyou.com.view.widget.banner.AutoScrollViewPager
-
-                        android:id="@+id/bannerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@mipmap/banner" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginRight="13dp"
-                        android:drawableLeft="@mipmap/icon_heart"
-                        android:gravity="left|center_vertical"
-                        android:text="电话：13798076789"
-                        android:textColor="@color/color_text_color"
-                        android:textSize="12dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/listviewfenge" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginRight="13dp"
-                        android:drawableLeft="@mipmap/icon_heart"
-                        android:gravity="left|center_vertical"
-                        android:text="地址：上海市普陀区长城大厦2609"
-                        android:textColor="@color/color_text_color"
-                        android:textSize="12dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/listviewfenge" />
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="13dp"
-                    android:text="校园简介："
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:drawableLeft="@mipmap/guanzhu_bj"
+                    android:gravity="left|center_vertical"
+                    android:text="电话：13798076789"
                     android:textColor="@color/color_text_color"
-                    android:textSize="14dp" />
+                    android:textSize="12dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/listviewfenge" />
+            </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_teach_show"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="136dp" />
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/listviewfenge" />-->
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:drawableLeft="@mipmap/didian"
+                    android:gravity="left|center_vertical"
+                    android:text="地址：上海市普陀区长城大厦2609"
+                    android:textColor="@color/color_text_color"
+                    android:textSize="12dp" />
 
-                <LinearLayout
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/listviewfenge" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="13dp"
+                android:text="校园简介："
+                android:textColor="@color/color_text_color"
+                android:textSize="14dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/listviewfenge" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_teach_show"
+                android:layout_width="match_parent"
+                android:layout_height="136dp" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/listviewfenge" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/listviewfenge" />
+
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/tv_intro_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/listviewfenge" />
-
-                    <TextView
-                        android:layout_marginTop="12dp"
-                        android:id="@+id/tv_intro_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_text_color"
-                        android:lineSpacingExtra="4dp"
-                        android:paddingLeft="9dp"
-                        android:paddingRight="9dp"
-                        android:textSize="12dp"
-                        android:text="    新浪娱乐讯 国际武打巨星李连杰[微博]从小学习武术，拍过许多功夫片，至今仍然让人津津乐道，53岁的他近年投入公益活动、静心修佛，近日参拜某寺庙的照片曝光，沧桑模样令人心疼。
+                    android:textColor="@color/color_text_color"
+                    android:lineSpacingExtra="4dp"
+                    android:paddingLeft="9dp"
+                    android:paddingRight="9dp"
+                    android:textSize="12dp"
+                    android:text="    新浪娱乐讯 国际武打巨星李连杰[微博]从小学习武术，拍过许多功夫片，至今仍然让人津津乐道，53岁的他近年投入公益活动、静心修佛，近日参拜某寺庙的照片曝光，沧桑模样令人心疼。
 近日，网络曝光了一张李连杰前往寺庙参拜的照片，鬓角苍白、笑容略带沧桑，像个70岁的老人家。常年的打戏使得他脊椎严重受损，再加上得了甲状腺亢进，一直服用药物导致发福，这几年在疾病的折磨之下，不禁感慨自称，“离死亡已经不远了。”
 李连杰从1975年开始，连续五年获得武术全能冠军，1982年以《少林寺》爆红，曾饰演霍元甲、令狐冲、黄飞鸿、张无忌等多个深入人心的角色，1997年前往好莱坞发展，演出《致命武器》、《游侠》、《木乃伊3》等电影，在许多人心目中是永不败的武打明星，近年积极从事慈善事业，回馈社会。" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/listviewfenge" />
-                </LinearLayout>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rc_image"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:clickable="true"
-                    android:visibility="gone"
-                    android:numColumns="3" />
-
+                    android:layout_height="1dp"
+                    android:background="@color/listviewfenge" />
             </LinearLayout>
-        </ScrollView>
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_image"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:clickable="true"
+                android:visibility="gone"
+                android:numColumns="3" />
+
+        </LinearLayout>
+    </ScrollView>
+    <!--</in.srain.cube.views.ptr.PtrClassicFrameLayout>-->
 </LinearLayout>
