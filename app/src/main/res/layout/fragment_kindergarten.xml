@@ -8,17 +8,17 @@
 
     <include layout="@layout/com_top_bar" />
 
-    <!--<in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/root"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/bgcolor"-->
-        <!--cube_ptr:ptr_duration_to_close="200"-->
-        <!--cube_ptr:ptr_duration_to_close_header="1000"-->
-        <!--cube_ptr:ptr_keep_header_when_refresh="true"-->
-        <!--cube_ptr:ptr_pull_to_fresh="false"-->
-        <!--cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"-->
-        <!--cube_ptr:ptr_resistance="1.7">-->
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgcolor"
+        cube_ptr:ptr_duration_to_close="200"
+        cube_ptr:ptr_duration_to_close_header="1000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:layout_height="34dp"
                     android:layout_marginLeft="13dp"
                     android:layout_marginRight="13dp"
-                    android:drawableLeft="@mipmap/guanzhu_bj"
+                    android:drawableLeft="@mipmap/dianhua"
                     android:gravity="left|center_vertical"
                     android:text="电话：13798076789"
                     android:textColor="@color/color_text_color"
@@ -156,5 +156,5 @@
 
         </LinearLayout>
     </ScrollView>
-    <!--</in.srain.cube.views.ptr.PtrClassicFrameLayout>-->
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 </LinearLayout>
