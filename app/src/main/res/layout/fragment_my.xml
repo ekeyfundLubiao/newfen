@@ -131,7 +131,7 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:background="@mipmap/shezhi" />
+            android:background="@mipmap/home_icon_setting" />
 
         <TextView
             android:id="@+id/tv_home_anyoupay"
@@ -186,7 +186,7 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:background="@mipmap/shangcheng" />
+            android:background="@mipmap/home_icon_integralmall" />
 
         <TextView
             android:id="@+id/tv_home_mail"
@@ -229,7 +229,7 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:background="@mipmap/shezhi" />
+            android:background="@mipmap/home_icon_setting" />
 
         <TextView
             android:id="@+id/tv_home_title"

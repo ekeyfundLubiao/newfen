@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_video_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minHeight="200dp"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="13dp"
+            android:id="@+id/iv_headicon"
+            android:layout_width="44dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="44dp"
+            android:background="@mipmap/jiaoshi2"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_toRightOf="@id/iv_headicon"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_nickName"
+                android:text="小菲菲"
+                android:layout_marginTop="13dp"
+                android:textSize="14dp"
+                android:textColor="@color/appcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="14dp"
+                android:layout_marginTop="8dp"
+                android:text="开开心心每一天 多喝养乐多 给你的肠胃做早操开开心心每一天 多喝养乐多 给你的肠胃做早操开开心心每一天 多喝养乐多 给你的肠胃做早操开开心心每一天 多喝养乐多 给你的肠胃做早操"
+                android:textColor="@color/black"
+                android:maxLines="2"
+                android:id="@+id/tv_dynamicsContant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_icon"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:scrollbarStyle="outsideOverlay"
+                android:choiceMode="singleChoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

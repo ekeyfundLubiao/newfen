@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     ToastTools.showShort(mContext, "密码不能为空！");
                     return;
                 }
-                postLogin();
+                getLoginPost();
                 break;
         }
     }
@@ -93,10 +93,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = "{\"cmd\":\"4\",\"username\":\"" + etUserName.getText().toString() + "\",\"password\":\"" + etUserPwd.getText().toString() + "\"}";
+        String cmdPara = "{\"cmd\":\"4\",\"mobile\":\"" + etUserName.getText().toString() + "\",\"password\":\"" + etUserPwd.getText().toString() + "\"}";
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
-        kjh.urlPost(SysConfig.ServerUrl, params, new StringCallBack() {
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
 
@@ -117,7 +117,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             editor.putString("sUserInfoJson", SysConfig.userInfoJson.toString());
                             editor.commit();// 提交刷新数据
                             onBack();
-
+                            startActivity(new Intent(mContext,CompleteBaseInfoActivity.class));
                         } else {
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         }
