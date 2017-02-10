@@ -8,11 +8,21 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.IndexActivity;
 import moni.anyou.com.view.widget.pikerview.TimeSelector;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
@@ -26,6 +36,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     private TimeSelector timeSelector = null;
     RelationSeletor mRelationSeletor = null;
     ArrayList<String> mStringRelations = new ArrayList<>();
+    JSONArray relateArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,12 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
+    public void setData() {
+        super.setData();
+         relateArray = Tools.getModuleJsonArray("relative");
+    }
+
+    @Override
     public void setAction() {
         super.setAction();
         tvRight.setOnClickListener(this);
@@ -64,15 +81,16 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
                 ToastTools.showShort(mContext, "xingbie" + checkedId);
             }
         });
-        mStringRelations.add("爸爸");
-        mStringRelations.add("妈妈");
-        mStringRelations.add("爷爷");
-        mStringRelations.add("奶奶");
-        mStringRelations.add("叔叔");
+
+        ArrayList<DataClassBean> relateArrays = new Gson().fromJson(relateArray.toString(),  new TypeToken<List<DataClassBean>>() { }.getType());
+
+        for (int i = 0, size = relateArrays.size(); i < size; i++) {
+                 mStringRelations.add(relateArrays.get(i).getClassName());
+        }
         mRelationSeletor = new RelationSeletor(this, mStringRelations, new RelationSeletor.ResultHandler() {
             @Override
             public void handle(String text) {
-               tvRelatetobaby.setText(text);
+                tvRelatetobaby.setText(text);
             }
         }, "", "");
     }

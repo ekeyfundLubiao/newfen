@@ -25,8 +25,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.Window;
-import android.widget.Toast;
-
 import org.json.JSONObject;
 
 import java.util.List;

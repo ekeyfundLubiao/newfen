@@ -250,13 +250,11 @@ public class Tools {
 
 		JSONArray jsonArr = new JSONArray();
 		try {
-			for (int i = 0; i < SysConfig.dataJson.getJSONArray("KindList")
+			for (int i = 0; i < SysConfig.dataJson.getJSONArray("ClassList")
 					.length(); i++) {
-				JSONObject json = (JSONObject) SysConfig.dataJson.getJSONArray(
-						"KindList").get(i);
+				JSONObject json = (JSONObject) SysConfig.dataJson.getJSONArray("ClassList").get(i);
 				if ((json.getString("module").equals(module))) {
 					jsonArr.put(json);
-
 				}
 			}
 		} catch (Exception ex) {
