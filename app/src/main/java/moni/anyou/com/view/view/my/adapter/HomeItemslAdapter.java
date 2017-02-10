@@ -110,8 +110,8 @@ public class HomeItemslAdapter extends BaseAdapter {
                     case R.mipmap.home_icon_integralmall:
                         break;
                     case R.mipmap.home_icon_setting:
-                        intent.setClass(mContext.mBaseActivity, SystemSettingActivity.class);
-                        mContext.startActivity(intent);
+
+                        break;
                     case R.mipmap.home_icon_addressbook:
                         ToastTools.showShort(mContext.getContext(),"通讯录");
                         break;

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,9 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
+import moni.anyou.com.view.view.my.SuggestActivity;
 import moni.anyou.com.view.view.my.adapter.HomeItemslAdapter;
+import moni.anyou.com.view.view.my.systemset.SystemSettingActivity;
 import moni.anyou.com.view.widget.NoListview;
 
 
@@ -31,6 +34,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private ImageView llSetInfo;
     ArrayList<HomeItemBean> itemBeens;
     private int typeRole=-1;
+    private RelativeLayout rlSetting;
+    private RelativeLayout RlSuggestion;
     public MyFragment() {
 
     }
@@ -51,6 +56,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tvTitle.setText("我");
         lv_home = (NoListview) mView.findViewById(R.id.lv_home);
         llSetInfo = (ImageView) mView.findViewById(R.id.ll_setInfo);
+        rlSetting= (RelativeLayout) mView.findViewById(R.id.rl_setting);
+        RlSuggestion= (RelativeLayout) mView.findViewById(R.id.rl_suggestion);
         myAdaper = new HomeItemslAdapter(this);
         lv_home.setAdapter(myAdaper);
         itemBeens = new ArrayList<HomeItemBean>();
@@ -86,6 +93,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     public void setAction() {
         super.setAction();
         llSetInfo.setOnClickListener(this);
+        rlSetting.setOnClickListener(this);
+        RlSuggestion.setOnClickListener(this);
+
     }
 
     @Override
@@ -95,6 +105,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent i = new Intent();
                 i.setClass(mBaseActivity, PersonInfoSettingActivity.class);
                 mBaseActivity.startActivity(i);
+                break;
+            case R.id.rl_setting:
+                startActivity(new Intent(mContext, SystemSettingActivity.class));
+                activityAnimation(RIGHT_IN);
+                break;
+            case R.id.rl_suggestion:
+                startActivity(new Intent(mContext, SuggestActivity.class));
+                activityAnimation(RIGHT_IN);
+                break;
+            default:
                 break;
         }
     }

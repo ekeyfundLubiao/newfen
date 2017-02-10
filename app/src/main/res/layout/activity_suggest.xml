@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_suggest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    tools:context="moni.anyou.com.view.view.my.SuggestActivity">
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/com_top_bar" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/bgcolor"/>
+    <EditText
+        android:id="@+id/et_suggestion"
+        android:gravity="top|left"
+        android:paddingTop="7dp"
+        android:padding="13dp"
+        android:layout_width="match_parent"
+        android:hint="请输入反馈内容"
+        android:background="@null"
+        android:maxLines="8"
+        android:layout_height="200dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/bgcolor"/>
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:background="@drawable/drawable_btn_appcolor"
+        android:layout_width="186dp"
+        android:layout_height="50dp" />
+</LinearLayout>

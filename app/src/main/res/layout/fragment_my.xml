@@ -73,6 +73,7 @@
         android:dividerHeight="0dip" />
 
     <RelativeLayout
+        android:id="@+id/rl_suggestion"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/white"
@@ -217,6 +218,7 @@
         android:layout_marginRight="13dp"
         android:background="@color/bgcolor" />
     <RelativeLayout
+        android:id="@+id/rl_setting"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/white"
@@ -224,7 +226,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/iv_home_icon"
+            android:id="@+id/iv_home_seting"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
@@ -238,7 +240,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:textSize="12dp"
-            android:layout_toRightOf="@id/iv_home_icon"
+            android:layout_toRightOf="@id/iv_home_seting"
             android:text="设置"
             android:textColor="@color/color_left_title" />
 
