@@ -13,12 +13,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.json.JSONObject;
-
-
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-
 import moni.anyou.com.view.config.SysConfig;
 
 
@@ -76,7 +73,7 @@ public class FileHelper {
 	        int byteread = 0;
 	        int bytesum = 0;
 	        FileOutputStream fs = new FileOutputStream(SDPATH
-					+ "//"+Config.File_DIR+"//" + fileName);
+					+ "//"+SysConfig.File_DIR+"//" + fileName);
 	        while ((byteread = bis.read(buffer)) != -1) {
 	                bytesum += byteread;
 	                fs.write(buffer, 0, byteread);
@@ -90,7 +87,7 @@ public class FileHelper {
 			}
 
 			FileOutputStream fout = new FileOutputStream(SDPATH
-					+ "//"+Config.File_DIR+"//" + fileName);
+					+ "//"+SysConfig.File_DIR+"//" + fileName);
 			fout.write(baf.toByteArray());
 			fout.close();
 		    */
@@ -127,7 +124,7 @@ public class FileHelper {
 					// System.out.println(data);
 
 					// fileHelper.deleteFile(FileHelper.replace(fileName,".json",".zip"));
-					Config.dataJson = new JSONObject(data);
+					SysConfig.dataJson = new JSONObject(data);
 				
 
 				} catch (Exception ex) {

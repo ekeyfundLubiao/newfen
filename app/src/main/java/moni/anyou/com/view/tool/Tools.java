@@ -1,17 +1,4 @@
 package moni.anyou.com.view.tool;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
-
-
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,10 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.util.Log;
 
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.view.account.LoginActivity;
-
 
 public class Tools {
 
@@ -55,16 +45,19 @@ public class Tools {
 		return strDest;
 	}
 
-	public static String substring(String origin, String begin, String end, int has) {
+	public static String substring(String origin, String begin, String end,
+			int has) {
 		int first = origin.indexOf(begin);
 		int last = origin.indexOf(end);
 		String result = "";
 		if (first > -1 && last > -1) {
 			if (first < last) {
 				if (has == 1) {
-					result = substring(origin, first, (last - first) + end.length());
+					result = substring(origin, first,
+							(last - first) + end.length());
 				} else {
-					result = substring(origin, first + begin.length(), last - first - begin.length());
+					result = substring(origin, first + begin.length(), last
+							- first - begin.length());
 				}
 			} else {
 				origin = origin.substring(last + end.length());
@@ -113,7 +106,8 @@ public class Tools {
 
 		StringBuffer buf = new StringBuffer();
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				new FileInputStream(f), "UTF-8"));
 		// BufferedReader in = new BufferedReader(new InputStreamReader(new
 		// FileInputStream(f)));
 		String inputLine;
@@ -134,17 +128,12 @@ public class Tools {
 			if (Integer.parseInt(result) > 0) {
 				SysConfig.token = msgJson.get("token").toString();
 
-				SysConfig.lastupdatetime = Long.parseLong(msgJson.get("time").toString());
+				SysConfig.lastupdatetime = msgJson.get("time").toString();
 				array = msgJson.getJSONArray("userinfo");
 				if (array.length() > 0) {
 					SysConfig.userInfoJson = (JSONObject) array.get(0);
 				}
 				SysConfig.uid = SysConfig.userInfoJson.getString("user_id").toString();
-//				SysConfig.username = SysConfig.userInfoJson.getString("username");
-//				JSONArray oneKeyInfoArray=msgJson.getJSONArray("onekeyInfo");
-//
-//				SysConfig.onkeyset=(JSONObject) oneKeyInfoArray.get(0);
-//                SysConfig.configInfo= (JSONObject)msgJson.getJSONArray("configInfo").get(0);
 
 				return "1";
 
@@ -152,7 +141,6 @@ public class Tools {
 				return "";
 			}
 		} catch (Exception ex) {
-			Log.e("TAG", "parseLoginMsg: "+ex.getMessage() );
 			return "";
 		}
 	}
@@ -181,7 +169,6 @@ public class Tools {
 	 *
 	 */
 	public static String postMsg(String serverUrl, String cmd) {
-		System.out.println(cmd);
 		String sTotalString = "";
 		String sCurrentLine = "";
 		java.io.InputStream l_urlStream = null;
@@ -229,7 +216,8 @@ public class Tools {
 			if (i == 0) {
 				result += "\"" + keyword[i][0] + "\":\"" + keyword[i][1] + "\"";
 			} else {
-				result += ",\"" + keyword[i][0] + "\":\"" + keyword[i][1] + "\"";
+				result += ",\"" + keyword[i][0] + "\":\"" + keyword[i][1]
+						+ "\"";
 			}
 		}
 		result += "}";
@@ -257,77 +245,18 @@ public class Tools {
 		String as[] = new String[k];
 		return (String[]) arraylist.subList(0, k).toArray(as);
 	}
-
-	public static String getKindTitle(String module, String kindIdList) {
-		String result = "";
-		String[] str = Tools.split(kindIdList, ",");
-		int k = 0;
-		try {
-			if (module.equals("language")) {
-				JSONArray arr = SysConfig.dataJson.getJSONArray("LanguageList");
-				for (int j = 0; j < str.length; j++) {
-					for (int i = 0; i < arr.length(); i++) {
-						if (((JSONObject) arr.get(i)).getString("keyword").equals(str[j])) {
-							if (k == 0) {
-								result += ((JSONObject) arr.get(i)).getString("title");
-							} else {
-								result += "," + ((JSONObject) arr.get(i)).getString("title");
-							}
-							k++;
-							break;
-						}
-					}
-				}
-			} else {
-				JSONArray arr = SysConfig.dataJson.getJSONArray("KindList");
-				for (int j = 0; j < str.length; j++) {
-					for (int i = 0; i < arr.length(); i++) {
-						if (((JSONObject) arr.get(i)).getString("id").equals(str[j])) {
-							if (k == 0) {
-								result += ((JSONObject) arr.get(i)).getString("title");
-							} else {
-								result += "," + ((JSONObject) arr.get(i)).getString("title");
-							}
-							k++;
-							break;
-						}
-					}
-				}
-			}
-		} catch (Exception ex) {
-
-		}
-		return result;
-	}
-
+    //取得分类数据
 	public static JSONArray getModuleJsonArray(String module) {
 
 		JSONArray jsonArr = new JSONArray();
 		try {
-			for (int i = 0; i < SysConfig.dataJson.getJSONArray("KindList").length(); i++) {
-				JSONObject json = (JSONObject) SysConfig.dataJson.getJSONArray("KindList").get(i);
+			for (int i = 0; i < SysConfig.dataJson.getJSONArray("KindList")
+					.length(); i++) {
+				JSONObject json = (JSONObject) SysConfig.dataJson.getJSONArray(
+						"KindList").get(i);
 				if ((json.getString("module").equals(module))) {
 					jsonArr.put(json);
 
-				}
-			}
-		} catch (Exception ex) {
-
-		}
-		return jsonArr;
-	}
-
-	// 得到父类下的所有直接子类
-	public static JSONArray getCategoryJsonArray(String module, String pid) {
-		JSONArray jsonArr = new JSONArray();
-
-		try {
-			JSONArray arr = SysConfig.dataJson.getJSONArray("CategoryList");
-			;
-			for (int i = 0; i < arr.length(); i++) {
-				JSONObject json = (JSONObject) arr.get(i);
-				if (json.getString("module").equals(module) && json.getString("pid").equals(pid)) {
-					jsonArr.put(json);
 				}
 			}
 		} catch (Exception ex) {
@@ -351,88 +280,42 @@ public class Tools {
 		return null;
 	}
 
-	// 得到多级数据
-	public static void getCategoryTitleList(JSONArray arr, String language, String id, StringBuffer sb) {
+	public static boolean getTimeCompare(String currday) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date time1 = null;
+		Date time2 = null;
 		try {
-			for (int i = 0; i < arr.length(); i++) {
-				JSONObject json = (JSONObject) arr.get(i);
-				if ((json.getString("id").equals(id))) {
-					String pid = json.getString("pid");
-					sb.append(json.getString("title") + ",");
-					if (!pid.equals("0")) {
-						getCategoryTitleList(arr, language, pid, sb);
-					} else {
-						break;
-					}
-				}
+			time1 = sdf.parse(currday);//
+			time2 = sdf.parse(sdf.format(new Date()));
+			if (time1.getTime() < time2.getTime()) {
+				return true;
+			} else {
+				return false;
 			}
-		} catch (Exception ex) {
 
+		} catch (Exception e) {
+
+			return false;
 		}
 
-	}
-
-	/*
-	 * 得到相对于本周的第几周的的某一天日期 本周 nextWeek = 0 someday:1到7，代表周一，周二等等
-	 */
-	public static String getMondayOfThisWeek(int nextWeek, int someday) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar c = Calendar.getInstance();
-		int day_of_week = c.get(Calendar.DAY_OF_WEEK) - 1;
-		if (day_of_week == 0)
-			day_of_week = 7;
-		c.add(Calendar.DATE, -day_of_week + someday + nextWeek * 7);
-		return df.format(c.getTime());
-	}
-
-	// 得到某一天是否锁定
-	public static boolean getIsLockOfDay(String currday, JSONArray scheduleList) {
-		int result = 0;
-		for (int i = 0; i < scheduleList.length(); i++) {
-			try {
-				JSONObject json = (JSONObject) scheduleList.get(i);
-				if (json.getString("currday").equals(currday)) {
-					if (!json.getString("timelist").equals("")) {
-						return true;
-					}
-				}
-			} catch (Exception ex) {
-
-			}
-		}
-		return false;
-	}
-
-	// 得到某一天的预约时间统计
-	public static int getHourCount(String currday, JSONArray appointArr) {
-		int result = 0;
-		for (int i = 0; i < appointArr.length(); i++) {
-
-			try {
-				JSONObject json = (JSONObject) appointArr.get(i);
-				if (json.getString("currday").equals(currday)) {
-					if (!json.getString("timelist").equals("")) {
-						String[] temp = Tools.split(json.getString("timelist"), ",");
-						result += temp.length;
-					}
-				}
-			} catch (Exception ex) {
-
-			}
-		}
-		return result;
 	}
 
 	private static String fileName = ""; //
-	private static String path = Environment.getExternalStorageDirectory().getPath(); // Don't
+	private static String path = Environment.getExternalStorageDirectory()
+			.getPath(); // Don't
 
 	public static String saveFile(Bitmap bm) throws IOException {
 		Calendar now = Calendar.getInstance();
-		fileName = SysConfig.uid + "_" + now.get(Calendar.YEAR) + "_" + now.get(Calendar.MONTH) + 1 + "_"
-				+ now.get(Calendar.DAY_OF_MONTH) + "_" + now.get(Calendar.HOUR_OF_DAY) + "_" + now.get(Calendar.MINUTE)
-				+ "_" + now.get(Calendar.SECOND) + ".jpg";
-		File myCaptureFile = new File(path + "/" + SysConfig.File_DIR + "/" + fileName);
-		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+		fileName = Md5.MD5Encode(SysConfig.uid + "_" + now.get(Calendar.YEAR)
+				+ "_" + now.get(Calendar.MONTH) + 1 + "_"
+				+ now.get(Calendar.DAY_OF_MONTH) + "_"
+				+ now.get(Calendar.HOUR_OF_DAY) + "_"
+				+ now.get(Calendar.MINUTE) + "_" + now.get(Calendar.SECOND))
+				+ ".jpg";
+		File myCaptureFile = new File(path + "/" + SysConfig.File_DIR + "/"
+				+ fileName);
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(myCaptureFile));
 		bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 		bos.flush();
 		bos.close();
@@ -440,20 +323,22 @@ public class Tools {
 	}
 
 	public static String getNowtime() {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm.ss     ");
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				"yyyy-MM-dd  HH:mm.ss     ");
 		Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
 		String str = formatter.format(curDate);
 		return str;
 	}
 
-	public static void jumpToLogin(Context cox) {
-
-		cox.startActivity(new Intent(cox, LoginActivity.class));
-
+	public static String transferJson(String str) {
+		return str.replaceAll("\"", "'").replaceAll("'“", "'")
+				.replaceAll("'”", "'").replaceAll("\r\n", "<br/>")
+				.replaceAll("\r", "<br/>").replaceAll("CHAR(10)", "<br/>")
+				.replaceAll("\n", "<br/>").replaceAll("\t", "");
 	}
 
-    public static void showToast(Context cox, String tips){
-        Toast.makeText(cox,tips,Toast.LENGTH_SHORT).show();
-    }
+	public static String transferJsonToString(String str) {
+		return str.replaceAll("&lt;br/&gt;", "\n");
+	}
 
 }
