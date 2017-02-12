@@ -44,7 +44,8 @@
         android:background="@color/white"
         android:paddingLeft="7dp"
         android:text="终极一班"
-        android:drawableLeft="@mipmap/icon_heart"
+        android:drawablePadding="4dp"
+        android:drawableLeft="@mipmap/banji"
         android:textColor="#999999"
         android:textSize="12dp" />
 

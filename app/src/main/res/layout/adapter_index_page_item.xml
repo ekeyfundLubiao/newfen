@@ -25,7 +25,7 @@
             android:layout_height="36dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="#4E4A38"
+            android:background="#3A504c"
             android:orientation="horizontal">
 
             <TextView

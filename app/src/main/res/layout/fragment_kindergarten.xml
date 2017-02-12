@@ -12,7 +12,7 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgcolor"
+        android:background="@color/white"
         cube_ptr:ptr_duration_to_close="200"
         cube_ptr:ptr_duration_to_close_header="1000"
         cube_ptr:ptr_keep_header_when_refresh="true"
@@ -21,10 +21,12 @@
         cube_ptr:ptr_resistance="1.7">
 
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -56,14 +58,15 @@
                     android:layout_marginLeft="13dp"
                     android:layout_marginRight="13dp"
                     android:drawableLeft="@mipmap/dianhua"
+                    android:drawablePadding="7dp"
                     android:gravity="left|center_vertical"
-                    android:text="电话：13798076789"
+                    android:text="电话：     13798076789"
                     android:textColor="@color/color_text_color"
                     android:textSize="12dp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="1px"
                     android:background="@color/listviewfenge" />
             </LinearLayout>
 
@@ -78,15 +81,16 @@
                     android:layout_height="34dp"
                     android:layout_marginLeft="13dp"
                     android:layout_marginRight="13dp"
-                    android:drawableLeft="@drawable/didian"
+                    android:drawablePadding="13dp"
+                    android:drawableLeft="@mipmap/didian"
                     android:gravity="left|center_vertical"
-                    android:text="地址：上海市普陀区长城大厦2609"
+                    android:text="地址：     上海市普陀区长城大厦2609"
                     android:textColor="@color/color_text_color"
                     android:textSize="12dp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="1px"
                     android:background="@color/listviewfenge" />
             </LinearLayout>
 
@@ -98,11 +102,12 @@
                 android:paddingLeft="13dp"
                 android:text="校园简介："
                 android:textColor="@color/color_text_color"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:id="@+id/textView2" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/listviewfenge" />
 
             <android.support.v7.widget.RecyclerView
@@ -122,7 +127,7 @@
                 android:visibility="visible">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="1px"
                     android:background="@color/listviewfenge" />
 
                 <TextView
@@ -141,7 +146,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="1px"
                     android:background="@color/listviewfenge" />
             </LinearLayout>
 

@@ -29,11 +29,11 @@
             android:id="@+id/tv_teachername"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="13dp"
+            android:layout_marginLeft="7dp"
             android:gravity="center_vertical"
             android:textSize="12dp"
             android:text="李小华"
-            android:textColor="#484848" />
+            android:textColor="#898987" />
 
         <TextView
             android:id="@+id/tv_star"
@@ -42,17 +42,18 @@
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
             android:paddingRight="13dp"
+            android:textColor="#898987"
             android:textSize="10dp"
             android:text="230" />
 
         <ImageView
             android:id="@+id/iv_start"
-            android:layout_width="16dp"
-            android:layout_height="13dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="4dp"
             android:layout_toLeftOf="@id/tv_star"
-            android:background="@mipmap/icon_heart" />
+            android:background="@drawable/focus" />
     </RelativeLayout>
 
 </LinearLayout>
