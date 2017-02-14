@@ -21,9 +21,11 @@
         android:gravity="top|left"
         android:paddingTop="7dp"
         android:padding="13dp"
+        android:textColorHint="#3B3A38"
         android:layout_width="match_parent"
         android:hint="请输入反馈内容"
         android:background="@null"
+        android:textSize="14dp"
         android:maxLines="8"
         android:layout_height="200dp"
         />

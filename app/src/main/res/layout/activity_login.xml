@@ -12,22 +12,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="170dp"
         android:background="@color/appcolor"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="140dp"
-            android:layout_height="130dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="110dp"
+            android:layout_height="98dp"
             android:layout_gravity="center"
             android:background="@drawable/logo" />
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:text="安幼，关爱宝贝成长每一天！"
             android:textColor="@color/white"
             android:textSize="18dp" />
