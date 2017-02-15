@@ -174,6 +174,17 @@ public class BaseFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
+
+    /**
+     * 加载图片 2:1
+     *
+     * @param url
+     * @param imageview
+     */
+    public void setBitmaptoImageView11(String url, ImageView imageview) {
+        setBitmaptoImageView(url, imageview, R.drawable.loading_11,
+                R.drawable.loading_err_11, R.drawable.loading_null_11);
+    }
     /**
      * 加载图片 2:1
      *

@@ -24,7 +24,9 @@
     </RelativeLayout>
     <ListView
         android:id="@+id/lv_dynamics"
-        android:layout_marginTop="8dp"
+        android:dividerHeight="2dp"
+        android:layout_marginTop="6dp"
+        android:divider="@color/bgcolor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

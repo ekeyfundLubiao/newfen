@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class SentPicBean implements Serializable{
     public String filePathName="";
     public Bitmap bitmap;
+    public String Url;
 
     public SentPicBean() {
     }
@@ -18,5 +19,9 @@ public class SentPicBean implements Serializable{
     public SentPicBean(String filePathName, Bitmap bitmap) {
         this.filePathName = filePathName;
         this.bitmap = bitmap;
+    }
+
+    public SentPicBean(String url) {
+        Url = url;
     }
 }
