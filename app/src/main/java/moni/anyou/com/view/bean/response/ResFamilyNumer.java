@@ -2,6 +2,7 @@ package moni.anyou.com.view.bean.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import moni.anyou.com.view.bean.RelationBean;
@@ -19,23 +20,23 @@ public class ResFamilyNumer extends ResponseStandard {
      * list : [{"user_id":"1","recommendId":"0","status":"1","nick":"张萌萌的爸爸","mobile":"13671691505","icon":""}]
      */
 
-    private String totalCount;
-    private List<RelationBean> list;
+    private int totalCount;
+    private ArrayList<RelationBean> list;
 
 
-    public String getTotalCount() {
+    public int getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(String totalCount) {
+    public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
     }
 
-    public List<RelationBean> getList() {
+    public ArrayList<RelationBean> getList() {
         return list;
     }
 
-    public void setList(List<RelationBean> list) {
+    public void setList(ArrayList<RelationBean> list) {
         this.list = list;
     }
 
@@ -51,10 +52,16 @@ public class ResFamilyNumer extends ResponseStandard {
 
         private String user_id;
         private String recommendId;
-        private String status;
+        public int status;
         private String nick;
         private String mobile;
         private String icon;
+        public boolean boolDelete = false;
+        public String roleid;
+
+        public void setBoolDelete(boolean boolDelete) {
+            this.boolDelete = boolDelete;
+        }
 
         public String getUser_id() {
             return user_id;
@@ -72,11 +79,11 @@ public class ResFamilyNumer extends ResponseStandard {
             this.recommendId = recommendId;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 
@@ -102,6 +109,17 @@ public class ResFamilyNumer extends ResponseStandard {
 
         public void setIcon(String icon) {
             this.icon = icon;
+        }
+
+        public RelationBean(String user_id, String recommendId, int status, String nick, String mobile, String icon,String roleid) {
+
+            this.user_id = user_id;
+            this.recommendId = recommendId;
+            this.status = status;
+            this.nick = nick;
+            this.mobile = mobile;
+            this.icon = icon;
+            this.roleid = roleid;
         }
     }
 }

@@ -12,12 +12,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.config.SysConfig;
 
 public class Tools {
@@ -338,5 +345,17 @@ public class Tools {
 	public static String transferJsonToString(String str) {
 		return str.replaceAll("&lt;br/&gt;", "\n");
 	}
+
+
+	public static  ArrayList<DataClassBean> getBaseRelatenumberdatas(){
+
+		try {
+			return new Gson().fromJson(getModuleJsonArray("relative").toString(),  new TypeToken<List<DataClassBean>>() { }.getType());
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 }

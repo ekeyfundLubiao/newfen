@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -26,13 +28,16 @@ import org.kymjs.aframe.http.StringCallBack;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.InvitedInfo;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SelectFamily;
 import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
+import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.Tools;
@@ -44,14 +49,17 @@ import moni.anyou.com.view.widget.dialog.PopAddFamilySuccess;
 import moni.anyou.com.view.widget.dialog.PopunbindFamily;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
+import static moni.anyou.com.view.tool.Tools.getBaseRelatenumberdatas;
+
 public class FamilyNumbersActivity extends BaseActivity implements View.OnClickListener {
 
     RecyclerView rcFamilyNumbers;
     private FamilyNumberAdapter MyAdapter;
-    private ArrayList<RelationBean> numberBeans;
+    private ArrayList<ResFamilyNumer.RelationBean> numberBeans;
     private PopAddFamilySuccess mPopAddFamilySuccess;
     private PopunbindFamily mPopunbindFamily;
     private NetProgressWindowDialog window;
+    private ArrayList<DataClassBean> baseFamily = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         rcFamilyNumbers = (RecyclerView) findViewById(R.id.rc_numbers);
         tvTitle.setText("邀请家人");
         ivBack.setOnClickListener(this);
+        baseFamily = getBaseRelatenumberdatas();
         getdata();
     }
 
@@ -81,7 +90,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.HORIZONTAL));
         // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.VERTICAL));
         numberBeans = new ArrayList<>();
-
         MyAdapter = new FamilyNumberAdapter(this, numberBeans);
         rcFamilyNumbers.setAdapter(MyAdapter);
         initData();
@@ -130,18 +138,18 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     }
 
     public void initData() {
-        RelationBean ftemp = new RelationBean("李铁牛", "http://img3.imgtn.bdimg.com/it/u=2364754357,1896189482&fm=21&gp=0.jpg", 1, "自己", "18909876789");
-        RelationBean mtemp = new RelationBean("刘红梅", "http://img4.imgtn.bdimg.com/it/u=2040109377,1412473547&fm=21&gp=0.jpg", 1, "妈妈", "18923456789");
-        RelationBean gftemp = new RelationBean("李从军", "http://qq1234.org/uploads/allimg/140926/3_140926144058_3.jpg", 1, "爷爷", "18909876749");
-        RelationBean gmtemp = new RelationBean("黄小华", "http://img0.imgtn.bdimg.com/it/u=2752436590,1904914861&fm=21&gp=0.jpg", 1, "奶奶", "18909865789");
-        RelationBean utemp = new RelationBean("李魏国", "http://img3.imgtn.bdimg.com/it/u=2364754357,1896189482&fm=21&gp=0.jpg", 0, "叔叔", "18909876789");
-        RelationBean atemp = new RelationBean("刘小米", "http://img4.imgtn.bdimg.com/it/u=2040109377,1412473547&fm=21&gp=0.jpg", 0, "婶婶", "18923456789");
-        numberBeans.add(ftemp);
-        numberBeans.add(mtemp);
-        numberBeans.add(gftemp);
-        numberBeans.add(gmtemp);
-        numberBeans.add(utemp);
-        numberBeans.add(atemp);
+//        RelationBean ftemp = new RelationBean("李铁牛", "http://img3.imgtn.bdimg.com/it/u=2364754357,1896189482&fm=21&gp=0.jpg", 1, "自己", "18909876789");
+//        RelationBean mtemp = new RelationBean("刘红梅", "http://img4.imgtn.bdimg.com/it/u=2040109377,1412473547&fm=21&gp=0.jpg", 1, "妈妈", "18923456789");
+//        RelationBean gftemp = new RelationBean("李从军", "http://qq1234.org/uploads/allimg/140926/3_140926144058_3.jpg", 1, "爷爷", "18909876749");
+//        RelationBean gmtemp = new RelationBean("黄小华", "http://img0.imgtn.bdimg.com/it/u=2752436590,1904914861&fm=21&gp=0.jpg", 1, "奶奶", "18909865789");
+//        RelationBean utemp = new RelationBean("李魏国", "http://img3.imgtn.bdimg.com/it/u=2364754357,1896189482&fm=21&gp=0.jpg", 0, "叔叔", "18909876789");
+//        RelationBean atemp = new RelationBean("刘小米", "http://img4.imgtn.bdimg.com/it/u=2040109377,1412473547&fm=21&gp=0.jpg", 0, "婶婶", "18923456789");
+//        numberBeans.add(ftemp);
+//        numberBeans.add(mtemp);
+//        numberBeans.add(gftemp);
+//        numberBeans.add(gmtemp);
+//        numberBeans.add(utemp);
+//        numberBeans.add(atemp);
         //  MyAdapter.notifyDataSetChanged();
     }
 
@@ -192,8 +200,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         checkBeans.clear();
         int size = numberBeans.size();
         for (int i = 1; i < size; i++) {
-            RelationBean tempBean = numberBeans.get(i);
-            if (tempBean.mark == 1) {
+            ResFamilyNumer.RelationBean tempBean = numberBeans.get(i);
+            if (tempBean.status == 1) {
                 tempBean.boolDelete = isCheck;
                 checkBeans.add(new SelectFamily(i, tempBean));
             }
@@ -208,7 +216,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsFaimilyNunbersBean("10",SysConfig.uid,SysConfig.token).ToJsonString();
+        String cmdPara = new ReqsFaimilyNunbersBean("10", SysConfig.uid, SysConfig.token).ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -221,8 +229,16 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
+                        ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
+                        int numhased = Fnumber.getTotalCount();
+                         numberBeans = Fnumber.getList();
 
-                    }else {
+                        for (int i = numhased; i < 8; i++) {
+                            DataClassBean tempBean = baseFamily.get(i);
+                            numberBeans.add(new ResFamilyNumer.RelationBean("", "1", 0, tempBean.getClassName(), "", tempBean.getPic(), tempBean.getClassID()));
+                        }
+                        MyAdapter.setDatas(numberBeans);
+                    } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
