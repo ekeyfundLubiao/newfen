@@ -230,7 +230,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
-                        int numhased = Fnumber.getTotalCount();
+                        int numhased = Fnumber.getList().size();
                          numberBeans = Fnumber.getList();
 
                         for (int i = numhased; i < 8; i++) {

@@ -29,25 +29,26 @@
 
         <TextView
             android:id="@+id/tv_oldpwd"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:text="原密码" />
+            android:text="原密码"
+            android:textColor="@color/color_left_title"
+            android:textSize="12dp" />
 
         <EditText
             android:id="@+id/et_oldpwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="14dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="45dp"
             android:layout_toRightOf="@id/tv_oldpwd"
             android:background="@null"
             android:maxLines="1"
-            android:text="Josda123"
-            android:textColor="@color/color_text_color"
-            android:paddingLeft="13dp" />
+            android:paddingLeft="13dp"
+            android:text=""
+            android:textColor="@color/color_text_color" />
     </RelativeLayout>
 
 
@@ -61,11 +62,13 @@
 
         <TextView
             android:id="@+id/tv_newpwd"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:text="新密码" />
+            android:text="新密码"
+            android:textColor="@color/color_left_title"
+            android:textSize="12dp" />
 
         <EditText
             android:id="@+id/et_newpwd"
@@ -75,10 +78,11 @@
             android:layout_marginRight="45dp"
             android:layout_marginTop="13dp"
             android:layout_toRightOf="@id/tv_newpwd"
-            android:textColor="@color/color_relation_seleted"
             android:background="@null"
+            android:inputType="textPassword"
             android:maxLines="1"
-            android:paddingLeft="13dp" />
+            android:paddingLeft="13dp"
+            android:textSize="12dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -91,11 +95,13 @@
 
         <TextView
             android:id="@+id/tv_renewpwd"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
-            android:text="再次输入" />
+            android:text="再次输入"
+            android:textColor="@color/color_left_title"
+            android:textSize="12dp" />
 
         <EditText
             android:id="@+id/et_renewpwd"
@@ -105,9 +111,22 @@
             android:layout_marginRight="45dp"
             android:layout_marginTop="13dp"
             android:layout_toRightOf="@id/tv_renewpwd"
-            android:textColor="@color/color_relation_seleted"
             android:background="@null"
+            android:inputType="textPassword"
             android:maxLines="1"
-            android:paddingLeft="13dp" />
+            android:paddingLeft="13dp"
+            android:textSize="12dp" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/drawable_btn_appcolor"
+        android:singleLine="true"
+        android:text="修改"
+        android:textColor="@color/white" />
 </LinearLayout>
