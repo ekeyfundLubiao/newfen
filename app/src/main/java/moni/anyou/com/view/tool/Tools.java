@@ -151,6 +151,9 @@ public class Tools {
 			return "";
 		}
 	}
+	public static void eixtData(){
+
+	}
 
 	public static String[] split(String strin, char c, int it) {
 		ArrayList arraylist = new ArrayList();

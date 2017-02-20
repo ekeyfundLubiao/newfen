@@ -34,7 +34,6 @@ public class SettingItemslAdapter extends BaseAdapter {
         this.mInflater=LayoutInflater.from(context);
         this.list=list;
     }
-
     public void setDatas(List<HomeItemBean> result) {
         if (result != null && list != null) {
             list.clear();
@@ -44,8 +43,6 @@ public class SettingItemslAdapter extends BaseAdapter {
         }
         this.notifyDataSetChanged();
     }
-
-
     @Override
     public int getCount() {
         if (list!=null&&list.size()>0) {
@@ -66,7 +63,6 @@ public class SettingItemslAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHold viewHold=new ViewHold();
@@ -90,16 +86,10 @@ public class SettingItemslAdapter extends BaseAdapter {
 
         return convertView;
     }
-
     class ViewHold{
         private TextView tValue;
         private TextView title;
         private ImageView right_arr;
         RelativeLayout  homeItem;
     }
-
-
-
-
-
 }

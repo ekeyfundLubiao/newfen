@@ -129,7 +129,7 @@
         android:minHeight="45dp">
 
         <TextView
-            android:id="@+id/tv_home_title"
+            android:id="@+id/tv_exitLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

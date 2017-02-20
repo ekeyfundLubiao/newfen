@@ -32,6 +32,11 @@ public abstract class RequestStandard {
     public void setToken(String token) {
         this.token = token;
     }
+    public RequestStandard(String cmd, String uid) {
+        this.cmd = cmd;
+        this.uid = uid;
+
+    }
 
     public RequestStandard(String cmd, String uid, String token) {
         this.cmd = cmd;
