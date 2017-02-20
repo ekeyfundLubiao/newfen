@@ -62,7 +62,12 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
             public void handle(String relation) {
                 tvRelatetobaby.setText(relation);
             }
-        }, "","");
+
+            @Override
+            public void handle(int position) {
+
+            }
+        });
         rlBrithday = (RelativeLayout) findViewById(R.id.rl_brith);
         rlRelate=(RelativeLayout) findViewById(R.id.rl_relate);
         rlSex = (RelativeLayout) findViewById(R.id.rl_sex);

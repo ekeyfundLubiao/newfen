@@ -14,6 +14,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.bean.RecycleViewBean;
+import moni.anyou.com.view.bean.response.ResHomeData;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.KindergartenFragment;
 
@@ -26,12 +28,12 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
 
     private KindergartenFragment mContext;
     private LayoutInflater mInflater;
-    private List<RecycleViewBean> mItems;
+    private List<ResHomeData.TopTeachersBean> mItems;
 
-    public TeacherShowAdapter(KindergartenFragment context, List<RecycleViewBean> items) {
+    public TeacherShowAdapter(KindergartenFragment context,List<ResHomeData.TopTeachersBean> mItems) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
-        mItems = items;
+        this.mItems = mItems;
     }
 
     View mView;
@@ -53,20 +55,21 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHold mViewHold, final int position) {
+    public void onBindViewHolder(final MyViewHold mViewHold, final int position) {
         mViewHold.itemView.setTag(position);
-        final RecycleViewBean item = mItems.get(position);
-        mViewHold.tvStar.setText(item.start);
-        mViewHold.tvTeacherName.setText(item.teachearName);
-        mContext.setBitmaptoImageView(item.Url,
+        final ResHomeData.TopTeachersBean item = mItems.get(position);
+        mViewHold.tvStar.setText(item.getLikes());
+        mViewHold.tvTeacherName.setText(item.getNick());
+        mContext.setBitmaptoImageView(SysConfig.FileUrl+item.getIcon(),
                 mViewHold.ivTeacherIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
+
         mViewHold.ivStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.likesPost(mItems.get(position));
+                mContext.likesPost(mItems.get((Integer) mViewHold.itemView.getTag()),position);
 
             }
         });
@@ -90,7 +93,7 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(v, (RecycleViewBean) mItems.get((Integer) v.getTag()));
+            mOnItemClickListener.onItemClick(v, (ResHomeData.TopTeachersBean) mItems.get((Integer) v.getTag()));
         }
     }
 
@@ -117,18 +120,18 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
 
     //define interface
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, RecycleViewBean data);
+        void onItemClick(View view, ResHomeData.TopTeachersBean data);
     }
 
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
-    public void setDatas(List<RecycleViewBean> result) {
-        if (result != null && mItems != null) {
+    public void setDatas(List<ResHomeData.TopTeachersBean> result) {
+        if (mItems != null && mItems.size() >0) {
             mItems.clear();
         }
-        if (mItems != null && result != null) {
+        if (result != null && result.size()>0) {
             mItems.addAll(result);
         }
 

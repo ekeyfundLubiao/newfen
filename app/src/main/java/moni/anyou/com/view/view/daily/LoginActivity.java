@@ -42,7 +42,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void handle(String text) {
                 ToastTools.showShort(context, text);
             }
-        }, "", "");
+
+            @Override
+            public void handle(int position) {
+
+            }
+        });
     }
 
     @Override

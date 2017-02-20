@@ -26,13 +26,15 @@ import moni.anyou.com.view.widget.pikerview.Utils.ScreenUtil;
 public class RelationSeletor {
     public interface ResultHandler {
         void handle(String time);
+        void handle(int position);
     }
+
     private ResultHandler handler;
     private Context context;
 
     private Dialog seletorDialog;
     private PickerView relation_pv;
-    private ArrayList<String> mStringRelations=new ArrayList<>();
+    private ArrayList<String> mStringRelations = new ArrayList<>();
     private String startRelations;
     private boolean spanRelations;
     private final long ANIMATORDELAY = 200L;
@@ -42,10 +44,10 @@ public class RelationSeletor {
     private Button tv_cancle;
     private Button tv_select;
 
-    public RelationSeletor(Context context,ArrayList<String> stringRelations, ResultHandler resultHandler, String startDate, String endDate) {
+    public RelationSeletor(Context context, ArrayList<String> stringRelations, ResultHandler resultHandler) {
         this.context = context;
         this.handler = resultHandler;
-        this.mStringRelations=stringRelations;
+        this.mStringRelations = stringRelations;
         initDialog();
         initView();
     }
@@ -54,6 +56,7 @@ public class RelationSeletor {
         this.workStart_str = workStartTime;
         this.workEnd_str = workEndTime;
     }
+
     private void initDialog() {
         if (seletorDialog == null) {
             seletorDialog = new Dialog(context, R.style.time_dialog);
@@ -85,6 +88,7 @@ public class RelationSeletor {
             @Override
             public void onClick(View view) {
                 handler.handle(mtext);
+                handler.handle(mPosition);
                 seletorDialog.dismiss();
             }
         });
@@ -92,45 +96,32 @@ public class RelationSeletor {
     }
 
     public void show() {
-//        if (mStringRelations!=null) {
-//            Toast.makeText(context, "初始数据不能为空", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-
-      //  if (!excuteWorkTime()) return;
         initParameter();
         initTimer();
         addListener();
         seletorDialog.show();
     }
-    int relationSize=-1;
+
+    int relationSize = -1;
+
     private void initParameter() {
 
-        if (mStringRelations!=null) {
-            relationSize=mStringRelations.size();
+        if (mStringRelations != null) {
+            relationSize = mStringRelations.size();
         }
-//
-//        startRelations = mStringRelations.get(relationSize/2);
     }
 
     private void initTimer() {
 
-        for (int i=0;i<relationSize;i++) {
+        for (int i = 0; i < relationSize; i++) {
             mStringRelations.add(mStringRelations.get(i));
         }
         loadComponent();
     }
+
     private void initArrayList() {
         if (mStringRelations == null)
             mStringRelations = new ArrayList<>();
-       // mStringRelations.clear();
-//        mStringRelations.add("爸爸");
-//        mStringRelations.add("妈妈");
-//        mStringRelations.add("爷爷");
-//        mStringRelations.add("奶奶");
-//        mStringRelations.add("叔叔");
-
-
     }
 
     private void loadComponent() {
@@ -138,20 +129,29 @@ public class RelationSeletor {
         relation_pv.setSelected(0);
         excuteScroll();
     }
+
     private void excuteScroll() {
         relation_pv.setCanScroll(relationSize > 1);
 
     }
 
     String mtext;
+    int mPosition;
     private void addListener() {
         relation_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
                 mtext = text;
-               // ToastTools.showShort(context,text);
             }
-        });}
+        });
+        relation_pv.setOnSelectListenerP(new PickerView.onSelectListenerP() {
+            @Override
+            public void onSelect(int position) {
+                mPosition = position;
+            }
+        });
+    }
+
 
     public void setIsLoop(boolean isLoop) {
         this.relation_pv.setIsLoop(isLoop);

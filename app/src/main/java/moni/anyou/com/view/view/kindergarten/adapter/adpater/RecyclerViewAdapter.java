@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.bean.RecycleViewBean;
+import moni.anyou.com.view.bean.request.ReqHomeBean;
+import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.view.KindergartenFragment;
 
 /**
@@ -23,13 +27,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private KindergartenFragment mContext;
     private LayoutInflater mInflater;
-    private List<RecycleViewBean> mItems;
-    public RecyclerViewAdapter(KindergartenFragment context,List<RecycleViewBean> items) {
+    private List<ResHomeData.TopTeachersBean> mItems;
+    public RecyclerViewAdapter(KindergartenFragment context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
-        mItems=items;
+
     }
 
+   public void  setdates(ArrayList<ResHomeData.TopTeachersBean> result){
+       if (mItems != null && mItems != null) {
+           mItems.clear();
+       }
+       if (result != null && result != null) {
+           mItems.addAll(result);
+       }
+       notifyDataSetChanged();
+   }
     View mView;
     @Override
     public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,9 +63,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHold mViewHold, int position) {
         mViewHold.itemView.setTag(position);
-        RecycleViewBean image = mItems.get(position);
+        ResHomeData.TopTeachersBean image = mItems.get(position);
 
-        mContext.setBitmaptoImageView(image.Url,
+        mContext.setBitmaptoImageView(image.getIcon(),
                 mViewHold.menuIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
@@ -71,7 +84,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(v,(RecycleViewBean)mItems.get((Integer)v.getTag()));
+            mOnItemClickListener.onItemClick(v,(ResHomeData.TopTeachersBean)mItems.get((Integer)v.getTag()));
         }
     }
 
@@ -95,13 +108,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //define interface
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view,RecycleViewBean data);
+        void onItemClick(View view,ResHomeData.TopTeachersBean data);
     }
 
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
-    public void setDatas(List<RecycleViewBean> result) {
+    public void setDatas(List<ResHomeData.TopTeachersBean> result) {
         if (result != null && mItems != null) {
             mItems.clear();
         }

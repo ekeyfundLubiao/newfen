@@ -79,6 +79,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.my.SuggestActivity"></activity>
+        <activity android:name=".view.web.ShowInfoActivity"/>
     </application>
 
 </manifest>

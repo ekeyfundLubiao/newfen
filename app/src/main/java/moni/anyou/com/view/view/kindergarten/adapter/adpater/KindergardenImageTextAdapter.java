@@ -16,18 +16,20 @@ import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.bean.Banner;
+import moni.anyou.com.view.bean.response.ResHomeData;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.view.KindergartenFragment;
 
 public class KindergardenImageTextAdapter extends PagerAdapter {
 	private KindergartenFragment mFragment;
 	private static final int FAKE_BANNER_SIZE = 1000000;
-	private List<Banner> list = new ArrayList<Banner>();
+	private List<ResHomeData.TopNewsBean> list = new ArrayList<ResHomeData.TopNewsBean>();
 
 	public KindergardenImageTextAdapter(KindergartenFragment fragment) {
 		this.mFragment = fragment;
 	}
 
-	public void setDatas(List<Banner> result) {
+	public void setDatas(List<ResHomeData.TopNewsBean> result) {
 		if (result != null && list != null) {
 			list.clear();
 		}
@@ -63,12 +65,12 @@ public class KindergardenImageTextAdapter extends PagerAdapter {
 				.findViewById(R.id.index_image);
 		TextView tvNewsTitle=(TextView)imageLayout.findViewById(R.id.tv_news_title);
 		TextView tvSizeMark=(TextView)imageLayout.findViewById(R.id.tv_size_mark);
-		final Banner banner = list.get(position);
+		final ResHomeData.TopNewsBean banner = list.get(position);
 		imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-		mFragment.setBitmaptoImageView21(banner.bannerUrl,imageView);
-		tvSizeMark.setText(banner.sizeMark);
-		tvNewsTitle.setText(banner.title);
+		mFragment.setBitmaptoImageView21(SysConfig.FileUrl+banner.getPic(),imageView);
+		tvSizeMark.setText(position+"/"+list.size());
+		tvNewsTitle.setText(banner.getTitle());
 		mainLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
