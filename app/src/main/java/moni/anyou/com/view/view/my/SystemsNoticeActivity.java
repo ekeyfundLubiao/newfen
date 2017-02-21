@@ -3,6 +3,7 @@ package moni.anyou.com.view.view.my;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ import moni.anyou.com.view.bean.request.ReqExitBean;
 import moni.anyou.com.view.bean.request.ReqPageBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.view.my.adapter.NoticeItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 public class SystemsNoticeActivity extends BaseActivity {
@@ -23,6 +25,8 @@ public class SystemsNoticeActivity extends BaseActivity {
     private NetProgressWindowDialog window;
     private int pageSize=12;
     private int pageNo=1;
+    private NoticeItemslAdapter mNoticeItemslAdapter;
+    private ListView lv_notice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,10 @@ public class SystemsNoticeActivity extends BaseActivity {
         window = new NetProgressWindowDialog(mContext);
         initTitle();
         tvTitle.setText("系统公告");
+        mNoticeItemslAdapter = new NoticeItemslAdapter(this);
+        lv_notice = (ListView) findViewById(R.id.lv_notice);
+        lv_notice.setAdapter(mNoticeItemslAdapter);
+
     }
 
     @Override

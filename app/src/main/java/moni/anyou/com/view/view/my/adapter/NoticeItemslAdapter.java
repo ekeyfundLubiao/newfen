@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moni.anyou.com.view.R;
+import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.tool.ToastTools;
@@ -21,11 +22,11 @@ import moni.anyou.com.view.view.my.SystemsNoticeActivity;
 import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 
 public class NoticeItemslAdapter extends BaseAdapter {
-    private MyFragment mContext;
+    private SystemsNoticeActivity mContext;
     private LayoutInflater mInflater;
     private List<HomeItemBean> list = new ArrayList<HomeItemBean>();
 
-    public NoticeItemslAdapter(MyFragment context) {
+    public NoticeItemslAdapter(SystemsNoticeActivity context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context.mBaseActivity);
     }
@@ -66,7 +67,7 @@ public class NoticeItemslAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHold viewHold = new ViewHold();
         if (convertView == null) {
-            convertView = View.inflate(mContext.mBaseActivity, R.layout.adapter_home_base_items, null);
+            convertView = View.inflate(mContext.mBaseActivity, R.layout.item_notice_living, null);
             viewHold.tv_noticeContent = (TextView) convertView.findViewById(R.id.tv_noticeContent);
             viewHold.tv_noticeTime = (TextView) convertView.findViewById(R.id.tv_noticeTime);
             convertView.setTag(viewHold);
