@@ -37,7 +37,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.account.LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.kindergarten.adapter.picshow.NewsPicDetaiActivity"
             android:screenOrientation="portrait" />
@@ -78,8 +78,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.my.SuggestActivity"></activity>
-        <activity android:name=".view.web.ShowInfoActivity"/>
+        <activity android:name=".view.my.SuggestActivity" />
+        <activity android:name=".view.web.ShowInfoActivity" />
+        <activity android:name=".view.my.SystemsNoticeActivity"></activity>
     </application>
 
 </manifest>

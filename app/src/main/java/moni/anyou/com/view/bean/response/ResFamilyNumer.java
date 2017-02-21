@@ -2,6 +2,7 @@ package moni.anyou.com.view.bean.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ResFamilyNumer extends ResponseStandard {
         this.list = list;
     }
 
-    public static class RelationBean {
+    public static class RelationBean implements Serializable{
         /**
          * user_id : 1
          * recommendId : 0

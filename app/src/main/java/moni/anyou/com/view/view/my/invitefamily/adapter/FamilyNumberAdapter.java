@@ -99,7 +99,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
                     mContext.removeFamoilyNumbers(new SelectFamily(position, temp));
                 }
                 if (mViewHold.ivMark.getVisibility() == View.VISIBLE) {
-                    mContext.addFamoilyNumbers(new SelectFamily(position, temp));
+                    mContext.addFamoilyNumbers(new SelectFamily(position, temp),position);
                 }
 
 
