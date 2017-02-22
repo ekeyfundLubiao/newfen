@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -15,6 +17,7 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.request.ReqExitBean;
 import moni.anyou.com.view.bean.request.ReqPageBean;
+import moni.anyou.com.view.bean.response.ResNoticeData;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.my.adapter.NoticeItemslAdapter;
@@ -24,7 +27,7 @@ public class SystemsNoticeActivity extends BaseActivity {
 
     private NetProgressWindowDialog window;
     private int pageSize=12;
-    private int pageNo=1;
+    private int pageNo=0;
     private NoticeItemslAdapter mNoticeItemslAdapter;
     private ListView lv_notice;
     @Override
@@ -56,7 +59,7 @@ public class SystemsNoticeActivity extends BaseActivity {
     public void postgetNotice() {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqPageBean("5", SysConfig.uid,SysConfig.token,""+pageNo,""+pageSize).ToJsonString();
+        String cmdPara = new ReqPageBean("8", SysConfig.uid,SysConfig.token,""+pageNo,""+pageSize).ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -68,7 +71,7 @@ public class SystemsNoticeActivity extends BaseActivity {
 
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        //ToastTools.showShort(mContext,"退出成功");
+                        mNoticeItemslAdapter.addDatas(new Gson().fromJson(t, ResNoticeData.class).getList());
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }

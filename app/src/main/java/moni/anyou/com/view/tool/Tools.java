@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -338,6 +339,14 @@ public class Tools {
 		return str;
 	}
 
+	public static String getForTime(String data) {
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				"MM-dd  HH:mm");
+		Date tmpDate = (new SimpleDateFormat("MM-dd  HH:mm")).parse(data, new ParsePosition(0));
+
+		String str = formatter.format(tmpDate);
+		return str;
+	}
 	public static String transferJson(String str) {
 		return str.replaceAll("\"", "'").replaceAll("'“", "'")
 				.replaceAll("'”", "'").replaceAll("\r\n", "<br/>")

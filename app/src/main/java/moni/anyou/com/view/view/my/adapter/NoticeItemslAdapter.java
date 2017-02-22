@@ -16,7 +16,9 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.HomeItemBean;
+import moni.anyou.com.view.bean.response.ResNoticeData;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.MyFragment;
 import moni.anyou.com.view.view.my.SystemsNoticeActivity;
 import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
@@ -24,14 +26,14 @@ import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 public class NoticeItemslAdapter extends BaseAdapter {
     private SystemsNoticeActivity mContext;
     private LayoutInflater mInflater;
-    private List<HomeItemBean> list = new ArrayList<HomeItemBean>();
+    private List<ResNoticeData.ListBean> list = new ArrayList<ResNoticeData.ListBean>();
 
     public NoticeItemslAdapter(SystemsNoticeActivity context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context.mBaseActivity);
     }
 
-    public void setDatas(List<HomeItemBean> result) {
+    public void setDatas(List<ResNoticeData.ListBean> result) {
         if (result != null && list != null) {
             list.clear();
         }
@@ -41,7 +43,13 @@ public class NoticeItemslAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addDatas(List<ResNoticeData.ListBean> result) {
 
+        if (list != null && result != null) {
+            list.addAll(result);
+        }
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         if (list != null && list.size() > 0) {
@@ -51,7 +59,7 @@ public class NoticeItemslAdapter extends BaseAdapter {
     }
 
     @Override
-    public HomeItemBean getItem(int position) {
+    public ResNoticeData.ListBean getItem(int position) {
         if (list != null && list.size() > 0) {
             return list.get(position);
         }
@@ -74,10 +82,10 @@ public class NoticeItemslAdapter extends BaseAdapter {
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        final HomeItemBean temp = list.get(position);
+        final ResNoticeData.ListBean temp = list.get(position);
 
-        viewHold.tv_noticeContent.setText(temp.title);
-        viewHold.tv_noticeTime.setText(temp.value);
+        viewHold.tv_noticeContent.setText(temp.getContents());
+        viewHold.tv_noticeTime.setText(temp.getAddtime());
 
         return convertView;
     }
