@@ -114,6 +114,77 @@
         android:dividerHeight="0dip" />
 
     <RelativeLayout
+        android:id="@+id/rl_accout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:minHeight="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="账号"
+            android:textColor="@color/color_left_title" />
+
+        <TextView
+            android:id="@+id/tv_accout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="26dp"
+            android:text=""
+            android:textColor="@color/color_text_color" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="13dp"
+            android:background="@color/bgcolor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_garden"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:minHeight="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="幼儿园"
+            android:textColor="@color/color_left_title" />
+
+        <TextView
+            android:id="@+id/tv_garden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="26dp"
+            android:text=""
+            android:textColor="@color/color_text_color" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="13dp"
+            android:background="@color/bgcolor" />
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/rl_sex"
         android:layout_width="match_parent"
         android:layout_height="45dp"

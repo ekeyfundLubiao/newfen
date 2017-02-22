@@ -58,6 +58,7 @@ public class UpdateLoginActivity extends BaseActivity implements View.OnClickLis
     public void setAction() {
         super.setAction();
         btnCommit.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +66,9 @@ public class UpdateLoginActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_commit:
                 postDate();
+                break;
+            case R.id.iv_left:
+                onBack();
                 break;
         }
     }

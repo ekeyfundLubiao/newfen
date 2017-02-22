@@ -9,16 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import moni.anyou.com.view.R;
-import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.base.BaseFragment;
-import moni.anyou.com.view.bean.RecycleViewBean;
-import moni.anyou.com.view.bean.VideoBean;
-import moni.anyou.com.view.view.KindergartenFragment;
+import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.view.living.LivingChildFragment;
-import moni.anyou.com.view.view.living.LivingChildRightFragment;
+import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 /**
  * Created by Administrator on 2016/11/21.
@@ -27,15 +25,16 @@ import moni.anyou.com.view.view.living.LivingChildRightFragment;
 public class VideoRecycleAdapter extends RecyclerView.Adapter<VideoRecycleAdapter.MyViewHold> implements View.OnClickListener {
 
 
+
     private BaseFragment mContext;
     private LayoutInflater mInflater;
-    private List<VideoBean> mItems;
+    private List<ResLiveBean.LiveBean> mItems=new ArrayList<>();
 
     public VideoRecycleAdapter(LivingChildFragment context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
     }
-    public VideoRecycleAdapter(LivingChildFragment context, List<VideoBean> items) {
+    public VideoRecycleAdapter(LivingChildFragment context,List<ResLiveBean.LiveBean> items) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
         mItems = items;
@@ -63,15 +62,15 @@ public class VideoRecycleAdapter extends RecyclerView.Adapter<VideoRecycleAdapte
     @Override
     public void onBindViewHolder(MyViewHold mViewHold, int position) {
         mViewHold.itemView.setTag(position);
-        VideoBean bean = mItems.get(position);
+       ResLiveBean.LiveBean bean = mItems.get(position);
 
-        mContext.setBitmaptoImageView(bean.Url,
-                mViewHold.videoIcon,
-                R.drawable.loading_null_21,
-                R.drawable.loading_null_21,
-                R.drawable.loading_err_21);
-        mViewHold.aliveNum.setText(bean.aliveNum);
-        mViewHold.className.setText(bean.className);
+//        mContext.setBitmaptoImageView(SysConfig.FileUrl+bean.url,
+//                mViewHold.videoIcon,
+//                R.drawable.loading_null_21,
+//                R.drawable.loading_null_21,
+//                R.drawable.loading_err_21);
+        mViewHold.aliveNum.setText(bean.cid);
+        mViewHold.className.setText(bean.liveName);
     }
 
     @Override
@@ -86,7 +85,7 @@ public class VideoRecycleAdapter extends RecyclerView.Adapter<VideoRecycleAdapte
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(v, (VideoBean) mItems.get((Integer) v.getTag()));
+            mOnItemClickListener.onItemClick(v, (ResLiveBean.LiveBean) mItems.get((Integer) v.getTag()));
         }
     }
 
@@ -113,18 +112,25 @@ public class VideoRecycleAdapter extends RecyclerView.Adapter<VideoRecycleAdapte
 
     //define interface
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, VideoBean data);
+        void onItemClick(View view, ResLiveBean.LiveBean data);
     }
 
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
-    public void setDatas(List<VideoBean> result) {
+    public void addDatas(List<ResLiveBean.LiveBean>result) {
+
+        if (mItems != null && result != null) {
+            mItems.addAll(result);
+        }
+        notifyDataSetChanged();
+    }
+    public void setDatas(List<ResLiveBean.LiveBean>result) {
         if (result != null && mItems != null) {
             mItems.clear();
         }
-        if (mItems != null && result != null) {
+        if (result != null) {
             mItems.addAll(result);
         }
         notifyDataSetChanged();

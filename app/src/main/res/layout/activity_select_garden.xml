@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_select_garden"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/com_top_bar" />
+    <View
+    android:background="@color/bgcolor"
+    android:layout_width="match_parent"
+    android:layout_height="6dp"/>
+    <ListView
+        android:id="@+id/lv_select"
+        android:divider="@color/bgcolor"
+        android:choiceMode="singleChoice"
+        android:dividerHeight="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

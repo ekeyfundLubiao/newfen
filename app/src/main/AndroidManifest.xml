@@ -80,7 +80,8 @@
         </activity>
         <activity android:name=".view.my.SuggestActivity" />
         <activity android:name=".view.web.ShowInfoActivity" />
-        <activity android:name=".view.my.SystemsNoticeActivity"></activity>
+        <activity android:name=".view.my.SystemsNoticeActivity" />
+        <activity android:name=".view.my.systemset.SelectGardenActivity"></activity>
     </application>
 
 </manifest>

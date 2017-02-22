@@ -63,7 +63,7 @@ public class BaseActivity extends FragmentActivity {
         initView();
         setData();
         setAction();
-//        sendHttp();
+        sendHttp();
     }
 
     /**
@@ -187,6 +187,12 @@ public class BaseActivity extends FragmentActivity {
     }
 
     /**
+     *
+     */
+    public void sendHttp(){
+
+    }
+    /**
      * 添加监听
      */
     public void setAction() {
@@ -205,6 +211,12 @@ public class BaseActivity extends FragmentActivity {
                 R.drawable.loading_err_21, R.drawable.loading_null_21);
     }
 
+
+
+    public void setBitmaptoImageView11(String url, ImageView imageview) {
+        setBitmaptoImageView(url, imageview, R.drawable.loading_11,
+                R.drawable.loading_err_11, R.drawable.loading_null_11);
+    }
     /**
      * 加载图片
      *

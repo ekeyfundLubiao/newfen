@@ -36,6 +36,7 @@ import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.InvitedInfo;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SelectFamily;
+import moni.anyou.com.view.bean.request.ReqUnbindFBean;
 import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
@@ -60,7 +61,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     private PopunbindFamily mPopunbindFamily;
     private NetProgressWindowDialog window;
     private ArrayList<DataClassBean> baseFamily = null;
-
+    private String relativeId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +88,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         super.setData();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
         rcFamilyNumbers.setLayoutManager(gridLayoutManager);
-        // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.HORIZONTAL));
-        // rcFamilyNumbers.addItemDecoration(new DividerItemDecoration(mContext,GridLayoutManager.VERTICAL));
         numberBeans = new ArrayList<>();
         MyAdapter = new FamilyNumberAdapter(this, numberBeans);
         rcFamilyNumbers.setAdapter(MyAdapter);
@@ -106,13 +105,10 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     checkbox.setText("取消");
-//                    RelationBean temp = numberBeans.get(1);
-//                    temp.boolDelete = true;
+;
                 } else {
                     checkbox.setText("解绑");
-//                    RelationBean temp = numberBeans.get(1);
-//                    temp.boolDelete = false;
-//                    MyAdapter.notifyItemChanged(1, temp);
+
                 }
 
                 int size = getList(isChecked).size();
@@ -134,23 +130,14 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 MyAdapter.notifyItemChanged(mBean.positon, mBean.bean);
                 mPopunbindFamily.dismiss();
                 break;
+            case R.id.btn_unbindcommit:
+                getUnbindF(relativeId);
+                mPopunbindFamily.dismiss();
+                break;
         }
     }
 
     public void initData() {
-//        RelationBean ftemp = new RelationBean("李铁牛", "http://img3.imgtn.bdimg.com/it/u=2364754357,1896189482&fm=21&gp=0.jpg", 1, "自己", "18909876789");
-//        RelationBean mtemp = new RelationBean("刘红梅", "http://img4.imgtn.bdimg.com/it/u=2040109377,1412473547&fm=21&gp=0.jpg", 1, "妈妈", "18923456789");
-//        RelationBean gftemp = new RelationBean("李从军", "http://qq1234.org/uploads/allimg/140926/3_140926144058_3.jpg", 1, "爷爷", "18909876749");
-//        RelationBean gmtemp = new RelationBean("黄小华", "http://img0.imgtn.bdimg.com/it/u=2752436590,1904914861&fm=21&gp=0.jpg", 1, "奶奶", "18909865789");
-//        RelationBean utemp = new RelationBean("李魏国", "http://img3.imgtn.bdimg.com/it/u=2364754357,1896189482&fm=21&gp=0.jpg", 0, "叔叔", "18909876789");
-//        RelationBean atemp = new RelationBean("刘小米", "http://img4.imgtn.bdimg.com/it/u=2040109377,1412473547&fm=21&gp=0.jpg", 0, "婶婶", "18923456789");
-//        numberBeans.add(ftemp);
-//        numberBeans.add(mtemp);
-//        numberBeans.add(gftemp);
-//        numberBeans.add(gmtemp);
-//        numberBeans.add(utemp);
-//        numberBeans.add(atemp);
-        //  MyAdapter.notifyDataSetChanged();
     }
 
     SelectFamily mBean;
@@ -162,6 +149,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
      */
     public void removeFamoilyNumbers(SelectFamily bean) {
         mBean = bean;
+        relativeId = bean.bean.getUser_id();
         mPopunbindFamily = new PopunbindFamily(this, this);
         mPopunbindFamily.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
         mPopunbindFamily.isShowing();
@@ -215,9 +203,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         return checkBeans;
     }
 
-//    {"cmd":"10","uid":"1000162","token":"20111222"}
-
-
     public void getdata() {
 
         KJHttp kjh = new KJHttp();
@@ -235,6 +220,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
+                        numberBeans.clear();
                         ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
                         int numhased = Fnumber.getList().size();
                          numberBeans = Fnumber.getList();
@@ -244,6 +230,42 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                             numberBeans.add(new ResFamilyNumer.RelationBean("", "1", 0, tempBean.getClassName(), "", tempBean.getPic(), tempBean.getClassID()));
                         }
                         MyAdapter.setDatas(numberBeans);
+                    } else {
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+
+                }
+                window.closeWindow();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+
+                window.closeWindow();
+            }
+        });
+    }
+    public void getUnbindF(String id) {
+
+        KJHttp kjh = new KJHttp();
+        KJStringParams params = new KJStringParams();
+        String cmdPara = new ReqUnbindFBean("11", SysConfig.uid, SysConfig.token,id).ToJsonString();
+        params.put("sendMsg", cmdPara);
+        window.ShowWindow();
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+            @Override
+            public void onSuccess(String t) {
+
+                Log.d(TAG, "onSuccess: " + t);
+                try {
+                    JSONObject jsonObject = new JSONObject(t);
+                    Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                    int result = Integer.parseInt(jsonObject.getString("result"));
+                    if (result >= 1) {
+                        getdata();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }

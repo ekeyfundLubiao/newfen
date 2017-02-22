@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_video_item"
+    android:layout_width="match_parent"
+    android:layout_height="79dp"
+    android:background="@color/white"
+    android:minHeight="79dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/tv_selectItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_margin="13dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#5a5a5a"
+        android:text="公告"/>
+
+</LinearLayout>

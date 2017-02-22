@@ -31,8 +31,8 @@ public class PopunbindFamily extends PopupWindow {
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mView = mInflater.inflate(R.layout.pop_unbindfamily,null);
-        btnCommit=(Button) mView.findViewById(R.id.btn_commit);
-        btnCancle=(Button) mView.findViewById(R.id.btn_cancel);
+        btnCommit=(Button) mView.findViewById(R.id.btn_unbindcommit);
+        btnCancle=(Button) mView.findViewById(R.id.btn_unbindcancel);
         btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

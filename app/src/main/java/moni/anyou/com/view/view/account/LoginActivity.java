@@ -22,6 +22,9 @@ import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
+import moni.anyou.com.view.view.IndexActivity;
+import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
+import moni.anyou.com.view.view.my.systemset.SelectGardenActivity;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 import static android.content.ContentValues.TAG;
@@ -96,7 +99,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         String cmdPara = "{\"cmd\":\"4\",\"mobile\":\"" + etUserName.getText().toString() + "\",\"password\":\"" + etUserPwd.getText().toString() + "\"}";
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
-        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+        kjh.urlPost(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
 
@@ -117,7 +120,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             editor.putString("sUserInfoJson", SysConfig.userInfoJson.toString());
                             editor.commit();// 提交刷新数据
                             onBack();
-                            startActivity(new Intent(mContext,CompleteBaseInfoActivity.class));
+                            startActivity(new Intent(mContext,IndexActivity.class));
                         } else {
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         }

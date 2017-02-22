@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
@@ -33,6 +36,7 @@ import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
+import static moni.anyou.com.view.config.SysConfig.dataJson;
 import static moni.anyou.com.view.tool.Tools.getBaseRelatenumberdatas;
 
 public class PersonInfoSettingActivity extends BaseActivity implements View.OnClickListener {
@@ -43,21 +47,25 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private static String TYPE_CONTETS = "contents"; //老师寄语
 
     private NetProgressWindowDialog window;
-    private NoListview lvSetselfInfo;
+
     private ImageView tvHeadIcon;
     private TextView tvChangepwd;
     private TextView tvSex;
     private TextView tvBrithday;
     private TextView tvRelatetobaby;
+    private TextView tvGarden;
+    private TextView tvAccount;
     private RelativeLayout rlSex;
     private RelativeLayout rlBrithday;
     private RelativeLayout rlRelate;
     private RelativeLayout rlUpdatepwd;
+    private RelativeLayout rlGarden;
+    private RelativeLayout rlAccount;
 
     private RelationSeletor mRelationSeletor;
     private RelationSeletor mSexSeletor;
 
-    private SettingItemslAdapter myAdapter;
+
     ArrayList<HomeItemBean> baseInfoList;
     ArrayList<String> mStringRelations = new ArrayList<>();
     ArrayList<String> mStringSexs = new ArrayList<>();
@@ -82,20 +90,23 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         window = new NetProgressWindowDialog(mContext);
         tvTitle.setText("个人资料");
-
+        rlGarden=(RelativeLayout) findViewById(R.id.rl_garden);
+        rlAccount = (RelativeLayout) findViewById(R.id.rl_accout);
         rlBrithday = (RelativeLayout) findViewById(R.id.rl_brith);
         rlRelate = (RelativeLayout) findViewById(R.id.rl_relate);
         rlSex = (RelativeLayout) findViewById(R.id.rl_sex);
         rlUpdatepwd = (RelativeLayout) findViewById(R.id.rl_updatepwd);
-        lvSetselfInfo = (NoListview) findViewById(R.id.lv_setselfInfo);
+
         tvHeadIcon = (ImageView) findViewById(R.id.tv_headIcon);
         tvChangepwd = (TextView) findViewById(R.id.tv_changepwd);
         tvSex = (TextView) findViewById(R.id.tv_sex);
         tvBrithday = (TextView) findViewById(R.id.tv_brithday);
         tvRelatetobaby = (TextView) findViewById(R.id.tv_relatetobaby);
-        myAdapter = new SettingItemslAdapter(this);
-        baseInfoList = new ArrayList<>();
-        lvSetselfInfo.setAdapter(myAdapter);
+        tvAccount = (TextView) findViewById(R.id.tv_accout);
+        tvGarden = (TextView) findViewById(R.id.tv_garden);
+
+
+
         rlBrithday.setVisibility(View.GONE);
         rlSex.setVisibility(View.GONE);
         rlRelate.setVisibility(View.GONE);
@@ -104,9 +115,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     @Override
     public void setData() {
         super.setData();
-        baseInfoList.add(new HomeItemBean("账号", "900786", false));
-        baseInfoList.add(new HomeItemBean("幼儿园", "双星幼儿园", false));
-        myAdapter.setDatas(baseInfoList);
         viewforFamiy();
         initSeleterData();
 
@@ -123,8 +131,9 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvBrithday.setOnClickListener(this);
         rlUpdatepwd.setOnClickListener(this);
         tvSex.setOnClickListener(this);
-
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -133,7 +142,10 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 onBack();
                 break;
             case R.id.tv_headIcon:
-                ToastTools.showShort(mContext, "设置头像");
+                mType = TYPE_ICON;
+                mVaule = "icon.png";
+                postUpdateInfo();
+//                ToastTools.showShort(mContext, "设置头像");
                 break;
             case R.id.tv_changepwd:
                 startActivity(new Intent(mBaseActivity, UpdateLoginActivity.class));
@@ -154,6 +166,15 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         }
     }
 
+    public static void jumpTo(int position,HomeItemBean bean){
+        Log.d(TAG, "jumpTo: "+bean.value);
+        if ("".equals(bean.value)) {
+
+        }else  if ("".equals(bean.value)) {
+
+        } if ("".equals(bean.value)) {
+        }
+    }
     //teacher headmaster
     public void viewforTeacheandMaster() {
         baseInfoList.add(new HomeItemBean("班级", "class", false));
@@ -165,7 +186,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
     //family
     public void viewforFamiy() {
-        baseInfoList.add(new HomeItemBean("班级", "class", false));
+      //  baseInfoList.add(new HomeItemBean("班级", "class", false));
         rlBrithday.setVisibility(View.VISIBLE);
         rlSex.setVisibility(View.VISIBLE);
         rlRelate.setVisibility(View.VISIBLE);
@@ -210,6 +231,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     }
 
     private void initSeleterData(){
+
         for (int i = 0, size = baseFamily.size(); i < size; i++) {
             mStringRelations.add(baseFamily.get(i).getClassName());
         }
@@ -234,7 +256,15 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
             @Override
             public void handle(String sex) {
                 mType = TYPE_SEX;
-                mVaule = "1";
+
+                if ("男".equals(sex)) {
+                    mVaule = "1";
+                } else if ("女".equals(sex)){
+                    mVaule = "2";
+                }
+                else if ("保密".equals(sex)){
+                    mVaule = "3";
+                }
                 postUpdateInfo();
                 tvSex.setText(sex);
             }
@@ -244,7 +274,30 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 ToastTools.showShort(mContext, "" + position);
             }
         });
+
+
+
+
+        BaseInfo baseInfo=new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+
+        setBitmaptoImageView11(SysConfig.FileUrl+baseInfo.icon,tvHeadIcon);
+        tvBrithday.setText(baseInfo.childbirthday);
+        tvRelatetobaby.setText(baseInfo.role);
+//        tvGarden.setText(bean);
+        tvAccount.setText(baseInfo.mobile);
+        switch (baseInfo.childsex) {
+            case 1:
+                tvSex.setText("男");
+                break;
+            case 2:
+                tvSex.setText("女");
+                break;
+            case 3:
+                tvSex.setText("保密");
+                break;
+        }
     }
+
 }
 
 

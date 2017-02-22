@@ -369,5 +369,18 @@ public class Tools {
 		return null;
 	}
 
+	public static String getRole(String roleId){
+		ArrayList<DataClassBean> temp = getBaseRelatenumberdatas();
+		String tempStr;
+		int size = temp.size();
+		for (int i = 0; i <size; i++) {
+
+			if ((roleId.equals(temp.get(i).getClassID()))) {
+				return temp.get(i).getClassName();
+
+			}
+		}
+		return null;
+	}
 
 }

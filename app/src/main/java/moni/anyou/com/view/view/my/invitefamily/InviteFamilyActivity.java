@@ -26,6 +26,7 @@ import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -86,8 +87,9 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setData() {
         super.setData();
-        TextTool.forDiffText("邀请XXXX的爷爷加入", tvInvitedNumbers, 2, mContext);
+
         mRelationBean = (ResFamilyNumer.RelationBean) getIntent().getSerializableExtra("bean");
+//        TextTool.forDiffText("邀请"+SysConfig.userInfoJson.get("nick")+"的"+ Tools.getRole(mRelationBean.roleid)+"加入", tvInvitedNumbers, 2, mContext);
     }
 
     public void getAddNumber() {

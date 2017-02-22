@@ -6,10 +6,19 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+import org.kymjs.aframe.http.KJHttp;
+import org.kymjs.aframe.http.KJStringParams;
+import org.kymjs.aframe.http.StringCallBack;
 
 import java.util.ArrayList;
 
@@ -25,15 +34,25 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.VideoBean;
+import moni.anyou.com.view.bean.request.ReqLiveBean;
+import moni.anyou.com.view.bean.response.ResLiveBean;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.living.adapter.VideoPublicAdapter;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
+import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
 
 public class LivingChildRightFragment extends BaseFragment {
 
+
+    private static int Fresh = 1;
+    private static int LoadMore = 2;
+    private NetProgressWindowDialog window;
+    private int pageSize=12;
+    private int  pageNo=1;
     private View mView;
     private PtrClassicDefaultHeader  header;
     private PtrClassicFrameLayout ptrFrame;
@@ -58,6 +77,7 @@ public class LivingChildRightFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
+        window = new NetProgressWindowDialog(mContext);
         mVideoArray = new ArrayList<>();
         listview=(RecyclerView) mView.findViewById(R.id.listview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext,2);
@@ -79,14 +99,11 @@ public class LivingChildRightFragment extends BaseFragment {
     public void setData() {
         super.setData();
         mVideoArray.clear();
-        for (int i=0;i<7;i++) {
-            mVideoArray.add(new VideoBean(LivingChildFragment.appArrays[i], "" + 22 * i + 1, "终极" + i + "班"));
-        }
-        publicAdapter = new VideoPublicAdapter(this,mVideoArray);
+        publicAdapter = new VideoPublicAdapter(this);
         listview.setAdapter(publicAdapter);
         publicAdapter.setmOnItemClickListener(new VideoPublicAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClick(View view, VideoBean data) {
+            public void onItemClick(View view, ResLiveBean.LiveBean data) {
                 Intent i = new Intent();
                 i.putExtra("data", data);
                 i.setClass(mBaseActivity, ALivingActivity.class);
@@ -121,14 +138,11 @@ public class LivingChildRightFragment extends BaseFragment {
         ptrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(final PtrFrameLayout frame) {
-
-                for (int i=0;i<7;i++) {
-                    mVideoArray.add(new VideoBean(LivingChildFragment.appArrays[i], "" + 22 * i + 1, "终极" + i + "班"));
-                }
+                pageNo++;
+                getData(2);
                 ptrFrame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        publicAdapter.notifyDataSetChanged();
                         frame.refreshComplete();
                     }
                 }, 1000);
@@ -136,16 +150,13 @@ public class LivingChildRightFragment extends BaseFragment {
 
             @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
-                //ToastTools.showShort(mBaseActivity,"刷新");
-                mVideoArray.clear();
-                for (int i=0;i<7;i++) {
-                    mVideoArray.add(new VideoBean(LivingChildFragment.appArrays[i], "" + 22 * i + 1, "终极" + i + "班"));
-                }
+                pageNo = 1;
+                getData(1);
                 ptrFrame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         frame.refreshComplete();
-                        publicAdapter.notifyDataSetChanged();
+
                     }
                 }, 1000);
             }
@@ -169,4 +180,52 @@ public class LivingChildRightFragment extends BaseFragment {
         }, 100);
 
     }
+
+
+    public void getData( final int Type) {
+        KJHttp kjh = new KJHttp();
+        KJStringParams params = new KJStringParams();
+        String cmdPara = new ReqLiveBean("16", SysConfig.uid, SysConfig.token,""+pageNo,""+pageSize,"publiclive").ToJsonString();
+        params.put("sendMsg", cmdPara);
+        window.ShowWindow();
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+            @Override
+            public void onSuccess(String t) {
+
+                Log.d(TAG, "onSuccess: " + t);
+                try {
+                    JSONObject jsonObject = new JSONObject(t);
+                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                    int result = Integer.parseInt(jsonObject.getString("result"));
+                    if (result >= 1) {
+                        ResLiveBean temp= new Gson().fromJson(t, ResLiveBean.class);
+                        switch (Type) {
+                            case 1:
+                                publicAdapter.setDatas(temp.getList());
+                                break;
+                            case 2:
+                                publicAdapter.addDatas(temp.getList());
+                                break;
+                        }
+                    } else {
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+
+                }
+                window.closeWindow();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+
+                window.closeWindow();
+            }
+        });
+
+
+    }
+
 }

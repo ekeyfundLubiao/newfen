@@ -13,7 +13,7 @@
         android:layout_gravity="center_vertical"
         android:background="@color/white">
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_unbindcancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
@@ -23,7 +23,7 @@
             android:textColor="@color/color_cancel"
             android:textSize="18dp" />
         <Button
-            android:id="@+id/btn_commit"
+            android:id="@+id/btn_unbindcommit"
             android:layout_width="50dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
