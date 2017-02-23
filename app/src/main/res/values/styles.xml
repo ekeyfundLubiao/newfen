@@ -131,4 +131,31 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="dialog_r_r">
+        <item name="android:windowEnterAnimation">@anim/activity_slide_right_in</item>
+        <item name="android:windowExitAnimation">@anim/activity_slide_right_out</item>
+        <item name="android:windowBackground">@color/color_dialog_bg</item>
+    </style>
+
+
+    <style name="dialog_animation_bottom">
+        <item name="android:windowEnterAnimation">@anim/activity_slide_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/activity_slide_bottom_out</item>
+        <item name="android:windowBackground">@color/color_dialog_bg</item>
+    </style>
+
+    <style name="dialog_animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out</item>
+        <item name="android:windowBackground">@color/color_dialog_bg</item>
+    </style>
 </resources>

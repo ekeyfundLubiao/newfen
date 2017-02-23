@@ -2,9 +2,14 @@ package moni.anyou.com.view.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -216,6 +221,85 @@ public class BaseFragment extends Fragment {
         tvTitle=(TextView) view.findViewById(R.id.page_title);
         ivBack=(ImageView) view.findViewById(R.id.iv_left);
         tvRight=(TextView) view.findViewById(R.id.right_tv);
+    }
+
+
+    public final static int ApplyPermission_Sign = 9999;
+
+    public void requestPermission(String permissionName) {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
+        {
+            //超过6.0以上需要授权
+            int checkSelfPermission = PackageManager.PERMISSION_GRANTED;
+            try {
+                checkSelfPermission = ActivityCompat.checkSelfPermission(mBaseActivity, permissionName);
+            } catch (RuntimeException e) {
+
+            }
+            if (checkSelfPermission != PackageManager.PERMISSION_GRANTED) {
+                //需要授权
+                if (ActivityCompat.shouldShowRequestPermissionRationale(mBaseActivity, permissionName)) {
+                    //拒绝过了,提示用户如果想要正常使用，要手动去设置中授权。
+//              Toast.makeText(mContext, "请在 设置-应用管理 中开启此应用的储存授权。", Toast.LENGTH_SHORT).show();
+                    permissionAlreadyRefuse(permissionName);
+                } else {
+                    //进行授权
+                    ActivityCompat.requestPermissions(mBaseActivity, new String[]{permissionName}, ApplyPermission_Sign);
+                }
+            } else {
+                //不需要授权,进行正常操作
+                permissionNoNeed(permissionName);
+            }
+        }else
+        {
+            permissionNoNeed(permissionName);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == ApplyPermission_Sign) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 同意授权,进行正常操作。
+                permissionSuccess(permissions[0]);
+            } else {
+                // 拒绝授权。
+                permissionRefuse(permissions[0]);
+            }
+        }
+    }
+
+
+    //不需要授权
+    public void permissionNoNeed(String permissionName) {
+
+    }
+
+
+    //权限授权成功
+    public void permissionSuccess(String permissionName) {
+
+    }
+
+    //权限被拒绝
+    public void permissionRefuse(String permissionName) {
+
+    }
+
+    //权限之前被拒绝
+    public void permissionAlreadyRefuse(String permissionName) {
+
+
+    }
+
+    //打开应用设置页面
+    public void openPermissionSettingPage()
+    {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", mBaseActivity.getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
 }

@@ -30,4 +30,6 @@
     <color name="color_text_color">#5A5A5A</color>
     <color name="color_left_title">#A0A4A3</color>
     <color name="color_text_hiden">#AbAbAb</color>
+    <!--弹出框-->
+    <color name="color_dialog_bg">#ff999999</color>
 </resources>

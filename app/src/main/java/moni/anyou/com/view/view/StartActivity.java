@@ -11,8 +11,10 @@ import moni.anyou.com.view.bean.DAO_DATA_Info;
 import moni.anyou.com.view.config.AnyouerApplication;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.FileHelper;
+import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.account.LoginActivity;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 
 
 import android.content.Context;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class StartActivity extends BaseActivity {
+    private static int RequestCode = 0x9128;
     MyHandler myHandler;
     Context mcontext;
     Intent intent;
@@ -77,8 +80,8 @@ public class StartActivity extends BaseActivity {
         }
         lastupload = share.getString("sLastupload", "");
         myHandler = new MyHandler();
-        MyThread m = new MyThread();
-        new Thread(m).start();
+
+        requestPermission(PermissionTools.readExternalStorage);
     }
 
     //得到APP版本号
@@ -211,7 +214,70 @@ public class StartActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void initView() {
+        super.initView();
+        mPDialog = new MessgeDialog((StartActivity) mBaseActivity);
+        mPDialog.setMRL("获取读写权限","取消","立即获取");
+        mPDialog.setListener();
+        mPDialog.setMsgDialogListener(new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
 
+            }
+
+            @Override
+            public void OnLeftClick() {
+onBack();
+            }
+
+            @Override
+            public void OnRightClick() {
+openPermissionSettingPage(RequestCode);
+            }
+
+            @Override
+            public void onDismiss() {
+onBack();
+            }
+        });
+    }
+
+    MessgeDialog mPDialog ;
+    @Override
+    public void permissionAlreadyRefuse(String permissionName) {
+        super.permissionAlreadyRefuse(permissionName);
+            mPDialog.show();
+    }
+
+    @Override
+    public void permissionRefuse(String permissionName) {
+        super.permissionRefuse(permissionName);
+        mPDialog.show();
+    }
+
+    @Override
+    public void permissionSuccess(String permissionName) {
+        super.permissionSuccess(permissionName);
+        MyThread m = new MyThread();
+        new Thread(m).start();
+    }
+
+    @Override
+    public void permissionNoNeed(String permissionName) {
+        super.permissionNoNeed(permissionName);
+        MyThread m = new MyThread();
+        new Thread(m).start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RequestCode) {
+            requestPermission(PermissionTools.readExternalStorage);
+            mPDialog.dismiss();
+        }
+    }
 }
 
 
