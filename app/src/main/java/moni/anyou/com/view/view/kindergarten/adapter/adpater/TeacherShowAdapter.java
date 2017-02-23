@@ -60,7 +60,7 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
         final ResHomeData.TopTeachersBean item = mItems.get(position);
         mViewHold.tvStar.setText(item.getLikes());
         mViewHold.tvTeacherName.setText(item.getNick());
-        mContext.setBitmaptoImageView(SysConfig.FileUrl+item.getIcon(),
+        mContext.setBitmaptoImageView(SysConfig.PicUrl+item.getIcon(),
                 mViewHold.ivTeacherIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,

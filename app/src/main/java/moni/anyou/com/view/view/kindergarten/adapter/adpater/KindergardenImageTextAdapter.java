@@ -68,7 +68,7 @@ public class KindergardenImageTextAdapter extends PagerAdapter {
 		final ResHomeData.TopNewsBean banner = list.get(position);
 		imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-		mFragment.setBitmaptoImageView21(SysConfig.FileUrl+banner.getPic(),imageView);
+		mFragment.setBitmaptoImageView21(SysConfig.PicUrl+banner.getPic(),imageView);
 		tvSizeMark.setText(position+"/"+list.size());
 		tvNewsTitle.setText(banner.getTitle());
 		mainLayout.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package moni.anyou.com.view.view.my.invitefamily;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -87,9 +89,14 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setData() {
         super.setData();
-
+        String childName="";
+        try {
+            childName=SysConfig.userInfoJson.getString("child");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mRelationBean = (ResFamilyNumer.RelationBean) getIntent().getSerializableExtra("bean");
-//        TextTool.forDiffText("邀请"+SysConfig.userInfoJson.get("nick")+"的"+ Tools.getRole(mRelationBean.roleid)+"加入", tvInvitedNumbers, 2, mContext);
+        TextTool.forDiffText("邀请"+childName+"的"+ Tools.getRole(mRelationBean.roleid)+"加入", tvInvitedNumbers, 2, mContext);
     }
 
     public void getAddNumber() {
@@ -109,7 +116,11 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
                     Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        setResult(0x1111);
+                        Intent intent = new Intent();
+                        intent.putExtra("role", Tools.getRole(mRelationBean.roleid));
+                        intent.putExtra("account", etPhoneNum.getText().toString());
+                        intent.putExtra("pwd",etPhoneNum.getText().toString().substring(6,11));
+                        setResult(0x1111,intent);
                         onBack();
 
                     } else {

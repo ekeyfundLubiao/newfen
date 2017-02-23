@@ -14,9 +14,10 @@ public class SysConfig {
     public final static String ServerUrl = "http://115.29.165.57:8080/anyouserver/mobileserver";
     //文件上传网址
     public final static String UploadUrl = "http://115.29.165.57:8080/anyoufileserver/httpserver";
+    //文件下载地
+    public final static String FileUrl = "http://115.29.165.57:8080/anyoufileserver/upload";
     //文件下载地址
-    public final static String FileUrl = "http://115.29.165.57:8080/anyoufileserver/upload/";
-    //文件下载地址
+    public final static String PicUrl = "http://115.29.165.57:8080/anyoufileserver/upload/";
     public final static String webUrl = "http://115.29.165.57:8080/anyouserver/m";
     public final static int port = 8080;
     public static final String File_DIR = "anyou";

@@ -20,6 +20,7 @@ import moni.anyou.com.view.bean.RecycleViewBean;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SelectFamily;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.DensityTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.KindergartenFragment;
@@ -64,7 +65,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
         mViewHold.itemView.setTag(position);
         ResFamilyNumer.RelationBean bean = mItems.get(position);
 
-        mContext.setBitmaptoImageView(bean.getIcon(),
+        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.getIcon(),
                 mViewHold.ivHeadIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,

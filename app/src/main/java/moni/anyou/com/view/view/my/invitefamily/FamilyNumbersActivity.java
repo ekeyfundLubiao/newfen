@@ -174,7 +174,11 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 //            mPopAddFamilySuccess.isShowing();
 //        }
         if (requestCode==9111&&resultCode==0x1111) {
-            mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo("伯伯", "123456", "774590"), this);
+            if (data != null) {
+                data.getExtras().getString("account");
+                data.getExtras().getString("pwd");
+            }
+            mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo(data.getExtras().getString("role"), data.getExtras().getString("account"), data.getExtras().getString("pwd")), this);
             mPopAddFamilySuccess.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
             mPopAddFamilySuccess.isShowing();
         }
@@ -225,7 +229,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                         int numhased = Fnumber.getList().size();
                          numberBeans = Fnumber.getList();
 
-                        for (int i = numhased; i < baseFamily.size(); i++) {
+                        for (int i = 0; i < baseFamily.size(); i++) {
                             DataClassBean tempBean = baseFamily.get(i);
                             numberBeans.add(new ResFamilyNumer.RelationBean("", "1", 0, tempBean.getClassName(), "", tempBean.getPic(), tempBean.getClassID()));
                         }

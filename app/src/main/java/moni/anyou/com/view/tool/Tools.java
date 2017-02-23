@@ -380,7 +380,7 @@ public class Tools {
 
 			}
 		}
-		return null;
+		return "亲戚";
 	}
 
 }
