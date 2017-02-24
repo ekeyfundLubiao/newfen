@@ -24,18 +24,20 @@ import moni.anyou.com.view.widget.NoListview;
 
 
 public class MyFragment extends BaseFragment implements View.OnClickListener {
-    private static int HEADMASTERLEAD=1;
-    private static int HEADMASTER=2;
-    private static int FAMILY=3;
+    private static int HEADMASTERLEAD = 1;
+    private static int HEADMASTER = 2;
+    private static int FAMILY = 3;
 
     private View mView;
     private NoListview lv_home;
     private HomeItemslAdapter myAdaper;
     private ImageView llSetInfo;
     ArrayList<HomeItemBean> itemBeens;
-    private int typeRole=-1;
+    private int typeRole = -1;
     private RelativeLayout rlSetting;
     private RelativeLayout RlSuggestion;
+    private RelativeLayout llRightarr;
+
     public MyFragment() {
 
     }
@@ -56,8 +58,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tvTitle.setText("我");
         lv_home = (NoListview) mView.findViewById(R.id.lv_home);
         llSetInfo = (ImageView) mView.findViewById(R.id.ll_setInfo);
-        rlSetting= (RelativeLayout) mView.findViewById(R.id.rl_setting);
-        RlSuggestion= (RelativeLayout) mView.findViewById(R.id.rl_suggestion);
+        rlSetting = (RelativeLayout) mView.findViewById(R.id.rl_setting);
+        RlSuggestion = (RelativeLayout) mView.findViewById(R.id.rl_suggestion);
+        llRightarr = (RelativeLayout) mView.findViewById(R.id.ll_Right_arr);
         myAdaper = new HomeItemslAdapter(this);
         lv_home.setAdapter(myAdaper);
         itemBeens = new ArrayList<HomeItemBean>();
@@ -92,10 +95,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void setAction() {
         super.setAction();
-        llSetInfo.setOnClickListener(this);
         rlSetting.setOnClickListener(this);
         RlSuggestion.setOnClickListener(this);
-
+        llRightarr.setOnClickListener(this);
     }
 
     @Override
@@ -104,33 +106,36 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.ll_setInfo:
                 Intent i = new Intent();
                 i.setClass(mBaseActivity, PersonInfoSettingActivity.class);
-                mBaseActivity.startActivity(i);
-                break;
-            case R.id.rl_setting:
-                startActivity(new Intent(mContext, SystemSettingActivity.class));
-                activityAnimation(RIGHT_IN);
+                this.startActivity(i);
                 break;
             case R.id.rl_suggestion:
-                startActivity(new Intent(mContext, SuggestActivity.class));
+                this.startActivity(new Intent(mContext, SuggestActivity.class));
+                activityAnimation(RIGHT_IN);
+                break;
+            case R.id.ll_Right_arr:
+                this.startActivity(new Intent(mContext, SystemSettingActivity.class));
                 activityAnimation(RIGHT_IN);
                 break;
             default:
                 break;
         }
     }
+
     // hmaster teacher
     public void initHeadmaster() {
         itemBeens.add(new HomeItemBean(R.mipmap.tongxunlu, "通讯录"));
     }
+
     //family
-    public void initInvitefamily(){
+    public void initInvitefamily() {
         itemBeens.add(new HomeItemBean(R.mipmap.home_icon_invite_family, "邀请家人"));
     }
+
     /**
      * 总园长
      */
-    public void initChangeGraden(){
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_changegarde, "切换幼儿园","徐家汇中心幼儿园",false));
+    public void initChangeGraden() {
+        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_changegarde, "切换幼儿园", "徐家汇中心幼儿园", false));
     }
 
 }

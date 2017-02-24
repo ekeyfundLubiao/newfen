@@ -62,6 +62,8 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private RelativeLayout rlGarden;
     private RelativeLayout rlAccount;
 
+
+
     private RelationSeletor mRelationSeletor;
     private RelationSeletor mSexSeletor;
 
@@ -90,7 +92,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         window = new NetProgressWindowDialog(mContext);
         tvTitle.setText("个人资料");
-        rlGarden=(RelativeLayout) findViewById(R.id.rl_garden);
+        rlGarden = (RelativeLayout) findViewById(R.id.rl_garden);
         rlAccount = (RelativeLayout) findViewById(R.id.rl_accout);
         rlBrithday = (RelativeLayout) findViewById(R.id.rl_brith);
         rlRelate = (RelativeLayout) findViewById(R.id.rl_relate);
@@ -106,10 +108,10 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvGarden = (TextView) findViewById(R.id.tv_garden);
 
 
-
         rlBrithday.setVisibility(View.GONE);
         rlSex.setVisibility(View.GONE);
         rlRelate.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -132,7 +134,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         rlUpdatepwd.setOnClickListener(this);
         tvSex.setOnClickListener(this);
     }
-
 
 
     @Override
@@ -166,15 +167,17 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    public static void jumpTo(int position,HomeItemBean bean){
-        Log.d(TAG, "jumpTo: "+bean.value);
+    public static void jumpTo(int position, HomeItemBean bean) {
+        Log.d(TAG, "jumpTo: " + bean.value);
         if ("".equals(bean.value)) {
 
-        }else  if ("".equals(bean.value)) {
+        } else if ("".equals(bean.value)) {
 
-        } if ("".equals(bean.value)) {
+        }
+        if ("".equals(bean.value)) {
         }
     }
+
     //teacher headmaster
     public void viewforTeacheandMaster() {
         baseInfoList.add(new HomeItemBean("班级", "class", false));
@@ -186,7 +189,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
     //family
     public void viewforFamiy() {
-      //  baseInfoList.add(new HomeItemBean("班级", "class", false));
+        //  baseInfoList.add(new HomeItemBean("班级", "class", false));
         rlBrithday.setVisibility(View.VISIBLE);
         rlSex.setVisibility(View.VISIBLE);
         rlRelate.setVisibility(View.VISIBLE);
@@ -230,7 +233,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         });
     }
 
-    private void initSeleterData(){
+    private void initSeleterData() {
 
         for (int i = 0, size = baseFamily.size(); i < size; i++) {
             mStringRelations.add(baseFamily.get(i).getClassName());
@@ -259,10 +262,9 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
                 if ("男".equals(sex)) {
                     mVaule = "1";
-                } else if ("女".equals(sex)){
+                } else if ("女".equals(sex)) {
                     mVaule = "2";
-                }
-                else if ("保密".equals(sex)){
+                } else if ("保密".equals(sex)) {
                     mVaule = "3";
                 }
                 postUpdateInfo();
@@ -276,11 +278,9 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         });
 
 
+        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
 
-
-        BaseInfo baseInfo=new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-
-        setBitmaptoImageView11(SysConfig.FileUrl+baseInfo.icon,tvHeadIcon);
+        setBitmaptoImageView11(SysConfig.FileUrl + baseInfo.icon, tvHeadIcon);
         tvBrithday.setText(baseInfo.childbirthday);
         tvRelatetobaby.setText(baseInfo.role);
 //        tvGarden.setText(bean);
