@@ -23,9 +23,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/iv_headicon"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignTop="@+id/iv_headicon"
+            android:layout_toRightOf="@+id/iv_headicon"
+            android:layout_toEndOf="@+id/iv_headicon"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp">
 
             <TextView
                 android:id="@+id/tv_nickName"
@@ -72,9 +75,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:id="@+id/iv_zan"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="35dp"
                     android:layout_gravity="right"
                     android:background="@mipmap/zan" />
 
@@ -82,8 +85,8 @@
                     android:id="@+id/iv_share"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="6dp"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:background="@mipmap/zhuanfa_75" />
             </RelativeLayout>
 

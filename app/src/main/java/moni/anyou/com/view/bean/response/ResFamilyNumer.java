@@ -54,11 +54,12 @@ public class ResFamilyNumer extends ResponseStandard {
         private String user_id;
         private String recommendId;
         public int status;
-        private String nick;
+        private String nick="匿名";
         private String mobile;
         private String icon;
         public boolean boolDelete = false;
         public String roleid;
+        public String role;
 
         public void setBoolDelete(boolean boolDelete) {
             this.boolDelete = boolDelete;
@@ -112,7 +113,7 @@ public class ResFamilyNumer extends ResponseStandard {
             this.icon = icon;
         }
 
-        public RelationBean(String user_id, String recommendId, int status, String nick, String mobile, String icon,String roleid) {
+        public RelationBean(String user_id, String recommendId, int status, String nick, String mobile, String icon,String role) {
 
             this.user_id = user_id;
             this.recommendId = recommendId;
@@ -120,7 +121,8 @@ public class ResFamilyNumer extends ResponseStandard {
             this.nick = nick;
             this.mobile = mobile;
             this.icon = icon;
-            this.roleid = roleid;
+            this.role = role;
+
         }
     }
 }

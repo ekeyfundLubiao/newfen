@@ -64,11 +64,12 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
             mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
         } else {
             mViewHold.ivSentPic.setImageBitmap(item.bitmap);
-//            mContext.setBitmaptoImageView(item.Url,
-//                    mViewHold.ivSentPic,
-//                    R.drawable.loading_null_21,
-//                    R.drawable.loading_null_21,
-//                    R.drawable.loading_err_21);
+
+            mContext.setBitmaptoImageView(item.Url,
+                    mViewHold.ivSentPic,
+                    R.drawable.loading_null_21,
+                    R.drawable.loading_null_21,
+                    R.drawable.loading_err_21);
         }
 
     }

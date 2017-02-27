@@ -19,6 +19,8 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.DynamicsTempItems;
 import moni.anyou.com.view.bean.SentPicBean;
+import moni.anyou.com.view.bean.response.ResDynamicsBean;
+import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.DynamicsFragment;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
@@ -32,7 +34,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
 
     private DynamicsFragment mContext;
     private LayoutInflater mInflater;
-    private ArrayList<DynamicsTempItems> mItems=new ArrayList<>();
+    private ArrayList<ResDynamicsBean.ListBean> mItems=new ArrayList<>();
 
     public DynamicsItemAdapter(DynamicsFragment context) {
         this.mContext = context;
@@ -55,7 +57,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
     }
 
     @Override
-    public DynamicsTempItems getItem(int i) {
+    public ResDynamicsBean.ListBean getItem(int i) {
         return mItems.get(i);
     }
 
@@ -65,7 +67,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
     }
 
     @Override
-    public View getView(int i, View mView, ViewGroup viewGroup) {
+    public View getView( final int position, View mView, ViewGroup viewGroup) {
         MyViewHold holder = null;
 
         if (holder == null) {
@@ -84,20 +86,27 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
             holder.rc_icon.setLayoutManager(gridLayoutManager);
             holder.tv_lots = (TextView) mView.findViewById(R.id.tv_lots);
             mView.setTag(holder);
+
         } else {
             holder = (MyViewHold) mView.getTag();
         }
-        DynamicsTempItems temps = getItem(i);
+        ResDynamicsBean.ListBean temps = getItem(position);
 
-        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.items);
+        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
 
         holder.rc_icon.setAdapter(tempRecAdapter);
-        mContext.setBitmaptoImageView11(temps.iconUrl,holder.iv_headicon);
-        holder.tv_sentTime.setText(temps.sentTime);
-        holder.tvnickname.setText(temps.userName);
-        holder.tv_dynamicsContant.setText(temps.dynamicsCotents);
-        holder.tv_lots.setText(temps.StartMan);
-
+//        mContext.setBitmaptoImageView11(temps.iconUrl,holder.iv_headicon);
+        holder.tv_sentTime.setText("1小时");
+        holder.tvnickname.setText(temps.getLikeuser());
+        holder.tv_dynamicsContant.setText(temps.getContent());
+//        holder.tv_lots.setText(temps.StartMan);
+        holder.tv_lots.setText("你／我／他");
+        holder.ivZan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.marklike(position,getItem(position));
+            }
+        });
         return mView;
     }
 
@@ -112,71 +121,8 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         TextView tv_lots;
 
     }
-//
-//    @Override
-//    public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
-//
-//        MyViewHold holder = null;
-//
-//        if (holder == null) {
-//            mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
-//            holder = new MyViewHold(mView);
-//            mView.setTag(holder);
-//        } else {
-//            holder = (MyViewHold) mView.getTag();
-//        }
-//      mView.setOnClickListener(this);
-//        return holder;
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(MyViewHold mViewHold, final int position) {
-//        mViewHold.itemView.setTag(position);
-//        final SentPicBean item = mItems.get(position);
-//
-//        if (position == mItems.size()-1) {
-//            mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
-//        } else {
-//            mViewHold.ivSentPic.setImageBitmap(item.bitmap);
-////            mContext.setBitmaptoImageView(item.Url,
-////                    mViewHold.ivSentPic,
-////                    R.drawable.loading_null_21,
-////                    R.drawable.loading_null_21,
-////                    R.drawable.loading_err_21);
-//        }
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        if (mItems != null) {
-//            return mItems.size();
-//        }
-//        return 0;
-//    }
-//
-//    @Override
-//    public void onClick(View v) {
-//        if (mOnItemClickListener != null) {
-//            //注意这里使用getTag方法获取数据
-//            mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get((Integer) v.getTag()));
-//        }
-//    }
-//
 
-//
-//    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-//
-//    //define interface
-//    public static interface OnRecyclerViewItemClickListener {
-//        void onItemClick(View view, SentPicBean data);
-//    }
-//
-//    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
-//        this.mOnItemClickListener = mOnItemClickListener;
-//    }
-//
-    public void setDatas(List<DynamicsTempItems> result) {
+    public void setDatas(List<ResDynamicsBean.ListBean> result) {
         if (result != null && mItems != null) {
             mItems.clear();
         }
@@ -184,13 +130,11 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
             mItems.addAll(result);
         }
         notifyDataSetChanged();
-
     }
-    public void AddDatas(List<DynamicsTempItems> result) {
+    public void AddDatas(List<ResDynamicsBean.ListBean> result) {
         if (mItems != null && result != null) {
             mItems.addAll(result);
         }
         notifyDataSetChanged();
-
     }
 }

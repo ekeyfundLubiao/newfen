@@ -266,13 +266,16 @@ public class KindergartenFragment extends BaseFragment {
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-
-                        getdata();
-//                       showTeacherAdapter.notifyItemChanged(position,new ResHomeData.TopTeachersBean(teacher.getUser_id(),
-//                               teacher.getUrl(),
-//                               teacher.getNick(),
-//                               teacher.getIcon(),
-//                               ""+(Integer.parseInt(teacher.getLikes()))+1));
+                        Log.d(TAG, "Likebefore: " + teacher.getLikes());
+                        int temp = Integer.parseInt(teacher.getLikes()) + 1;
+                        Log.d(TAG, "LikeAfter: " + temp);
+                      // getdata();
+                       showTeacherAdapter.notifyItemChanged(position,new ResHomeData.TopTeachersBean(teacher.getUser_id(),
+                               teacher.getUrl(),
+                               teacher.getNick(),
+                               teacher.getIcon(),
+                               ""+temp));
+                        showTeacherAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }

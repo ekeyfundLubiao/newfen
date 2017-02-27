@@ -86,6 +86,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 onBack();
                 break;
             case R.id.right_tv:
+
                 break;
         }
     }
@@ -129,8 +130,8 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
 
 //            picMap.put("picOBj", new Documents(pathImage, "00000000-0000-0000-0000-000000000000", true, pathImage));
-//            SentPicBean pic = new SentPicBean(pathImage,null);
-//            list.add(picMap);
+           SentPicBean pic = new SentPicBean(pathImage,null);
+           list.add(pic);
 
             mySentPicAdapter.notifyDataSetChanged();
             // 刷新后释放防止手机休眠后自动添加

@@ -23,6 +23,7 @@ import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.DensityTools;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.KindergartenFragment;
 import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 
@@ -71,7 +72,8 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
         mViewHold.ivMark.setVisibility(View.GONE);
-        mViewHold.tvRelation.setText("[" + bean.roleid + "]");
+       // String temp=Tools.getRole(bean.role);
+        mViewHold.tvRelation.setText("[" + bean.role+ "]");
         if (bean.getStatus() == 0) {
             mViewHold.tvRelation.setTextColor(Color.RED);
             mViewHold.ivMark.setVisibility(View.VISIBLE);

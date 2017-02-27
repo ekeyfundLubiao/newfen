@@ -30,6 +30,7 @@ import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.my.systemset.UpdateLoginActivity;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
@@ -242,7 +243,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
             @Override
             public void handle(String relation) {
                 mType = TYPE_ROLE;
-                mVaule = relation;
+                mVaule = Tools.getRoleId(relation);
                 postUpdateInfo();
                 tvRelatetobaby.setText(relation);
             }
@@ -282,8 +283,8 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         setBitmaptoImageView11(SysConfig.FileUrl + baseInfo.icon, tvHeadIcon);
         tvBrithday.setText(baseInfo.childbirthday);
-        tvRelatetobaby.setText(baseInfo.role);
-//        tvGarden.setText(bean);
+        tvRelatetobaby.setText(Tools.getRole(baseInfo.role));
+        tvGarden.setText(baseInfo.gradename);
         tvAccount.setText(baseInfo.mobile);
         switch (baseInfo.childsex) {
             case 1:

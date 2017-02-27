@@ -1,32 +1,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="moni.anyou.com.view.view.KindergartenFragment">
 
-    <include layout="@layout/com_top_bar" />
+    <RelativeLayout style="@style/layout_top_bar">
+
+        <TextView
+            android:id="@+id/tv_left"
+            style="@style/backvview_top_bar"
+            android:background="@null"
+            android:textSize="20dp"
+            android:text="全"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="29dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_left"
+            android:background="@mipmap/zan"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/page_title"
+            style="@style/text_top_bar_title"
+            android:text="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/right_tv"
+            android:layout_width="29dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/bianji"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
     <RelativeLayout
-        android:background="@mipmap/bj_dongtai"
         android:layout_width="match_parent"
-        android:layout_height="139dp">
+        android:layout_height="139dp"
+        android:background="@mipmap/bj_dongtai">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_headIcon"
             android:layout_width="60dp"
-            android:layout_alignParentRight="true"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:src="@mipmap/jiaoshifengcai"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="13dp"
-            app:civ_border_width="2dp"
+            android:src="@mipmap/jiaoshifengcai"
             app:civ_border_color="@color/white"
-            android:layout_height="60dp" />
+            app:civ_border_width="2dp" />
     </RelativeLayout>
+
     <ListView
         android:id="@+id/lv_dynamics"
-        android:dividerHeight="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="6dp"
         android:divider="@color/bgcolor"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:dividerHeight="2dp" />
 </LinearLayout>

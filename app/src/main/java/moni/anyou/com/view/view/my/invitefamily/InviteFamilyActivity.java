@@ -96,14 +96,17 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
             e.printStackTrace();
         }
         mRelationBean = (ResFamilyNumer.RelationBean) getIntent().getSerializableExtra("bean");
-        TextTool.forDiffText("邀请"+childName+"的"+ Tools.getRole(mRelationBean.roleid)+"加入", tvInvitedNumbers, 2, mContext);
+        TextTool.forDiffText("邀请"+childName+"的"+ mRelationBean.role+"加入", tvInvitedNumbers, 2, mContext);
+        if (!"".equals(mRelationBean.getMobile())) {
+            etPhoneNum.setText(mRelationBean.getMobile());
+        }
     }
 
     public void getAddNumber() {
 
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqAddFamilyBean("2", SysConfig.uid, SysConfig.token, etPhoneNum.getText().toString(), mRelationBean.roleid).ToJsonString();
+        String cmdPara = new ReqAddFamilyBean("2", SysConfig.uid, SysConfig.token, etPhoneNum.getText().toString(), Tools.getRoleId(mRelationBean.role)).ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -117,7 +120,7 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         Intent intent = new Intent();
-                        intent.putExtra("role", Tools.getRole(mRelationBean.roleid));
+                        intent.putExtra("role", mRelationBean.role);
                         intent.putExtra("account", etPhoneNum.getText().toString());
                         intent.putExtra("pwd",etPhoneNum.getText().toString().substring(6,11));
                         setResult(0x1111,intent);

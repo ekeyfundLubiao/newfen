@@ -62,6 +62,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     private NetProgressWindowDialog window;
     private ArrayList<DataClassBean> baseFamily = null;
     private String relativeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     checkbox.setText("取消");
-;
+                    ;
                 } else {
                     checkbox.setText("解绑");
 
@@ -157,7 +158,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 
     }
 
-    public void addFamoilyNumbers(SelectFamily bean,int position) {
+    public void addFamoilyNumbers(SelectFamily bean, int position) {
 
         Intent addNumntent = new Intent();
         addNumntent.putExtra("bean", numberBeans.get(position));
@@ -173,7 +174,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 //            mPopAddFamilySuccess.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
 //            mPopAddFamilySuccess.isShowing();
 //        }
-        if (requestCode==9111&&resultCode==0x1111) {
+        if (requestCode == 9111 && resultCode == 0x1111) {
             if (data != null) {
                 data.getExtras().getString("account");
                 data.getExtras().getString("pwd");
@@ -227,12 +228,24 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                         numberBeans.clear();
                         ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
                         int numhased = Fnumber.getList().size();
-                         numberBeans = Fnumber.getList();
+                        numberBeans = Fnumber.getList();
+                        for (int i = 0, size = numberBeans.size(); i < size; i++) {
 
-                        for (int i = 0; i < baseFamily.size(); i++) {
-                            DataClassBean tempBean = baseFamily.get(i);
-                            numberBeans.add(new ResFamilyNumer.RelationBean("", "1", 0, tempBean.getClassName(), "", tempBean.getPic(), tempBean.getClassID()));
+                                ResFamilyNumer.RelationBean tempbean = numberBeans.get(i);
+                                numberBeans.set(i, new ResFamilyNumer.RelationBean(
+                                        tempbean.getUser_id(),
+                                        tempbean.getRecommendId(),
+                                        tempbean.getStatus(),
+                                        (tempbean.getNick().equals("") ? "匿名" : tempbean.getNick()),
+                                        tempbean.getMobile(),
+                                        (tempbean.getIcon().equals("")
+                                                ? Tools.getRoledefaultIcon(tempbean.role) : tempbean.getIcon()),
+                                        Tools.getRole(tempbean.role)));
+
+
+
                         }
+
                         MyAdapter.setDatas(numberBeans);
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
@@ -252,11 +265,12 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
             }
         });
     }
+
     public void getUnbindF(String id) {
 
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqUnbindFBean("11", SysConfig.uid, SysConfig.token,id).ToJsonString();
+        String cmdPara = new ReqUnbindFBean("11", SysConfig.uid, SysConfig.token, id).ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
