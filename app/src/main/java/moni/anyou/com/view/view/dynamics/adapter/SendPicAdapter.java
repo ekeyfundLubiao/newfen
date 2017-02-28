@@ -24,25 +24,31 @@ import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
  * Created by Administrator on 2016/11/21.
  */
 
-public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHold> implements View.OnClickListener {
+public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHold> {
 
 
     private BaseActivity mContext;
     private LayoutInflater mInflater;
-    private ArrayList<SentPicBean> mItems;
+    private ArrayList<SentPicBean> mItems=new ArrayList<SentPicBean>();
 
     public SendPicAdapter(SendDynamicActivity context, ArrayList<SentPicBean> items) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
-        mItems = items;
+        mItems.addAll(items);
+    }
+
+    public void addPic(SentPicBean sBean) {
+        mItems.add(sBean);
+        notifyDataSetChanged();
+
     }
 
     View mView;
-
+    MyViewHold holder = null;
     @Override
     public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        MyViewHold holder = null;
+
 
         if (holder == null) {
             mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
@@ -51,7 +57,12 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
         } else {
             holder = (MyViewHold) mView.getTag();
         }
-      mView.setOnClickListener(this);
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get((Integer) v.getTag()),(Integer) v.getTag());
+            }
+        });
         return holder;
     }
 
@@ -60,7 +71,7 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
         mViewHold.itemView.setTag(position);
         final SentPicBean item = mItems.get(position);
 
-        if (position == mItems.size()-1) {
+        if (position == mItems.size() - 1) {
             mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
         } else {
             mViewHold.ivSentPic.setImageBitmap(item.bitmap);
@@ -82,13 +93,6 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
         return 0;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (mOnItemClickListener != null) {
-            //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get((Integer) v.getTag()));
-        }
-    }
 
     class MyViewHold extends RecyclerView.ViewHolder {
         ImageView ivSentPic;
@@ -107,7 +111,7 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
 
     //define interface
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, SentPicBean data);
+        void onItemClick(View view, SentPicBean data, int positon);
     }
 
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {

@@ -12,12 +12,15 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.SentPicBean;
+import moni.anyou.com.view.tool.KeyBoardTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.dynamics.adapter.SendPicAdapter;
 import moni.anyou.com.view.widget.dialog.PopSelectPicture;
@@ -27,6 +30,7 @@ import static moni.anyou.com.view.widget.dialog.PopSelectPicture.IMAGE_OPEN_2;
 public class SendDynamicActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView rcPic;
+    private EditText etContentDynamic;
     private SendPicAdapter mySentPicAdapter;
     ArrayList<SentPicBean> list=new ArrayList<SentPicBean>();
     PopSelectPicture mPopSelectPicture;
@@ -47,6 +51,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         tvTitle.setText("");
         tvRight.setText("发送");
         tvRight.setVisibility(View.VISIBLE);
+        etContentDynamic = (EditText) findViewById(R.id.et_content_dynamic);
         rcPic = (RecyclerView) findViewById(R.id.rc_pic);
         mPopSelectPicture = new PopSelectPicture(mBaseActivity, this);
     }
@@ -55,6 +60,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     public void setAction() {
         tvRight.setOnClickListener(this);
         ivBack.setOnClickListener(this);
+        KeyBoardTools.closeKeybord(etContentDynamic,mContext);
     }
 
     @Override
@@ -69,10 +75,10 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         rcPic.setAdapter(mySentPicAdapter);
         mySentPicAdapter.setmOnItemClickListener(new SendPicAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClick(View view, SentPicBean data) {
-                if ("".equals(data.filePathName)) {
+            public void onItemClick(View view, SentPicBean data,int position) {
+                if (position==list.size()-1) {
                     mPopSelectPicture.showAtLocation(mBaseActivity.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
-                    ToastTools.showShort(mContext,"添加");
+                    ToastTools.showShort(mContext,"添加:"+ position);
                 }
 
             }
@@ -130,10 +136,10 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
 
 //            picMap.put("picOBj", new Documents(pathImage, "00000000-0000-0000-0000-000000000000", true, pathImage));
-           SentPicBean pic = new SentPicBean(pathImage,null);
-           list.add(pic);
-
-            mySentPicAdapter.notifyDataSetChanged();
+            SentPicBean pic = new SentPicBean(pathImage,null);
+            mySentPicAdapter.addPic(pic);
+//           list.add(pic);
+//            mySentPicAdapter.notifyDataSetChanged();
             // 刷新后释放防止手机休眠后自动添加
             pathImage = null;
         }

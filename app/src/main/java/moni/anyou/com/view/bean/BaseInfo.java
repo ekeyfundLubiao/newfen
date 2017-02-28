@@ -21,8 +21,9 @@ public class BaseInfo {
     public int childsex;
     public String childbirthday;
     public String role;
-    public String companyname;//":"未来强者分园1"
+    public String companyname;
     public String gradename;
+
 
 
 

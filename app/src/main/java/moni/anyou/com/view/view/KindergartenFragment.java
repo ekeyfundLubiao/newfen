@@ -245,10 +245,6 @@ public class KindergartenFragment extends BaseFragment {
     }
 
 
-    // 下载轮播图
-    public void setCycleImg(final List<Banner> imgList) {
-
-    }
 
     public void postLikeTeacher( final ResHomeData.TopTeachersBean teacher, final int position) {
         KJHttp kjh = new KJHttp();
