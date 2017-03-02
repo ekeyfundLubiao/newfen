@@ -20,7 +20,9 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.DynamicsTempItems;
 import moni.anyou.com.view.bean.SentPicBean;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.DynamicsFragment;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
@@ -95,12 +97,12 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
 
         holder.rc_icon.setAdapter(tempRecAdapter);
-//        mContext.setBitmaptoImageView11(temps.iconUrl,holder.iv_headicon);
+        mContext.setBitmaptoImageView11(SysConfig.PicUrl+temps.getPic(),holder.iv_headicon);
         holder.tv_sentTime.setText("1小时");
-        holder.tvnickname.setText(temps.getLikeuser());
+        holder.tvnickname.setText(temps.getNick());
         holder.tv_dynamicsContant.setText(temps.getContent());
 //        holder.tv_lots.setText(temps.StartMan);
-        holder.tv_lots.setText("你／我／他");
+        holder.tv_lots.setText(Tools.getLikeNikeName(temps.getLikeuser()).toString());
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

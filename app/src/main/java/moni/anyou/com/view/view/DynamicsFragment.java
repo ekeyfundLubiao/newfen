@@ -40,7 +40,7 @@ import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 
-public class DynamicsFragment extends BaseFragment implements View.OnClickListener{
+public class DynamicsFragment extends BaseFragment implements View.OnClickListener {
     private static int Fresh = 1;
     private static int LoadMore = 2;
     private View mView;
@@ -91,14 +91,21 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         ivRight.setOnClickListener(this);
     }
 
-    public  void marklike(int position, ResDynamicsBean.ListBean bean){
+    public void marklike(int position, ResDynamicsBean.ListBean bean) {
         postLikeArticle(position, bean);
     }
+
     @Override
     public void setData() {
         super.setData();
         getData();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
     }
 
     public void getData() {
@@ -143,7 +150,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void postLikeArticle(int position, ResDynamicsBean.ListBean bean) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token,bean.getUserid(),"article").ToJsonString();
+        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getUserid(), "article").ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -157,7 +164,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
 
-                         getData();
+                        getData();
 
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
@@ -182,7 +189,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.right_tv:
-                startActivity(new Intent(mContext,SendDynamicActivity.class));
+                startActivity(new Intent(mContext, SendDynamicActivity.class));
                 activityAnimation(RIGHT_IN);
                 break;
         }

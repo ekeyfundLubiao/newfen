@@ -55,6 +55,24 @@ public class ResDynamicsBean extends ResponseStandard {
         private String cid;
         private String gid;
         private String likeuser;
+        private String icon;//": "icon.png","
+        private String nick;//":"刘晓红",
+
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
+        public String getNick() {
+            return nick;
+        }
+
+        public void setNick(String nick) {
+            this.nick = nick;
+        }
 
         public String getArticleid() {
             return articleid;

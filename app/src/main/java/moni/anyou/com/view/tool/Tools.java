@@ -416,4 +416,28 @@ public class Tools {
         }
         return "icon";
     }
+
+    public static ArrayList<KeyVaule> getLikeNikeName(String like) {
+        ArrayList<KeyVaule> likelist = new ArrayList<>();
+        String[] likeArray = like.split("|||");
+        int size = likeArray.length;
+
+        for (int i = 0; i < size; i++) {
+            String[] tempStr = likeArray[i].split(":::");
+            KeyVaule tempBean = new KeyVaule();
+            tempBean.nickName = tempStr[1];
+            tempBean.userId = tempStr[0];
+            tempBean.islikeMark = ("1".equals(tempBean.nickName) ? true : false);
+            likelist.add(tempBean);
+        }
+        return likelist;
+    }
+
+
+    public static class KeyVaule {
+        public boolean islikeMark;
+        public String userId;
+        public String nickName;
+
+    }
 }
