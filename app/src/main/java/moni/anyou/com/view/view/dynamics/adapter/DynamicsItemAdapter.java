@@ -25,6 +25,7 @@ import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.DynamicsFragment;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
+import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
 /**
@@ -101,8 +102,10 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         holder.tv_sentTime.setText("1小时");
         holder.tvnickname.setText(temps.getNick());
         holder.tv_dynamicsContant.setText(temps.getContent());
-//        holder.tv_lots.setText(temps.StartMan);
-        holder.tv_lots.setText(Tools.getLikeNikeName(temps.getLikeuser()).toString());
+        holder.tv_lots.setText(temps.getLikeuser());
+        if (!TextUtil.isEmpty(temps.getLikeuser())) {
+           // holder.tv_lots.setText(Tools.getLikeNikeName(temps.getLikeuser()).get(position).nickName);
+        }
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

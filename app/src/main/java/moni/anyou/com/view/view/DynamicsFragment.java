@@ -139,7 +139,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-
                 window.closeWindow();
             }
         });
@@ -150,7 +149,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void postLikeArticle(int position, ResDynamicsBean.ListBean bean) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getUserid(), "article").ToJsonString();
+        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getArticleid(), "article").ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
