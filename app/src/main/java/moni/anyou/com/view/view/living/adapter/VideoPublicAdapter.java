@@ -16,6 +16,7 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.VideoBean;
 import moni.anyou.com.view.bean.response.ResLiveBean;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.view.living.LivingChildFragment;
 import moni.anyou.com.view.view.living.LivingChildRightFragment;
 
@@ -24,8 +25,6 @@ import moni.anyou.com.view.view.living.LivingChildRightFragment;
  */
 
 public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.MyViewHold> implements View.OnClickListener {
-
-
     private BaseFragment mContext;
     private LayoutInflater mInflater;
     private List<ResLiveBean.LiveBean> mItems=new ArrayList<>();
@@ -45,9 +44,7 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
 
     @Override
     public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
-
         MyViewHold holder = null;
-
         if (holder == null) {
             mView = mInflater.inflate(R.layout.item_public_living, parent, false);
             holder = new MyViewHold(mView);
@@ -64,12 +61,12 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
         mViewHold.itemView.setTag(position);
         ResLiveBean.LiveBean bean = mItems.get(position);
 
-//        mContext.setBitmaptoImageView(bean.Url,
-//                mViewHold.videoIcon,
-//                R.drawable.loading_null_21,
-//                R.drawable.loading_null_21,
-//                R.drawable.loading_err_21);
-        mViewHold.tvAlivestatus.setText(bean.cid);
+        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.pic,
+                mViewHold.videoIcon,
+                R.drawable.loading_null_21,
+                R.drawable.loading_null_21,
+                R.drawable.loading_err_21);
+        mViewHold.tvAlivestatus.setText(bean.onlinenum);
         mViewHold.className.setText("["+bean.liveName+"]");
     }
 

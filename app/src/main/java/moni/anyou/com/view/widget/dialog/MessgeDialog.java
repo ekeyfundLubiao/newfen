@@ -20,7 +20,7 @@ public class MessgeDialog extends BaseDialog {
     private Button mRightBtn;
     private MsgDialogListener mMsgDialogListener;
 
-    public MessgeDialog(StartActivity activity) {
+    public MessgeDialog(BaseActivity activity) {
         super(activity);
         setContentView(R.layout.dialog_message);
         initWidthDialog(R.style.dialog_animation, false, 0.7f);

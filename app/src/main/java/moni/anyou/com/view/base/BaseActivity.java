@@ -25,6 +25,7 @@ import android.widget.TextView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.WindowDialog;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.utils.imageload.ImageLoadUtil;
 import moni.anyou.com.view.widget.utils.view.SystemStatusManager;
 import moni.anyou.com.view.widget.utils.view.ViewUtil;
@@ -45,6 +46,7 @@ public class BaseActivity extends FragmentActivity {
     public ViewUtil mViewUtil;
     public Context mContext;
     public BaseActivity mBaseActivity;
+    private MessgeDialog mMessgeDialog;
     protected static final String TAG = "BaseActivity";
     protected static NetProgressWindowDialog mLoadingDialog;
     public TextView tvTitle;
@@ -327,4 +329,28 @@ public class BaseActivity extends FragmentActivity {
         intent.setData(uri);
         startActivityForResult(intent,requestCode);
     }
+
+    public void initMsgview()
+    {
+        mMessgeDialog = new MessgeDialog(mBaseActivity);
+    }
+
+
+
+    public void showMsgDialog(String message,String left,String right,MessgeDialog.MsgDialogListener listener) {
+        dismissMsgDialog();
+        mMessgeDialog.setMessage(message);
+        mMessgeDialog.setLeft(left);
+        mMessgeDialog.setRight(right);
+        mMessgeDialog.setMsgDialogListener(listener);
+        mMessgeDialog.show();
+    }
+
+    public void dismissMsgDialog() {
+        if(mMessgeDialog.isShowing())
+        {
+            mMessgeDialog.dismiss();
+        }
+    }
+
 }

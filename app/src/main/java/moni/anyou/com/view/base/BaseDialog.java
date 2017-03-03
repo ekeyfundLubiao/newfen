@@ -44,7 +44,7 @@ public abstract class BaseDialog extends Dialog{
 
     private FrameLayout mViewGroup;
 
-    public BaseDialog(StartActivity activity) {
+    public BaseDialog(BaseActivity activity) {
         super(activity, R.style.dialog);
         mContext = activity.mContext;
         mActivity = activity;

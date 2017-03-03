@@ -117,10 +117,12 @@ public class StartActivity extends BaseActivity {
                 if (uid.equals("") || token.equals("")) {
                     // 以下写代码跳转到登录界面
                     startActivity(new Intent(mcontext, LoginActivity.class));
+                    finish();
 
                 } else {
                     // 以下写代码跳转到主界面
                     startActivity(new Intent(mcontext, MainActivity.class));
+                    finish();
                 }
               //  StartActivity.this.finish();
 

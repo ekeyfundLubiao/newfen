@@ -46,13 +46,15 @@ public class ResLiveBean extends ResponseStandard {
          * cid : 3
          * classid : babylive
          */
-
         public String liveID;
         public String liveName;
         public String addtime;
         public String status;
         public String cid;
         public String classid;
+        public String pic;//": "live_small.png",
+        public String onlinenum;//": "0",
+        public String gradename;//":
 
 
     }

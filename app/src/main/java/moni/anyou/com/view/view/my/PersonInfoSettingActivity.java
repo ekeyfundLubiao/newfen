@@ -20,7 +20,9 @@ import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
@@ -29,12 +31,17 @@ import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
+import moni.anyou.com.view.tool.UploadUtil;
+import moni.anyou.com.view.view.StartActivity;
 import moni.anyou.com.view.view.my.systemset.UpdateLoginActivity;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
+import moni.anyou.com.view.view.photo.PhotoDialog;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
 import static moni.anyou.com.view.config.SysConfig.dataJson;
@@ -64,7 +71,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private RelativeLayout rlAccount;
 
 
-
     private RelationSeletor mRelationSeletor;
     private RelationSeletor mSexSeletor;
 
@@ -74,7 +80,8 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     ArrayList<String> mStringSexs = new ArrayList<>();
 
     private String mType;
-    private String mVaule;
+    private   String mVaule;
+    private File upLoadfile;
     private ArrayList<DataClassBean> baseFamily = null;
 
 
@@ -90,7 +97,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         super.initView();
         initTitle();
         baseFamily = getBaseRelatenumberdatas();
-
+        mPhotoDialog = new PhotoDialog(mBaseActivity);
         window = new NetProgressWindowDialog(mContext);
         tvTitle.setText("个人资料");
         rlGarden = (RelativeLayout) findViewById(R.id.rl_garden);
@@ -107,8 +114,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvRelatetobaby = (TextView) findViewById(R.id.tv_relatetobaby);
         tvAccount = (TextView) findViewById(R.id.tv_accout);
         tvGarden = (TextView) findViewById(R.id.tv_garden);
-
-
         rlBrithday.setVisibility(View.GONE);
         rlSex.setVisibility(View.GONE);
         rlRelate.setVisibility(View.GONE);
@@ -134,6 +139,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvBrithday.setOnClickListener(this);
         rlUpdatepwd.setOnClickListener(this);
         tvSex.setOnClickListener(this);
+        mPhotoDialog.setPhotoListener(mPhotoListener);
     }
 
 
@@ -145,8 +151,9 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 break;
             case R.id.tv_headIcon:
                 mType = TYPE_ICON;
-                mVaule = "icon.png";
-                postUpdateInfo();
+
+                requestPermission(PermissionTools.writeExternalStorage);
+
 //                ToastTools.showShort(mContext, "设置头像");
                 break;
             case R.id.tv_changepwd:
@@ -212,9 +219,8 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
+
                         Toast.makeText(mContext, "修改成功", Toast.LENGTH_LONG).show();
-
-
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -281,7 +287,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
 
-        setBitmaptoImageView11(SysConfig.FileUrl + baseInfo.icon, tvHeadIcon);
+        setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
         tvBrithday.setText(baseInfo.childbirthday);
         tvRelatetobaby.setText(Tools.getRole(baseInfo.role));
         tvGarden.setText(baseInfo.gradename);
@@ -298,6 +304,122 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 break;
         }
     }
+
+    private PhotoDialog mPhotoDialog = null;
+
+
+    private PhotoDialog.PhotoListener mPhotoListener = new PhotoDialog.PhotoListener() {
+        @Override
+        public void onSuccess(List<String> photoList) {
+            if (null != photoList) {
+               final File file = new File(photoList.get(0));
+
+                if (file.exists()) {
+                    mVaule = file.getName();
+                    postUpdateInfo();
+
+                    upLoadfile = file;
+                    UploadThread m = new UploadThread();
+                    new Thread(m).start();
+
+                } else {
+                    ToastTools.showShort(mContext, "头像文件不存在");
+                }
+            }
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    };
+
+
+
+
+    //不需要授权
+    @Override
+    public void permissionNoNeed(String permissionName) {
+        mPhotoDialog.show();
+    }
+
+    //权限授权成功
+    @Override
+    public void permissionSuccess(String permissionName) {
+        mPhotoDialog.show();
+    }
+
+    //权限被拒绝
+    @Override
+    public void permissionRefuse(String permissionName) {
+        showMsgDialog("您拒绝了本应用访问相册的权限，无法上传头像，是否授权获取权限？", "暂不授权", "立即授权", new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
+
+            }
+
+            @Override
+            public void OnLeftClick() {
+
+            }
+
+            @Override
+            public void OnRightClick() {
+                openPermissionSettingPage(0x1111);
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+    }
+
+    //权限之前被拒绝
+    @Override
+    public void permissionAlreadyRefuse(String permissionName) {
+        showMsgDialog("您之前拒绝了本应用访问相册的权限，无法上传头像，是否授权获取权限？", "暂不授权", "立即授权", new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
+
+            }
+
+            @Override
+            public void OnLeftClick() {
+
+            }
+
+            @Override
+            public void OnRightClick() {
+                openPermissionSettingPage(0x1111);
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+    }
+
+    class UploadThread implements Runnable {
+
+        @Override
+        public void run() {
+            UploadUtil.uploadFile(upLoadfile,SysConfig.UploadUrl);
+        }
+    }
+
+
 
 }
 

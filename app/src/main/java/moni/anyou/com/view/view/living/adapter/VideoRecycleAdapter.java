@@ -15,6 +15,7 @@ import java.util.List;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.response.ResLiveBean;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.view.living.LivingChildFragment;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -64,12 +65,12 @@ public class VideoRecycleAdapter extends RecyclerView.Adapter<VideoRecycleAdapte
         mViewHold.itemView.setTag(position);
        ResLiveBean.LiveBean bean = mItems.get(position);
 
-//        mContext.setBitmaptoImageView(SysConfig.FileUrl+bean.url,
-//                mViewHold.videoIcon,
-//                R.drawable.loading_null_21,
-//                R.drawable.loading_null_21,
-//                R.drawable.loading_err_21);
-        mViewHold.aliveNum.setText(bean.cid);
+        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.pic,
+                mViewHold.videoIcon,
+                R.drawable.loading_null_21,
+                R.drawable.loading_null_21,
+                R.drawable.loading_err_21);
+        mViewHold.aliveNum.setText(bean.onlinenum);
         mViewHold.className.setText(bean.liveName);
     }
 
