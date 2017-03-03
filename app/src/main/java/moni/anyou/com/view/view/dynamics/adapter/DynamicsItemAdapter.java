@@ -99,12 +99,12 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
 
         holder.rc_icon.setAdapter(tempRecAdapter);
         mContext.setBitmaptoImageView11(SysConfig.PicUrl+temps.getPic(),holder.iv_headicon);
-        holder.tv_sentTime.setText("1小时");
+        holder.tv_sentTime.setText(Tools.main(temps.getAddtime()));
         holder.tvnickname.setText(temps.getNick());
         holder.tv_dynamicsContant.setText(temps.getContent());
         holder.tv_lots.setText(temps.getLikeuser());
         if (!TextUtil.isEmpty(temps.getLikeuser())) {
-           // holder.tv_lots.setText(Tools.getLikeNikeName(temps.getLikeuser()).get(position).nickName);
+          holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.getLikeuser()));
         }
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override

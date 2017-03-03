@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 
 import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 
 public class Tools {
 
@@ -419,7 +421,7 @@ public class Tools {
 
     public static ArrayList<KeyVaule> getLikeNikeName(String like) {
         ArrayList<KeyVaule> likelist = new ArrayList<>();
-        String[] likeArray = like.split("|||");
+        String[] likeArray = like.split("\\|");
         int size = likeArray.length;
 
         for (int i = 0; i < size; i++) {
@@ -427,17 +429,82 @@ public class Tools {
             KeyVaule tempBean = new KeyVaule();
             tempBean.nickName = tempStr[1];
             tempBean.userId = tempStr[0];
-            tempBean.islikeMark = ("1".equals(tempBean.nickName) ? true : false);
             likelist.add(tempBean);
         }
         return likelist;
     }
 
+    public static String getLikeNikeNameStr(String like) {
+        ArrayList<KeyVaule> likelist = getLikeNikeName(like);
+        int size = likelist.size();
+        like = "";
+        for (int i = 0; i < size; i++) {
+            if (i != size - 1) {
+                like = like + likelist.get(i).nickName + ",";
+            } else {
+                like = like + likelist.get(i).nickName;
+            }
+
+        }
+        return like;
+    }
 
     public static class KeyVaule {
         public boolean islikeMark;
         public String userId;
         public String nickName;
+
+    }
+
+    public static String main(String timeStr) {
+
+        if (!TextUtil.isEmpty(timeStr)) {
+
+            SimpleDateFormat formatter = new SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss.S");
+            try {
+                Date someDate = formatter.parse(timeStr);
+                Date curDate = new Date(System.currentTimeMillis());
+                Calendar cal1 = Calendar.getInstance();
+                cal1.setTime(curDate);
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTime(someDate);
+                boolean isSameYear = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+                boolean isSameMonth = isSameYear && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
+                boolean isSameDate = isSameMonth && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+                if (isSameDay(curDate, someDate)) {
+                    int distanceTime = cal1.get(Calendar.HOUR) - cal2.get(Calendar.HOUR);
+                    return distanceTime + "小时前";
+                } else {
+                    if (isSameMonth) {
+                        int distanceDay = cal1.get(Calendar.DAY_OF_MONTH) - cal2.get(Calendar.DAY_OF_MONTH);
+                        return distanceDay + "天时前";
+                    } else if (isSameYear) {
+                        int distanceMontn = cal1.get(Calendar.MONTH) - cal2.get(Calendar.MONTH);
+                        return distanceMontn + "月时前";
+                    } else {
+                        return timeStr;
+                    }
+
+                }
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return "";
+    }
+
+    public static boolean isSameDay(Date nowdate, Date somedate) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(nowdate);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(somedate);
+        boolean isSameYear = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+        boolean isSameMonth = isSameYear && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
+        boolean isSameDate = isSameMonth && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+
+        return isSameDate;
 
     }
 }

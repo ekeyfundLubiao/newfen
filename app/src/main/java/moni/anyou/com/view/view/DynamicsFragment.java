@@ -98,8 +98,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void setData() {
         super.setData();
-        getData();
-
     }
 
     @Override
@@ -164,6 +162,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     if (result >= 1) {
 
                         getData();
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
 
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();

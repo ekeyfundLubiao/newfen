@@ -57,6 +57,15 @@ public class ResDynamicsBean extends ResponseStandard {
         private String likeuser;
         private String icon;//": "icon.png","
         private String nick;//":"刘晓红",
+        private String addtime;
+
+        public String getAddtime() {
+            return addtime;
+        }
+
+        public void setAddtime(String addtime) {
+            this.addtime = addtime;
+        }
 
         public String getIcon() {
             return icon;
