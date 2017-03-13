@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,10 @@ import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
@@ -35,10 +39,16 @@ import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.KeyBoardTools;
+import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
+import moni.anyou.com.view.tool.UploadUtil;
+import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.dynamics.adapter.SendPicAdapter;
+import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
+import moni.anyou.com.view.view.photo.PhotoDialog;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.dialog.PopSelectPicture;
 import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 
@@ -49,11 +59,8 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     private RecyclerView rcPic;
     private EditText etContentDynamic;
     private SendPicAdapter mySentPicAdapter;
-    ArrayList<SentPicBean> list = new ArrayList<SentPicBean>();
-    PopSelectPicture mPopSelectPicture;
-
-    private String pathImage; // 选择图片路径
-    private Bitmap bmp; // 导入临时图片
+    private String mVaule;
+    private File upLoadfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +79,16 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         tvRight.setText("发送");
         tvRight.setVisibility(View.VISIBLE);
         etContentDynamic = (EditText) findViewById(R.id.et_content_dynamic);
+        mPhotoDialog = new PhotoDialog(mBaseActivity);
         rcPic = (RecyclerView) findViewById(R.id.rc_pic);
-        mPopSelectPicture = new PopSelectPicture(mBaseActivity, this);
+
     }
 
     @Override
     public void setAction() {
         tvRight.setOnClickListener(this);
         ivBack.setOnClickListener(this);
+        mPhotoDialog.setPhotoListener(mPhotoListener);
 
     }
 
@@ -90,15 +99,15 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rcPic.setLayoutManager(linearLayoutManager);
-        list.add(new SentPicBean());
-        mySentPicAdapter = new SendPicAdapter(this, list);
+        mySentPicAdapter = new SendPicAdapter(this, new SentPicBean());
         rcPic.setAdapter(mySentPicAdapter);
         mySentPicAdapter.setmOnItemClickListener(new SendPicAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, SentPicBean data, int position) {
-                if (position == list.size() - 1) {
-                    mPopSelectPicture.showAtLocation(mBaseActivity.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
-                    ToastTools.showShort(mContext, "添加:" + position);
+                if (position == mySentPicAdapter.getItemCount() - 1) {
+//                    mPopSelectPicture.showAtLocation(mBaseActivity.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+//                    ToastTools.showShort(mContext, "添加:" + position);
+                    requestPermission(PermissionTools.writeExternalStorage);
                 }
 
             }
@@ -116,9 +125,20 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     ToastTools.showShort(mContext, "不能为空");
                     return;
                 }
-                mPic = "5.png,6.png,7.png";
 
-                posySentDynamics();
+                HelpBean bean = getPics();
+                if (bean!=null) {
+                    mPic = bean.sentpic;
+                    showProgressBar();
+                    for (int i=0,size=bean.picArray.size();i<size;i++) {
+                        upLoadfile = new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + bean.picArray.get(i));
+                        UploadThread m = new UploadThread();
+                        new Thread(m).start();
+                    }
+                    postSentDynamics();
+                }
+
+
                 break;
         }
     }
@@ -130,53 +150,10 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // 打开图片
-        if (resultCode == RESULT_OK && requestCode == PopSelectPicture.IMAGE_OPEN) {
-            Uri uri = data.getData();
-            if (!TextUtils
-                    .isEmpty(uri.getAuthority())) {
-                // 查询选择图片
-                Cursor cursor = getContentResolver().query(uri, new String[]{MediaStore.Images.Media.DATA}, null,
-                        null, null);
-                // 返回 没找到选择图片
-                if (null == cursor) {
-                    return;
-                }
-                // 光标移动至开头 获取图片路径
-                cursor.moveToFirst();
-                pathImage = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-        } else if (requestCode == IMAGE_OPEN_2) {
-            pathImage = PopSelectPicture.mPhotoPath;
-        } // end if 打开图片
-    }
-
-    // 刷新图片
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (!TextUtils.isEmpty(pathImage)) {
-
-
-//            picMap.put("picOBj", new Documents(pathImage, "00000000-0000-0000-0000-000000000000", true, pathImage));
-            SentPicBean pic = new SentPicBean(pathImage, null);
-            mySentPicAdapter.addPic(pic);
-//           list.add(pic);
-//            mySentPicAdapter.notifyDataSetChanged();
-            // 刷新后释放防止手机休眠后自动添加
-            pathImage = null;
-        }
-
-    }
-
-
     public String mContent;
     private String mPic;
 
-    public void posySentDynamics() {
+    public void postSentDynamics() {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
         String cmdPara = new ReqSentDynamicsBean("18", SysConfig.uid, SysConfig.token, ReqSentDynamicsBean.TYPEID_ADD, ReqSentDynamicsBean.ARTICLEID_ADD, etContentDynamic.getText().toString(), mPic).ToJsonString();
@@ -192,7 +169,8 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-
+                        showProgressBar();
+                        Toast.makeText(mContext, "发送成功", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -232,7 +210,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     if (result >= 1) {
 
 
-
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -253,4 +230,142 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     }
 
 
+    private PhotoDialog mPhotoDialog = null;
+
+
+    private PhotoDialog.PhotoListener mPhotoListener = new PhotoDialog.PhotoListener() {
+        @Override
+        public void onSuccess(List<String> photoList) {
+            if (null != photoList) {
+                final File file = new File(photoList.get(0));
+
+                if (file.exists()) {
+                    mVaule = file.getName();
+                    upLoadfile = file;
+                    SentPicBean pic = new SentPicBean(file.getName(), null);
+                    mySentPicAdapter.addPic(pic);
+                } else {
+                    ToastTools.showShort(mContext, "头像文件不存在");
+                }
+            }
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    };
+
+
+    //不需要授权
+    @Override
+    public void permissionNoNeed(String permissionName) {
+        mPhotoDialog.show();
+    }
+
+    //权限授权成功
+    @Override
+    public void permissionSuccess(String permissionName) {
+        mPhotoDialog.show();
+    }
+
+    //权限被拒绝
+    @Override
+    public void permissionRefuse(String permissionName) {
+        showMsgDialog("您拒绝了本应用访问相册的权限，无法上传头像，是否授权获取权限？", "暂不授权", "立即授权", new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
+
+            }
+
+            @Override
+            public void OnLeftClick() {
+
+            }
+
+            @Override
+            public void OnRightClick() {
+                openPermissionSettingPage(0x1111);
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+    }
+
+    //权限之前被拒绝
+    @Override
+    public void permissionAlreadyRefuse(String permissionName) {
+        showMsgDialog("您之前拒绝了本应用访问相册的权限，无法上传头像，是否授权获取权限？", "暂不授权", "立即授权", new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
+
+            }
+
+            @Override
+            public void OnLeftClick() {
+
+            }
+
+            @Override
+            public void OnRightClick() {
+                openPermissionSettingPage(0x1111);
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+    }
+
+    class UploadThread implements Runnable {
+
+        @Override
+        public void run() {
+            UploadUtil.uploadFile(upLoadfile, SysConfig.UploadUrl);
+        }
+    }
+
+    private HelpBean getPics() {
+        ArrayList<String> picInfo = new ArrayList<>();
+        String TempStr = "";
+        LinkedList<SentPicBean> remps = mySentPicAdapter.getmItems();
+        if (remps.size() > 0) {
+            for (int i = 0, size = remps.size() - 1; i < size; i++) {
+                picInfo.add(remps.get(i).filePathName);
+                if (i == size - 1) {
+                    TempStr = TempStr + remps.get(i).filePathName;
+                } else {
+                    TempStr = TempStr + remps.get(i).filePathName + ",";
+                }
+
+            }
+            HelpBean helpBean = new HelpBean();
+            helpBean.picArray = picInfo;
+            helpBean.sentpic = TempStr;
+            return helpBean;
+        }
+
+
+        return null;
+    }
+
+
+    class HelpBean {
+        ArrayList<String> picArray;
+        String sentpic;
+    }
 }

@@ -64,8 +64,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.dynamics.SendDynamicActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation" />
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.living.ALivingActivity" />
         <activity android:name=".webview.WebviewActivity" />
         <activity android:name=".view.daily.LoginActivity" />
@@ -82,7 +82,8 @@
         <activity android:name=".view.my.SuggestActivity" />
         <activity android:name=".view.web.ShowInfoActivity" />
         <activity android:name=".view.my.SystemsNoticeActivity" />
-        <activity android:name=".view.my.systemset.SelectGardenActivity"></activity>
+        <activity android:name=".view.my.systemset.SelectGardenActivity" />
+        <activity android:name=".view.dynamics.SentDynamicsActivity"></activity>
     </application>
 
 </manifest>

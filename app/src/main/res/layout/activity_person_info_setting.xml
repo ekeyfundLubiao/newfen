@@ -53,7 +53,7 @@
                 android:layout_marginRight="26dp"
                 android:background="@mipmap/home_icon_new"
                 android:textColor="@color/appblack"
-                app:civ_border_color="@color/appcolor"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="1dp" />
 
         </RelativeLayout>

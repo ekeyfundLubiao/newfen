@@ -176,7 +176,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     }
 
     public static void jumpTo(int position, HomeItemBean bean) {
-        Log.d(TAG, "jumpTo: " + bean.value);
+
         if ("".equals(bean.value)) {
 
         } else if ("".equals(bean.value)) {
@@ -219,7 +219,18 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-
+                        if (mType == TYPE_ICON) {
+                            SysConfig.userInfoJson.put("icon",mVaule);
+                        } else  if (mType == TYPE_BIRTHDAY) {
+                            SysConfig.userInfoJson.put("childbirthday",mVaule);
+                        } else if (mType == TYPE_CONTETS) {
+                            SysConfig.userInfoJson.put("icon",mVaule);
+                        } else if (mType == TYPE_SEX) {
+                            SysConfig.userInfoJson.put("childsex",mVaule);
+                        } else if (mType == TYPE_ROLE) {
+                            SysConfig.userInfoJson.put("role",mVaule);
+                        }
+                        SysConfig.userInfoJson.toString();
                         Toast.makeText(mContext, "修改成功", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
@@ -317,7 +328,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 if (file.exists()) {
                     mVaule = file.getName();
                     postUpdateInfo();
-
                     upLoadfile = file;
                     UploadThread m = new UploadThread();
                     new Thread(m).start();

@@ -1,6 +1,7 @@
 package moni.anyou.com.view.view.dynamics.adapter;
 
 
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -17,6 +19,7 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.RecycleViewBean;
 import moni.anyou.com.view.bean.SentPicBean;
+import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.KindergartenFragment;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 
@@ -29,59 +32,55 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
 
     private BaseActivity mContext;
     private LayoutInflater mInflater;
-    private ArrayList<SentPicBean> mItems=new ArrayList<SentPicBean>();
+    private LinkedList<SentPicBean> mItems = new LinkedList<SentPicBean>();
 
-    public SendPicAdapter(SendDynamicActivity context, ArrayList<SentPicBean> items) {
-        this.mContext = context;
-        this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
-        mItems.addAll(items);
+    public LinkedList<SentPicBean> getmItems() {
+        return mItems;
     }
 
-    public void addPic(SentPicBean sBean) {
-        mItems.add(sBean);
+    public SendPicAdapter(SendDynamicActivity context, SentPicBean items) {
+        this.mContext = context;
+        this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
+        mItems.add(items);
+    }
+
+    public void addPic(SentPicBean Bean) {
+        mItems.addFirst(Bean);
         notifyDataSetChanged();
 
     }
 
     View mView;
     MyViewHold holder = null;
+
     @Override
-    public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHold onCreateViewHolder(ViewGroup parent, final int viewType) {
 
 
-
-        if (holder == null) {
             mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
             holder = new MyViewHold(mView);
-            mView.setTag(holder);
-        } else {
-            holder = (MyViewHold) mView.getTag();
-        }
-        mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get((Integer) v.getTag()),(Integer) v.getTag());
-            }
-        });
+
+
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHold mViewHold, final int position) {
-        mViewHold.itemView.setTag(position);
         final SentPicBean item = mItems.get(position);
-
-        if (position == mItems.size() - 1) {
+        if ("".endsWith(item.filePathName.trim())) {
             mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
         } else {
-            mViewHold.ivSentPic.setImageBitmap(item.bitmap);
-
-            mContext.setBitmaptoImageView(item.Url,
-                    mViewHold.ivSentPic,
-                    R.drawable.loading_null_21,
-                    R.drawable.loading_null_21,
-                    R.drawable.loading_err_21);
+            // mViewHold.ivSentPic.setImageBitmap(item.bitmap);
+            mContext.setBitmaptoImageView11("file://" + Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + item.filePathName, mViewHold.ivSentPic);
         }
+
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get(position), position);
+            }
+        });
 
     }
 

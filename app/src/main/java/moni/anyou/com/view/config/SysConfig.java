@@ -37,6 +37,4 @@ public class SysConfig {
     public static int VersionId = 0;
     public static SharedPreferences prefs;
     public static String prfsName = "";
-
-
 }
