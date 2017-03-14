@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
 import java.io.File;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +53,7 @@ import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.dialog.PopSelectPicture;
 import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
+import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
 import static moni.anyou.com.view.widget.dialog.PopSelectPicture.IMAGE_OPEN_2;
 
@@ -98,7 +101,10 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rcPic.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext,3);
+        rcPic.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.HORIZONTAL));
+        rcPic.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
+        rcPic.setLayoutManager(gridLayoutManager);
         mySentPicAdapter = new SendPicAdapter(this, new SentPicBean());
         rcPic.setAdapter(mySentPicAdapter);
         mySentPicAdapter.setmOnItemClickListener(new SendPicAdapter.OnRecyclerViewItemClickListener() {
@@ -127,7 +133,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 HelpBean bean = getPics();
-                if (bean!=null) {
+                if (!bean.sentpic.equals("")) {
                     mPic = bean.sentpic;
                     showProgressBar();
                     for (int i=0,size=bean.picArray.size();i<size;i++) {
@@ -135,9 +141,9 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                         UploadThread m = new UploadThread();
                         new Thread(m).start();
                     }
-                    postSentDynamics();
-                }
 
+                }
+                postSentDynamics();
 
                 break;
         }
@@ -335,7 +341,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void run() {
-            UploadUtil.uploadFile(upLoadfile, SysConfig.UploadUrl);
+           int code= UploadUtil.uploadFile(upLoadfile, SysConfig.UploadUrl);
         }
     }
 

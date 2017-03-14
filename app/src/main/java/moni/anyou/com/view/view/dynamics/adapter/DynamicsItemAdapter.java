@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.DynamicsTempItems;
@@ -76,7 +77,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         if (holder == null) {
             mView = mInflater.inflate(R.layout.item_dynamics, viewGroup, false);
             holder = new MyViewHold();
-            holder.iv_headicon = (ImageView) mView.findViewById(R.id.iv_headicon);
+            holder.iv_headicon = (CircleImageView) mView.findViewById(R.id.iv_headicon);
             holder.ivShare= (ImageView) mView.findViewById(R.id.iv_share);
             holder.ivZan= (ImageView) mView.findViewById(R.id.iv_zan);
             holder.rc_icon=(RecyclerView) mView.findViewById(R.id.rc_icon);
@@ -98,7 +99,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
 
         holder.rc_icon.setAdapter(tempRecAdapter);
-        mContext.setBitmaptoImageView11(SysConfig.PicUrl+temps.getPic(),holder.iv_headicon);
+        mContext.setBitmaptoImageView11(SysConfig.PicUrl+temps.getIcon(),holder.iv_headicon);
         holder.tv_sentTime.setText(Tools.main(temps.getAddtime()));
         holder.tvnickname.setText(temps.getNick());
         holder.tv_dynamicsContant.setText(temps.getContent());
@@ -116,7 +117,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
     }
 
     class MyViewHold {
-        ImageView iv_headicon;
+        CircleImageView iv_headicon;
         TextView tvnickname;
         TextView tv_dynamicsContant;
         RecyclerView rc_icon;

@@ -9,8 +9,7 @@ import moni.anyou.com.view.tool.contacts.LocalConstant;
 /**
  * Created by Administrator on 2016/12/19.
  */
-public class ConfigHelper {
-    private static ConfigHelper mConfigHelper;
+public class ConfigHelper {    private static ConfigHelper mConfigHelper;
     private GalleryConfig galleryConfig = null;
     private ConfigHelper() {
     }
@@ -57,4 +56,5 @@ public class ConfigHelper {
                 .build();
         return galleryConfig;
     }
+
 }

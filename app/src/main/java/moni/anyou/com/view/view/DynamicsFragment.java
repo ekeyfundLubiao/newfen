@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
+import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.DynamicsTempItems;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SentPicBean;
@@ -83,6 +84,8 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         dynamicsItemAdapter = new DynamicsItemAdapter(this);
         lvDynamics.setAdapter(dynamicsItemAdapter);
         mItems = new ArrayList<>();
+        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+        setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,cvHeadIcon);
     }
 
     @Override

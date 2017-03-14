@@ -478,10 +478,10 @@ public class Tools {
                 } else {
                     if (isSameMonth) {
                         int distanceDay = cal1.get(Calendar.DAY_OF_MONTH) - cal2.get(Calendar.DAY_OF_MONTH);
-                        return distanceDay + "天时前";
+                        return distanceDay + "天之前";
                     } else if (isSameYear) {
                         int distanceMontn = cal1.get(Calendar.MONTH) - cal2.get(Calendar.MONTH);
-                        return distanceMontn + "月时前";
+                        return distanceMontn + "月之前";
                     } else {
                         return timeStr;
                     }

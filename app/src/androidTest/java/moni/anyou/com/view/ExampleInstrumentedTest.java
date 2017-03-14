@@ -7,6 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import moni.anyou.com.view.tool.Tools;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,5 +24,7 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("moni.anyou.com.a", appContext.getPackageName());
+        Tools.main("2017-01-11 11:00:00.0");
+
     }
 }
