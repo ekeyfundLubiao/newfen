@@ -34,10 +34,10 @@ public class IndexAdapter implements RadioGroup.OnCheckedChangeListener {
 	@Override
 	public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
 		if (rgs.getChildAt(3).getId() == checkedId) {
-			//if (!AppTools.isLogin(mBaseActivity)) {
+			if (!AppTools.isLogin(mBaseActivity)) {
 				rgs.check(rgs.getChildAt(currentTab).getId());
-//				return;
-//			}
+				return;
+			}
 		}
 		for (int i = 0; i < rgs.getChildCount(); i++) {
 			if (rgs.getChildAt(i).getId() == checkedId) {

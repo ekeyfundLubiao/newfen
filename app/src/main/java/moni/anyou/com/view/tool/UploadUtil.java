@@ -20,9 +20,9 @@ public class UploadUtil {
      * @param RequestURL  请求的rul
      * @return  返回响应的内容
      */
-    public static String uploadFile(File file,String RequestURL)
+    public static int  uploadFile(File file,String RequestURL)
     {
-    
+        int responseCode = -1;
         String result = null;
         String  BOUNDARY =  UUID.randomUUID().toString();  //边界标识   随机生成
         String PREFIX = "--" , LINE_END = "\r\n"; 
@@ -79,10 +79,10 @@ public class UploadUtil {
                  * 获取响应码  200=成功
                  * 当响应成功，获取响应的流  
                  */
-                int res = conn.getResponseCode();  
-                Log.e(TAG, "response code:"+res);
-//                if(res==200)
-//                {
+                 responseCode = conn.getResponseCode();
+                Log.e(TAG, "response code:"+responseCode);
+                if(responseCode==200)
+                {
                     Log.e(TAG, "request success");
                     InputStream input =  conn.getInputStream();
                     StringBuffer sb1= new StringBuffer();
@@ -93,10 +93,10 @@ public class UploadUtil {
                     }
                     result = sb1.toString();
                     Log.e(TAG, "result : "+ result);
-//                }
-//                else{
-//                    Log.e(TAG, "request error");
-//                }
+                }
+                else{
+                    Log.e(TAG, "request error");
+                }
             }
         } catch (MalformedURLException e) {
         	
@@ -104,6 +104,6 @@ public class UploadUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;
+        return responseCode;
     }
 }

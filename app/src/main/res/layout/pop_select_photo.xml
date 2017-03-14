@@ -51,15 +51,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/centerview"
+                android:paddingRight="12dp"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_album"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:background="@mipmap/home_icon_addressbook" />
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@mipmap/xiangce" />
                 <TextView
                     android:text="相册"
+                    android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -68,18 +70,20 @@
             <LinearLayout
                 android:id="@+id/llcamera"
                 android:layout_width="wrap_content"
+                android:paddingLeft="12dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/centerview"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_photo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_toRightOf="@id/centerview"
-                    android:background="@mipmap/home_icon_invite_family" />
+                    android:background="@mipmap/xiangji" />
                 <TextView
                     android:text="拍照"
+                    android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

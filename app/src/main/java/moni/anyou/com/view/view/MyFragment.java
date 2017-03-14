@@ -163,6 +163,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
         tvfamilyName.setText(baseInfo.child+ Tools.getRole(baseInfo.role));
         tvGardenName.setText(baseInfo.companyname+baseInfo.gradename);
-        setBitmaptoImageView11("file://"+Environment.getExternalStorageDirectory()+LocalConstant.Local_Photo_Path+"/crop/"+baseInfo.icon,ivIconhead);
+        setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,ivIconhead);
     }
 }
