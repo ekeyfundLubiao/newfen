@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,7 +26,6 @@ import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
 import java.io.File;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -98,10 +96,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void setData() {
         super.setData();
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext,3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         rcPic.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.HORIZONTAL));
         rcPic.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         rcPic.setLayoutManager(gridLayoutManager);
@@ -111,14 +106,15 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onItemClick(View view, SentPicBean data, int position) {
                 if (position == mySentPicAdapter.getItemCount() - 1) {
-//                    mPopSelectPicture.showAtLocation(mBaseActivity.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
-//                    ToastTools.showShort(mContext, "添加:" + position);
                     requestPermission(PermissionTools.writeExternalStorage);
                 }
 
             }
         });
     }
+
+    int picSize = 0;
+    ArrayList<String> picArry;
 
     @Override
     public void onClick(View v) {
@@ -133,17 +129,16 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 HelpBean bean = getPics();
-                if (!bean.sentpic.equals("")) {
+                if (bean != null) {
                     mPic = bean.sentpic;
                     showProgressBar();
-                    for (int i=0,size=bean.picArray.size();i<size;i++) {
-                        upLoadfile = new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + bean.picArray.get(i));
-                        UploadThread m = new UploadThread();
-                        new Thread(m).start();
-                    }
-
+                    picSize = bean.picArray.size();
+                    picArry = bean.picArray;
+                    Message fileInfomsg = new Message();
+                    fileInfomsg.obj = 0;
+                    upPicHandler.sendMessage(fileInfomsg);
                 }
-                postSentDynamics();
+
 
                 break;
         }
@@ -168,7 +163,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
-
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
@@ -177,6 +171,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     if (result >= 1) {
                         showProgressBar();
                         Toast.makeText(mContext, "发送成功", Toast.LENGTH_LONG).show();
+                        onBack();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -190,7 +185,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-
                 window.closeWindow();
             }
         });
@@ -341,7 +335,21 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void run() {
-           int code= UploadUtil.uploadFile(upLoadfile, SysConfig.UploadUrl);
+            int success = UploadUtil.uploadFile(new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picArry.get(picName)), SysConfig.UploadUrl);
+            if (success == 200) {
+                picName++;
+                if (picSize > picName) {
+                    Message fileInfomsg = new Message();
+                    fileInfomsg.obj = picName;
+                    upPicHandler.sendMessage(fileInfomsg);
+
+                } else {
+                    postSentDynamics();
+                    closeProgressBar();
+                    return;
+                }
+
+            }
         }
     }
 
@@ -357,7 +365,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     TempStr = TempStr + remps.get(i).filePathName + ",";
                 }
-
             }
             HelpBean helpBean = new HelpBean();
             helpBean.picArray = picInfo;
@@ -374,4 +381,18 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         ArrayList<String> picArray;
         String sentpic;
     }
+
+    int picName;
+    private Handler upPicHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg != null) {
+                picName = (Integer) msg.obj;
+                upLoadfile = new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picName);
+                UploadThread m = new UploadThread();
+                new Thread(m).start();
+            }
+        }
+    };
 }

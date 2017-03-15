@@ -146,5 +146,4 @@
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"
         android:background="@color/bgcolor" />
-
 </LinearLayout>

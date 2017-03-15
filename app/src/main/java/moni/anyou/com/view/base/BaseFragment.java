@@ -42,7 +42,7 @@ public class BaseFragment extends Fragment {
     public NetProgressWindowDialog mLoadingDialog = null;
     public boolean isCreate = false;
     public TextView tvTitle;
-    public ImageView ivBack;
+    public TextView ivBack;
     public TextView  tvRight;
 
     public void activityAnimation(int TYPE) {
@@ -219,7 +219,7 @@ public class BaseFragment extends Fragment {
 
     public void initTitle(View view){
         tvTitle=(TextView) view.findViewById(R.id.page_title);
-        ivBack=(ImageView) view.findViewById(R.id.iv_left);
+        ivBack=(TextView) view.findViewById(R.id.iv_left);
         tvRight=(TextView) view.findViewById(R.id.right_tv);
     }
 

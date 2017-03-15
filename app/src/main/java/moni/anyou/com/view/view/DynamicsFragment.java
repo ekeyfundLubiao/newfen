@@ -39,6 +39,7 @@ import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
+import moni.anyou.com.view.widget.NoListview;
 
 
 public class DynamicsFragment extends BaseFragment implements View.OnClickListener {
@@ -55,7 +56,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private ListView lvDynamics;
     private DynamicsItemAdapter dynamicsItemAdapter;
     private ArrayList<DynamicsTempItems> mItems;
-    private int pageSize = 12;
+    private int pageSize = 5;
     private int pageNo = 1;
 
     public DynamicsFragment() {
@@ -79,7 +80,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         iv_icon = (ImageView) mView.findViewById(R.id.iv_icon);
         ivRight = (ImageView) mView.findViewById(R.id.right_tv);
         tvTitle.setText("动态");
-        lvDynamics = (ListView) mView.findViewById(R.id.lv_dynamics);
+        lvDynamics = (NoListview) mView.findViewById(R.id.lv_dynamics);
         cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
         dynamicsItemAdapter = new DynamicsItemAdapter(this);
         lvDynamics.setAdapter(dynamicsItemAdapter);
@@ -132,7 +133,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     }
                 } catch (Exception ex) {
                     Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
-
                 }
                 window.closeWindow();
             }

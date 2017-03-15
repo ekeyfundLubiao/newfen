@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,17 +25,22 @@ import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.request.base.RequestStandard;
 import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 
 public class SystemSettingActivity extends BaseActivity implements View.OnClickListener {
     private NoListview listview;
+    RelativeLayout rlExitLoad;
+    private TextView tvExitLogin;
+
     private ArrayList<HomeItemBean> setItems;
     private SettingItemslAdapter myAdapter;
     private NetProgressWindowDialog window;
-    private TextView tvExitLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
     public void initView() {
         super.initView();
         initTitle();
+        rlExitLoad = (RelativeLayout) findViewById(R.id.rl_exit_load);
         tvExitLogin = (TextView) findViewById(R.id.tv_exitLogin);
         listview = (NoListview) findViewById(R.id.lv_setsys);
         myAdapter=new SettingItemslAdapter(this);
@@ -58,7 +65,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         tvTitle.setText("设置");
         setItems = new ArrayList<>();
         setItems.add(new HomeItemBean("关于我们", ""));
-        setItems.add(new HomeItemBean("清除缓存", "111.8M"));
+        setItems.add(new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
         myAdapter.setDatas(setItems);
         myAdapter.notifyDataSetChanged();
 
@@ -69,7 +76,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             case R.id.iv_left:
                 onBack();
                 break;
-            case R.id.tv_exitLogin:
+            case R.id.rl_exit_load:
                 postExitLogin();
                 break;
         }
@@ -79,10 +86,35 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         super.setAction();
         tvExitLogin.setOnClickListener(this);
         ivBack.setOnClickListener(this);
+        rlExitLoad.setOnClickListener(this);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                initMsgview();
+                showMsgDialog("您确定要清除吗？", "取消", "确定", new MessgeDialog.MsgDialogListener() {
+                    @Override
+                    public void OnMsgClick() {
 
+                    }
+
+                    @Override
+                    public void OnLeftClick() {
+                       dismissMsgDialog();
+                    }
+
+                    @Override
+                    public void OnRightClick() {
+                       AppTools.clearFileCache(mBaseActivity);
+                        setItems.add(new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
+                        myAdapter.setDatas(setItems);
+                        myAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
             }
         });
     }
@@ -106,7 +138,10 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
 
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        ToastTools.showShort(mContext,"退出成功");
+
+                        AppTools.jumptoLogin(mBaseActivity);
+                        ToastTools.showShort(mContext,"退出成功") ;
+                        onBack();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }

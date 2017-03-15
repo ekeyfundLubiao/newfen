@@ -50,7 +50,7 @@ public class BaseActivity extends FragmentActivity {
     protected static final String TAG = "BaseActivity";
     protected static NetProgressWindowDialog mLoadingDialog;
     public TextView tvTitle;
-    public ImageView ivBack;
+    public TextView ivBack;
     public TextView  tvRight;
     public CheckBox checkbox;
 
@@ -242,13 +242,13 @@ public class BaseActivity extends FragmentActivity {
 
     public void initTitle(){
          tvTitle=(TextView) findViewById(R.id.page_title);
-         ivBack=(ImageView) findViewById(R.id.iv_left);
+         ivBack=(TextView) findViewById(R.id.iv_left);
          tvRight=(TextView) findViewById(R.id.right_tv);
 
     }
     public void initTitlewithCheckbox(){
         tvTitle=(TextView) findViewById(R.id.page_title);
-        ivBack=(ImageView) findViewById(R.id.iv_left);
+        ivBack=(TextView) findViewById(R.id.iv_left);
         checkbox=(CheckBox) findViewById(R.id.checkbox);
     }
 
@@ -332,7 +332,10 @@ public class BaseActivity extends FragmentActivity {
 
     public void initMsgview()
     {
-        mMessgeDialog = new MessgeDialog(mBaseActivity);
+        if (mMessgeDialog==null) {
+            mMessgeDialog = new MessgeDialog(mBaseActivity);
+        }
+
     }
 
 

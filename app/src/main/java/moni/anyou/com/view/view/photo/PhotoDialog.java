@@ -42,6 +42,7 @@ public class PhotoDialog extends BaseDialog
     public void setData() {
         super.setData();
         setLayoutBg(R.color.white);
+
     }
 
     @Override

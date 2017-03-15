@@ -71,7 +71,7 @@ public class VideoRecycleAdapter extends RecyclerView.Adapter<VideoRecycleAdapte
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
         mViewHold.aliveNum.setText(bean.onlinenum);
-        mViewHold.className.setText(bean.liveName);
+        mViewHold.className.setText("["+bean.liveName+"]");
     }
 
     @Override

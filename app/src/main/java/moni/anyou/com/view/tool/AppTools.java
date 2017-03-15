@@ -16,13 +16,17 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import junit.runner.Version;
 
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
-import moni.anyou.com.view.view.daily.LoginActivity;
+import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.contacts.LocalConstant;
+import moni.anyou.com.view.view.account.LoginActivity;
 import moni.anyou.com.view.widget.utils.imageload.ImageLoadUtil;
 
 /**
@@ -125,6 +129,9 @@ public class AppTools {
 //		if (VerificationTools.isNull(userId)) {
 //			return false;
 //		}
+		if (SysConfig.userInfoJson==null) {
+			return false;
+		}
 		return true;
 	}
 
@@ -146,54 +153,40 @@ public class AppTools {
 	/**
 	 * 获取文件缓存大小
 	 *
-	 * @param context
+	 * @param mContext
 	 * @return boolean
 	 */
 	public static String getFileCacheSize(BaseActivity mContext) {
-//		try {
-//			File file = StorageUtils.getOwnCacheDirectory(mContext,
-//					ImageLoadUtil.Relative_Path);
-//			File[] fileList = file.listFiles();
-//			double allSize = 0.00;
-//			String address_cache = SharedpreferencesTools.getInstance(mContext)
-//					.getStringValue(CacheKey.CACHE_ADDRESS_KEY);
-//			allSize += address_cache.length();
-//			if ((file != null) && (file.exists()) && (null != fileList)) {
-//				for (int i = 0; i < fileList.length; i++) {
-//					allSize += fileList[i].length();
-//				}
-//				return NumberTools.getThreeDouble(allSize / (1024 * 1024))
-//						+ "M";
-//			}
-//		} catch (Exception e) {
-//			ToastTools.showShort(mContext, "抓取缓存异常");
-//		}
+		try {
+			double allSize = 0.00;
+
+			//网络获取的图片缓存
+			File img_folder = StorageUtils.getOwnCacheDirectory(mContext,
+					LocalConstant.Relative_Path);
+			File[] fileList = img_folder.listFiles();
+			if ((img_folder != null) && (img_folder.exists()) && (null != fileList)) {
+				for (int i = 0; i < fileList.length; i++) {
+					allSize += fileList[i].length();
+				}
+			}
+			//下载的安装包
+			File down_folder = StorageUtils
+					.getOwnCacheDirectory(mContext, LocalConstant.Download_Path);
+			File[] downList = down_folder.listFiles();
+			if ((down_folder != null) && (down_folder.exists()) && (null != downList)) {
+				for (int i = 0; i < downList.length; i++) {
+					allSize += downList[i].length();
+				}
+			}
+			return getTwoDouble(allSize / (1024 * 1024))
+					+ "M";
+		} catch (Exception e) {
+			ToastTools.showShort(mContext, "抓取缓存异常");
+		}
 		return "0M";
 	}
 
-	/**
-	 * 清除文件缓存大小
-	 *
-	 * @param context
-	 * @return boolean
-	 */
-	public static void clearFileCache(BaseActivity mContext) {
-//		try {
-//			SharedpreferencesTools.getInstance(mContext).removeKey(
-//					CacheKey.CACHE_ADDRESS_KEY);
-//			File file = StorageUtils.getOwnCacheDirectory(mContext,
-//					ImageLoadUtil.Relative_Path);
-//			if ((file != null) && (file.exists())) {
-//				if (file.isDirectory()) {
-//					deleteDir(file);
-//				} else {
-//					file.delete();
-//				}
-//			}
-//		} catch (Exception e) {
-//
-//		}
-	}
+
 
 	/**
 	 * 递归删除目录下的所有文件及子目录下所有文件
@@ -220,24 +213,33 @@ public class AppTools {
 	}
 
 	/**
-	 * 清除数据缓存
+	 * 清除文件缓存
 	 *
-	 * @param context
-	 * @return boolean
+	 * @param mContext
 	 */
-	public static void clearCache(BaseActivity mContext) {
-//		SharedpreferencesTools.getInstance(mContext).removeKey(
-//				CacheKey.USERID_KEY);
-//		SharedpreferencesTools.getInstance(mContext).removeKey(
-//				CacheKey.PHONE_KEY);
-//		SharedpreferencesTools.getInstance(mContext).removeKey(
-//				CacheKey.GESTURE_PASSWORD);
-//		SharedpreferencesTools.getInstance(mContext).removeKey(
-//				CacheKey.SHOW_GESTURE);
-//		SharedpreferencesTools.getInstance(mContext).removeKey(
-//				CacheKey.CACHE_MINE_KEY);
-//		SharedpreferencesTools.getInstance(mContext).removeKey(
-//				CacheKey.CACHE_MINE_MESSSGE_KEY);
+	public static void clearFileCache(BaseActivity mContext) {
+		try {
+			File img_folder = StorageUtils.getOwnCacheDirectory(mContext,
+					ImageLoadUtil.Relative_Path);
+			if ((img_folder != null) && (img_folder.exists())) {
+				if (img_folder.isDirectory()) {
+					deleteDir(img_folder);
+				} else {
+					img_folder.delete();
+				}
+			}
+			File down_folder = StorageUtils
+					.getOwnCacheDirectory(mContext, LocalConstant.Download_Path);
+			if ((down_folder != null) && (down_folder.exists())) {
+				if (down_folder.isDirectory()) {
+					deleteDir(down_folder);
+				} else {
+					down_folder.delete();
+				}
+			}
+		} catch (Exception e) {
+
+		}
 	}
 
 	public static boolean isShowTopView() {
@@ -320,5 +322,21 @@ public class AppTools {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".png";
+	}
+
+
+	public static void ExitLogin(){
+		SysConfig.userInfoJson = null;
+	}
+
+	public static void jumptoLogin(BaseActivity mActivity){
+		ExitLogin();
+		mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+	}
+
+	public static String getTwoDouble(double number) {
+		DecimalFormat df = new DecimalFormat("######0.00");
+		df.setRoundingMode(RoundingMode.FLOOR);
+		return df.format(number);
 	}
 }

@@ -19,7 +19,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 public class ImageLoadUtil {
 	// 本地缓存相对路径
-	public static final String Relative_Path = "data/anyou";
+	public static final String Relative_Path = "data/anyou/http";
 	// 内存缓存大小
 	private static final long Memory_Cache_Size = Runtime.getRuntime()
 			.maxMemory() / 8;

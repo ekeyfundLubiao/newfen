@@ -20,7 +20,7 @@ public class UploadUtil {
      * @param RequestURL  请求的rul
      * @return  返回响应的内容
      */
-    public static int uploadFile(File file,String RequestURL)
+    public static String uploadFile(File file,String RequestURL)
     {
         int responseCode = -1;
         String result = null;
@@ -81,8 +81,8 @@ public class UploadUtil {
                  */
                  responseCode = conn.getResponseCode();
                 Log.e(TAG, "response code:"+responseCode);
-//                if(res==200)
-//                {
+                if(responseCode==200)
+                {
                     Log.e(TAG, "request success");
                     InputStream input =  conn.getInputStream();
                     StringBuffer sb1= new StringBuffer();

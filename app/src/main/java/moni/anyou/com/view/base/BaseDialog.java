@@ -41,7 +41,6 @@ public abstract class BaseDialog extends Dialog{
     private TextView mLeftView;
     private TextView mCenterView;
     private TextView mRightView;
-
     private FrameLayout mViewGroup;
 
     public BaseDialog(BaseActivity activity) {
@@ -147,7 +146,7 @@ public abstract class BaseDialog extends Dialog{
 
     public void initBottomDialog()
     {
-        init(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT,R.style.dialog_animation_bottom, Gravity.BOTTOM,true);
+        init(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT,R.style.dialog_animation_bottom, Gravity.CENTER,true);
     }
 
     public void initWidthDialog(int animId,boolean outIsDissmis,float w)
