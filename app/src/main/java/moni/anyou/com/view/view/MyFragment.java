@@ -25,6 +25,7 @@ import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
@@ -159,9 +160,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-        tvfamilyName.setText(baseInfo.child+ Tools.getRole(baseInfo.role));
-        tvGardenName.setText(baseInfo.companyname+baseInfo.gradename);
-        setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,ivIconhead);
+        if (AppTools.isLogin(mBaseActivity)) {
+            BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+            tvfamilyName.setText(baseInfo.child+ Tools.getRole(baseInfo.role));
+            tvGardenName.setText(baseInfo.companyname+baseInfo.gradename);
+            setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,ivIconhead);
+        }
+
     }
 }

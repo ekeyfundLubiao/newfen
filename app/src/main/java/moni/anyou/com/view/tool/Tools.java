@@ -472,7 +472,16 @@ public class Tools {
                 boolean isSameYear = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
                 boolean isSameMonth = isSameYear && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
                 boolean isSameDate = isSameMonth && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
-                if (isSameDay(curDate, someDate)) {
+                boolean isSameMin = isSameDay(curDate, someDate) && cal1.get(Calendar.HOUR) == cal2.get(Calendar.HOUR);
+                if (isSameMin) {
+                    int distanceMin = cal1.get(Calendar.MINUTE) - cal2.get(Calendar.MINUTE);
+                    if (distanceMin == 0) {
+                        return "刚刚";
+                    } else {
+                        return distanceMin + "分钟前";
+                    }
+
+                }else  if (isSameDay(curDate, someDate)) {
                     int distanceTime = cal1.get(Calendar.HOUR) - cal2.get(Calendar.HOUR);
                     return distanceTime + "小时前";
                 } else {

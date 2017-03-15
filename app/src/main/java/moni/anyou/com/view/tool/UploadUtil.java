@@ -20,10 +20,11 @@ public class UploadUtil {
      * @param RequestURL  请求的rul
      * @return  返回响应的内容
      */
-    public static String uploadFile(File file,String RequestURL)
+    public static int uploadFile(File file,String RequestURL)
     {
-        int responseCode = -1;
+
         String result = null;
+        int responseCode = -1;
         String  BOUNDARY =  UUID.randomUUID().toString();  //边界标识   随机生成
         String PREFIX = "--" , LINE_END = "\r\n"; 
         String CONTENT_TYPE = "multipart/form-data";   //内容类型
@@ -81,8 +82,8 @@ public class UploadUtil {
                  */
                  responseCode = conn.getResponseCode();
                 Log.e(TAG, "response code:"+responseCode);
-                if(responseCode==200)
-                {
+//                if(res==200)
+//                {
                     Log.e(TAG, "request success");
                     InputStream input =  conn.getInputStream();
                     StringBuffer sb1= new StringBuffer();

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "moni.anyou.com"
         minSdkVersion 15
@@ -33,4 +33,5 @@ dependencies {
     compile project(':ptr-lib')
     compile files('libs/KJFrameForAndroid_V1.321.jar')
     compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.github.YancyYe:GalleryPick:1.1.4'
 }
