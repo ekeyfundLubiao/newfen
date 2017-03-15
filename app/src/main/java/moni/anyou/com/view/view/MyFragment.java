@@ -148,7 +148,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     }
     //family
     public void initInvitefamily(){
-        itemBeens.add(new HomeItemBean(R.mipmap.home_icon_invite_family, "邀请家人"));
+        itemBeens.add(new HomeItemBean(R.mipmap.jiating, "邀请家人"));
     }
     /**
      * 总园长

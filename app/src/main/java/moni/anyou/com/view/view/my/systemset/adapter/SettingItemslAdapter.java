@@ -46,6 +46,11 @@ public class SettingItemslAdapter extends BaseAdapter {
         }
         this.notifyDataSetChanged();
     }
+    public void replace(int position,HomeItemBean result) {
+        list.remove(position);
+        list.add(position,result);
+        this.notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {
@@ -88,12 +93,12 @@ public class SettingItemslAdapter extends BaseAdapter {
         if (temp.iSHowArr) {
             viewHold.right_arr.setVisibility(View.VISIBLE);
         }
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PersonInfoSettingActivity.jumpTo(position, getItem(position));
-            }
-        });
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SystemSettingActivity.jumpTo(position, getItem(position));
+//            }
+//        });
 
         return convertView;
     }

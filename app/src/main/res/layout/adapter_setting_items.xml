@@ -5,7 +5,6 @@
     android:background="@color/white"
     android:minHeight="45dp"
     android:id="@+id/rl_set_item"
-    android:clickable="true"
     android:orientation="vertical">
 
 
@@ -42,7 +41,7 @@
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:background="@color/bgcolor"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="1px"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"/>
 

@@ -175,16 +175,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    public static void jumpTo(int position, HomeItemBean bean) {
-
-        if ("".equals(bean.value)) {
-
-        } else if ("".equals(bean.value)) {
-
-        }
-        if ("".equals(bean.value)) {
-        }
-    }
 
     //teacher headmaster
     public void viewforTeacheandMaster() {

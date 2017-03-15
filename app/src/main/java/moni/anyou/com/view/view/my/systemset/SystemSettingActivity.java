@@ -84,37 +84,41 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
     @Override
     public void setAction() {
         super.setAction();
+        initMsgview();
         tvExitLogin.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         rlExitLoad.setOnClickListener(this);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                initMsgview();
-                showMsgDialog("您确定要清除吗？", "取消", "确定", new MessgeDialog.MsgDialogListener() {
-                    @Override
-                    public void OnMsgClick() {
 
-                    }
+                if (position==1) {
 
-                    @Override
-                    public void OnLeftClick() {
-                       dismissMsgDialog();
-                    }
+                    showMsgDialog("您确定要清除吗？", "取消", "确定", new MessgeDialog.MsgDialogListener() {
+                        @Override
+                        public void OnMsgClick() {
 
-                    @Override
-                    public void OnRightClick() {
-                       AppTools.clearFileCache(mBaseActivity);
-                        setItems.add(new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
-                        myAdapter.setDatas(setItems);
-                        myAdapter.notifyDataSetChanged();
-                    }
+                        }
 
-                    @Override
-                    public void onDismiss() {
+                        @Override
+                        public void OnLeftClick() {
+                            dismissMsgDialog();
+                        }
 
-                    }
-                });
+                        @Override
+                        public void OnRightClick() {
+                            AppTools.clearFileCache(mBaseActivity);
+                            myAdapter.replace(1,new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
+                            dismissMsgDialog();
+                        }
+
+                        @Override
+                        public void onDismiss() {
+                              dismissMsgDialog();
+                        }
+                    });
+                }
+
             }
         });
     }
@@ -160,4 +164,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             }
         });
     }
+
+
+
 }

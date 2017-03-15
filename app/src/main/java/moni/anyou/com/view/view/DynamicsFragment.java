@@ -4,12 +4,15 @@ package moni.anyou.com.view.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,9 @@ import org.kymjs.aframe.http.StringCallBack;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler2;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.BaseInfo;
@@ -52,7 +58,9 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private TextView tvTitle;
     private ImageView iv_icon;
     private ImageView ivRight;
-
+    private PtrClassicFrameLayout ptrFrame;
+//    SwipeRefreshLayout refreshLayout;
+//    ScrollView scrollView;
     private ListView lvDynamics;
     private DynamicsItemAdapter dynamicsItemAdapter;
     private ArrayList<DynamicsTempItems> mItems;
@@ -66,7 +74,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_dynamics, container, false);
-
         init(mView);
         return mView;
     }
@@ -79,6 +86,11 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         tvTitle = (TextView) mView.findViewById(R.id.page_title);
         iv_icon = (ImageView) mView.findViewById(R.id.iv_icon);
         ivRight = (ImageView) mView.findViewById(R.id.right_tv);
+        ptrFrame = (PtrClassicFrameLayout) mView.findViewById(R.id.list_view_frame);
+        ptrFrame.setMode(PtrFrameLayout.Mode.BOTH);
+
+//        refreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.refreshLayout);
+//        scrollView = (ScrollView) mView.findViewById(R.id.scrollView);
         tvTitle.setText("动态");
         lvDynamics = (NoListview) mView.findViewById(R.id.lv_dynamics);
         cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
@@ -93,6 +105,34 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void setAction() {
         super.setAction();
         ivRight.setOnClickListener(this);
+
+
+        ptrFrame.setPtrHandler(new PtrDefaultHandler2() {
+            @Override
+            public void onLoadMoreBegin(final PtrFrameLayout frame) {
+                pageNo++;
+                getData();
+                ptrFrame.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        frame.refreshComplete();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void onRefreshBegin(final PtrFrameLayout frame) {
+                pageNo = 1;
+                getData();
+                ptrFrame.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        frame.refreshComplete();
+                    }
+                }, 1000);
+            }
+        });
+
     }
 
     public void marklike(int position, ResDynamicsBean.ListBean bean) {
@@ -115,7 +155,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         KJStringParams params = new KJStringParams();
         String cmdPara = new ReqPageBean("17", SysConfig.uid, SysConfig.token, "" + pageNo, "" + pageSize).ToJsonString();
         params.put("sendMsg", cmdPara);
-        window.ShowWindow();
+
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
@@ -127,20 +167,27 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         ResDynamicsBean temp = new Gson().fromJson(t, ResDynamicsBean.class);
-                        dynamicsItemAdapter.setDatas(temp.getList());
+                        if (pageNo > 1) {
+                            dynamicsItemAdapter.AddDatas(temp.getList());
+                           // refreshLayout.setLoading(false);
+                        }else {
+                            dynamicsItemAdapter.setDatas(temp.getList());
+                        }
+
+
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
                     Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
                 }
-                window.closeWindow();
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-                window.closeWindow();
+
             }
         });
 
@@ -195,4 +242,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
     }
+
+
 }

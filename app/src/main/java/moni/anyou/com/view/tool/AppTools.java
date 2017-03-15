@@ -169,6 +169,16 @@ public class AppTools {
 					allSize += fileList[i].length();
 				}
 			}
+			//裁剪的图片缓存
+			File img_cutcachelder = StorageUtils.getOwnCacheDirectory(mContext,
+					LocalConstant.Local_Photo_Path);
+			File[] cutcachel_file = img_cutcachelder.listFiles();
+			if ((img_cutcachelder != null) && (img_cutcachelder.exists()) && (null != cutcachel_file)) {
+				for (int i = 0; i < cutcachel_file.length; i++) {
+					allSize += cutcachel_file[i].length();
+				}
+			}
+
 			//下载的安装包
 			File down_folder = StorageUtils
 					.getOwnCacheDirectory(mContext, LocalConstant.Download_Path);

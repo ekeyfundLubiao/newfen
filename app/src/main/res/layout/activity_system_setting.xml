@@ -28,7 +28,8 @@
             android:textColor="@color/color_left_title"
             android:textSize="12dp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iv_icon"
             android:layout_width="5dp"
             android:layout_height="5dp"
@@ -104,6 +105,13 @@
             android:text=""
             android:textColor="@color/color_text_color" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:background="@color/bgcolor" />
     </RelativeLayout>
 
     <moni.anyou.com.view.widget.NoListview

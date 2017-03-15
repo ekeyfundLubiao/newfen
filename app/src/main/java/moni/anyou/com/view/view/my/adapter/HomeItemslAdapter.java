@@ -91,7 +91,7 @@ public class HomeItemslAdapter extends BaseAdapter {
                         //切换园
                         ToastTools.showShort(mContext.getContext(),"切换graden");
                         break;
-                    case R.mipmap.home_icon_invite_family:
+                    case R.mipmap.jiating:
                         //邀请家人
                         intent.setClass(mContext.mBaseActivity, FamilyNumbersActivity.class);
                         mContext.startActivity(intent);
