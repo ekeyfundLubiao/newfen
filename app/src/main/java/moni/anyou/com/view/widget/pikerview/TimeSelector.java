@@ -134,7 +134,7 @@ public class TimeSelector {
             seletorDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             seletorDialog.setContentView(R.layout.dialog_selector);
             Window window = seletorDialog.getWindow();
-            window.setGravity(Gravity.BOTTOM);
+            window.setGravity(Gravity.CENTER);
             WindowManager.LayoutParams lp = window.getAttributes();
             int width = ScreenUtil.getInstance(context).getScreenWidth();
             lp.width = width;
@@ -168,15 +168,13 @@ public class TimeSelector {
         startYear = startCalendar.get(Calendar.YEAR);
         startMonth = startCalendar.get(Calendar.MONTH) + 1;
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
-        startDay = 15;
-
         endYear = endCalendar.get(Calendar.YEAR);
         endMonth = endCalendar.get(Calendar.MONTH) + 1;
         endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
         spanYear = startYear != endYear;
         spanMon = (!spanYear) && (startMonth != endMonth);
         spanDay = (!spanMon) && (startDay != endDay);
-        selectedCalender.setTime(currentCalender.getTime());
+        selectedCalender.setTime(startCalendar.getTime());
 
     }
 
@@ -185,30 +183,30 @@ public class TimeSelector {
 
         if (spanYear) {
             for (int i = startYear; i <= endYear; i++) {
-                year.add(String.valueOf(i)+"年");
+                year.add(String.valueOf(i) + "年");
             }
             for (int i = startMonth; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i)+"月");
+                month.add(fomatTimeUnit(i) + "月");
             }
             for (int i = startDay; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i)+"日");
+                day.add(fomatTimeUnit(i) + "日");
             }
 
 
         } else if (spanMon) {
             year.add(String.valueOf(startYear));
             for (int i = startMonth; i <= endMonth; i++) {
-                month.add(fomatTimeUnit(i)+"月");
+                month.add(fomatTimeUnit(i) + "月");
             }
             for (int i = startDay; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i)+"日");
+                day.add(fomatTimeUnit(i) + "日");
             }
 
         } else if (spanDay) {
             year.add(String.valueOf(startYear));
             month.add(fomatTimeUnit(startMonth));
             for (int i = startDay; i <= endDay; i++) {
-                day.add(fomatTimeUnit(i)+"日");
+                day.add(fomatTimeUnit(i) + "日");
             }
         }
 
@@ -232,7 +230,6 @@ public class TimeSelector {
 
             startTime.set(Calendar.HOUR_OF_DAY, startCalendar.get(Calendar.HOUR_OF_DAY));
             endTime.set(Calendar.HOUR_OF_DAY, endCalendar.get(Calendar.HOUR_OF_DAY));
-
             startWorkTime.set(Calendar.HOUR_OF_DAY, workStartCalendar.get(Calendar.HOUR_OF_DAY));
             startWorkTime.set(Calendar.MINUTE, workStartCalendar.get(Calendar.MINUTE));
             endWorkTime.set(Calendar.HOUR_OF_DAY, workEndCalendar.get(Calendar.HOUR_OF_DAY));
@@ -276,7 +273,7 @@ public class TimeSelector {
         year_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
-                text=text.replace("年","").replace("月","").replace("日","");
+                text = text.replace("年", "").replace("月", "").replace("日", "");
                 selectedCalender.set(Calendar.YEAR, Integer.parseInt(text));
                 monthChange();
 
@@ -286,7 +283,7 @@ public class TimeSelector {
         month_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
-                text=text.replace("年","").replace("月","").replace("日","");
+                text = text.replace("年", "").replace("月", "").replace("日", "");
                 selectedCalender.set(Calendar.DAY_OF_MONTH, 1);
                 selectedCalender.set(Calendar.MONTH, Integer.parseInt(text) - 1);
                 dayChange();
@@ -297,7 +294,7 @@ public class TimeSelector {
         day_pv.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
-                text=text.replace("年","").replace("月","").replace("日","");
+                text = text.replace("年", "").replace("月", "").replace("日", "");
                 selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(text));
             }
         });
@@ -319,10 +316,6 @@ public class TimeSelector {
         day_pv.setData(day);
 
         DateIndex dateindex = getindex(year, month, day);
-        Log.d("TAG", "loadComponent: " + "Year" + year.get(dateindex.yearI) + "  Mon" + month.get(dateindex.monthI) + "  index" + dateindex.monthI + "  Day  " + day.get(dateindex.dayI));
-        for (int i = 0; i < month.size(); i++) {
-            //Log.d("TAG", "loadComponent: " +"  Mon" + month.get(i));
-        }
         year_pv.setSelected(dateindex.yearI);
         month_pv.setSelected(dateindex.monthI);
         day_pv.setSelected(dateindex.dayI);
@@ -342,18 +335,18 @@ public class TimeSelector {
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         if (selectedYear == startYear) {
             for (int i = startMonth; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i)+"月");
+                month.add(fomatTimeUnit(i) + "月");
             }
         } else if (selectedYear == endYear) {
             for (int i = 1; i <= endMonth; i++) {
-                month.add(fomatTimeUnit(i)+"月");
+                month.add(fomatTimeUnit(i) + "月");
             }
         } else {
             for (int i = 1; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i)+"月");
+                month.add(fomatTimeUnit(i) + "月");
             }
         }
-        selectedCalender.set(Calendar.MONTH, Integer.parseInt(month.get(0).replace("月","")) - 1);
+        selectedCalender.set(Calendar.MONTH, Integer.parseInt(month.get(0).replace("月", "")) - 1);
         month_pv.setData(month);
         month_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, month_pv);
@@ -374,18 +367,18 @@ public class TimeSelector {
         int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
         if (selectedYear == startYear && selectedMonth == startMonth) {
             for (int i = startDay; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i)+"日");
+                day.add(fomatTimeUnit(i) + "日");
             }
         } else if (selectedYear == endYear && selectedMonth == endMonth) {
             for (int i = 1; i <= endDay; i++) {
-                day.add(fomatTimeUnit(i)+"日");
+                day.add(fomatTimeUnit(i) + "日");
             }
         } else {
             for (int i = 1; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i)+"日");
+                day.add(fomatTimeUnit(i) + "日");
             }
         }
-        selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.get(0).replace("日","")));
+        selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.get(0).replace("日", "")));
         day_pv.setData(day);
         day_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, day_pv);
@@ -472,7 +465,7 @@ public class TimeSelector {
                     break;
                 }
             }
-            staticVaule=new DateIndex(yearI, monthI, dayI);
+            staticVaule = new DateIndex(yearI, monthI, dayI);
             return staticVaule;
         }
     }

@@ -77,7 +77,6 @@ public class RelationSeletor {
         tv_cancle = (Button) seletorDialog.findViewById(R.id.btn_cancle);
         tv_select = (Button) seletorDialog.findViewById(R.id.btn_select);
 
-
         tv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             editor.putString("sUserInfoJson", SysConfig.userInfoJson.toString());
                             editor.commit();// 提交刷新数据
                             onBack();
-                            startActivity(new Intent(mContext,IndexActivity.class));
+                            startActivity(new Intent(mContext,CompleteBaseInfoActivity.class));
                         } else {
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         }

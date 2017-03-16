@@ -42,6 +42,7 @@ import moni.anyou.com.view.view.photo.PhotoDialog;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
+import moni.anyou.com.view.widget.pikerview.TimeSelector;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
 import static moni.anyou.com.view.config.SysConfig.dataJson;
@@ -69,10 +70,9 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private RelativeLayout rlUpdatepwd;
     private RelativeLayout rlGarden;
     private RelativeLayout rlAccount;
-
-
     private RelationSeletor mRelationSeletor;
     private RelationSeletor mSexSeletor;
+    private TimeSelector mTimeSelector;
 
 
     ArrayList<HomeItemBean> baseInfoList;
@@ -91,7 +91,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         setContentView(R.layout.activity_person_info_setting);
         init();
     }
-
     @Override
     public void initView() {
         super.initView();
@@ -286,6 +285,12 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         });
 
 
+        mTimeSelector  = new TimeSelector(mContext, new TimeSelector.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvBrithday.setText(time);
+            }
+        }, "1989-01-30 00:00", "2018-12-31 00:00");
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
 
         setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
