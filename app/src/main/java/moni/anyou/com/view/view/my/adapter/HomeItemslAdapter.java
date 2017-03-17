@@ -95,6 +95,7 @@ public class HomeItemslAdapter extends BaseAdapter {
                         //邀请家人
                         intent.setClass(mContext.mBaseActivity, FamilyNumbersActivity.class);
                         mContext.startActivity(intent);
+                        mContext.activityAnimation(mContext.mBaseActivity.RIGHT_IN);
                         break;
                     case R.mipmap.home_icon_new:
                         //公告
@@ -103,6 +104,7 @@ public class HomeItemslAdapter extends BaseAdapter {
                         //使用帮住
                         intent.setClass(mContext.mBaseActivity, FamilyNumbersActivity.class);
                         mContext.startActivity(intent);
+                        mContext.activityAnimation(mContext.mBaseActivity.RIGHT_IN);
                         break;
                     case R.mipmap.home_icon_suggestion:
                         //意见反馈
@@ -114,7 +116,7 @@ public class HomeItemslAdapter extends BaseAdapter {
                     case R.mipmap.gonggao:
                         intent.setClass(mContext.mBaseActivity, SystemsNoticeActivity.class);
                         mContext.startActivity(intent);
-                        mContext.activityAnimation(BaseFragment.RIGHT_OUT);
+                        mContext.activityAnimation(mContext.mBaseActivity.RIGHT_IN);
                         break;
                     case R.mipmap.home_icon_addressbook:
                         ToastTools.showShort(mContext.getContext(),"通讯录");

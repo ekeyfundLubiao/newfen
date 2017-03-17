@@ -150,9 +150,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 break;
             case R.id.tv_headIcon:
                 mType = TYPE_ICON;
-
                 requestPermission(PermissionTools.writeExternalStorage);
-
 //                ToastTools.showShort(mContext, "设置头像");
                 break;
             case R.id.tv_changepwd:
@@ -160,6 +158,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 // ToastTools.showShort(mContext,"修改密码");
                 break;
             case R.id.tv_brithday:
+                mTimeSelector.show();
                 break;
             case R.id.tv_relatetobaby:
                 mRelationSeletor.show();
@@ -290,7 +289,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
             public void handle(String time) {
                 tvBrithday.setText(time);
             }
-        }, "1989-01-30 00:00", "2018-12-31 00:00");
+        }, "2010-01-30 00:00", "2018-12-31 00:00");
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
 
         setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
@@ -420,7 +419,10 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void run() {
-            UploadUtil.uploadFile(upLoadfile,SysConfig.UploadUrl);
+            int code=UploadUtil.uploadFile(upLoadfile,SysConfig.UploadUrl);
+            if (code==200) {
+                setBitmaptoImageView11(SysConfig.PicUrl+upLoadfile.getName(),tvHeadIcon);
+            }
         }
     }
 

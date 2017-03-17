@@ -54,6 +54,12 @@ public class TeacherShowAdapter extends RecyclerView.Adapter<TeacherShowAdapter.
         return holder;
     }
 
+
+    public void replace(ResHomeData.TopTeachersBean text, int position) {
+        mItems.remove(position);
+        mItems.add(position, text);
+        notifyItemChanged(position);
+    }
     @Override
     public void onBindViewHolder(final MyViewHold mViewHold, final int position) {
         mViewHold.itemView.setTag(position);

@@ -88,18 +88,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void postLogin() {
-        ToastTools.showShort(mContext, "登录");
+
         startActivity(new Intent(this,CompleteBaseInfoActivity.class));
     }
 
     public void getLoginPost() {
 
         KJHttp kjh = new KJHttp();
+        kjh.setTimeout(60000);
         KJStringParams params = new KJStringParams();
         String cmdPara = "{\"cmd\":\"4\",\"mobile\":\"" + etUserName.getText().toString() + "\",\"password\":\"" + etUserPwd.getText().toString() + "\"}";
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
-        kjh.urlPost(SysConfig.ServerUrl, params, new StringCallBack() {
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
 

@@ -125,6 +125,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent i = new Intent();
                 i.setClass(mBaseActivity, PersonInfoSettingActivity.class);
                 mBaseActivity.startActivity(i);
+                activityAnimation(RIGHT_IN);
                 break;
             case R.id.rl_setting:
                 startActivity(new Intent(mContext, SystemSettingActivity.class));

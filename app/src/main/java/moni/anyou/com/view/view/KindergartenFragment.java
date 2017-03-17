@@ -163,7 +163,7 @@ public class KindergartenFragment extends BaseFragment {
     //点赞
     public void likesPost(ResHomeData.TopTeachersBean teacher, int position) {
         postLikeTeacher(teacher,position);
-        ToastTools.showShort(this.getContext(), "位置" + teacher.getLikes());
+
     }
 
     //教师详情
@@ -266,12 +266,16 @@ public class KindergartenFragment extends BaseFragment {
                         int temp = Integer.parseInt(teacher.getLikes()) + 1;
                         Log.d(TAG, "LikeAfter: " + temp);
                       // getdata();
-                       showTeacherAdapter.notifyItemChanged(position,new ResHomeData.TopTeachersBean(teacher.getUser_id(),
-                               teacher.getUrl(),
-                               teacher.getNick(),
-                               teacher.getIcon(),
-                               ""+temp));
-                        showTeacherAdapter.notifyDataSetChanged();
+//                       showTeacherAdapter.notifyItemChanged(position,new ResHomeData.TopTeachersBean(teacher.getUser_id(),
+//                                teacher.getUrl(),
+//                                teacher.getNick(),
+//                                teacher.getIcon(),
+//                                ""+temp));
+                        showTeacherAdapter.replace(new ResHomeData.TopTeachersBean(teacher.getUser_id(),
+                                teacher.getUrl(),
+                                teacher.getNick(),
+                                teacher.getIcon(),
+                                ""+temp),position);
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }

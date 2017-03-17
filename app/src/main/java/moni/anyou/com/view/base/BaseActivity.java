@@ -184,6 +184,8 @@ public class BaseActivity extends FragmentActivity {
      */
     public void onBack() {
         mBaseActivity.finish();
+        activityAnimation(RIGHT_OUT);
+
     }
 
     /**

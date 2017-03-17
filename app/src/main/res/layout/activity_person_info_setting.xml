@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="26dp"
-                android:background="@mipmap/icon_heart"
+                android:background="@mipmap/jiaoshifengcai"
                 android:textColor="@color/appblack"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="1dp" />

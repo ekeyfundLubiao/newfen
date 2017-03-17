@@ -1,6 +1,7 @@
 package moni.anyou.com.view.view.my.adapter;
 
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,23 @@ import moni.anyou.com.view.view.MyFragment;
 import moni.anyou.com.view.view.my.SystemsNoticeActivity;
 import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 
-public class NoticeItemslAdapter extends BaseAdapter {
+public class NoticeItemslAdapter extends RecyclerView.Adapter<NoticeItemslAdapter.MyViewHolder> {
+
+    /**
+     * Item 点击事件监听的回调方法
+     */
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+
+        void onItemLongClick(View view, int position);
+    }
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
     private SystemsNoticeActivity mContext;
     private LayoutInflater mInflater;
     private List<ResNoticeData.ListBean> list = new ArrayList<ResNoticeData.ListBean>();
@@ -50,15 +67,9 @@ public class NoticeItemslAdapter extends BaseAdapter {
         }
         notifyDataSetChanged();
     }
-    @Override
-    public int getCount() {
-        if (list != null && list.size() > 0) {
-            return list.size();
-        }
-        return 0;
-    }
 
-    @Override
+
+
     public ResNoticeData.ListBean getItem(int position) {
         if (list != null && list.size() > 0) {
             return list.get(position);
@@ -66,35 +77,58 @@ public class NoticeItemslAdapter extends BaseAdapter {
         return null;
     }
 
+
     @Override
-    public long getItemId(int position) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        MyViewHolder holder = new MyViewHolder(mInflater.inflate(R.layout.item_notice_living, parent,
+                false));
+        return holder;
+    }
+
+
+    @Override
+    public void onBindViewHolder( final MyViewHolder holder, int position) {
+        holder.tv_noticeContent.setText(list.get(position).getContents());
+        holder.tv_noticeTime.setText(list.get(position).getAddtime());
+
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
+                    return false;
+                }
+            });
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        if (list != null && list.size() > 0) {
+            return list.size();
+        }
         return 0;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHold viewHold = new ViewHold();
-        if (convertView == null) {
-            convertView = View.inflate(mContext.mBaseActivity, R.layout.item_notice_living, null);
-            viewHold.tv_noticeContent = (TextView) convertView.findViewById(R.id.tv_noticeContent);
-            viewHold.tv_noticeTime = (TextView) convertView.findViewById(R.id.tv_noticeTime);
-            convertView.setTag(viewHold);
-        } else {
-            viewHold = (ViewHold) convertView.getTag();
+    class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView tv_noticeTime;
+        public TextView tv_noticeContent;
+
+        public MyViewHolder(View view) {
+            super(view);
+            tv_noticeTime = (TextView) view.findViewById(R.id.tv_noticeTime);
+            tv_noticeContent = (TextView) view.findViewById(R.id.tv_noticeContent);
         }
-        final ResNoticeData.ListBean temp = list.get(position);
-
-        viewHold.tv_noticeContent.setText(temp.getContents());
-        viewHold.tv_noticeTime.setText(Tools.getMM_DD_HH(temp.getAddtime()));
-
-        return convertView;
-    }
-
-    class ViewHold {
-
-        private TextView tv_noticeTime;
-        private TextView tv_noticeContent;
-
     }
 
 
