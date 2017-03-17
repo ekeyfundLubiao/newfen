@@ -85,7 +85,7 @@ public class NoticeItemslAdapter extends BaseAdapter {
         final ResNoticeData.ListBean temp = list.get(position);
 
         viewHold.tv_noticeContent.setText(temp.getContents());
-        viewHold.tv_noticeTime.setText(temp.getAddtime());
+        viewHold.tv_noticeTime.setText(Tools.getMM_DD_HH(temp.getAddtime()));
 
         return convertView;
     }

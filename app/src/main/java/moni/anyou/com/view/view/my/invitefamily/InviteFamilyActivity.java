@@ -71,6 +71,7 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.iv_left:
                 onBack();
+                activityAnimation(RIGHT_OUT);
                 break;
             case R.id.btn_addnumber:
                 if (TextUtils.isEmpty(etPhoneNum.getText())) {

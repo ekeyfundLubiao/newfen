@@ -516,4 +516,10 @@ public class Tools {
         return isSameDate;
 
     }
+
+    public static String getMM_DD_HH(String date){
+        return date.substring(5,16);
+
+    }
+
 }

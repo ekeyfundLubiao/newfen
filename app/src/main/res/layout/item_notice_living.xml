@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="79dp"
     android:background="@color/white"
-    android:minHeight="79dp"
     android:orientation="vertical">
 
     <TextView
@@ -29,8 +28,7 @@
     <View
         android:layout_gravity="end"
         android:layout_marginTop="3dp"
-        android:layout_marginLeft="13dp"
         android:layout_width="match_parent"
-        android:background="@color/bgcolor"
-        android:layout_height="1dp"/>
+        android:background="#c1c1c1"
+        android:layout_height="1px"/>
 </LinearLayout>

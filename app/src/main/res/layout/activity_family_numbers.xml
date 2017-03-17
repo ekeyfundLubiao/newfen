@@ -22,21 +22,13 @@
         android:layout_weight="0.16"
         android:background="@mipmap/top_22">
 
-        <ImageView
-            android:visibility="invisible"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@mipmap/home_icon_addressbook" />
 
         <TextView
             android:id="@+id/tv_who"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+             android:layout_marginTop="110dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
             android:text="-----"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -69,6 +61,7 @@
             android:textColor="@color/white"
              />
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_addnumber"
         android:layout_width="match_parent"

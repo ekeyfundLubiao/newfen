@@ -222,7 +222,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
-                    Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                   // Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         numberBeans.clear();

@@ -133,7 +133,7 @@
             android:id="@+id/tv_accout"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="13dp"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -203,16 +203,6 @@
             android:text="性別"
             android:textColor="@color/color_left_title" />
 
-        <TextView
-            android:id="@+id/tv_sex"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="26dp"
-            android:gravity="center_vertical|right"
-            android:textColor="@color/color_text_color" />
-
 
         <View
             android:layout_width="match_parent"
@@ -221,6 +211,18 @@
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="13dp"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_text_color"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -240,17 +242,6 @@
             android:textColor="@color/color_left_title" />
 
 
-        <TextView
-            android:id="@+id/tv_brithday"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="26dp"
-            android:text="2012-1-1"
-            android:gravity="center_vertical|right"
-            android:textColor="@color/color_text_color" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -258,6 +249,19 @@
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
+
+        <TextView
+            android:id="@+id/tv_brithday"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="13dp"
+            android:text="2012-1-1"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_text_color"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -275,7 +279,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="13dp"
             android:text="粑粑"
             android:gravity="center_vertical|right"
             android:textColor="@color/color_text_color" />

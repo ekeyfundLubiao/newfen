@@ -12,6 +12,11 @@
 
     <include layout="@layout/com_top_bar" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/bgcolor" />
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -28,8 +33,7 @@
             android:textColor="@color/color_left_title"
             android:textSize="12dp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iv_icon"
             android:layout_width="5dp"
             android:layout_height="5dp"
@@ -64,6 +68,14 @@
             android:background="@color/bgcolor" />
 
     </RelativeLayout>
+
+    <moni.anyou.com.view.widget.NoListview
+        android:id="@+id/lv_setsys"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dip"
+        android:listSelector="@android:color/transparent" />
 
     <RelativeLayout
         android:id="@+id/rl_set_item"
@@ -114,13 +126,6 @@
             android:background="@color/bgcolor" />
     </RelativeLayout>
 
-    <moni.anyou.com.view.widget.NoListview
-        android:id="@+id/lv_setsys"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null"
-        android:dividerHeight="0dip"
-        android:listSelector="@android:color/transparent" />
 
     <View
         android:layout_width="match_parent"
@@ -147,6 +152,7 @@
             android:textSize="12dp" />
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

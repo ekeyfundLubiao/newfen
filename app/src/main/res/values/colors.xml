@@ -32,4 +32,5 @@
     <color name="color_text_hiden">#AbAbAb</color>
     <!--弹出框-->
     <color name="color_dialog_bg">#ff999999</color>
+    <color name="color_invite_text">#FF7E00</color>
 </resources>

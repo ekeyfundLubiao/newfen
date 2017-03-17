@@ -48,6 +48,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_system_setting);
         init();
     }
+
     @Override
     public void initView() {
         super.initView();
@@ -55,21 +56,23 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         rlExitLoad = (RelativeLayout) findViewById(R.id.rl_exit_load);
         tvExitLogin = (TextView) findViewById(R.id.tv_exitLogin);
         listview = (NoListview) findViewById(R.id.lv_setsys);
-        myAdapter=new SettingItemslAdapter(this);
+        myAdapter = new SettingItemslAdapter(this);
         listview.setAdapter(myAdapter);
         window = new NetProgressWindowDialog(mContext);
     }
+
     @Override
     public void setData() {
         super.setData();
         tvTitle.setText("设置");
         setItems = new ArrayList<>();
-        setItems.add(new HomeItemBean("关于我们", ""));
         setItems.add(new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
+        setItems.add(new HomeItemBean("关于我们", ""));
         myAdapter.setDatas(setItems);
         myAdapter.notifyDataSetChanged();
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -81,6 +84,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                 break;
         }
     }
+
     @Override
     public void setAction() {
         super.setAction();
@@ -92,7 +96,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position==1) {
+                if (position == 0) {
 
                     showMsgDialog("您确定要清除吗？", "取消", "确定", new MessgeDialog.MsgDialogListener() {
                         @Override
@@ -108,13 +112,13 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                         @Override
                         public void OnRightClick() {
                             AppTools.clearFileCache(mBaseActivity);
-                            myAdapter.replace(1,new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
+                            myAdapter.replace(1, new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
                             dismissMsgDialog();
                         }
 
                         @Override
                         public void onDismiss() {
-                              dismissMsgDialog();
+                            dismissMsgDialog();
                         }
                     });
                 }
@@ -122,11 +126,13 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             }
         });
     }
+
     @Override
     public void onBack() {
         super.onBack();
         activityAnimation(RIGHT_OUT);
     }
+
     public void postExitLogin() {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
@@ -144,7 +150,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                     if (result >= 1) {
 
                         AppTools.jumptoLogin(mBaseActivity);
-                        ToastTools.showShort(mContext,"退出成功") ;
+                        ToastTools.showShort(mContext, "退出成功");
                         onBack();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
@@ -164,7 +170,6 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             }
         });
     }
-
 
 
 }

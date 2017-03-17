@@ -3,6 +3,7 @@ package moni.anyou.com.view.view.my;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,6 +55,18 @@ public class SystemsNoticeActivity extends BaseActivity {
         super.onResume();
         pageNo = 1;
         postgetNotice();
+    }
+
+    @Override
+    public void setAction() {
+        super.setAction();
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBack();
+                activityAnimation(RIGHT_OUT);
+            }
+        });
     }
 
     public void postgetNotice() {

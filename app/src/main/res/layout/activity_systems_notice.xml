@@ -10,6 +10,11 @@
     android:orientation="vertical"
     tools:context="moni.anyou.com.view.view.my.SystemsNoticeActivity">
     <include layout="@layout/com_top_bar" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/bgcolor"
+        />
     <ListView
         android:id="@+id/lv_notice"
         android:layout_width="match_parent"

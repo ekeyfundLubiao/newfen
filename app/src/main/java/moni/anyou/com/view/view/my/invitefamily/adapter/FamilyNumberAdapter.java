@@ -73,9 +73,9 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
                 R.drawable.loading_err_21);
         mViewHold.ivMark.setVisibility(View.GONE);
        // String temp=Tools.getRole(bean.role);
-        mViewHold.tvRelation.setText("[" + bean.role+ "]");
+        mViewHold.tvRelation.setText("[ " + bean.role+ " ]");
         if (bean.getStatus() == 0) {
-            mViewHold.tvRelation.setTextColor(Color.RED);
+            mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_invite_text));
             mViewHold.ivMark.setVisibility(View.VISIBLE);
         } else {
             mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_99999));
