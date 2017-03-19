@@ -22,6 +22,7 @@ import org.kymjs.aframe.http.StringCallBack;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
@@ -48,7 +49,7 @@ public class LivingChildFragment extends BaseFragment {
     private static int LoadMore = 2;
     private NetProgressWindowDialog window;
     private View mView;
-    private StoreHouseHeader header;
+    private PtrClassicDefaultHeader  header;
     private PtrClassicFrameLayout ptrFrame;
     private RecyclerView rvBabyVideo;
     private VideoRecycleAdapter mVideoRecycleAdapter;
@@ -74,12 +75,11 @@ public class LivingChildFragment extends BaseFragment {
     public void initView() {
         super.initView();
         window = new NetProgressWindowDialog(mContext);
-        header = new StoreHouseHeader(mBaseActivity);
-        header.setPadding(0, PtrLocalDisplay.dp2px(15), 0, 0);
-        header.initWithString("yiquanziben");
+
+
         ptrFrame = (PtrClassicFrameLayout) mView.findViewById(R.id.rotate_header_list_view_frame);
-        ptrFrame.setHeaderView(header);
-        /* 设置回调 */
+        header = new PtrClassicDefaultHeader(mBaseActivity);
+        header.setPadding(0, PtrLocalDisplay.dp2px(15), 0, 0);
         ptrFrame.addPtrUIHandler(header);
         rvBabyVideo= (RecyclerView) mView.findViewById(R.id.rv_baby_video);
 
@@ -97,7 +97,7 @@ public class LivingChildFragment extends BaseFragment {
     @Override
     public void setData() {
         super.setData();
-       JSONArray aa= Tools.getModuleJsonArray("live");
+      // JSONArray aa= Tools.getModuleJsonArray("live");
     }
 
     @Override
@@ -171,6 +171,7 @@ public class LivingChildFragment extends BaseFragment {
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         ResLiveBean temp= new Gson().fromJson(t, ResLiveBean.class);
+                        int totalCound=temp.getTotalCount();
                         switch (Type) {
                             case 1:
                                 mVideoRecycleAdapter.setDatas(temp.getList());

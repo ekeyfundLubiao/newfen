@@ -29,6 +29,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import moni.anyou.com.view.bean.DataClassBean;
+import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 
@@ -263,7 +264,7 @@ public class Tools {
     }
 
     //取得分类数据
-    public static JSONArray getModuleJsonArray(String module) {
+    public static String getModuleJsonArray(String module) {
 
         JSONArray jsonArr = new JSONArray();
         try {
@@ -277,7 +278,7 @@ public class Tools {
         } catch (Exception ex) {
 
         }
-        return jsonArr;
+        return jsonArr.toString();
     }
 
     public static JSONObject getModuleJsonObjct(JSONArray arr, String id) {
@@ -369,7 +370,7 @@ public class Tools {
     public static ArrayList<DataClassBean> getBaseRelatenumberdatas() {
 
         try {
-            return new Gson().fromJson(getModuleJsonArray("relative").toString(), new TypeToken<List<DataClassBean>>() {
+            return new Gson().fromJson(getModuleJsonArray("relative"), new TypeToken<List<DataClassBean>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
@@ -481,7 +482,7 @@ public class Tools {
                         return distanceMin + "分钟前";
                     }
 
-                }else  if (isSameDay(curDate, someDate)) {
+                } else if (isSameDay(curDate, someDate)) {
                     int distanceTime = cal1.get(Calendar.HOUR) - cal2.get(Calendar.HOUR);
                     return distanceTime + "小时前";
                 } else {
@@ -517,9 +518,31 @@ public class Tools {
 
     }
 
-    public static String getMM_DD_HH(String date){
-        return date.substring(5,16);
+    public static String getMM_DD_HH(String date) {
+        return date.substring(5, 16);
 
     }
+
+
+    public static ArrayList<DataClassBean> replaceNum(ArrayList<ResFamilyNumer.RelationBean> relationsHad) {
+        ArrayList<DataClassBean> baseFamily = getBaseRelatenumberdatas();
+        int baseFamilySize = baseFamily.size();
+        for (int i = 0; i < baseFamilySize; i++) {
+            for (int j = 0, size = relationsHad.size(); j < size; j++) {
+                if (baseFamily.get(i).getClassID().equals(relationsHad.get(j).role)) {
+                    baseFamily.set(i, new DataClassBean(relationsHad.get(j).getUser_id(),
+                            relationsHad.get(j).getIcon(),
+                            relationsHad.get(j).role,
+                            relationsHad.get(j).role,
+                            relationsHad.get(j).role,
+                            relationsHad.get(j).getMobile(),
+                            relationsHad.get(j).getStatus(),
+                            relationsHad.get(j).getNick()));
+                }
+            }
+        }
+        return baseFamily;
+    }
+
 
 }

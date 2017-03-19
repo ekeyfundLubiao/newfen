@@ -28,6 +28,45 @@ public class DataClassBean {
     private String parentName;
     private String module;
 
+    public String tellPhoneNum="";
+    public int status;
+    public String nickname="";
+
+    public DataClassBean(String id, String pic, String classID, String className, String classIDList, String tellPhoneNum, int status, String nickname) {
+        this.id = id;
+        this.pic = pic;
+        this.classID = classID;
+        this.className = className;
+        this.classIDList = classIDList;
+        this.tellPhoneNum = tellPhoneNum;
+        this.status = status;
+        this.nickname = nickname;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getTellPhoneNum() {
+        return tellPhoneNum;
+    }
+
+    public void setTellPhoneNum(String tellPhoneNum) {
+        this.tellPhoneNum = tellPhoneNum;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getId() {
         return id;
     }

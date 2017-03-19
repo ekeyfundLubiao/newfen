@@ -19,13 +19,14 @@ public class ResLiveBean extends ResponseStandard {
      * list : [{"liveID":"1","liveName":"跳跳班","addtime":"2018-02-12 10:00:00.0","status":"1","cid":"3","classid":"babylive"}]
      */
 
-    private String totalCount;
+    private int totalCount;
     private List<LiveBean> list;
-    public String getTotalCount() {
+
+    public int getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(String totalCount) {
+    public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
     }
 
@@ -37,7 +38,7 @@ public class ResLiveBean extends ResponseStandard {
         this.list = list;
     }
 
-    public static class LiveBean implements Serializable{
+    public static class LiveBean implements Serializable {
         /**
          * liveID : 1
          * liveName : 跳跳班
@@ -49,7 +50,7 @@ public class ResLiveBean extends ResponseStandard {
         public String liveID;
         public String liveName;
         public String addtime;
-        public String status;
+        public int status;
         public String cid;
         public String classid;
         public String pic;//": "live_small.png",

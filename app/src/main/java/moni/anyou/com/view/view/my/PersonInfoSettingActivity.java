@@ -1,6 +1,8 @@
 package moni.anyou.com.view.view.my;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -247,10 +249,13 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         mRelationSeletor = new RelationSeletor(mBaseActivity, mStringRelations, new RelationSeletor.ResultHandler() {
             @Override
             public void handle(String relation) {
-                mType = TYPE_ROLE;
-                mVaule = Tools.getRoleId(relation);
-                postUpdateInfo();
-                tvRelatetobaby.setText(relation);
+                if (relation!=null) {
+                    mType = TYPE_ROLE;
+                    mVaule = Tools.getRoleId(relation);
+                    postUpdateInfo();
+                    tvRelatetobaby.setText(relation);
+                }
+
             }
 
             @Override
@@ -264,17 +269,23 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         mSexSeletor = new RelationSeletor(mBaseActivity, mStringSexs, new RelationSeletor.ResultHandler() {
             @Override
             public void handle(String sex) {
+
                 mType = TYPE_SEX;
 
-                if ("男".equals(sex)) {
-                    mVaule = "1";
-                } else if ("女".equals(sex)) {
-                    mVaule = "2";
-                } else if ("保密".equals(sex)) {
-                    mVaule = "3";
+                if (sex == null) {
+                    sex = tvSex.getText().toString();
+                } else {
+                    if ("男".equals(sex)) {
+                        mVaule = "1";
+                    } else if ("女".equals(sex)) {
+                        mVaule = "2";
+                    } else if ("保密".equals(sex)) {
+                        mVaule = "3";
+                    }
+                    postUpdateInfo();
+                    tvSex.setText(sex);
                 }
-                postUpdateInfo();
-                tvSex.setText(sex);
+
             }
 
             @Override
@@ -287,11 +298,16 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         mTimeSelector  = new TimeSelector(mContext, new TimeSelector.ResultHandler() {
             @Override
             public void handle(String time) {
-                tvBrithday.setText(time);
+                if (time!=null) {
+                    mType = TYPE_BIRTHDAY;
+                    tvBrithday.setText(time);
+                    mVaule = time;
+                    postUpdateInfo();
+                }
+
             }
         }, "2010-01-30 00:00", "2018-12-31 00:00");
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-
         setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
         tvBrithday.setText(baseInfo.childbirthday);
         tvRelatetobaby.setText(Tools.getRole(baseInfo.role));
@@ -421,12 +437,24 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         public void run() {
             int code=UploadUtil.uploadFile(upLoadfile,SysConfig.UploadUrl);
             if (code==200) {
-                setBitmaptoImageView11(SysConfig.PicUrl+upLoadfile.getName(),tvHeadIcon);
+                Message msg = new Message();
+                msg.obj = 1;
+                changeIconHandler.sendMessage(msg);
             }
         }
     }
 
+    private Handler changeIconHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg!=null) {
+                BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+                setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
+            }
 
+        }
+    };
 
 }
 

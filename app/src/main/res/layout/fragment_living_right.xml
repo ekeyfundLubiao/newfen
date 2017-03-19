@@ -3,28 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor"
-   >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgcolor">
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/rotate_header_list_view_frame"
-        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    <!--<in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/rotate_header_list_view_frame"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/bgcolor"-->
+        <!--cube_ptr:ptr_duration_to_close="200"-->
+        <!--cube_ptr:ptr_duration_to_close_header="1000"-->
+        <!--cube_ptr:ptr_keep_header_when_refresh="true"-->
+        <!--cube_ptr:ptr_pull_to_fresh="false"-->
+        <!--cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"-->
+        <!--cube_ptr:ptr_resistance="1.7">-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+
+            <!--android:id="@+id/listview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="6dp" />-->
+
+    <!--</in.srain.cube.views.ptr.PtrClassicFrameLayout>-->
+    <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgcolor"
-        cube_ptr:ptr_duration_to_close="200"
-        cube_ptr:ptr_duration_to_close_header="1000"
-        cube_ptr:ptr_keep_header_when_refresh="true"
-        cube_ptr:ptr_pull_to_fresh="false"
-        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7">
-
-       <android.support.v7.widget.RecyclerView
-           android:id="@+id/listview"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           />
-
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        app:guidance_text_color="@color/color_text_color"
+        app:guidance_view_bg_color="@color/bgcolor"
+        app:load_text="加载更多"
+        app:progress_bar_color="@color/appcolor"
+        app:refresh_text="下拉刷新">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null" />
+    </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
 </RelativeLayout>

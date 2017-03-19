@@ -33,4 +33,6 @@
     <!--弹出框-->
     <color name="color_dialog_bg">#ff999999</color>
     <color name="color_invite_text">#FF7E00</color>
+    <color name="color_7f7f7f">#7f7f7f</color>
+
 </resources>

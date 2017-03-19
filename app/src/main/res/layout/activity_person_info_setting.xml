@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="26dp"
-                android:background="@mipmap/jiaoshifengcai"
+                android:background="@mipmap/jiaoshitouxiang"
                 android:textColor="@color/appblack"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="1dp" />
@@ -172,7 +172,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="13dp"
             android:text=""
             android:gravity="center_vertical|right"
             android:textColor="@color/color_text_color" />
@@ -221,8 +221,7 @@
             android:textColor="@color/color_text_color"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="26dp" />
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -254,14 +253,13 @@
             android:id="@+id/tv_brithday"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="13dp"
             android:text="2012-1-1"
+            android:layout_marginRight="13dp"
             android:gravity="center_vertical|right"
             android:textColor="@color/color_text_color"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="26dp" />
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <RelativeLayout

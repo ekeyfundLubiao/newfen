@@ -41,7 +41,7 @@ public class SystemsNoticeActivity extends BaseActivity {
 
     private NetProgressWindowDialog window;
     private int pageSize = 12;
-    private int pageNo = 0;
+    private int pageNo = 1;
     private NoticeItemslAdapter mNoticeItemslAdapter;
     private RecyclerView lv_notice;
     private SHSwipeRefreshLayout swipeRefreshLayout;
@@ -130,6 +130,8 @@ public class SystemsNoticeActivity extends BaseActivity {
         swipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
+                pageNo = 1;
+                postgetNotice();
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {

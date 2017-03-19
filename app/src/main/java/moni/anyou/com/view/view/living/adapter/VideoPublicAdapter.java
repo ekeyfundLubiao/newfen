@@ -68,6 +68,13 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
                 R.drawable.loading_err_21);
         mViewHold.tvAlivestatus.setText(bean.onlinenum);
         mViewHold.className.setText("["+bean.liveName+"]");
+        if (bean.status == 1) {
+            mViewHold.tvAlivestatus.setText(bean.onlinenum);
+            mViewHold.tvAlivestatus.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.drawable_btn_ff));
+        } else {
+            mViewHold.tvAlivestatus.setText(bean.onlinenum);
+            mViewHold.tvAlivestatus.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.drawable_btn_eee));
+        }
     }
 
     @Override

@@ -48,7 +48,7 @@
         android:drawablePadding="8dp"
         android:hint="请输入手机号"
         android:paddingLeft="10dp"
-        android:text="13671691505" />
+        android:text="13671691500" />
 
     <View
         android:layout_width="match_parent"

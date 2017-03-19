@@ -47,7 +47,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     private TimeSelector timeSelector = null;
     RelationSeletor mRelationSeletor = null;
     ArrayList<String> mStringRelations = new ArrayList<>();
-    JSONArray relateArray;
+    String relateArray;
     String Typerole = "1";
     ArrayList<DataClassBean> relateArrays;
     String sexType = "3";
@@ -179,6 +179,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
                     Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
+                        SysConfig.userInfoJson.put("childbirthday",tvBrithday.getText().toString());
                         startActivity(new Intent(mContext, IndexActivity.class));
                         activityAnimation(RIGHT_OUT);
                     } else {

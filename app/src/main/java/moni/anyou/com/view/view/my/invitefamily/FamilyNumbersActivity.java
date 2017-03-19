@@ -41,6 +41,7 @@ import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.TextTool;
+import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
 import moni.anyou.com.view.view.account.CompleteBaseInfoActivity;
@@ -80,7 +81,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         rcFamilyNumbers = (RecyclerView) findViewById(R.id.rc_numbers);
         tvTitle.setText("邀请家人");
         ivBack.setOnClickListener(this);
-        baseFamily = getBaseRelatenumberdatas();
         getdata();
     }
 
@@ -222,29 +222,50 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
-                   // Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                    // Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         numberBeans.clear();
                         ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
-                        int numhased = Fnumber.getList().size();
-                        numberBeans = Fnumber.getList();
-                        for (int i = 0, size = numberBeans.size(); i < size; i++) {
+//                        int baseNumSize = baseFamily.size();
+                       // numberBeans = Fnumber.getList();
+//                        ArrayList<ResFamilyNumer.RelationBean> numberBeanArray = Fnumber.getList();
+//                        for (int i = 0, size = numberBeanArray.size(); i < size; i++) {
+//
+//                            ResFamilyNumer.RelationBean tempbean = numberBeanArray.get(i);
+//                            numberBeans.set(i, new ResFamilyNumer.RelationBean(
+//                                    tempbean.getUser_id(),
+//                                    tempbean.getRecommendId(),
+//                                    tempbean.getStatus(),
+//                                    (tempbean.getNick().equals("") ? "匿名" : tempbean.getNick()),
+//                                    tempbean.getMobile(),
+//                                    (tempbean.getIcon().equals("")
+//                                            ? Tools.getRoledefaultIcon(tempbean.role) : tempbean.getIcon()),
+//                                    Tools.getRole(tempbean.role)));
+//
+//
+//                        }
+                       // numberBeans.clear();
+                        ArrayList<ResFamilyNumer.RelationBean> changdataArray = new ArrayList<ResFamilyNumer.RelationBean>();
+                        baseFamily = Tools.replaceNum(Fnumber.getList());
+                        for (int i = 0, size = baseFamily.size(); i < size; i++) {
 
-                                ResFamilyNumer.RelationBean tempbean = numberBeans.get(i);
-                                numberBeans.set(i, new ResFamilyNumer.RelationBean(
-                                        tempbean.getUser_id(),
-                                        tempbean.getRecommendId(),
-                                        tempbean.getStatus(),
-                                        (tempbean.getNick().equals("") ? "匿名" : tempbean.getNick()),
-                                        tempbean.getMobile(),
-                                        (tempbean.getIcon().equals("")
-                                                ? Tools.getRoledefaultIcon(tempbean.role) : tempbean.getIcon()),
-                                        Tools.getRole(tempbean.role)));
-
-
-
+                            DataClassBean tempbean = baseFamily.get(i);
+                            changdataArray.add(new ResFamilyNumer.RelationBean(
+                                    tempbean.getId(),
+                                    "",
+                                    tempbean.status,
+                                    (tempbean.nickname == null || tempbean.nickname.equals("") ? "匿名" : tempbean.getNickname()),
+                                    (tempbean.tellPhoneNum == null || tempbean.tellPhoneNum.equals("") ? "" : tempbean.getTellPhoneNum()),
+                                    (tempbean.getPic().equals("")
+                                            ? Tools.getRoledefaultIcon(tempbean.getClassID()) : tempbean.getPic()),
+                                    Tools.getRole(tempbean.getClassID())));
                         }
+
+                        Log.d(TAG, "numbeansize:" + numberBeans.size());
+
+                        ToastTools.showShort(mContext, "numbeansize:" + numberBeans.size());
+                        numberBeans=changdataArray;
 
                         MyAdapter.setDatas(numberBeans);
                     } else {

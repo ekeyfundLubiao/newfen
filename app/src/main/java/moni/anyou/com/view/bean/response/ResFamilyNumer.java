@@ -41,10 +41,10 @@ public class ResFamilyNumer extends ResponseStandard {
         this.list = list;
     }
 
-    public static class RelationBean implements Serializable{
+    public static class RelationBean implements Serializable {
         /**
          * user_id : 1
-         * recommendId : 0
+         * recommendId : 0主账户
          * status : 1
          * nick : 张萌萌的爸爸
          * mobile : 13671691505
@@ -54,7 +54,7 @@ public class ResFamilyNumer extends ResponseStandard {
         private String user_id;
         private String recommendId;
         public int status;
-        private String nick="匿名";
+        private String nick = "匿名";
         private String mobile;
         private String icon;
         public boolean boolDelete = false;
@@ -113,7 +113,7 @@ public class ResFamilyNumer extends ResponseStandard {
             this.icon = icon;
         }
 
-        public RelationBean(String user_id, String recommendId, int status, String nick, String mobile, String icon,String role) {
+        public RelationBean(String user_id, String recommendId, int status, String nick, String mobile, String icon, String role) {
 
             this.user_id = user_id;
             this.recommendId = recommendId;
@@ -122,6 +122,11 @@ public class ResFamilyNumer extends ResponseStandard {
             this.mobile = mobile;
             this.icon = icon;
             this.role = role;
+
+        }
+
+        public RelationBean() {
+
 
         }
     }

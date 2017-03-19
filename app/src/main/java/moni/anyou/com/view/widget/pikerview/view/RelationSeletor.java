@@ -52,10 +52,6 @@ public class RelationSeletor {
         initView();
     }
 
-    public RelationSeletor(Context context, ResultHandler resultHandler, String startDate, String endDate, String workStartTime, String workEndTime) {
-        this.workStart_str = workStartTime;
-        this.workEnd_str = workEndTime;
-    }
 
     private void initDialog() {
         if (seletorDialog == null) {
@@ -108,6 +104,7 @@ public class RelationSeletor {
         if (mStringRelations != null) {
             relationSize = mStringRelations.size();
         }
+
     }
 
     private void initTimer() {
