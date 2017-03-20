@@ -121,6 +121,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             editor.putString("sUserInfoJson", SysConfig.userInfoJson.toString());
                             editor.commit();// 提交刷新数据
                             onBack();
+
                             if (SysConfig.userInfoJson.getInt("recommendId") > 0) {
                                 startActivity(new Intent(mContext,IndexActivity.class));
                             } else {
