@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
@@ -58,14 +59,13 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private TextView tvTitle;
     private ImageView iv_icon;
     private ImageView ivRight;
-    private PtrClassicFrameLayout ptrFrame;
-//    SwipeRefreshLayout refreshLayout;
-//    ScrollView scrollView;
     private ListView lvDynamics;
     private DynamicsItemAdapter dynamicsItemAdapter;
     private ArrayList<DynamicsTempItems> mItems;
     private int pageSize = 5;
     private int pageNo = 1;
+    int totalCount = 0;
+    SHSwipeRefreshLayout swipeRefreshLayout;
 
     public DynamicsFragment() {
 
@@ -81,16 +81,14 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void initView() {
         super.initView();
+        initSwipeRefreshLayout();
         window = new NetProgressWindowDialog(mContext);
         tvLeft = (TextView) mView.findViewById(R.id.tv_left);
         tvTitle = (TextView) mView.findViewById(R.id.page_title);
         iv_icon = (ImageView) mView.findViewById(R.id.iv_icon);
         ivRight = (ImageView) mView.findViewById(R.id.right_tv);
-        ptrFrame = (PtrClassicFrameLayout) mView.findViewById(R.id.list_view_frame);
-        ptrFrame.setMode(PtrFrameLayout.Mode.BOTH);
 
-//        refreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.refreshLayout);
-//        scrollView = (ScrollView) mView.findViewById(R.id.scrollView);
+
         tvTitle.setText("动态");
         lvDynamics = (NoListview) mView.findViewById(R.id.lv_dynamics);
         cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
@@ -98,41 +96,13 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         lvDynamics.setAdapter(dynamicsItemAdapter);
         mItems = new ArrayList<>();
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-        setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,cvHeadIcon);
+        setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, cvHeadIcon);
     }
 
     @Override
     public void setAction() {
         super.setAction();
         ivRight.setOnClickListener(this);
-
-
-        ptrFrame.setPtrHandler(new PtrDefaultHandler2() {
-            @Override
-            public void onLoadMoreBegin(final PtrFrameLayout frame) {
-                pageNo++;
-                getData();
-                ptrFrame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        frame.refreshComplete();
-                    }
-                }, 1000);
-            }
-
-            @Override
-            public void onRefreshBegin(final PtrFrameLayout frame) {
-                pageNo = 1;
-                getData();
-                ptrFrame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        frame.refreshComplete();
-                    }
-                }, 1000);
-            }
-        });
-
     }
 
     public void marklike(int position, ResDynamicsBean.ListBean bean) {
@@ -163,14 +133,15 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
-                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
+                    totalCount = jsonObject.getInt("totalCount");
                     if (result >= 1) {
                         ResDynamicsBean temp = new Gson().fromJson(t, ResDynamicsBean.class);
                         if (pageNo > 1) {
                             dynamicsItemAdapter.AddDatas(temp.getList());
-                           // refreshLayout.setLoading(false);
-                        }else {
+                            swipeRefreshLayout.finishLoadmore();
+                        } else {
+                            swipeRefreshLayout.finishRefresh();
                             dynamicsItemAdapter.setDatas(temp.getList());
                         }
 
@@ -243,5 +214,66 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
+    private void initSwipeRefreshLayout() {
+        swipeRefreshLayout = (SHSwipeRefreshLayout) mView.findViewById(R.id.swipeRefreshLayout);
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        final View view = inflater.inflate(R.layout.refresh_view, null);
+        final TextView textView = (TextView) view.findViewById(R.id.title);
+        swipeRefreshLayout.setFooterView(view);
+        swipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageNo = 1;
+                getData();
+            }
+
+            @Override
+            public void onLoading() {
+
+                if (pageNo * pageSize < totalCount) {
+                    pageNo++;
+                    getData();
+                } else {
+                    swipeRefreshLayout.finishLoadmore();
+                }
+            }
+
+            /**
+             * 监听下拉刷新过程中的状态改变
+             * @param percent 当前下拉距离的百分比（0-1）
+             * @param state 分三种状态{NOT_OVER_TRIGGER_POINT：还未到触发下拉刷新的距离；OVER_TRIGGER_POINT：已经到触发下拉刷新的距离；START：正在下拉刷新}
+             */
+            @Override
+            public void onRefreshPulStateChange(float percent, int state) {
+                switch (state) {
+                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+                        swipeRefreshLayout.setLoaderViewText("");
+                        break;
+                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+                        swipeRefreshLayout.setLoaderViewText("");
+                        break;
+                    case SHSwipeRefreshLayout.START:
+                        swipeRefreshLayout.setLoaderViewText("");
+                        break;
+                }
+            }
+
+            @Override
+            public void onLoadmorePullStateChange(float percent, int state) {
+                switch (state) {
+                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+                        textView.setText("上拉加载");
+                        break;
+                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+                        textView.setText("松开加载");
+                        break;
+                    case SHSwipeRefreshLayout.START:
+                        textView.setText("正在加载...");
+                        break;
+                }
+            }
+        });
+    }
 
 }

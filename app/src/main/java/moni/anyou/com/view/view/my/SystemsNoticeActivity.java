@@ -36,15 +36,17 @@ import moni.anyou.com.view.view.my.adapter.NoticeItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 
-
 public class SystemsNoticeActivity extends BaseActivity {
 
     private NetProgressWindowDialog window;
     private int pageSize = 12;
-    private int pageNo = 1;
+    private int pageNo = 0;
     private NoticeItemslAdapter mNoticeItemslAdapter;
     private RecyclerView lv_notice;
     private SHSwipeRefreshLayout swipeRefreshLayout;
+    private int totalCout = 0;
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +102,22 @@ public class SystemsNoticeActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(t);
 
                     int result = Integer.parseInt(jsonObject.getString("result"));
+                    totalCout = jsonObject.getInt("totalCount");
                     if (result >= 1) {
-                        mNoticeItemslAdapter.addDatas(new Gson().fromJson(t, ResNoticeData.class).getList());
+                        if (pageNo > 1) {
+
+                            mNoticeItemslAdapter.addDatas(new Gson().fromJson(t, ResNoticeData.class).getList());
+                        } else {
+                            swipeRefreshLayout.finishRefresh();
+                            mNoticeItemslAdapter.setDatas(new Gson().fromJson(t, ResNoticeData.class).getList());
+                        }
+
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                        swipeRefreshLayout.finishRefresh();
                     }
                 } catch (Exception ex) {
+                    swipeRefreshLayout.finishRefresh();
                     Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
 
                 }
@@ -132,13 +144,13 @@ public class SystemsNoticeActivity extends BaseActivity {
             public void onRefresh() {
                 pageNo = 1;
                 postgetNotice();
-                swipeRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.finishRefresh();
-                        Toast.makeText(mContext, "刷新完成", Toast.LENGTH_SHORT).show();
-                    }
-                }, 1600);
+//                swipeRefreshLayout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        swipeRefreshLayout.finishRefresh();
+//                        Toast.makeText(mContext, "刷新完成", Toast.LENGTH_SHORT).show();
+//                    }
+//                }, 1600);
             }
 
             @Override
@@ -146,6 +158,10 @@ public class SystemsNoticeActivity extends BaseActivity {
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if (pageNo * pageSize < totalCout) {
+                            pageNo++;
+                            postgetNotice();
+                        }
                         swipeRefreshLayout.finishLoadmore();
                         Toast.makeText(mContext, "加载完成", Toast.LENGTH_SHORT).show();
                     }
@@ -198,10 +214,6 @@ public class SystemsNoticeActivity extends BaseActivity {
         lv_notice.addItemDecoration(new DividerRVDecoration(this,
                 DividerRVDecoration.VERTICAL_LIST));
     }
-
-
-
-
 
 
 }

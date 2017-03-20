@@ -12,9 +12,9 @@
             android:id="@+id/tv_left"
             style="@style/backvview_top_bar"
             android:background="@null"
-            android:textSize="20dp"
             android:text="全"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="20dp" />
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -40,58 +40,55 @@
             android:visibility="visible" />
 
     </RelativeLayout>
-<!--<android.support.v4.widget.SwipeRefreshLayout-->
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
     <!--android:id="@+id/refreshLayout"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent">-->
-
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/list_view_frame"
-        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgcolor"
-        cube_ptr:ptr_duration_to_close="200"
-        cube_ptr:ptr_duration_to_close_header="1000"
-        cube_ptr:ptr_keep_header_when_refresh="true"
-        cube_ptr:ptr_pull_to_fresh="false"
-        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7">
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:guidance_text_color="@color/color_text_color"
+        app:guidance_view_bg_color="@color/bgcolor"
+        app:load_text="加载更多"
+        app:progress_bar_color="@color/appcolor"
+        app:refresh_text="下拉刷新">
 
-        <LinearLayout
+        <com.scu.miomin.shswiperefresh.view.ShareScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="139dp"
-                android:background="@mipmap/bj_dongtai">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civ_headIcon"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="13dp"
-                    android:src="@mipmap/jiaoshifengcai"
-                    app:civ_border_color="@color/white"
-                    app:civ_border_width="2dp" />
-            </RelativeLayout>
-
-            <moni.anyou.com.view.widget.NoListview
-                android:id="@+id/lv_dynamics"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="6dp"
-                android:divider="@color/bgcolor"
-                android:dividerHeight="2dp" />
-        </LinearLayout>
-    </ScrollView>
-</in.srain.cube.views.ptr.PtrClassicFrameLayout>
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="139dp"
+                    android:background="@mipmap/bj_dongtai">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_headIcon"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="13dp"
+                        android:src="@mipmap/jiaoshifengcai"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="2dp" />
+                </RelativeLayout>
+
+                <moni.anyou.com.view.widget.NoListview
+                    android:id="@+id/lv_dynamics"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:divider="@color/bgcolor"
+                    android:dividerHeight="2dp" />
+            </LinearLayout>
+        </com.scu.miomin.shswiperefresh.view.ShareScrollView>
+    </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
 </LinearLayout>

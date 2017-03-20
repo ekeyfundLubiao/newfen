@@ -56,14 +56,16 @@ public class LivingChildRightFragment extends BaseFragment {
     private int pageSize = 12;
     private int pageNo = 1;
     private View mView;
-    private PtrClassicDefaultHeader header;
-    private PtrClassicFrameLayout ptrFrame;
+    //    private PtrClassicDefaultHeader header;
+//    private PtrClassicFrameLayout ptrFrame;
     private RecyclerView listview;
-    int totalCount = 0;
+    private SHSwipeRefreshLayout swipeRefreshLayout;
+    private int totalCout = 1;
+
+
     private VideoPublicAdapter publicAdapter;
     private boolean isVisible = false;
     ArrayList<VideoBean> mVideoArray;
-    SHSwipeRefreshLayout swipeRefreshLayout;
 
     public LivingChildRightFragment() {
 
@@ -81,6 +83,7 @@ public class LivingChildRightFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
+        initSwipeRefreshLayout();
         window = new NetProgressWindowDialog(mContext);
         mVideoArray = new ArrayList<>();
         listview = (RecyclerView) mView.findViewById(R.id.listview);
@@ -88,15 +91,6 @@ public class LivingChildRightFragment extends BaseFragment {
         listview.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.HORIZONTAL));
         listview.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         listview.setLayoutManager(gridLayoutManager);
-        initSwipeRefreshLayout();
-//
-//        header = new PtrClassicDefaultHeader (mBaseActivity);
-//        header.setPadding(0, PtrLocalDisplay.dp2px(15), 0, 0);
-//        ptrFrame = (PtrClassicFrameLayout) mView.findViewById(R.id.rotate_header_list_view_frame);
-//        ptrFrame.setMode(PtrFrameLayout.Mode.BOTH);
-//        ptrFrame.setHeaderView(header);
-//        ptrFrame.addPtrUIHandler(header);
-
     }
 
     @Override
@@ -121,10 +115,9 @@ public class LivingChildRightFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (isVisible && isCreate) {
-            getData(1);
-        }
-
+//        if (isVisible && isCreate) {
+//            getData();
+//        }
 
     }
 
@@ -140,57 +133,6 @@ public class LivingChildRightFragment extends BaseFragment {
     @Override
     public void setAction() {
         super.setAction();
-
-//        ptrFrame.setPtrHandler(new PtrDefaultHandler2() {
-//            @Override
-//            public void onLoadMoreBegin(final PtrFrameLayout frame) {
-//                if (totalCount > pageNo * pageSize) {
-//                    pageNo++;
-//                    getData(2);
-//                    ptrFrame.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            frame.refreshComplete();
-//                        }
-//                    }, 1000);
-//                } else {
-//                    frame.refreshComplete();
-//                    ptrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onRefreshBegin(final PtrFrameLayout frame) {
-//                pageNo = 1;
-//                getData(1);
-//                ptrFrame.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        frame.refreshComplete();
-//
-//                    }
-//                }, 1000);
-//            }
-//        });
-
-        // the following are default settings
-//        ptrFrame.setResistance(1.7f);
-//        ptrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
-//        ptrFrame.setDurationToClose(200);
-//        ptrFrame.setDurationToCloseHeader(1000);
-//        // default is false
-//        ptrFrame.setPullToRefresh(true);
-//        // default is true
-//        ptrFrame.setKeepHeaderWhenRefresh(true);
-//        ptrFrame.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                ptrFrame.autoRefresh();
-//            }
-//        }, 100);
-
     }
 
 
@@ -209,9 +151,9 @@ public class LivingChildRightFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(t);
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
+                    totalCout = jsonObject.getInt("totalCount");
                     if (result >= 1) {
                         ResLiveBean temp = new Gson().fromJson(t, ResLiveBean.class);
-                        totalCount = temp.getTotalCount();
                         switch (Type) {
                             case 1:
                                 swipeRefreshLayout.finishRefresh();
@@ -256,30 +198,17 @@ public class LivingChildRightFragment extends BaseFragment {
             public void onRefresh() {
                 pageNo = 1;
                 getData(1);
-                swipeRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.finishRefresh();
-                        Toast.makeText(mContext, "刷新完成", Toast.LENGTH_SHORT).show();
-                    }
-                }, 1600);
             }
 
             @Override
             public void onLoading() {
 
-                if (totalCount > pageNo * pageSize) {
+                if (pageNo * pageSize < totalCout) {
                     pageNo++;
                     getData(2);
-
+                } else {
+                    swipeRefreshLayout.finishLoadmore();
                 }
-                swipeRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.finishLoadmore();
-                        Toast.makeText(mContext, "加载完成", Toast.LENGTH_SHORT).show();
-                    }
-                }, 1600);
             }
 
             /**
@@ -318,5 +247,4 @@ public class LivingChildRightFragment extends BaseFragment {
             }
         });
     }
-
 }
