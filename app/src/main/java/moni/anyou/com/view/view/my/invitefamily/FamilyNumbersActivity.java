@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -77,6 +78,13 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         super.initView();
         initTitlewithCheckbox();
         checkbox.setText("解绑");
+        try {
+            if (SysConfig.userInfoJson.getInt("recommendId")>0) {
+                checkbox.setVisibility(View.GONE);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         window = new NetProgressWindowDialog(mContext);
         rcFamilyNumbers = (RecyclerView) findViewById(R.id.rc_numbers);
         tvTitle.setText("邀请家人");
@@ -106,7 +114,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     checkbox.setText("取消");
-                    ;
                 } else {
                     checkbox.setText("解绑");
 

@@ -45,6 +45,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
+    public void setData() {
+        super.setData();
+        if (!SysConfig.prefs.getString("sUsername", "").equals("")) {
+            etUserName.setText(SysConfig.prefs.getString("sUsername", ""));
+            etUserPwd.setText(SysConfig.prefs.getString("sPassword", ""));
+        }
+    }
+
+    @Override
     public void initView() {
         super.initView();
 //        initTitle();
@@ -89,7 +98,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void postLogin() {
 
-        startActivity(new Intent(this,CompleteBaseInfoActivity.class));
+        startActivity(new Intent(this, CompleteBaseInfoActivity.class));
     }
 
     public void getLoginPost() {
@@ -107,7 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
-                   Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         String temp = Tools.parseLoginMsg(jsonObject);
@@ -123,9 +132,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             onBack();
 
                             if (SysConfig.userInfoJson.getInt("recommendId") > 0) {
-                                startActivity(new Intent(mContext,IndexActivity.class));
+                                startActivity(new Intent(mContext, IndexActivity.class));
                             } else {
-                                startActivity(new Intent(mContext,CompleteBaseInfoActivity.class));
+                                if (SysConfig.prefs.getInt("setBaseInfo"+SysConfig.uid, 0) == 0) {
+                                    startActivity(new Intent(mContext, CompleteBaseInfoActivity.class));
+                                } else {
+                                    startActivity(new Intent(mContext, IndexActivity.class));
+                                }
+
                             }
                         } else {
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();

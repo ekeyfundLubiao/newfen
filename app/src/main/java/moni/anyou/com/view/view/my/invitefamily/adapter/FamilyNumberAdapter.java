@@ -66,14 +66,15 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
         mViewHold.itemView.setTag(position);
         ResFamilyNumer.RelationBean bean = mItems.get(position);
 
-        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.getIcon(),
+        mContext.setBitmaptoImageView(SysConfig.PicUrl + bean.getIcon(),
                 mViewHold.ivHeadIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
         mViewHold.ivMark.setVisibility(View.GONE);
-       // String temp=Tools.getRole(bean.role);
-        mViewHold.tvRelation.setText("[ " + bean.role+ " ]");
+        // String temp=Tools.getRole(bean.role);
+        mViewHold.tvRelation.setText("[ " + bean.role + " ]");
+        //设置颜色
         if (bean.getStatus() == 0) {
             mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_invite_text));
             mViewHold.ivMark.setVisibility(View.VISIBLE);
@@ -81,6 +82,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
             mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_99999));
             mViewHold.ivMark.setVisibility(View.GONE);
         }
+
         if (bean.boolDelete && bean.getStatus() == 1) {
             mViewHold.ivDelete.setVisibility(View.VISIBLE);
         } else {
@@ -88,6 +90,10 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
         }
         if (bean.getStatus() == 1 && !bean.boolDelete) {
             mViewHold.ivDelete.setVisibility(View.GONE);
+        }
+        if (bean.getUser_id().equals(SysConfig.uid)) {
+            mViewHold.ivDelete.setVisibility(View.GONE);
+            mViewHold.tvRelation.setText("[ " + "自己" + " ]");
         }
         mViewHold.tvPhoneNum.setText(bean.getMobile());
         mViewHold.tvName.setText(bean.getNick());
@@ -102,7 +108,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
                     mContext.removeFamoilyNumbers(new SelectFamily(position, temp));
                 }
                 if (mViewHold.ivMark.getVisibility() == View.VISIBLE) {
-                    mContext.addFamoilyNumbers(new SelectFamily(position, temp),position);
+                    mContext.addFamoilyNumbers(new SelectFamily(position, temp), position);
                 }
 
 

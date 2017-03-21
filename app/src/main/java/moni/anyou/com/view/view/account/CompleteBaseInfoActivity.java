@@ -1,6 +1,7 @@
 package moni.anyou.com.view.view.account;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -180,8 +181,12 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         SysConfig.userInfoJson.put("childbirthday",tvBrithday.getText().toString());
+                        SharedPreferences.Editor editor = SysConfig.prefs.edit();
+                        editor.putInt("setBaseInfo"+SysConfig.uid, 1);
+                        editor.commit();
                         startActivity(new Intent(mContext, IndexActivity.class));
                         activityAnimation(RIGHT_OUT);
+                        onBack();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
