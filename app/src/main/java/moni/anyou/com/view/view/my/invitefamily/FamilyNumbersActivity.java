@@ -79,7 +79,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         initTitlewithCheckbox();
         checkbox.setText("解绑");
         try {
-            if (SysConfig.userInfoJson.getInt("recommendId")>0) {
+            if (SysConfig.userInfoJson.getInt("recommendId") > 0) {
                 checkbox.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
@@ -142,6 +142,14 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 getUnbindF(relativeId);
                 mPopunbindFamily.dismiss();
                 break;
+            case R.id.llMsg:
+                getdata();
+                mPopAddFamilySuccess.dismiss();
+                break;
+            case R.id.llWechat:
+                getdata();
+                mPopAddFamilySuccess.dismiss();
+                break;
         }
     }
 
@@ -176,11 +184,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (data != null) {
-//            mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo("伯伯", "123456", "774590"), this);
-//            mPopAddFamilySuccess.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
-//            mPopAddFamilySuccess.isShowing();
-//        }
         if (requestCode == 9111 && resultCode == 0x1111) {
             if (data != null) {
                 data.getExtras().getString("account");
@@ -205,7 +208,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     public ArrayList<SelectFamily> getList(boolean isCheck) {
         checkBeans.clear();
         int size = numberBeans.size();
-        for (int i = 1; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             ResFamilyNumer.RelationBean tempBean = numberBeans.get(i);
             if (tempBean.status == 1) {
                 tempBean.boolDelete = isCheck;
@@ -235,7 +238,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                         numberBeans.clear();
                         ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
 //                        int baseNumSize = baseFamily.size();
-                       // numberBeans = Fnumber.getList();
+                        // numberBeans = Fnumber.getList();
 //                        ArrayList<ResFamilyNumer.RelationBean> numberBeanArray = Fnumber.getList();
 //                        for (int i = 0, size = numberBeanArray.size(); i < size; i++) {
 //
@@ -252,7 +255,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 //
 //
 //                        }
-                       // numberBeans.clear();
+                        // numberBeans.clear();
                         ArrayList<ResFamilyNumer.RelationBean> changdataArray = new ArrayList<ResFamilyNumer.RelationBean>();
                         baseFamily = Tools.replaceNum(Fnumber.getList());
                         for (int i = 0, size = baseFamily.size(); i < size; i++) {
@@ -272,7 +275,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                         Log.d(TAG, "numbeansize:" + numberBeans.size());
 
                         ToastTools.showShort(mContext, "numbeansize:" + numberBeans.size());
-                        numberBeans=changdataArray;
+                        numberBeans = changdataArray;
 
                         MyAdapter.setDatas(numberBeans);
                     } else {

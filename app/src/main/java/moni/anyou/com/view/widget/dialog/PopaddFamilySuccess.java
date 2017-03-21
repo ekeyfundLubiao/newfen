@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import moni.anyou.com.view.R;
@@ -27,8 +28,8 @@ public class PopAddFamilySuccess extends PopupWindow {
     private TextView tvRelation;
     private TextView tvAccount;
     private TextView tvNumbersPwd;
-    private LinearLayout llMsg;
-    private LinearLayout llWechat;
+    private RelativeLayout llMsg;
+    private RelativeLayout llWechat;
     private View mView;
     Activity mcontext;
 
@@ -43,8 +44,8 @@ public class PopAddFamilySuccess extends PopupWindow {
         tvRelation = (TextView) mView.findViewById(R.id.tv_relation);
         tvAccount= (TextView) mView.findViewById(R.id.tv_account);
         tvNumbersPwd=(TextView)mView.findViewById(R.id.tv_passwold);
-        llMsg = (LinearLayout) mView.findViewById(R.id.llMsg);
-        llWechat = (LinearLayout) mView.findViewById(R.id.llWechat);
+        llMsg = (RelativeLayout) mView.findViewById(R.id.llMsg);
+        llWechat = (RelativeLayout) mView.findViewById(R.id.llWechat);
         btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

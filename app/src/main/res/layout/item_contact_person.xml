@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_video_item"
+    android:layout_width="match_parent"
+    android:layout_height="71dp"
+    android:background="@color/white"
+    android:minHeight="71dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="14dp"
+        android:layout_margin="13dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#5a5a5a"
+        android:text="公告"/>
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="14dp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_margin="13dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#5a5a5a"
+        android:text="值"/>
+
+    <View
+        android:layout_below="@id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="#c1c1c1"/>
+</RelativeLayout>

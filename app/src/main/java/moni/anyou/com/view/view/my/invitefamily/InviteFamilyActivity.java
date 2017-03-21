@@ -26,11 +26,15 @@ import moni.anyou.com.view.bean.request.ReqAddFamilyBean;
 import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
+import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
+import moni.anyou.com.view.view.StartActivity;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 
 public class InviteFamilyActivity extends BaseActivity implements View.OnClickListener {
 
@@ -53,6 +57,8 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
     public void initView() {
         super.initView();
         initTitle();
+        dialogT = new MessgeDialog((InviteFamilyActivity) mBaseActivity);
+        initDialog();
         window = new NetProgressWindowDialog(mContext);
         tvInvitedNumbers = (TextView) findViewById(R.id.tv_who);
         btnAddnumber = (Button) findViewById(R.id.btn_addnumber);
@@ -62,7 +68,6 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
         ivBack.setOnClickListener(this);
         btnAddnumber.setOnClickListener(this);
         btnSearchTelephoneBook.setOnClickListener(this);
-
     }
 
 
@@ -78,9 +83,14 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
                     ToastTools.showShort(mContext, "邀请号码不能为空");
                     return;
                 }
+                if (!VerificationTools.isMobile(etPhoneNum.getText().toString())&&etPhoneNum.getText().toString().length()!=11) {
+                    ToastTools.showShort(mContext, "请输入正确的手机号码");
+                    return;
+                }
                 getAddNumber();
-                break;
+                 break;
             case R.id.btn_sheach_invitephonebook:
+                requestPermission(PermissionTools.writeContacts);
                 break;
             default:
                 break;
@@ -90,14 +100,14 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setData() {
         super.setData();
-        String childName="";
+        String childName = "";
         try {
-            childName=SysConfig.userInfoJson.getString("child");
+            childName = SysConfig.userInfoJson.getString("child");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         mRelationBean = (ResFamilyNumer.RelationBean) getIntent().getSerializableExtra("bean");
-        TextTool.forDiffText("邀请"+childName+"的"+ mRelationBean.role+"加入", tvInvitedNumbers, 2, mContext);
+        TextTool.forDiffText("邀请" + childName + "的" + mRelationBean.role + "加入", tvInvitedNumbers, 2, mContext);
         if (!"".equals(mRelationBean.getMobile())) {
             etPhoneNum.setText(mRelationBean.getMobile());
         }
@@ -123,8 +133,8 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
                         Intent intent = new Intent();
                         intent.putExtra("role", mRelationBean.role);
                         intent.putExtra("account", etPhoneNum.getText().toString());
-                        intent.putExtra("pwd",etPhoneNum.getText().toString().substring(6,11));
-                        setResult(0x1111,intent);
+                        intent.putExtra("pwd", etPhoneNum.getText().toString().substring(6, 11));
+                        setResult(0x1111, intent);
                         onBack();
 
                     } else {
@@ -144,6 +154,78 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
                 window.closeWindow();
             }
         });
+    }
+
+
+    //通讯录权限
+    @Override
+    public void permissionNoNeed(String permissionName) {
+        super.permissionNoNeed(permissionName);
+        startActivityForResult(new Intent(mContext, SelectActivity.class), 9111);
+        activityAnimation(RIGHT_IN);
+    }
+
+    @Override
+    public void permissionSuccess(String permissionName) {
+        super.permissionSuccess(permissionName);
+        startActivity(new Intent(mContext, SelectActivity.class));
+        activityAnimation(RIGHT_IN);
+    }
+
+    @Override
+    public void permissionRefuse(String permissionName) {
+        super.permissionRefuse(permissionName);
+        dialogT.show();
+    }
+
+    @Override
+    public void permissionAlreadyRefuse(String permissionName) {
+        super.permissionAlreadyRefuse(permissionName);
+        dialogT.show();
+    }
+
+
+    MessgeDialog dialogT;
+
+    public void initDialog() {
+
+        dialogT.setMessage("立马获取权限");
+        dialogT.setLeft("暂不获取");
+        dialogT.setRight("立马获取");
+        dialogT.setListener();
+        dialogT.setMsgDialogListener(new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
+
+            }
+
+            @Override
+            public void OnLeftClick() {
+                dialogT.dismiss();
+            }
+
+            @Override
+            public void OnRightClick() {
+                openPermissionSettingPage(0x1234);
+            }
+
+            @Override
+            public void onDismiss() {
+                dialogT.dismiss();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 9111 && resultCode == 0x1111) {
+            if (data != null) {
+                data.getExtras().getString("account");
+            }
+            etPhoneNum.setText(data.getExtras().getString("account"));
+        }
     }
 }
 

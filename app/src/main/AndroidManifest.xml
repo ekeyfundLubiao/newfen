@@ -75,6 +75,7 @@
             android:label="@string/title_activity_start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -82,7 +83,8 @@
         <activity android:name=".view.web.ShowInfoActivity" />
         <activity android:name=".view.my.SystemsNoticeActivity" />
         <activity android:name=".view.my.systemset.SelectGardenActivity" />
-        <activity android:name=".view.dynamics.SentDynamicsActivity"></activity>
+        <activity android:name=".view.dynamics.SentDynamicsActivity" />
+        <activity android:name=".view.my.invitefamily.SelectActivity"></activity>
     </application>
 
 </manifest>
