@@ -48,7 +48,7 @@ import moni.anyou.com.view.tool.VerificationTools;
 import moni.anyou.com.view.view.account.CompleteBaseInfoActivity;
 import moni.anyou.com.view.view.my.invitefamily.adapter.FamilyNumberAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
-import moni.anyou.com.view.widget.dialog.PopAddFamilySuccess;
+import moni.anyou.com.view.widget.dialog.PopAddSuccess;
 import moni.anyou.com.view.widget.dialog.PopunbindFamily;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
@@ -59,7 +59,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     RecyclerView rcFamilyNumbers;
     private FamilyNumberAdapter MyAdapter;
     private ArrayList<ResFamilyNumer.RelationBean> numberBeans;
-    private PopAddFamilySuccess mPopAddFamilySuccess;
+    private PopAddSuccess mPopAddFamilySuccess;
     private PopunbindFamily mPopunbindFamily;
     private NetProgressWindowDialog window;
     private ArrayList<DataClassBean> baseFamily = null;
@@ -189,7 +189,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 data.getExtras().getString("account");
                 data.getExtras().getString("pwd");
             }
-            mPopAddFamilySuccess = new PopAddFamilySuccess(this, new InvitedInfo(data.getExtras().getString("role"), data.getExtras().getString("account"), data.getExtras().getString("pwd")), this);
+            mPopAddFamilySuccess = new PopAddSuccess(this, new InvitedInfo(data.getExtras().getString("role"), data.getExtras().getString("account"), data.getExtras().getString("pwd")), this);
             mPopAddFamilySuccess.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
             mPopAddFamilySuccess.isShowing();
         }

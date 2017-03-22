@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -63,6 +64,8 @@ public class KindergardenImageTextAdapter extends PagerAdapter {
 				.findViewById(R.id.banner_main);
 		ImageView imageView = (ImageView) imageLayout
 				.findViewById(R.id.index_image);
+		LinearLayout layout_index_points = (LinearLayout)imageLayout.findViewById(R.id.layout_index_points);
+		layout_index_points.getBackground().setAlpha(180);
 		TextView tvNewsTitle=(TextView)imageLayout.findViewById(R.id.tv_news_title);
 		TextView tvSizeMark=(TextView)imageLayout.findViewById(R.id.tv_size_mark);
 		final ResHomeData.TopNewsBean banner = list.get(position);
@@ -76,7 +79,7 @@ public class KindergardenImageTextAdapter extends PagerAdapter {
 			public void onClick(View v) {
 //				if (mFragment.isCanClick) {
 //					if (VerificationTools.isNull(banner.linkCategory)) {
-//						toWeb(banner);
+				//	toWeb(banner);
 //					} else {
 //						switch (banner.linkCategory.trim()) {
 //						case "H5":
@@ -98,7 +101,7 @@ public class KindergardenImageTextAdapter extends PagerAdapter {
 		return imageLayout;
 	}
 
-//	private void toWeb(Banner banner) {
+	private void toWeb(Banner banner) {
 //		if (!TextUtils.isEmpty(banner.linkUrl)) {
 //			Intent intent = new Intent(mFragment.mContext,
 //					WebViewActivity.class);
@@ -110,5 +113,5 @@ public class KindergardenImageTextAdapter extends PagerAdapter {
 //			mFragment.mContext.startActivity(intent);
 //			mFragment.mBaseActivity.activityAnimation(BaseActivity.RIGHT_IN);
 //		}
-//	}
+	}
 }
