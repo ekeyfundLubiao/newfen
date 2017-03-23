@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="232.33dp"
         android:layout_gravity="center_vertical"
-        android:background="@color/white">
+        android:background="#ebeff0">
         <Button
             android:id="@+id/btn_unbindcancel"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
             android:background="@null"
             android:layout_marginTop="13dp"
             android:text="返回"
             android:textColor="@color/color_cancel"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
         <Button
             android:id="@+id/btn_unbindcommit"
             android:layout_width="50dp"
@@ -32,7 +32,7 @@
             android:text="确定"
             android:background="@drawable/drawable_btn_appcolor"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
         <TextView
             android:text="提示"
             android:layout_marginTop="58dp"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:text="是否解绑该亲属？"
+            android:text="是否解绑该亲友？"
             android:layout_marginTop="100dp"
             android:textColor="@color/color_cancel"
             android:textSize="18dp"
