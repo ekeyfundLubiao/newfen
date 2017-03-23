@@ -11,22 +11,22 @@
         android:id="@+id/rlTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:background="#ebeff0">
+        android:background="#ebeff0"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
             android:layout_marginLeft="13dp"
             android:layout_marginTop="13dp"
             android:background="@null"
             android:text="返回"
             android:textColor="@color/color_7f7f7f"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btn_commit"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_tips"
             android:layout_marginBottom="23dp"
-            android:layout_marginTop="23dp">
+            android:layout_marginTop="19dp">
 
 
             <RelativeLayout
@@ -128,7 +128,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="34dp"
+                android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:text="恭喜您添加成功"
                 android:textColor="@color/appcolor"

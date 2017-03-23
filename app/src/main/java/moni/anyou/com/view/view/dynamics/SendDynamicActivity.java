@@ -71,7 +71,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_dynamic);
         init();
-        KeyBoardTools.closeKeybord(etContentDynamic, mContext);
     }
 
     @Override
@@ -122,7 +121,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_left:
+            case R.id.tv_left:
                 onBack();
                 break;
             case R.id.right_tv:
