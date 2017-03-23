@@ -115,10 +115,6 @@ public class LivingChildRightFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        if (isVisible && isCreate) {
-//            getData();
-//        }
-
     }
 
     @Override

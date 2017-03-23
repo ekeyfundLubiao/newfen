@@ -10,7 +10,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="moni.anyou.com.view.view.my.SystemsNoticeActivity">
-
     <include layout="@layout/com_top_bar" />
 
     <View
