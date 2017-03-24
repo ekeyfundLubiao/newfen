@@ -63,7 +63,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     private RecyclerView rcPic;
     private EditText etContentDynamic;
     private SendPicAdapter mySentPicAdapter;
-    private String mVaule;
     private File upLoadfile;
 
     @Override
@@ -305,7 +304,9 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void run() {
-            int success = UploadUtil.uploadFile(new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picArry.get(picName)), SysConfig.UploadUrl);
+//            int success = UploadUtil.uploadFile(new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picArry.get(picName)), SysConfig.UploadUrl);
+              int success = UploadUtil.uploadFile(new File(picArry.get(picName)), SysConfig.UploadUrl);
+
             if (success == 200) {
                 picName++;
                 if (picSize > picName) {
