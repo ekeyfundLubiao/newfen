@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.RecycleViewBean;
 import moni.anyou.com.view.bean.SentPicBean;
+import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.KindergartenFragment;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
@@ -32,9 +34,9 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
 
     private BaseActivity mContext;
     private LayoutInflater mInflater;
-    private LinkedList<SentPicBean> mItems = new LinkedList<SentPicBean>();
+    private ArrayList<SentPicBean> mItems = new ArrayList<SentPicBean>();
 
-    public LinkedList<SentPicBean> getmItems() {
+    public ArrayList<SentPicBean> getmItems() {
         return mItems;
     }
 
@@ -45,7 +47,8 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
     }
 
     public void addPic(SentPicBean Bean) {
-        mItems.addFirst(Bean);
+       // mItems.addFirst(Bean);
+        mItems.add(0, Bean);
         notifyDataSetChanged();
 
     }
@@ -57,9 +60,8 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
     public MyViewHold onCreateViewHolder(ViewGroup parent, final int viewType) {
 
 
-            mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
-            holder = new MyViewHold(mView);
-
+        mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
+        holder = new MyViewHold(mView);
 
 
         return holder;
@@ -70,8 +72,10 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
         final SentPicBean item = mItems.get(position);
         if ("".endsWith(item.filePathName.trim())) {
             mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
+            mViewHold.ivDelete.setVisibility(View.GONE);
         } else {
             // mViewHold.ivSentPic.setImageBitmap(item.bitmap);
+            mViewHold.ivDelete.setVisibility(View.VISIBLE);
             mContext.setBitmaptoImageView11("file://" + Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + item.filePathName, mViewHold.ivSentPic);
         }
 
@@ -79,6 +83,15 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get(position), position);
+            }
+        });
+        mViewHold.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastTools.showShort(mContext,":"+position);
+                mItems.remove(position);
+                notifyDataSetChanged();
+                //notifyItemRemoved(position);
             }
         });
 
@@ -95,13 +108,15 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
 
     class MyViewHold extends RecyclerView.ViewHolder {
         ImageView ivSentPic;
-        LinearLayout llItem;
+        RelativeLayout llItem;
+        ImageView ivDelete;
 
         public MyViewHold(View itemView) {
             super(itemView);
-            llItem = (LinearLayout) itemView.findViewById(R.id.item_id);
+            llItem = (RelativeLayout) itemView.findViewById(R.id.item_id);
             mContext.mViewUtil.setViewWidth(llItem, mContext.mViewUtil.getScreenWidth() / 4);
             ivSentPic = (ImageView) itemView.findViewById(R.id.iv_send);
+            ivDelete = (ImageView) itemView.findViewById(R.id.iv_delete);
 
         }
     }

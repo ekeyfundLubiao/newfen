@@ -45,7 +45,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.MyViewHold> impl
         MyViewHold holder = null;
 
         if (holder == null) {
-            mView = mInflater.inflate(R.layout.adapter_send_pic, parent, false);
+            mView = mInflater.inflate(R.layout.adapter_dynamics_show_pic, parent, false);
             holder = new MyViewHold(mView);
             mView.setTag(holder);
         } else {

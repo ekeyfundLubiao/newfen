@@ -358,7 +358,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     private HelpBean getPics() {
         ArrayList<String> picInfo = new ArrayList<>();
         String TempStr = "";
-        LinkedList<SentPicBean> remps = mySentPicAdapter.getmItems();
+        ArrayList<SentPicBean> remps = mySentPicAdapter.getmItems();
         if (remps.size() > 0) {
             for (int i = 0, size = remps.size() - 1; i < size; i++) {
                 picInfo.add(remps.get(i).filePathName);
@@ -397,4 +397,8 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             }
         }
     };
+
+    public void  deleteSelectPic(int positon,SentPicBean bean) {
+
+    }
 }
