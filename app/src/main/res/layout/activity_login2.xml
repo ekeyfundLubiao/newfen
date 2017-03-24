@@ -4,31 +4,42 @@
     android:id="@+id/activity_login2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="moni.anyou.com.view.view.daily.LoginActivity">
 
     <include
         android:id="@+id/topbar"
-        layout="@layout/com_top_bar"/>
+        layout="@layout/com_top_bar" />
 
     <ImageView
         android:id="@+id/open"
-        android:layout_below="@id/topbar"
         android:layout_width="55dp"
         android:layout_height="55dp"
+        android:layout_below="@id/topbar"
         android:background="@mipmap/ic_launcher" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_below="@id/open"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <Button
+        android:id="@+id/btn_camera"
+        android:layout_width="match_parent"
+        android:text="打开相机"
+        android:layout_height="55dp" />
+    <Button
+        android:id="@+id/btn_grelly"
+        android:layout_width="match_parent"
+        android:text="打开相册"
+        android:layout_height="55dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_below="@id/open"
         android:src="@drawable/loading_err_21"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/appcolor"/>
+        android:visibility="gone"
+        app:civ_border_color="@color/appcolor"
+        app:civ_border_width="1dp" />
 
 
     <RadioGroup
@@ -36,31 +47,32 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-
         android:layout_centerVertical="true"
+
         android:layout_marginRight="26dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <RadioButton
             android:id="@+id/boy"
-            android:checked="true"
             android:layout_width="120px"
             android:layout_height="85px"
-            android:textSize="12dp"
             android:button="@drawable/bg_radiobutton"
+            android:checked="true"
             android:text="男孩"
-            android:textColor="@color/color_text_color" />
+            android:textColor="@color/color_text_color"
+            android:textSize="12dp" />
 
         <RadioButton
             android:id="@+id/girl"
-            android:checked="true"
             android:layout_width="wrap_content"
-            android:drawableLeft="@drawable/bg_radiobutton"
             android:layout_height="wrap_content"
-            android:text="女孩"
             android:button="@null"
-            android:textSize="12dp"
-            android:textColor="@color/color_text_color" />
+            android:checked="true"
+            android:drawableLeft="@drawable/bg_radiobutton"
+            android:text="女孩"
+            android:textColor="@color/color_text_color"
+            android:textSize="12dp" />
     </RadioGroup>
 
 </LinearLayout>

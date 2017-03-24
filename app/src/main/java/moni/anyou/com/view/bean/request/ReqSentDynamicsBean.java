@@ -2,7 +2,6 @@ package moni.anyou.com.view.bean.request;
 
 import com.google.gson.Gson;
 
-import in.srain.cube.views.ptr.PtrUIHandler;
 import moni.anyou.com.view.bean.request.base.RequestStandard;
 
 /**

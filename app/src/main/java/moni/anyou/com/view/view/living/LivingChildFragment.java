@@ -24,13 +24,6 @@ import org.kymjs.aframe.http.StringCallBack;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrDefaultHandler2;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
-import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.VideoBean;

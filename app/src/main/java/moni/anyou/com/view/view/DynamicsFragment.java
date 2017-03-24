@@ -27,9 +27,6 @@ import org.kymjs.aframe.http.StringCallBack;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler2;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.BaseInfo;
