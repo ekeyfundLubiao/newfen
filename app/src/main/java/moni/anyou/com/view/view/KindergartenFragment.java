@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 import org.json.JSONObject;
 import org.kymjs.aframe.database.utils.Id;
@@ -45,6 +46,7 @@ import moni.anyou.com.view.view.kindergarten.adapter.adpater.RecyclerViewAdapter
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.TeacherShowAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.picshow.NewsPicDetaiActivity;
 import moni.anyou.com.view.view.web.ShowInfoActivity;
+import moni.anyou.com.view.webview.ShowWebActivity;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.banner.AutoScrollViewPager;
 
@@ -62,7 +64,8 @@ public class KindergartenFragment extends BaseFragment {
 
     private RecyclerViewAdapter myAdpter;
     private TeacherShowAdapter showTeacherAdapter;
-    PtrClassicFrameLayout root;
+    //    PtrClassicFrameLayout root;
+    SHSwipeRefreshLayout swipeRefreshLayout;
     ResHomeData resHomeData;
     private NetProgressWindowDialog window;
     List<ResHomeData.TopTeachersBean> mItems = new ArrayList<>();
@@ -86,7 +89,7 @@ public class KindergartenFragment extends BaseFragment {
                 Intent intent = new Intent();
                 intent.putExtra("title", mCompanyInfoBean.getCompany());
                 intent.putExtra("url", mCompanyInfoBean.getUrl());
-                intent.setClass(mContext, ShowInfoActivity.class);
+                intent.setClass(mContext, ShowWebActivity.class);
                 startActivity(intent);
                 activityAnimation(RIGHT_IN);
 
@@ -100,8 +103,8 @@ public class KindergartenFragment extends BaseFragment {
         initTitle(mView);
         window = new NetProgressWindowDialog(mContext);
         ivBack.setVisibility(View.GONE);
-        root = (PtrClassicFrameLayout) mView.findViewById(R.id.root);
-        root.disableWhenHorizontalMove(true);
+//        root = (PtrClassicFrameLayout) mView.findViewById(R.id.root);
+//        root.disableWhenHorizontalMove(true);
         bannerView = (AutoScrollViewPager) mView.findViewById(R.id.bannerView);
         mTextLayout = (LinearLayout) mView.findViewById(R.id.layout_index_points);
         rvImages = (RecyclerView) mView.findViewById(R.id.rc_image);
@@ -115,11 +118,18 @@ public class KindergartenFragment extends BaseFragment {
         rvImages.setLayoutManager(linearLayoutManager);
 
         initRefresh();
+      //  initSwipeRefreshLayout();
         initShowTeacherPic();
-        root.autoRefresh();
+//        root.autoRefresh();
 
     }
 
+    @Override
+    public void setData() {
+        super.setData();
+        getdata(-1);
+
+    }
 
     private void initShowTeacherPic() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
@@ -129,40 +139,39 @@ public class KindergartenFragment extends BaseFragment {
     }
 
 
-
     private void initRefresh() {
-        root.setMode(PtrFrameLayout.Mode.REFRESH);
-        root.setPtrHandler(new PtrDefaultHandler2() {
-            @Override
-            public void onLoadMoreBegin(final PtrFrameLayout frame) {
-                // getdata(frame);
-                root.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //  mVideoRecycleAdapter.notifyDataSetChanged();
-                        frame.refreshComplete();
-                    }
-                }, 1000);
-            }
-
-            @Override
-            public void onRefreshBegin(final PtrFrameLayout frame) {
-
-                getdata();
-                root.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // mVideoRecycleAdapter.setDatas(mVideoArray);
-                        frame.refreshComplete();
-                    }
-                }, 1000);
-            }
-        });
+//        root.setMode(PtrFrameLayout.Mode.REFRESH);
+//        root.setPtrHandler(new PtrDefaultHandler2() {
+//            @Override
+//            public void onLoadMoreBegin(final PtrFrameLayout frame) {
+//                // getdata(frame);
+//                root.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        //  mVideoRecycleAdapter.notifyDataSetChanged();
+//                        frame.refreshComplete();
+//                    }
+//                }, 1000);
+//            }
+//
+//            @Override
+//            public void onRefreshBegin(final PtrFrameLayout frame) {
+//
+//                getdata();
+//                root.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // mVideoRecycleAdapter.setDatas(mVideoArray);
+//                        frame.refreshComplete();
+//                    }
+//                }, 1000);
+//            }
+//        });
     }
 
     //点赞
     public void likesPost(ResHomeData.TopTeachersBean teacher, int position) {
-        postLikeTeacher(teacher,position);
+        postLikeTeacher(teacher, position);
 
     }
 
@@ -177,11 +186,14 @@ public class KindergartenFragment extends BaseFragment {
         activityAnimation(RIGHT_IN);
     }
 
-
-    public void getdata() {
+    /**
+     *
+     * @param type 1 获取新数据  2 点赞数据
+     */
+    public void getdata(final int type) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqHomeBean("14", SysConfig.uid, SysConfig.token).ToJsonString();
+        final String cmdPara = new ReqHomeBean("14", SysConfig.uid, SysConfig.token).ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -195,13 +207,22 @@ public class KindergartenFragment extends BaseFragment {
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         resHomeData = new Gson().fromJson(t, ResHomeData.class);
-                        setPostData();
+                        switch (type) {
+                            case -1:
+                                setPostData();
+                                break;
+                           default:
+                            resHomeData.getTopTeachers().get(type);
+                                showTeacherAdapter.replace(resHomeData.getTopTeachers().get(type),type);
+                                break;
+                        }
+
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
+                    window.closeWindow();
                     Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
-
                 }
                 window.closeWindow();
             }
@@ -245,11 +266,10 @@ public class KindergartenFragment extends BaseFragment {
     }
 
 
-
-    public void postLikeTeacher( final ResHomeData.TopTeachersBean teacher, final int position) {
+    public void postLikeTeacher(final ResHomeData.TopTeachersBean teacher, final int position) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token,teacher.getUser_id(),"user").ToJsonString();
+        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, teacher.getUser_id(), "user").ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -262,26 +282,13 @@ public class KindergartenFragment extends BaseFragment {
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        Log.d(TAG, "Likebefore: " + teacher.getLikes());
-                        int temp = Integer.parseInt(teacher.getLikes()) + 1;
-                        Log.d(TAG, "LikeAfter: " + temp);
-                      // getdata();
-//                       showTeacherAdapter.notifyItemChanged(position,new ResHomeData.TopTeachersBean(teacher.getUser_id(),
-//                                teacher.getUrl(),
-//                                teacher.getNick(),
-//                                teacher.getIcon(),
-//                                ""+temp));
-                        showTeacherAdapter.replace(new ResHomeData.TopTeachersBean(teacher.getUser_id(),
-                                teacher.getUrl(),
-                                teacher.getNick(),
-                                teacher.getIcon(),
-                                ""+temp),position);
+                         getdata(position);
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
                     Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
-
+                    window.closeWindow();
                 }
                 window.closeWindow();
             }
@@ -289,9 +296,53 @@ public class KindergartenFragment extends BaseFragment {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-
                 window.closeWindow();
             }
         });
     }
+
+
+    private void initSwipeRefreshLayout() {
+        swipeRefreshLayout = (SHSwipeRefreshLayout) mView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setLoadmoreEnable(false);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        final View view = inflater.inflate(R.layout.refresh_view, null);
+        final TextView textView = (TextView) view.findViewById(R.id.title);
+        swipeRefreshLayout.setFooterView(view);
+        swipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
+            @Override
+            public void onRefresh() {
+            }
+
+            @Override
+            public void onLoading() {
+            }
+
+            /**
+             * 监听下拉刷新过程中的状态改变
+             * @param percent 当前下拉距离的百分比（0-1）
+             * @param state 分三种状态{NOT_OVER_TRIGGER_POINT：还未到触发下拉刷新的距离；OVER_TRIGGER_POINT：已经到触发下拉刷新的距离；START：正在下拉刷新}
+             */
+            @Override
+            public void onRefreshPulStateChange(float percent, int state) {
+                switch (state) {
+                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+                        swipeRefreshLayout.setLoaderViewText("");
+                        break;
+                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+                        swipeRefreshLayout.setLoaderViewText("");
+                        break;
+                    case SHSwipeRefreshLayout.START:
+                        swipeRefreshLayout.setLoaderViewText("");
+                        break;
+                }
+            }
+
+            @Override
+            public void onLoadmorePullStateChange(float percent, int state) {
+
+            }
+        });
+    }
+
 }

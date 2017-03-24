@@ -63,7 +63,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private TextView tvChangepwd;
     private TextView tvSex;
     private TextView tvBrithday;
-    private TextView tvRelatetobaby;
     private TextView tvGarden;
     private TextView tvAccount;
     private RelativeLayout rlSex;
@@ -72,7 +71,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private RelativeLayout rlUpdatepwd;
     private RelativeLayout rlGarden;
     private RelativeLayout rlAccount;
-    private RelationSeletor mRelationSeletor;
+    //private RelationSeletor mRelationSeletor;
     private RelationSeletor mSexSeletor;
     private TimeSelector mTimeSelector;
 
@@ -112,7 +111,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvChangepwd = (TextView) findViewById(R.id.tv_changepwd);
         tvSex = (TextView) findViewById(R.id.tv_sex);
         tvBrithday = (TextView) findViewById(R.id.tv_brithday);
-        tvRelatetobaby = (TextView) findViewById(R.id.tv_relatetobaby);
         tvAccount = (TextView) findViewById(R.id.tv_accout);
         tvGarden = (TextView) findViewById(R.id.tv_garden);
         rlBrithday.setVisibility(View.GONE);
@@ -136,7 +134,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         ivBack.setOnClickListener(this);
         tvHeadIcon.setOnClickListener(this);
         tvChangepwd.setOnClickListener(this);
-        tvRelatetobaby.setOnClickListener(this);
         tvBrithday.setOnClickListener(this);
         rlUpdatepwd.setOnClickListener(this);
         tvSex.setOnClickListener(this);
@@ -161,9 +158,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 break;
             case R.id.tv_brithday:
                 mTimeSelector.show();
-                break;
-            case R.id.tv_relatetobaby:
-                mRelationSeletor.show();
                 break;
             case R.id.tv_sex:
                 mSexSeletor.show();
@@ -243,26 +237,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
     private void initSeleterData() {
 
-        for (int i = 0, size = baseFamily.size(); i < size; i++) {
-            mStringRelations.add(baseFamily.get(i).getClassName());
-        }
-        mRelationSeletor = new RelationSeletor(mBaseActivity, mStringRelations, new RelationSeletor.ResultHandler() {
-            @Override
-            public void handle(String relation) {
-                if (relation!=null) {
-                    mType = TYPE_ROLE;
-                    mVaule = Tools.getRoleId(relation);
-                    postUpdateInfo();
-                    tvRelatetobaby.setText(relation);
-                }
-
-            }
-
-            @Override
-            public void handle(int position) {
-
-            }
-        });
         mStringSexs.add("男");
         mStringSexs.add("女");
         mStringSexs.add("保密");
@@ -310,7 +284,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
         setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
         tvBrithday.setText(baseInfo.childbirthday);
-        tvRelatetobaby.setText(Tools.getRole(baseInfo.role));
         tvGarden.setText(baseInfo.gradename);
         tvAccount.setText(baseInfo.mobile);
         switch (baseInfo.childsex) {

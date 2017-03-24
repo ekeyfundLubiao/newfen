@@ -98,15 +98,16 @@ public class LivingChildFragment extends BaseFragment {
     public void setData() {
         super.setData();
 //        JSONArray aa = Tools.getModuleJsonArray("live");
+        if (isVisible) {
+            getData(1);
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible = isVisibleToUser;
-        if (isCreate&&isVisible) {
-            getData(1);
-        }
+
     }
 
     @Override
@@ -125,7 +126,6 @@ public class LivingChildFragment extends BaseFragment {
             @Override
             public void onSuccess(String t) {
 
-                Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
