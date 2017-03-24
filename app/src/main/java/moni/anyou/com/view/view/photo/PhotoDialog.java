@@ -13,6 +13,8 @@ import java.util.List;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.base.BaseDialog;
+import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
+import moni.anyou.com.view.view.dynamics.adapter.SendPicAdapter;
 import moni.anyou.com.view.view.photo.local.ConfigHelper;
 
 /**
@@ -24,12 +26,26 @@ public class PhotoDialog extends BaseDialog
     private LinearLayout mAlbumButton;
     private Button mCancleButton;
     private PhotoListener mListener;
+    private int maxSelectSize=9;
+    private SendPicAdapter mSendPicAdapter;
+    public void setMaxSelectSize(int maxSelectSize) {
+        this.maxSelectSize = maxSelectSize;
+    }
+
     public PhotoDialog(BaseActivity activity) {
         super(activity);
+        mActivity = activity;
         setContentView(R.layout.pop_select_photo);
         initBottomDialog();
     }
 
+    public PhotoDialog(BaseActivity activity,SendPicAdapter sendPicAdapter) {
+        super(activity);
+        mActivity = activity;
+        mSendPicAdapter = sendPicAdapter;
+        setContentView(R.layout.pop_select_photo);
+        initBottomDialog();
+    }
     @Override
     public void initView() {
         super.initView();
@@ -68,7 +84,13 @@ public class PhotoDialog extends BaseDialog
                     GalleryPick.getInstance().setGalleryConfig(ConfigHelper.getInstance().getPhotoConfig(iHandlerCallBack)).open(mActivity);
                     break;
                 case R.id.llPhote:
-                    GalleryPick.getInstance().setGalleryConfig(ConfigHelper.getInstance().getLocalConfig(iHandlerCallBack)).open(mActivity);
+                    if (mSendPicAdapter!=null) {
+                        int size = mSendPicAdapter.getItemCount();
+                        if (size < 10) {
+                            maxSelectSize = 9-mSendPicAdapter.getItemCount()+1;
+                        }
+                    }
+                    GalleryPick.getInstance().setGalleryConfig(ConfigHelper.getInstance().getLocalConfig(iHandlerCallBack,maxSelectSize)).open(mActivity);
                     break;
                 case R.id.btn_cancel:
                      onBack();

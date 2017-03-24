@@ -20,6 +20,6 @@
         android:layout_marginLeft="-25dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/iv_send"
-        android:background="@mipmap/jia_shan"
+        android:background="@mipmap/shanchutupian"
         android:visibility="visible" />
 </RelativeLayout>

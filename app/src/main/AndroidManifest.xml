@@ -29,6 +29,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/base_theme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.anyou.picselect.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -65,17 +76,20 @@
         <activity
             android:name=".view.dynamics.SendDynamicActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity android:name=".view.living.ALivingActivity" />
         <activity android:name=".webview.WebviewActivity" />
-        <activity android:name=".view.daily.LoginActivity" />
+        <activity android:name=".view.daily.LoginActivity">
+
+        </activity>
         <activity android:name=".view.kindergarten.TeacherDetailActivity" />
         <activity
             android:name=".view.StartActivity"
             android:label="@string/title_activity_start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -83,8 +97,10 @@
         <activity android:name=".view.web.ShowInfoActivity" />
         <activity android:name=".view.my.SystemsNoticeActivity" />
         <activity android:name=".view.my.systemset.SelectGardenActivity" />
-        <activity android:name=".view.dynamics.SentDynamicsActivity" />
+        <activity android:name=".view.dynamics.SentDynamicsActivity">
+        </activity>
         <activity android:name=".view.my.invitefamily.SelectActivity"></activity>
+
     </application>
 
 </manifest>

@@ -82,7 +82,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         tvRight.setText("发送");
         tvRight.setVisibility(View.VISIBLE);
         etContentDynamic = (EditText) findViewById(R.id.et_content_dynamic);
-        mPhotoDialog = new PhotoDialog(mBaseActivity);
+
         rcPic = (RecyclerView) findViewById(R.id.rc_pic);
 
     }
@@ -103,11 +103,13 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         rcPic.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         rcPic.setLayoutManager(gridLayoutManager);
         mySentPicAdapter = new SendPicAdapter(this, new SentPicBean());
+        mPhotoDialog = new PhotoDialog(mBaseActivity, mySentPicAdapter);
         rcPic.setAdapter(mySentPicAdapter);
         mySentPicAdapter.setmOnItemClickListener(new SendPicAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, SentPicBean data, int position) {
-                if (position == mySentPicAdapter.getItemCount() - 1) {
+//                if (position == mySentPicAdapter.getItemCount() - 1) {
+                if ("".equals(data.filePathName)) {
                     requestPermission(PermissionTools.writeExternalStorage);
                 }
 
@@ -129,7 +131,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     ToastTools.showShort(mContext, "不能为空");
                     return;
                 }
-
                 HelpBean bean = getPics();
                 if (bean != null) {
                     mPic = bean.sentpic;
@@ -153,7 +154,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    public String mContent;
     private String mPic;
 
     public void postSentDynamics() {
@@ -194,61 +194,29 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-    public void postLikeArticle(int position, ResDynamicsBean.ListBean bean) {
-        KJHttp kjh = new KJHttp();
-        KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getUserid(), "article").ToJsonString();
-        params.put("sendMsg", cmdPara);
-        window.ShowWindow();
-        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
-            @Override
-            public void onSuccess(String t) {
-
-                Log.d(TAG, "onSuccess: " + t);
-                try {
-                    JSONObject jsonObject = new JSONObject(t);
-                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
-                    int result = Integer.parseInt(jsonObject.getString("result"));
-                    if (result >= 1) {
-
-
-                    } else {
-                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
-
-                }
-                window.closeWindow();
-            }
-
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-
-                window.closeWindow();
-            }
-        });
-    }
-
-
     private PhotoDialog mPhotoDialog = null;
-
-
     private PhotoDialog.PhotoListener mPhotoListener = new PhotoDialog.PhotoListener() {
         @Override
         public void onSuccess(List<String> photoList) {
             if (null != photoList) {
                 final File file = new File(photoList.get(0));
-
-                if (file.exists()) {
-                    mVaule = file.getName();
-                    upLoadfile = file;
-                    SentPicBean pic = new SentPicBean(file.getName(), null);
-                    mySentPicAdapter.addPic(pic);
-                } else {
-                    ToastTools.showShort(mContext, "头像文件不存在");
+                for (String s : photoList) {
+                    Log.i(TAG, s);
+                    mySentPicAdapter.addPic(new SentPicBean(s, null),0);
                 }
+                if (mySentPicAdapter.getItemCount() == 10) {
+                    mySentPicAdapter.remove();
+                }
+//                if (file.exists()) {
+//                    mVaule = file.getName();
+//                    upLoadfile = file;
+//                    SentPicBean pic = new SentPicBean(file.getName(), null);
+//                    mySentPicAdapter.addPic(pic);
+//                } else {
+//                    ToastTools.showShort(mContext, "头像文件不存在");
+//                }
+
+
             }
         }
 
@@ -398,7 +366,17 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         }
     };
 
-    public void  deleteSelectPic(int positon,SentPicBean bean) {
+    public void notifyEnd() {
+       ArrayList<SentPicBean> arrayPic= mySentPicAdapter.getmItems();
+        int size = arrayPic.size();
+        if (!arrayPic.get(arrayPic.size()-1).filePathName.equals("")&&size==8) {
+            mySentPicAdapter.addPic(new SentPicBean(),8);
+        }
 
+    }
+
+
+    public SendPicAdapter getMySentPicAdapter() {
+        return mySentPicAdapter;
     }
 }

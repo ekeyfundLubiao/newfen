@@ -32,7 +32,7 @@ import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHold> {
 
 
-    private BaseActivity mContext;
+    private SendDynamicActivity mContext;
     private LayoutInflater mInflater;
     private ArrayList<SentPicBean> mItems = new ArrayList<SentPicBean>();
 
@@ -46,11 +46,16 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
         mItems.add(items);
     }
 
-    public void addPic(SentPicBean Bean) {
-       // mItems.addFirst(Bean);
-        mItems.add(0, Bean);
+    public void addPic(SentPicBean Bean,int position) {
+        // mItems.addFirst(Bean);
+        mItems.add(position, Bean);
         notifyDataSetChanged();
 
+    }
+
+    public void remove() {
+        mItems.remove(getItemCount() - 1);
+        notifyDataSetChanged();
     }
 
     View mView;
@@ -68,30 +73,43 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(MyViewHold mViewHold, final int position) {
+    public void onBindViewHolder( final  MyViewHold mViewHold, final int position) {
+        mViewHold.itemView.setTag(position);
         final SentPicBean item = mItems.get(position);
         if ("".endsWith(item.filePathName.trim())) {
-            mViewHold.ivSentPic.setBackgroundResource(R.mipmap.add);
+            mContext.setBitmaptoImageView11("drawable://" + R.mipmap.add, mViewHold.ivSentPic);
             mViewHold.ivDelete.setVisibility(View.GONE);
         } else {
             // mViewHold.ivSentPic.setImageBitmap(item.bitmap);
             mViewHold.ivDelete.setVisibility(View.VISIBLE);
-            mContext.setBitmaptoImageView11("file://" + Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + item.filePathName, mViewHold.ivSentPic);
+            mViewHold.ivSentPic.setBackgroundResource(R.color.white);
+//            mContext.setBitmaptoImageView11("file://" + Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + item.filePathName, mViewHold.ivSentPic);
+            mContext.setBitmaptoImageView11("file://" + item.filePathName, mViewHold.ivSentPic);
+
         }
 
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get(position), position);
+              int  position =(Integer)mViewHold.itemView.getTag();
+                try {
+                    ToastTools.showShort(mContext, "Size:" + mItems.size());
+                    mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get(position), position);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    ToastTools.showShort(mContext, "Size:" + mItems.size());
+                }
             }
         });
         mViewHold.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastTools.showShort(mContext,":"+position);
+                int  position =(Integer)mViewHold.itemView.getTag();
+                ToastTools.showShort(mContext, ":" + position);
                 mItems.remove(position);
                 notifyDataSetChanged();
-                //notifyItemRemoved(position);
+                mContext.notifyEnd();
             }
         });
 
