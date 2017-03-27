@@ -3,22 +3,24 @@ package moni.anyou.com.view.bean;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.net.FileNameMap;
 
 /**
  * Created by Administrator on 2017/1/4.
  */
 
-public class SentPicBean implements Serializable{
-    public String filePathName="";
+public class SentPicBean implements Serializable {
+    public String filePathName = "";
     public Bitmap bitmap;
     public String Url;
+    public String newFileNameMap;
 
     public SentPicBean() {
     }
 
-    public SentPicBean(String filePathName, Bitmap bitmap) {
+    public SentPicBean(String filePathName, String newFileNameMap) {
         this.filePathName = filePathName;
-        this.bitmap = bitmap;
+        this.newFileNameMap = newFileNameMap;
     }
 
     public SentPicBean(String url) {

@@ -41,6 +41,7 @@ import moni.anyou.com.view.bean.request.ReqSentDynamicsBean;
 import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.KeyBoardTools;
 import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.ToastTools;
@@ -83,6 +84,8 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         etContentDynamic = (EditText) findViewById(R.id.et_content_dynamic);
 
         rcPic = (RecyclerView) findViewById(R.id.rc_pic);
+        int withd= rcPic.getWidth();
+        Log.d(TAG, "initView: "+withd);
 
     }
 
@@ -122,7 +125,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_left:
+            case R.id.iv_left:
                 onBack();
                 break;
             case R.id.right_tv:
@@ -201,11 +204,15 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 final File file = new File(photoList.get(0));
                 for (String s : photoList) {
                     Log.i(TAG, s);
-                    mySentPicAdapter.addPic(new SentPicBean(s, null),0);
+
+                    mySentPicAdapter.addPic(new SentPicBean(s, AppTools.comparese(mContext,s)),0);
                 }
                 if (mySentPicAdapter.getItemCount() == 10) {
                     mySentPicAdapter.remove();
                 }
+
+
+
 //                if (file.exists()) {
 //                    mVaule = file.getName();
 //                    upLoadfile = file;
@@ -305,7 +312,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void run() {
 //            int success = UploadUtil.uploadFile(new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picArry.get(picName)), SysConfig.UploadUrl);
-              int success = UploadUtil.uploadFile(new File(picArry.get(picName)), SysConfig.UploadUrl);
+              int success = UploadUtil.uploadFile(new File(mContext.getCacheDir()+"/luban_disk_cache/"+picArry.get(picName)), SysConfig.UploadUrl);
 
             if (success == 200) {
                 picName++;
@@ -320,6 +327,8 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
+            } else {
+
             }
         }
     }
@@ -330,11 +339,11 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         ArrayList<SentPicBean> remps = mySentPicAdapter.getmItems();
         if (remps.size() > 0) {
             for (int i = 0, size = remps.size() - 1; i < size; i++) {
-                picInfo.add(remps.get(i).filePathName);
+                picInfo.add(remps.get(i).newFileNameMap);
                 if (i == size - 1) {
-                    TempStr = TempStr + remps.get(i).filePathName;
+                    TempStr = TempStr + remps.get(i).newFileNameMap;
                 } else {
-                    TempStr = TempStr + remps.get(i).filePathName + ",";
+                    TempStr = TempStr + remps.get(i).newFileNameMap + ",";
                 }
             }
             HelpBean helpBean = new HelpBean();
@@ -360,7 +369,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             super.handleMessage(msg);
             if (msg != null) {
                 picName = (Integer) msg.obj;
-                upLoadfile = new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picName);
+                upLoadfile = new File(mContext.getCacheDir()+"/luban_disk_cache/"+picArry.get(picName));
                 UploadThread m = new UploadThread();
                 new Thread(m).start();
             }

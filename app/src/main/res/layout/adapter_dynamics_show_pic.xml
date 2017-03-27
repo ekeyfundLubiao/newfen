@@ -10,6 +10,7 @@
         android:id="@+id/iv_send"
         android:layout_width="77dp"
         android:layout_height="77dp"
+        android:scaleType="fitXY"
         android:src="@mipmap/jiaoshitouxiang" />
 
 

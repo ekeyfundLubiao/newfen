@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
@@ -29,6 +30,8 @@ import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.account.LoginActivity;
 import moni.anyou.com.view.widget.utils.imageload.ImageLoadUtil;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * 跟App相关的辅助类
@@ -326,8 +329,8 @@ public class AppTools {
      */
     public static String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + ".png";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("'anyou'_yyyyMMdd_HHmmss");
+        return dateFormat.format(date)+getRandomNum();
     }
 
 
@@ -349,4 +352,51 @@ public class AppTools {
         df.setRoundingMode(RoundingMode.FLOOR);
         return df.format(number);
     }
+
+
+
+    public static String comparese(Context context,String file) {
+
+        String FileName = getPhotoFileName()+getRandomNum();
+        Luban.get(context)
+                .setFilename(FileName)
+                .load(new File(file))  //传人要压缩的图片
+                .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                .setCompressListener(new OnCompressListener() { //设置回调
+
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        Log.d("TAG", "onSuccess: " + file.getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过去出现问题时调用
+                    }
+                }).launch();    //启动压缩
+        if (file.contains("png")) {
+            FileName = FileName + ".png";
+        }
+        if (file.contains("jpg")) {
+            FileName = FileName + ".jpg";
+        }
+        if (file.contains("gif")) {
+            FileName = FileName + ".gif";
+        }
+        return FileName;
+    }
+public static String getRandomNum(){
+    java.util.Random random=new java.util.Random();// 定义随机类
+    int result=random.nextInt(2000);
+    return ""+result+1;
+
+}
+
+
 }

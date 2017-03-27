@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/iv_send"
         android:layout_width="77dp"
+        android:scaleType="fitXY"
         android:layout_height="77dp" />
 
     <ImageView
@@ -19,6 +20,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="-25dp"
         android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
         android:layout_toRightOf="@id/iv_send"
         android:background="@mipmap/shanchutupian"
         android:visibility="visible" />

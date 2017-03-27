@@ -96,7 +96,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         }
         ResDynamicsBean.ListBean temps = getItem(position);
 
-        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getSmallpic().split(","));
+        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
 
         holder.rc_icon.setAdapter(tempRecAdapter);
         mContext.setBitmaptoImageView11(SysConfig.PicUrl+temps.getIcon(),holder.iv_headicon);
