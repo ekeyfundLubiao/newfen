@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.utils.StorageUtils;
@@ -329,8 +330,8 @@ public class AppTools {
      */
     public static String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("'anyou'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date)+getRandomNum();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
+        return dateFormat.format(date) + ".png";
     }
 
 
@@ -354,10 +355,9 @@ public class AppTools {
     }
 
 
+    public static String comparese(Context context, String file) {
 
-    public static String comparese(Context context,String file) {
-
-        String FileName = getPhotoFileName()+getRandomNum();
+        String FileName = getPhotoFileName() + getRandomNum();
         Luban.get(context)
                 .setFilename(FileName)
                 .load(new File(file))  //传人要压缩的图片
@@ -391,12 +391,22 @@ public class AppTools {
         }
         return FileName;
     }
-public static String getRandomNum(){
-    java.util.Random random=new java.util.Random();// 定义随机类
-    int result=random.nextInt(2000);
-    return ""+result+1;
 
-}
+    public static String getRandomNum() {
+        java.util.Random random = new java.util.Random();// 定义随机类
+        int result = random.nextInt(2000);
+        return "" + result + 1;
+
+    }
 
 
+    public static String sustring(String intstr) {
+
+        if (TextUtils.isEmpty(intstr)) {
+            int lastxie = intstr.lastIndexOf("/");
+            String newstr = intstr.substring(lastxie + 1, intstr.length());
+            return newstr;
+        }
+        return "";
+    }
 }

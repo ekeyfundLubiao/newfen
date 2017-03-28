@@ -165,7 +165,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
             tvfamilyName.setText(baseInfo.child+ Tools.getRole(baseInfo.role));
             tvGardenName.setText(baseInfo.companyname+baseInfo.gradename);
-            setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,ivIconhead);
+          setBitmaptoImageView11(SysConfig.PicUrl+baseInfo.icon,ivIconhead);
+            //setBitmaptoImageView11("file://"+mContext.getFilesDir().getPath()+"user/0/top.zibin.luban.example/cache/luban_disk_cache/1490487176029.jpg",ivIconhead);
         }
 
     }

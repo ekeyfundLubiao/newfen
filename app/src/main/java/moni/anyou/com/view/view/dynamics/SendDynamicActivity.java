@@ -84,8 +84,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         etContentDynamic = (EditText) findViewById(R.id.et_content_dynamic);
 
         rcPic = (RecyclerView) findViewById(R.id.rc_pic);
-        int withd= rcPic.getWidth();
-        Log.d(TAG, "initView: "+withd);
 
     }
 
@@ -125,7 +123,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_left:
+            case R.id.tv_left:
                 onBack();
                 break;
             case R.id.right_tv:
@@ -210,9 +208,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 if (mySentPicAdapter.getItemCount() == 10) {
                     mySentPicAdapter.remove();
                 }
-
-
-
 //                if (file.exists()) {
 //                    mVaule = file.getName();
 //                    upLoadfile = file;
@@ -327,8 +322,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-            } else {
-
             }
         }
     }
@@ -339,11 +332,11 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         ArrayList<SentPicBean> remps = mySentPicAdapter.getmItems();
         if (remps.size() > 0) {
             for (int i = 0, size = remps.size() - 1; i < size; i++) {
-                picInfo.add(remps.get(i).newFileNameMap);
+                picInfo.add(remps.get(i).filePathName);
                 if (i == size - 1) {
-                    TempStr = TempStr + remps.get(i).newFileNameMap;
+                    TempStr = TempStr + remps.get(i).filePathName;
                 } else {
-                    TempStr = TempStr + remps.get(i).newFileNameMap + ",";
+                    TempStr = TempStr + remps.get(i).filePathName + ",";
                 }
             }
             HelpBean helpBean = new HelpBean();

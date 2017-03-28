@@ -23,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import moni.anyou.com.view.R;
+import moni.anyou.com.view.bean.SentPicBean;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.WindowDialog;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
@@ -47,7 +48,7 @@ public class BaseActivity extends FragmentActivity {
     public Context mContext;
     public BaseActivity mBaseActivity;
     private MessgeDialog mMessgeDialog;
-    protected static final String TAG = "BaseActivity";
+    public static final String TAG = "BaseActivity";
     protected static NetProgressWindowDialog mLoadingDialog;
     public TextView tvTitle;
     public TextView ivBack;

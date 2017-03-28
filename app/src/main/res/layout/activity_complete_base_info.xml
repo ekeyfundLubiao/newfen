@@ -47,7 +47,7 @@
             <RadioButton
                 android:id="@+id/boy"
                 android:layout_width="wrap_content"
-                android:layout_height="85px"
+                android:layout_height="wrap_content"
                 android:button="@null"
                 android:checked="true"
                 android:drawableLeft="@drawable/bg_radiobutton"
@@ -64,7 +64,20 @@
                 android:button="@null"
                 android:checked="true"
                 android:drawableLeft="@drawable/bg_radiobutton"
+                android:drawablePadding="6dp"
                 android:text="女孩"
+                android:textColor="@color/color_text_color"
+                android:textSize="12dp" />
+            <RadioButton
+                android:id="@+id/secret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:button="@null"
+                android:checked="true"
+                android:drawableLeft="@drawable/bg_radiobutton"
+                android:drawablePadding="6dp"
+                android:text="保密"
                 android:textColor="@color/color_text_color"
                 android:textSize="12dp" />
         </RadioGroup>

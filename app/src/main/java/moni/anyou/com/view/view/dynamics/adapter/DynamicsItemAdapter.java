@@ -38,7 +38,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
 
     private DynamicsFragment mContext;
     private LayoutInflater mInflater;
-    private ArrayList<ResDynamicsBean.ListBean> mItems=new ArrayList<>();
+    private ArrayList<ResDynamicsBean.ListBean> mItems = new ArrayList<>();
 
     public DynamicsItemAdapter(DynamicsFragment context) {
         this.mContext = context;
@@ -71,24 +71,26 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
     }
 
     @Override
-    public View getView( final int position, View mView, ViewGroup viewGroup) {
+    public View getView(final int position, View mView, ViewGroup viewGroup) {
         MyViewHold holder = null;
 
         if (holder == null) {
             mView = mInflater.inflate(R.layout.item_dynamics, viewGroup, false);
             holder = new MyViewHold();
             holder.iv_headicon = (CircleImageView) mView.findViewById(R.id.iv_headicon);
-            holder.ivShare= (ImageView) mView.findViewById(R.id.iv_share);
-            holder.ivZan= (ImageView) mView.findViewById(R.id.iv_zan);
-            holder.rc_icon=(RecyclerView) mView.findViewById(R.id.rc_icon);
+            holder.ivShare = (ImageView) mView.findViewById(R.id.iv_share);
+            holder.ivZan = (ImageView) mView.findViewById(R.id.iv_zan);
+            holder.rc_icon = (RecyclerView) mView.findViewById(R.id.rc_icon);
             holder.tv_sentTime = (TextView) mView.findViewById(R.id.tv_sentTime);
             holder.tvnickname = (TextView) mView.findViewById(R.id.tv_nickName);
             holder.tv_dynamicsContant = (TextView) mView.findViewById(R.id.tv_dynamicsContant);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext.getContext(),3);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext.getContext(), 3);
             holder.rc_icon.addItemDecoration(new DividerItemDecoration(mContext.getContext(), LinearLayoutManager.HORIZONTAL));
             holder.rc_icon.addItemDecoration(new DividerItemDecoration(mContext.getContext(), LinearLayoutManager.VERTICAL));
             holder.rc_icon.setLayoutManager(gridLayoutManager);
             holder.tv_lots = (TextView) mView.findViewById(R.id.tv_lots);
+            holder.iv_delete_dynamics = (TextView) mView.findViewById(R.id.iv_delete_dynamics);
+            holder.ll_mark = (LinearLayout) mView.findViewById(R.id.ll_mark);
             mView.setTag(holder);
 
         } else {
@@ -99,20 +101,25 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
 
         holder.rc_icon.setAdapter(tempRecAdapter);
-        mContext.setBitmaptoImageView11(SysConfig.PicUrl+temps.getIcon(),holder.iv_headicon);
+        mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.getIcon(), holder.iv_headicon);
         holder.tv_sentTime.setText(Tools.main(temps.getAddtime()));
         holder.tvnickname.setText(temps.getNick());
         holder.tv_dynamicsContant.setText(temps.getContent());
         holder.tv_lots.setText(temps.getLikeuser());
         if (!TextUtil.isEmpty(temps.getLikeuser())) {
-          holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.getLikeuser()));
+            holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.getLikeuser()));
         }
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.marklike(position,getItem(position));
+                mContext.marklike(position, getItem(position));
             }
         });
+        if (SysConfig.uid.equals(temps.getUserid())) {
+            holder.iv_delete_dynamics.setVisibility(View.VISIBLE);
+        } else {
+            holder.iv_delete_dynamics.setVisibility(View.GONE);
+        }
         return mView;
     }
 
@@ -125,6 +132,8 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         ImageView ivZan;
         ImageView ivShare;
         TextView tv_lots;
+        LinearLayout ll_mark;
+        TextView iv_delete_dynamics;
 
     }
 
@@ -137,6 +146,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         }
         notifyDataSetChanged();
     }
+
     public void AddDatas(List<ResDynamicsBean.ListBean> result) {
         if (mItems != null && result != null) {
             mItems.addAll(result);

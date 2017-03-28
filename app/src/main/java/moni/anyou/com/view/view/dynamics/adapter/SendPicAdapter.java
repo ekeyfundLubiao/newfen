@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +20,6 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.RecycleViewBean;
 import moni.anyou.com.view.bean.SentPicBean;
-import moni.anyou.com.view.tool.ScreenTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.KindergartenFragment;
@@ -79,12 +76,6 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
     public void onBindViewHolder( final  MyViewHold mViewHold, final int position) {
         mViewHold.itemView.setTag(position);
         final SentPicBean item = mItems.get(position);
-        // 设置 每个imageView 的大小
-        ViewGroup.LayoutParams params = mViewHold.ivSentPic.getLayoutParams();
-//
-//        params.height = ScreenTools.getScreenWidth(mContext) /4;
-//        params.width = ScreenTools.getScreenWidth(mContext) / 4;
-//        mViewHold.ivSentPic.setLayoutParams(params);
         if ("".endsWith(item.filePathName.trim())) {
             mContext.setBitmaptoImageView11("drawable://" + R.mipmap.add, mViewHold.ivSentPic);
             mViewHold.ivDelete.setVisibility(View.GONE);
@@ -108,8 +99,6 @@ public class SendPicAdapter extends RecyclerView.Adapter<SendPicAdapter.MyViewHo
                     mOnItemClickListener.onItemClick(v, (SentPicBean) mItems.get(position), position);
                 } catch (Exception e) {
                     e.printStackTrace();
-                }finally {
-                    ToastTools.showShort(mContext, "Size:" + mItems.size());
                 }
             }
         });
