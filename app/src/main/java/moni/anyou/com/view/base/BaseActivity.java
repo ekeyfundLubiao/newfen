@@ -61,7 +61,6 @@ public class BaseActivity extends FragmentActivity {
     public void init() {
         init(true);
     }
-
     /**
      * 初始化
      */

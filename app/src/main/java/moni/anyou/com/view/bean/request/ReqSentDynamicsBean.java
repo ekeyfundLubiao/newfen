@@ -11,7 +11,7 @@ import moni.anyou.com.view.bean.request.base.RequestStandard;
 public class ReqSentDynamicsBean extends RequestStandard{
 
     public static String TYPEID_ADD = "0";
-    public static String TYPEID_DELETE = "1";
+    public static String TYPEID_DELETE = "2";
     public static String ARTICLEID_ADD = "0";
     public static String ARTICLEID_DELETE = "1";
     private String typeid;//":"0","

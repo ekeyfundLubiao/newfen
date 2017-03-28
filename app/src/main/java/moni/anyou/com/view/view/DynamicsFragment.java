@@ -35,6 +35,7 @@ import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SentPicBean;
 import moni.anyou.com.view.bean.request.ReqLiveBean;
 import moni.anyou.com.view.bean.request.ReqPageBean;
+import moni.anyou.com.view.bean.request.ReqSentDynamicsBean;
 import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.bean.response.ResHomeData;
@@ -57,12 +58,15 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private ImageView iv_icon;
     private ImageView ivRight;
     private ListView lvDynamics;
+    private SHSwipeRefreshLayout swipeRefreshLayout;
+
     private DynamicsItemAdapter dynamicsItemAdapter;
+
     private ArrayList<DynamicsTempItems> mItems;
     private int pageSize = 5;
     private int pageNo = 1;
     int totalCount = 0;
-    SHSwipeRefreshLayout swipeRefreshLayout;
+
 
     public DynamicsFragment() {
 
@@ -273,4 +277,42 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         });
     }
 
+
+    public void postDeleteDynamics(ResDynamicsBean.ListBean bean, final int position) {
+        KJHttp kjh = new KJHttp();
+        KJStringParams params = new KJStringParams();
+        String cmdPara = new ReqSentDynamicsBean("18", SysConfig.uid, SysConfig.token, ReqSentDynamicsBean.TYPEID_DELETE, bean.getArticleid(), bean.getContent(), bean.getPic()).ToJsonString();
+        params.put("sendMsg", cmdPara);
+        window.ShowWindow();
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+            @Override
+            public void onSuccess(String t) {
+                Log.d(TAG, "onSuccess: " + t);
+                try {
+                    JSONObject jsonObject = new JSONObject(t);
+                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                    int result = Integer.parseInt(jsonObject.getString("result"));
+                    if (result >= 1) {
+                        showProgressBar();
+                        dynamicsItemAdapter.removeDynamics(position);
+                        Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+
+                }
+                window.closeWindow();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+                window.closeWindow();
+            }
+        });
+
+
+    }
 }

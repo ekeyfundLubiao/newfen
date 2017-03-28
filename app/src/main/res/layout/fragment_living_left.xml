@@ -17,6 +17,7 @@
         app:refresh_text="下拉刷新">
 
         <android.support.v7.widget.RecyclerView
+            android:background="@color/white"
             android:id="@+id/rv_baby_video"
             android:layout_marginTop="6dp"
             android:layout_width="match_parent"

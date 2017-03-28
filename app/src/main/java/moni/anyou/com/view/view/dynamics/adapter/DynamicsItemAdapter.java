@@ -4,6 +4,7 @@ package moni.anyou.com.view.view.dynamics.adapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.DynamicsTempItems;
 import moni.anyou.com.view.bean.SentPicBean;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
+import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
@@ -96,6 +98,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         } else {
             holder = (MyViewHold) mView.getTag();
         }
+        mView.setTag(position);
         ResDynamicsBean.ListBean temps = getItem(position);
 
         RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
@@ -120,6 +123,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         } else {
             holder.iv_delete_dynamics.setVisibility(View.GONE);
         }
+        addOnClick(holder, mView);
         return mView;
     }
 
@@ -151,6 +155,23 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         if (mItems != null && result != null) {
             mItems.addAll(result);
         }
+        notifyDataSetChanged();
+    }
+
+    private void addOnClick(final MyViewHold holder, final View mView) {
+
+        holder.iv_delete_dynamics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) mView.getTag();
+                mContext.postDeleteDynamics(getItem(position), position);
+                //Log.d("TAG", "onClick: " + (Integer) mView.getTag());
+            }
+        });
+    }
+
+    public void removeDynamics(int position) {
+        mItems.remove(position);
         notifyDataSetChanged();
     }
 }

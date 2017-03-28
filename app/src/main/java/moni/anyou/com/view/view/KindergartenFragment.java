@@ -115,7 +115,7 @@ public class KindergartenFragment extends BaseFragment {
         rvImages.setLayoutManager(linearLayoutManager);
 
         initRefresh();
-      //  initSwipeRefreshLayout();
+        //  initSwipeRefreshLayout();
         initShowTeacherPic();
 //        root.autoRefresh();
 
@@ -184,7 +184,6 @@ public class KindergartenFragment extends BaseFragment {
     }
 
     /**
-     *
      * @param type 1 获取新数据  2 点赞数据
      */
     public void getdata(final int type) {
@@ -208,9 +207,9 @@ public class KindergartenFragment extends BaseFragment {
                             case -1:
                                 setPostData();
                                 break;
-                           default:
-                            resHomeData.getTopTeachers().get(type);
-                                showTeacherAdapter.replace(resHomeData.getTopTeachers().get(type),type);
+                            default:
+                                resHomeData.getTopTeachers().get(type);
+                                showTeacherAdapter.replace(resHomeData.getTopTeachers().get(type), type);
                                 break;
                         }
 
@@ -279,7 +278,7 @@ public class KindergartenFragment extends BaseFragment {
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                         getdata(position);
+                        getdata(position);
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
