@@ -166,7 +166,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    public void postLikeArticle(int position, ResDynamicsBean.ListBean bean) {
+    public void postLikeArticle(final int position, final ResDynamicsBean.ListBean bean) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
         String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getArticleid(), "article").ToJsonString();
@@ -183,7 +183,17 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
 
-                        getData();
+                        //getData();
+                        String likeUser = bean.getLikeuser();
+                        String nick = SysConfig.userInfoJson.getString("nick");
+                        if (likeUser.contains(nick)) {
+                            likeUser.replace(SysConfig.uid + ":::" + nick + "\\|", "");
+                        } else {
+                            likeUser = SysConfig.uid + ":::" + nick + "\\|" + likeUser;
+                        }
+                        bean.setLikeuser(likeUser);
+                        dynamicsItemAdapter.updateDynamics(position, bean);
+
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
 
                     } else {
@@ -279,6 +289,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
 
     public void postDeleteDynamics(ResDynamicsBean.ListBean bean, final int position) {
+
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
         String cmdPara = new ReqSentDynamicsBean("18", SysConfig.uid, SysConfig.token, ReqSentDynamicsBean.TYPEID_DELETE, bean.getArticleid(), bean.getContent(), bean.getPic()).ToJsonString();
@@ -293,7 +304,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        showProgressBar();
                         dynamicsItemAdapter.removeDynamics(position);
                         Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
                     } else {

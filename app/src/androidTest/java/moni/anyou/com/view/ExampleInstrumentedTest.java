@@ -3,6 +3,7 @@ package moni.anyou.com.view;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,17 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("moni.anyou.com.a", appContext.getPackageName());
+    //    assertEquals("moni.anyou.com.a", appContext.getPackageName());
         Tools.main("2017-01-11 11:00:00.0");
+        sustring();
+
+    }
+
+
+    public void sustring(){
+        String str = "/storage/emulated/0/Pictures/Screenshots/Screenshot_2017-02-24-14-22-52.png";
+        int lastxie=str.lastIndexOf("/");
+        String newstr= str.substring(lastxie+1, str.length());
 
     }
 }

@@ -145,7 +145,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
     </RelativeLayout>
@@ -178,11 +177,12 @@
             android:textColor="@color/color_text_color" />
 
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
     </RelativeLayout>
@@ -204,11 +204,11 @@
             android:textColor="@color/color_left_title" />
 
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
 
@@ -230,7 +230,7 @@
         android:layout_height="45dp"
         android:background="@color/white"
         android:clickable="true"
-        android:minHeight="45dp">
+       >
 
         <TextView
             android:layout_width="wrap_content"
@@ -245,7 +245,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
             android:layout_marginLeft="13dp"
             android:background="@color/bgcolor" />
 
@@ -262,45 +261,45 @@
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/rl_relate"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/white"
-        android:clickable="true"
-        android:minHeight="45dp">
+    <!--<RelativeLayout-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/rl_relate"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:clickable="true"-->
+        <!--android:minHeight="45dp">-->
 
 
-        <TextView
-            android:id="@+id/tv_relatetobaby"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="13dp"
-            android:text="粑粑"
-            android:gravity="center_vertical|right"
-            android:textColor="@color/color_text_color" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_relatetobaby"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="13dp"-->
+            <!--android:text="粑粑"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:textColor="@color/color_text_color" />-->
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="13dp"
-            android:background="@color/bgcolor" />
+        <!--<View-->
+            <!--android:id="@+id/view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginBottom="3dp"-->
+            <!--android:layout_marginLeft="13dp"-->
+            <!--android:background="@color/bgcolor" />-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_relatetobaby"
-            android:layout_alignBottom="@+id/tv_relatetobaby"
-            android:layout_alignLeft="@+id/view"
-            android:layout_alignStart="@+id/view"
-            android:text="与宝宝关系"
-            android:textColor="@color/color_left_title" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@+id/tv_relatetobaby"-->
+            <!--android:layout_alignBottom="@+id/tv_relatetobaby"-->
+            <!--android:layout_alignLeft="@+id/view"-->
+            <!--android:layout_alignStart="@+id/view"-->
+            <!--android:text="与宝宝关系"-->
+            <!--android:textColor="@color/color_left_title" />-->
+    <!--</RelativeLayout>-->
 </LinearLayout>

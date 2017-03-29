@@ -35,7 +35,7 @@ import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
  * Created by Administrator on 2016/11/21.
  */
 
-public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickListener {
+public class DynamicsItemAdapter extends BaseAdapter {
 
 
     private DynamicsFragment mContext;
@@ -45,12 +45,6 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
     public DynamicsItemAdapter(DynamicsFragment context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
-
-    }
-
-
-    @Override
-    public void onClick(View view) {
 
     }
 
@@ -111,6 +105,9 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         holder.tv_lots.setText(temps.getLikeuser());
         if (!TextUtil.isEmpty(temps.getLikeuser())) {
             holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.getLikeuser()));
+            holder.ll_mark.setVisibility(View.VISIBLE);
+        } else {
+            holder.ll_mark.setVisibility(View.GONE);
         }
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +169,12 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
 
     public void removeDynamics(int position) {
         mItems.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void updateDynamics(int position, ResDynamicsBean.ListBean bean) {
+        mItems.remove(position);
+        mItems.add(position, bean);
         notifyDataSetChanged();
     }
 }

@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
+            android:layout_marginBottom="23dp"
             android:layout_toEndOf="@+id/iv_headicon"
             android:layout_toRightOf="@+id/iv_headicon"
             android:orientation="vertical">
@@ -116,7 +117,6 @@
                 android:id="@+id/ll_mark"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:layout_marginBottom="23dp"
                 android:layout_marginRight="18dp"
                 android:background="@mipmap/bg_mark">
 
