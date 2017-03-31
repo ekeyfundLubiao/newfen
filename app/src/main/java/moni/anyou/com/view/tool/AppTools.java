@@ -1,17 +1,24 @@
 package moni.anyou.com.view.tool;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
@@ -23,6 +30,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import moni.anyou.com.view.R;
@@ -30,6 +38,7 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.account.LoginActivity;
+import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 import moni.anyou.com.view.widget.utils.imageload.ImageLoadUtil;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
@@ -409,4 +418,58 @@ public class AppTools {
         }
         return "";
     }
+
+    public static int SENT_MSG_REQUEST_CODE = 0X8756;
+    public static void sendMsg(final Activity mcontext, String number, String message) {
+        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+        sendIntent.setData(Uri.parse("smsto:" + number));
+        sendIntent.putExtra("sms_body", message);
+        mcontext.startActivityForResult(sendIntent,SENT_MSG_REQUEST_CODE);
+    }
+
+
+    public static void sendMS(final Context context, String number, String message) {
+        String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+        Intent sentIntent = new Intent(SENT_SMS_ACTION);
+//        PendingIntent sentPI = PendingIntent.getActivity(context, 0, sentIntent,
+//                0);
+//        context.registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context _context, Intent _intent) {
+//                switch (getResultCode()) {
+//                    case Activity.RESULT_OK:
+//                        Toast.makeText(context,
+//                                "短信发送成功", Toast.LENGTH_SHORT)
+//                                .show();
+//                        break;
+//                    case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+//                        break;
+//                    case SmsManager.RESULT_ERROR_RADIO_OFF:
+//                        break;
+//                    case SmsManager.RESULT_ERROR_NULL_PDU:
+//                        break;
+//                }
+//            }
+//        }, new IntentFilter(SENT_SMS_ACTION));
+//
+//        String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+//        Intent deliverIntent = new Intent(DELIVERED_SMS_ACTION);
+//        PendingIntent deliverPI = PendingIntent.getActivity(context, 0,
+//                deliverIntent, 0);
+//        context.registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context _context, Intent _intent) {
+//                Toast.makeText(context,
+//                        "收信人已经成功接收", Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//        }, new IntentFilter(DELIVERED_SMS_ACTION));
+//
+//
+//        SmsManager smsManager = SmsManager.getDefault();
+//        List<String> divideContents = smsManager.divideMessage(message);
+//        for (String text : divideContents) {
+//            smsManager.sendTextMessage("18321805753", null, text, sentPI, deliverPI);
+//        }
+  }
 }

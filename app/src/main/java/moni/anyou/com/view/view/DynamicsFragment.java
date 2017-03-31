@@ -96,8 +96,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         dynamicsItemAdapter = new DynamicsItemAdapter(this);
         lvDynamics.setAdapter(dynamicsItemAdapter);
         mItems = new ArrayList<>();
-        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-        setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, cvHeadIcon);
+
     }
 
     @Override
@@ -118,6 +117,8 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+        setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, cvHeadIcon);
         getData();
     }
 
@@ -175,7 +176,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
-
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
@@ -195,7 +195,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 }
                 window.closeWindow();
             }
-
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();

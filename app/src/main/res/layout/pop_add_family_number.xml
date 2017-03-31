@@ -154,10 +154,10 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="13dp"
                 android:gravity="left"
-                android:text="账号：----------"
+                android:text="18321805753"
                 android:textColor="@color/color_7f7f7f"
                 android:textSize="18dp" />
-
+            <!--android:text="账号：1390883210"-->
             <TextView
                 android:id="@+id/tv_passwold"
                 android:layout_width="120dp"
@@ -166,7 +166,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="13dp"
                 android:gravity="left"
-                android:text="密码：----------"
+                android:text="密码：883210"
                 android:textColor="@color/color_7f7f7f"
                 android:textSize="18dp" />
 

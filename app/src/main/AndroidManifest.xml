@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
 
     <application
         android:name=".config.AnyouerApplication"
@@ -76,7 +77,7 @@
         <activity
             android:name=".view.dynamics.SendDynamicActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".view.living.ALivingActivity" />
@@ -97,10 +98,22 @@
         <activity android:name=".view.web.ShowInfoActivity" />
         <activity android:name=".view.my.SystemsNoticeActivity" />
         <activity android:name=".view.my.systemset.SelectGardenActivity" />
-        <activity android:name=".view.dynamics.SentDynamicsActivity">
-        </activity>
+        <activity android:name=".view.dynamics.SentDynamicsActivity"></activity>
         <activity android:name=".view.my.invitefamily.SelectActivity"></activity>
 
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="微信分享"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

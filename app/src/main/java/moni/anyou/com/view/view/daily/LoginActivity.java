@@ -24,6 +24,7 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.photo.local.ConfigHelper;
+import moni.anyou.com.view.widget.pikerview.TimeSelector;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -33,6 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     Context context;
     private Button btn_camera;
     private Button btn_grelly;
+    private Button btn_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +48,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.initView();
         context = this;
         btn_camera = (Button) findViewById(R.id.btn_camera);
-        btn_grelly = (Button)findViewById(R.id.btn_grelly);
+        btn_grelly = (Button) findViewById(R.id.btn_grelly);
+
         initPermissions();
     }
 
     @Override
     public void setAction() {
         super.setAction();
-       // open.setOnClickListener(this);
+        // open.setOnClickListener(this);
         btn_grelly.setOnClickListener(this);
         btn_camera.setOnClickListener(this);
+        findViewById(R.id.btn_time).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimeSelector(mContext, new TimeSelector.ResultHandler() {
+                    @Override
+                    public void handle(String time) {
+
+                    }
+                }, "2001-01-01 00:00", "2018-12-31 00:00").show();
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_grelly:
-                GalleryPick.getInstance().setGalleryConfig(ConfigHelper.getInstance().getLocalConfig(iHandlerCallBack,1)).open(this);
+                GalleryPick.getInstance().setGalleryConfig(ConfigHelper.getInstance().getLocalConfig(iHandlerCallBack, 1)).open(this);
                 break;
             case R.id.btn_camera:
                 GalleryPick.getInstance().setGalleryConfig(ConfigHelper.getInstance().getPhotoConfig(iHandlerCallBack)).open(this);
@@ -78,6 +92,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             //开启
 
         }
+
         @Override
         public void onSuccess(List<String> photoList) {
 
@@ -100,6 +115,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     };
 
     private final int PERMISSIONS_REQUEST_READ_CONTACTS = 8;
+
     // 授权管理
     private void initPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
