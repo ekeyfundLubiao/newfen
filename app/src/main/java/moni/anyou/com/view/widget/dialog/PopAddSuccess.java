@@ -20,7 +20,7 @@ import moni.anyou.com.view.bean.InvitedInfo;
  * Created by lubiao on 2017/3/22.
  */
 
-public class PopAddSuccess extends PopupWindow{
+public class PopAddSuccess extends PopupWindow {
     private Button btnCommit;
     private Button btnCancle;
     private TextView tvRelation;
@@ -30,18 +30,25 @@ public class PopAddSuccess extends PopupWindow{
     private RelativeLayout llWechat;
     private View mView;
     Activity mcontext;
+    InvitedInfo mbeanInfo;
+
+    public SentInfoBean getsentInf() {
+        String phoneNum =mbeanInfo.account;
+        String msgInf =   tvNumbersPwd.getText().toString();
+        return new SentInfoBean(phoneNum,msgInf);
+    }
 
     public PopAddSuccess(Activity context, InvitedInfo beanInfo, View.OnClickListener itemsOnClick) {
         super(context);
-        mcontext=context;
+        mcontext = context;
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.mView = mInflater.inflate(R.layout.pop_add_family_number,null);
-        btnCommit=(Button) mView.findViewById(R.id.btn_commit);
-        btnCancle=(Button) mView.findViewById(R.id.btn_cancel);
+        this.mView = mInflater.inflate(R.layout.pop_add_family_number, null);
+        btnCommit = (Button) mView.findViewById(R.id.btn_commit);
+        btnCancle = (Button) mView.findViewById(R.id.btn_cancel);
         tvRelation = (TextView) mView.findViewById(R.id.tv_relation);
-        tvAccount= (TextView) mView.findViewById(R.id.tv_account);
-        tvNumbersPwd=(TextView)mView.findViewById(R.id.tv_passwold);
+        tvAccount = (TextView) mView.findViewById(R.id.tv_account);
+        tvNumbersPwd = (TextView) mView.findViewById(R.id.tv_passwold);
         llMsg = (RelativeLayout) mView.findViewById(R.id.llMsg);
         llWechat = (RelativeLayout) mView.findViewById(R.id.llWechat);
         btnCancle.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +60,7 @@ public class PopAddSuccess extends PopupWindow{
         btnCommit.setOnClickListener(itemsOnClick);
         llMsg.setOnClickListener(itemsOnClick);
         llWechat.setOnClickListener(itemsOnClick);
-
+        mbeanInfo = beanInfo;
         initData(beanInfo);
         //设置SelectPicPopupWindow的View
         this.setContentView(mView);
@@ -77,9 +84,9 @@ public class PopAddSuccess extends PopupWindow{
             public boolean onTouch(View v, MotionEvent event) {
 
                 int height = mView.findViewById(R.id.pop_layout).getTop();
-                int y=(int) event.getY();
-                if(event.getAction()==MotionEvent.ACTION_UP){
-                    if(y<height){
+                int y = (int) event.getY();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (y < height) {
                         backgroundAlpha(1f);
                         dismiss();
                     }
@@ -98,22 +105,20 @@ public class PopAddSuccess extends PopupWindow{
     }
 
 
-
-    private void initData(InvitedInfo invitedInfo){
-        tvAccount.setText("账号："+invitedInfo.account);
-        tvRelation.setText("关系："+invitedInfo.relation);
-        tvNumbersPwd.setText("密码："+invitedInfo.pwd);
+    private void initData(InvitedInfo invitedInfo) {
+        tvAccount.setText("账号：" + invitedInfo.account);
+        tvRelation.setText("关系：" + invitedInfo.relation);
+        tvNumbersPwd.setText("密码：" + invitedInfo.pwd);
     }
 
-    public void backgroundAlpha(float bgAlpha)
-    {
-        WindowManager.LayoutParams lp =mcontext.getWindow().getAttributes();
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = mcontext.getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         mcontext.getWindow().setAttributes(lp);
     }
 
 
-    class poponDismissListener implements PopupWindow.OnDismissListener{
+    class poponDismissListener implements PopupWindow.OnDismissListener {
 
         @Override
         public void onDismiss() {
@@ -121,4 +126,31 @@ public class PopAddSuccess extends PopupWindow{
         }
 
     }
+
+   public class SentInfoBean {
+        private String phoneNum;
+        private String msgcontants;
+
+        public SentInfoBean(String phoneNum, String msgcontants) {
+            this.phoneNum = phoneNum;
+            this.msgcontants = msgcontants;
+        }
+
+        public String getPhoneNum() {
+            return phoneNum;
+        }
+
+        public void setPhoneNum(String phoneNum) {
+            this.phoneNum = phoneNum;
+        }
+
+       public String getMsgcontants() {
+           return msgcontants;
+       }
+
+       public void setMsgcontants(String msgcontants) {
+           this.msgcontants = msgcontants;
+       }
+   }
+
 }

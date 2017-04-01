@@ -2,6 +2,8 @@ package moni.anyou.com.view.view.my.invitefamily;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXTextObject;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,21 +51,27 @@ import moni.anyou.com.view.bean.SelectFamily;
 import moni.anyou.com.view.bean.request.ReqUnbindFBean;
 import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
+import moni.anyou.com.view.config.AnyouerApplication;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
+import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
+import moni.anyou.com.view.view.StartActivity;
 import moni.anyou.com.view.view.account.CompleteBaseInfoActivity;
 import moni.anyou.com.view.view.my.invitefamily.adapter.FamilyNumberAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
+import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.dialog.PopAddSuccess;
 import moni.anyou.com.view.widget.dialog.PopunbindFamily;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
+import moni.anyou.com.view.wxapi.wxutil.Util;
 
 import static moni.anyou.com.view.tool.Tools.getBaseRelatenumberdatas;
 
-public class FamilyNumbersActivity extends BaseActivity implements View.OnClickListener {
+public class FamilyNumbersActivity extends BaseActivity implements View.OnClickListener, IWXAPIEventHandler {
 
     RecyclerView rcFamilyNumbers;
     private FamilyNumberAdapter MyAdapter;
@@ -64,6 +81,9 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
     private NetProgressWindowDialog window;
     private ArrayList<DataClassBean> baseFamily = null;
     private String relativeId;
+    //权限
+    private int RequestCode = 0x1983;
+    MessgeDialog mPDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +91,13 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_invite_family);
         init();
 
+
     }
 
     @Override
     public void initView() {
         super.initView();
+        initMsg();
         initTitlewithCheckbox();
         checkbox.setText("解绑");
         try {
@@ -90,6 +112,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         tvTitle.setText("邀请家人");
         ivBack.setOnClickListener(this);
         getdata();
+
+
     }
 
     @Override
@@ -102,7 +126,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         rcFamilyNumbers.setAdapter(MyAdapter);
         initData();
         MyAdapter.notifyDataSetChanged();
-
+        api = WXAPIFactory.createWXAPI(mContext, "wxcaa9e574ddbd2cf2", false);
+        wxSdkVersion = api.getWXAppSupportAPI();
 
     }
 
@@ -118,7 +143,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                     checkbox.setText("解绑");
 
                 }
-
                 int size = getList(isChecked).size();
                 for (int i = 0; i < size; i++) {
                     SelectFamily tempBean = (SelectFamily) checkBeans.get(i);
@@ -143,12 +167,16 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 mPopunbindFamily.dismiss();
                 break;
             case R.id.llMsg:
-                getdata();
                 mPopAddFamilySuccess.dismiss();
+                requestPermission(PermissionTools.sendSms);
                 break;
             case R.id.llWechat:
-                getdata();
-                mPopAddFamilySuccess.dismiss();
+                if (wxSdkVersion >= TIMELINE_SUPPORTED_VERSION) {
+                    shareWechat(new ShareMsgResBean());
+                } else {
+                    ToastTools.showShort(mContext, "您还未安装微信，该功能暂不能使用");
+                }
+
                 break;
         }
     }
@@ -194,6 +222,15 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
             mPopAddFamilySuccess.isShowing();
         }
 
+        if (requestCode == RequestCode) {
+            requestPermission(PermissionTools.readExternalStorage);
+            mPDialog.dismiss();
+        }
+        if (requestCode == AppTools.SENT_MSG_REQUEST_CODE) {
+            mPopAddFamilySuccess.dismiss();
+            getdata();
+        }
+
     }
 
 
@@ -237,25 +274,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                     if (result >= 1) {
                         numberBeans.clear();
                         ResFamilyNumer Fnumber = new Gson().fromJson(t, ResFamilyNumer.class);
-//                        int baseNumSize = baseFamily.size();
-                        // numberBeans = Fnumber.getList();
-//                        ArrayList<ResFamilyNumer.RelationBean> numberBeanArray = Fnumber.getList();
-//                        for (int i = 0, size = numberBeanArray.size(); i < size; i++) {
-//
-//                            ResFamilyNumer.RelationBean tempbean = numberBeanArray.get(i);
-//                            numberBeans.set(i, new ResFamilyNumer.RelationBean(
-//                                    tempbean.getUser_id(),
-//                                    tempbean.getRecommendId(),
-//                                    tempbean.getStatus(),
-//                                    (tempbean.getNick().equals("") ? "匿名" : tempbean.getNick()),
-//                                    tempbean.getMobile(),
-//                                    (tempbean.getIcon().equals("")
-//                                            ? Tools.getRoledefaultIcon(tempbean.role) : tempbean.getIcon()),
-//                                    Tools.getRole(tempbean.role)));
-//
-//
-//                        }
-                        // numberBeans.clear();
                         ArrayList<ResFamilyNumer.RelationBean> changdataArray = new ArrayList<ResFamilyNumer.RelationBean>();
                         baseFamily = Tools.replaceNum(Fnumber.getList());
                         for (int i = 0, size = baseFamily.size(); i < size; i++) {
@@ -271,13 +289,11 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                                             ? Tools.getRoledefaultIcon(tempbean.getClassID()) : tempbean.getPic()),
                                     Tools.getRole(tempbean.getClassID())));
                         }
-
                         Log.d(TAG, "numbeansize:" + numberBeans.size());
-
                         ToastTools.showShort(mContext, "numbeansize:" + numberBeans.size());
                         numberBeans = changdataArray;
-
                         MyAdapter.setDatas(numberBeans);
+                        //testpop();
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -332,6 +348,135 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                 window.closeWindow();
             }
         });
+    }
+
+
+    private void initMsg() {
+        super.initView();
+        mPDialog = new MessgeDialog((FamilyNumbersActivity) mBaseActivity);
+        mPDialog.setMRL("获取读写权限", "取消", "立即获取");
+        mPDialog.setListener();
+        mPDialog.setMsgDialogListener(new MessgeDialog.MsgDialogListener() {
+            @Override
+            public void OnMsgClick() {
+
+            }
+
+            @Override
+            public void OnLeftClick() {
+                onBack();
+            }
+
+            @Override
+            public void OnRightClick() {
+                openPermissionSettingPage(RequestCode);
+            }
+
+            @Override
+            public void onDismiss() {
+                onBack();
+            }
+        });
+    }
+
+
+    @Override
+    public void permissionAlreadyRefuse(String permissionName) {
+        super.permissionAlreadyRefuse(permissionName);
+        mPDialog.show();
+    }
+
+    @Override
+    public void permissionRefuse(String permissionName) {
+        super.permissionRefuse(permissionName);
+        mPDialog.show();
+    }
+
+    @Override
+    public void permissionSuccess(String permissionName) {
+        super.permissionSuccess(permissionName);
+        PopAddSuccess.SentInfoBean bean = mPopAddFamilySuccess.getsentInf();
+        AppTools.sendMsg(mBaseActivity, bean.getPhoneNum(), bean.getMsgcontants());
+    }
+
+    @Override
+    public void permissionNoNeed(String permissionName) {
+        super.permissionNoNeed(permissionName);
+        PopAddSuccess.SentInfoBean bean = mPopAddFamilySuccess.getsentInf();
+        AppTools.sendMsg(mBaseActivity, bean.getPhoneNum(), bean.getMsgcontants());
+    }
+
+    public void testpop() {
+        mPopAddFamilySuccess = new PopAddSuccess(this, new InvitedInfo("父亲", "13909807689", "087689"), this);
+        mPopAddFamilySuccess.showAtLocation(this.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+        mPopAddFamilySuccess.isShowing();
+    }
+
+
+
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+    private IWXAPI api;
+    int wxSdkVersion = 0;
+    private static final int TIMELINE_SUPPORTED_VERSION = 0x21020001;
+
+    public void shareWechat(ShareMsgResBean bean) {
+        bean.title = "宝宝邀请";
+        bean.content = "欢迎叔叔";
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = "www.baidu.com";
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = bean.title;
+        msg.description = bean.content;
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.logo);
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 90, 90, true);
+        bmp.recycle();
+        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webpage");
+        req.message = msg;
+        req.scene = SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
+    }
+
+    //w微信回调
+    @Override
+    public void onReq(BaseReq baseReq) {
+
+    }
+
+    //w微信回调
+    @Override
+    public void onResp(BaseResp baseResp) {
+        mPopAddFamilySuccess.dismiss();
+        switch (baseResp.errCode) {
+            case BaseResp.ErrCode.ERR_OK:
+
+                ToastTools.showShort(mContext, "发送成功");
+                break;
+            case BaseResp.ErrCode.ERR_USER_CANCEL:
+                ToastTools.showShort(mContext, "取消发送");
+                break;
+            case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                ToastTools.showShort(mContext, "错误定义");
+                break;
+            default:
+                //ToastTools.showShort(mContext, R.string.errcode_unknown);
+                break;
+        }
+        finish();
+    }
+
+    class ShareMsgResBean {
+        //分享url
+        public String url;
+        //分享标题
+        public String title;
+        //分享内容
+        public String content;
+        //分享图片
+        public String image;
     }
 
 }
