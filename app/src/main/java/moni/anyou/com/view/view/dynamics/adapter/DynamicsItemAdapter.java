@@ -127,7 +127,7 @@ public class DynamicsItemAdapter extends BaseAdapter implements View.OnClickList
         return mView;
     }
 
-    class MyViewHold {
+    static class MyViewHold {
         CircleImageView iv_headicon;
         TextView tvnickname;
         TextView tv_dynamicsContant;

@@ -203,7 +203,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        if (mType == TYPE_ICON) {
+                        if (mType.equals(TYPE_ICON)) {
                             SysConfig.userInfoJson.put("icon",mVaule);
                         } else  if (mType == TYPE_BIRTHDAY) {
                             SysConfig.userInfoJson.put("childbirthday",mVaule);

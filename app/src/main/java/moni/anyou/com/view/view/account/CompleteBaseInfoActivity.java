@@ -47,7 +47,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
 
     private TimeSelector timeSelector = null;
     RelationSeletor mRelationSeletor = null;
-    ArrayList<String> mStringRelations = new ArrayList<>();
+    List<String> mStringRelations = new ArrayList<>();
     String relateArray;
     String Typerole = "1";
     ArrayList<DataClassBean> relateArrays;

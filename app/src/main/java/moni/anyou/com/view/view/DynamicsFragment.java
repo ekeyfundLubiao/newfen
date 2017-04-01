@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
@@ -41,10 +44,13 @@ import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemAdapter;
+import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemsAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
+import moni.anyou.com.view.widget.recycleview.MyRecycleView;
 
 
 public class DynamicsFragment extends BaseFragment implements View.OnClickListener {
@@ -57,12 +63,12 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private TextView tvTitle;
     private ImageView iv_icon;
     private ImageView ivRight;
-    private ListView lvDynamics;
+    private MyRecycleView lvDynamics;
     private SHSwipeRefreshLayout swipeRefreshLayout;
 
-    private DynamicsItemAdapter dynamicsItemAdapter;
+    private DynamicsItemsAdapter dynamicsItemAdapter;
 
-    private ArrayList<DynamicsTempItems> mItems;
+    private List<DynamicsTempItems> mItems;
     private int pageSize = 5;
     private int pageNo = 1;
     int totalCount = 0;
@@ -91,9 +97,12 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
 
         tvTitle.setText("动态");
-        lvDynamics = (NoListview) mView.findViewById(R.id.lv_dynamics);
+        lvDynamics = (MyRecycleView) mView.findViewById(R.id.lv_dynamics);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvDynamics.setLayoutManager(linearLayoutManager);
         cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
-        dynamicsItemAdapter = new DynamicsItemAdapter(this);
+        dynamicsItemAdapter = new DynamicsItemsAdapter(this);
         lvDynamics.setAdapter(dynamicsItemAdapter);
         mItems = new ArrayList<>();
 
@@ -167,7 +176,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    public void postLikeArticle(int position, ResDynamicsBean.ListBean bean) {
+    public void postLikeArticle(final int position, final ResDynamicsBean.ListBean bean) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
         String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getArticleid(), "article").ToJsonString();
@@ -182,8 +191,9 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-
-                        getData();
+                        bean.setLikeuser(AppTools.likeUsers(bean));
+                        dynamicsItemAdapter.notifyItemChanged(position, bean);
+                        // getData();
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
 
                     } else {
@@ -195,6 +205,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 }
                 window.closeWindow();
             }
+
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
@@ -292,7 +303,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        showProgressBar();
                         dynamicsItemAdapter.removeDynamics(position);
                         Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
                     } else {
