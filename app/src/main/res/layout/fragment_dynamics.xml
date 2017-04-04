@@ -81,7 +81,7 @@
                         app:civ_border_width="2dp" />
                 </RelativeLayout>
 
-                <moni.anyou.com.view.widget.NoListview
+                <moni.anyou.com.view.widget.recycleview.MyRecycleView
                     android:id="@+id/lv_dynamics"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

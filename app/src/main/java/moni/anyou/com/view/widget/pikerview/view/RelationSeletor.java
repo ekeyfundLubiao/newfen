@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.tool.ToastTools;
@@ -34,7 +35,7 @@ public class RelationSeletor {
 
     private Dialog seletorDialog;
     private PickerView relation_pv;
-    private ArrayList<String> mStringRelations = new ArrayList<>();
+    private List<String> mStringRelations = new ArrayList<>();
     private String startRelations;
     private boolean spanRelations;
     private final long ANIMATORDELAY = 200L;
@@ -44,7 +45,7 @@ public class RelationSeletor {
     private Button tv_cancle;
     private Button tv_select;
 
-    public RelationSeletor(Context context, ArrayList<String> stringRelations, ResultHandler resultHandler) {
+    public RelationSeletor(Context context, List<String> stringRelations, ResultHandler resultHandler) {
         this.context = context;
         this.handler = resultHandler;
         this.mStringRelations = stringRelations;

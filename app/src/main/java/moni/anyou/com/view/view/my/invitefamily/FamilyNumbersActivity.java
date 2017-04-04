@@ -90,8 +90,6 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_family);
         init();
-
-
     }
 
     @Override

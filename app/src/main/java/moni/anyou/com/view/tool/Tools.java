@@ -438,16 +438,16 @@ public class Tools {
     public static String getLikeNikeNameStr(String like) {
         ArrayList<KeyVaule> likelist = getLikeNikeName(like);
         int size = likelist.size();
-        like = "";
+        StringBuilder likes = new StringBuilder();
         for (int i = 0; i < size; i++) {
             if (i != size - 1) {
-                like = like + likelist.get(i).nickName + ",";
+                likes.append(likelist.get(i).nickName + ",")  ;
             } else {
-                like = like + likelist.get(i).nickName;
+                likes.append(likelist.get(i).nickName);
             }
 
         }
-        return like;
+        return likes.toString();
     }
 
     public static class KeyVaule {

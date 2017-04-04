@@ -29,12 +29,14 @@ import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.account.LoginActivity;
@@ -420,11 +422,12 @@ public class AppTools {
     }
 
     public static int SENT_MSG_REQUEST_CODE = 0X8756;
+
     public static void sendMsg(final Activity mcontext, String number, String message) {
         Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
         sendIntent.setData(Uri.parse("smsto:" + number));
         sendIntent.putExtra("sms_body", message);
-        mcontext.startActivityForResult(sendIntent,SENT_MSG_REQUEST_CODE);
+        mcontext.startActivityForResult(sendIntent, SENT_MSG_REQUEST_CODE);
     }
 
 
@@ -471,5 +474,24 @@ public class AppTools {
 //        for (String text : divideContents) {
 //            smsManager.sendTextMessage("18321805753", null, text, sentPI, deliverPI);
 //        }
-  }
+    }
+
+
+    public static String likeUsers(ResDynamicsBean.ListBean bean) throws Exception {
+        ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.getLikeuser());
+        StringBuilder templikes = new StringBuilder();
+        String userlike = bean.getLikeuser();
+        String result;
+        templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
+        if (bean.getLikeuser().contains(SysConfig.uid)) {
+            if (tempArray.size() == 1) {
+                result = userlike.replace(templikes, "");
+            } else {
+                result = userlike.replace(templikes + "|", "");
+            }
+        } else {
+            result = templikes.append("|").append(bean.getLikeuser()).toString();
+        }
+        return result;
+    }
 }

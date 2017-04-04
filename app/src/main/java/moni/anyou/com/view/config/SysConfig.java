@@ -18,7 +18,7 @@ public class SysConfig {
     public final static String FileUrl = "http://115.29.165.57:8080/anyoufileserver/upload";
     //文件下载地址
     public final static String PicUrl = "http://115.29.165.57:8080/anyoufileserver/upload/";
-    public final static String webUrl = "http://115.29.165.57:8080/anyouserver/m";
+    public final static String webUrl = "http://115.29.165.57:8080/anyouserver/";
     public final static int port = 8080;
     public static final String File_DIR = "anyou";
     //

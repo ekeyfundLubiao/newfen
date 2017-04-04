@@ -3,11 +3,14 @@ package moni.anyou.com.view;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
+import moni.anyou.com.view.bean.response.ResDynamicsBean;
+import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.Tools;
 
 import static org.junit.Assert.*;
@@ -24,17 +27,23 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-    //    assertEquals("moni.anyou.com.a", appContext.getPackageName());
+        assertEquals("moni.anyou.com.a", appContext.getPackageName());
         Tools.main("2017-01-11 11:00:00.0");
-        sustring();
-
+        likeusers(new ResDynamicsBean.ListBean());
     }
 
 
-    public void sustring(){
-        String str = "/storage/emulated/0/Pictures/Screenshots/Screenshot_2017-02-24-14-22-52.png";
-        int lastxie=str.lastIndexOf("/");
-        String newstr= str.substring(lastxie+1, str.length());
-
+    public String likeusers(ResDynamicsBean.ListBean bean) throws Exception {
+        ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.getLikeuser());
+        StringBuilder templikes = new StringBuilder();
+        String userlike = "12:::小红|||56:::小吕";
+        String result;
+        templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
+        if (bean.getLikeuser().contains("12")) {
+            result = userlike.replace(templikes, "");
+        } else {
+            result = templikes.append(bean.getLikeuser()).toString();
+        }
+        return result;
     }
 }
