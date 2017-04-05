@@ -138,9 +138,9 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     }
 
     public void removeDynamics(int position) {
-        //mItems.remove(position);
-        notifyItemRemoved(position);
-        //notifyDataSetChanged();
+        mItems.remove(position);
+//        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     class MyViewHold extends RecyclerView.ViewHolder {

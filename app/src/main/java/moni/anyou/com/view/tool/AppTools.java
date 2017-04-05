@@ -341,8 +341,8 @@ public class AppTools {
      */
     public static String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + ".png";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("'ANYOU'_yyyyMMdd_HHmmss");
+        return dateFormat.format(date);
     }
 
 

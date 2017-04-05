@@ -67,7 +67,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     private TextView tvAccount;
     private RelativeLayout rlSex;
     private RelativeLayout rlBrithday;
-    private RelativeLayout rlRelate;
     private RelativeLayout rlUpdatepwd;
     private RelativeLayout rlGarden;
     private RelativeLayout rlAccount;
@@ -103,7 +102,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         rlGarden = (RelativeLayout) findViewById(R.id.rl_garden);
         rlAccount = (RelativeLayout) findViewById(R.id.rl_accout);
         rlBrithday = (RelativeLayout) findViewById(R.id.rl_brith);
-        rlRelate = (RelativeLayout) findViewById(R.id.rl_relate);
         rlSex = (RelativeLayout) findViewById(R.id.rl_sex);
         rlUpdatepwd = (RelativeLayout) findViewById(R.id.rl_updatepwd);
 
@@ -115,7 +113,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvGarden = (TextView) findViewById(R.id.tv_garden);
         rlBrithday.setVisibility(View.GONE);
         rlSex.setVisibility(View.GONE);
-        rlRelate.setVisibility(View.GONE);
 
     }
 
@@ -184,7 +181,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         //  baseInfoList.add(new HomeItemBean("班级", "class", false));
         rlBrithday.setVisibility(View.VISIBLE);
         rlSex.setVisibility(View.VISIBLE);
-        rlRelate.setVisibility(View.VISIBLE);
     }
 
 
