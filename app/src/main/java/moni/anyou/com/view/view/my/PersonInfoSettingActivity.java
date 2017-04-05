@@ -121,10 +121,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         super.setData();
         viewforFamiy();
         initSeleterData();
-
-
     }
-
     @Override
     public void setAction() {
         super.setAction();
@@ -136,8 +133,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvSex.setOnClickListener(this);
         mPhotoDialog.setPhotoListener(mPhotoListener);
     }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -276,7 +271,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                 }
 
             }
-        }, "2010-01-30 00:00", "2018-12-31 00:00");
+        }, "2010-01-01 00:00", "2018-12-31 00:00");
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
         setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
         tvBrithday.setText(baseInfo.childbirthday);

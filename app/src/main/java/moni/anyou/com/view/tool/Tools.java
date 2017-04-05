@@ -421,18 +421,23 @@ public class Tools {
     }
 
     public static ArrayList<KeyVaule> getLikeNikeName(String like) {
-        ArrayList<KeyVaule> likelist = new ArrayList<>();
-        String[] likeArray = like.split("\\|");
-        int size = likeArray.length;
+        if ("".equals(like)) {
+            return null;
+        } else {
+            ArrayList<KeyVaule> likelist = new ArrayList<>();
+            String[] likeArray = like.split("\\|");
+            int size = likeArray.length;
 
-        for (int i = 0; i < size; i++) {
-            String[] tempStr = likeArray[i].split(":::");
-            KeyVaule tempBean = new KeyVaule();
-            tempBean.nickName = tempStr[1];
-            tempBean.userId = tempStr[0];
-            likelist.add(tempBean);
+            for (int i = 0; i < size; i++) {
+                String[] tempStr = likeArray[i].split(":::");
+                KeyVaule tempBean = new KeyVaule();
+                tempBean.nickName = tempStr[1];
+                tempBean.userId = tempStr[0];
+                likelist.add(tempBean);
+            }
+            return likelist;
         }
-        return likelist;
+
     }
 
     public static String getLikeNikeNameStr(String like) {
@@ -441,7 +446,7 @@ public class Tools {
         StringBuilder likes = new StringBuilder();
         for (int i = 0; i < size; i++) {
             if (i != size - 1) {
-                likes.append(likelist.get(i).nickName + ",")  ;
+                likes.append(likelist.get(i).nickName + ",");
             } else {
                 likes.append(likelist.get(i).nickName);
             }

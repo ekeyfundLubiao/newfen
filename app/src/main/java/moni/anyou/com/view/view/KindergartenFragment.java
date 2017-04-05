@@ -28,21 +28,13 @@ import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
-import moni.anyou.com.view.bean.Banner;
-import moni.anyou.com.view.bean.HomeItemBean;
-import moni.anyou.com.view.bean.RecycleViewBean;
-import moni.anyou.com.view.bean.VideoBean;
-import moni.anyou.com.view.bean.request.ReqCompleteFInishBabyInfoBean;
 import moni.anyou.com.view.bean.request.ReqHomeBean;
 import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.KindergardenImageTextAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.RecyclerViewAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.TeacherShowAdapter;
-import moni.anyou.com.view.view.kindergarten.adapter.picshow.NewsPicDetaiActivity;
-import moni.anyou.com.view.view.web.ShowInfoActivity;
 import moni.anyou.com.view.webview.ShowWebActivity;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.banner.AutoScrollViewPager;
@@ -137,33 +129,6 @@ public class KindergartenFragment extends BaseFragment {
 
 
     private void initRefresh() {
-//        root.setMode(PtrFrameLayout.Mode.REFRESH);
-//        root.setPtrHandler(new PtrDefaultHandler2() {
-//            @Override
-//            public void onLoadMoreBegin(final PtrFrameLayout frame) {
-//                // getdata(frame);
-//                root.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //  mVideoRecycleAdapter.notifyDataSetChanged();
-//                        frame.refreshComplete();
-//                    }
-//                }, 1000);
-//            }
-//
-//            @Override
-//            public void onRefreshBegin(final PtrFrameLayout frame) {
-//
-//                getdata();
-//                root.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // mVideoRecycleAdapter.setDatas(mVideoArray);
-//                        frame.refreshComplete();
-//                    }
-//                }, 1000);
-//            }
-//        });
     }
 
     //点赞
@@ -174,11 +139,11 @@ public class KindergartenFragment extends BaseFragment {
 
     //教师详情
     public void teacherDetailWebView(ResHomeData.TopTeachersBean teacher) {
-        ToastTools.showShort(this.getContext(), "位置" + teacher.getNick());
+        //ToastTools.showShort(this.getContext(), "位置" + teacher.getNick());
         Intent intent = new Intent();
         intent.putExtra("title", teacher.getNick());
         intent.putExtra("url", mCompanyInfoBean.getUrl());
-        intent.setClass(mContext, ShowInfoActivity.class);
+        intent.setClass(mContext, ShowWebActivity.class);
         startActivity(intent);
         activityAnimation(RIGHT_IN);
     }

@@ -299,7 +299,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             if (picArry.get(picName).length() > 30) {
                 success = UploadUtil.uploadFile(new File(picArry.get(picName)), SysConfig.UploadUrl);
             } else {
-                success = UploadUtil.uploadFile(new File(mContext.getCacheDir() + "/luban_disk_cache/" + picArry.get(picName)), SysConfig.UploadUrl);
+                success = UploadUtil.uploadFile(new File(mContext.getCacheDir() + "/" + picArry.get(picName)), SysConfig.UploadUrl);
             }
 
             if (success == 200) {

@@ -75,7 +75,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
             public void handle(String time) {
                 tvBrithday.setText(time);
             }
-        }, "2010-01-30 00:00", "2018-12-31 00:00");
+        }, "2010-01-01 00:00", "2018-12-31 00:00");
     }
 
     @Override

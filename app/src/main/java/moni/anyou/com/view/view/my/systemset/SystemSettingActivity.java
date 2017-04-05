@@ -112,7 +112,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                         @Override
                         public void OnRightClick() {
                             AppTools.clearFileCache(mBaseActivity);
-                            myAdapter.replace(1, new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
+                            myAdapter.replace(0, new HomeItemBean("清除缓存", AppTools.getFileCacheSize(mBaseActivity)));
                             dismissMsgDialog();
                         }
 

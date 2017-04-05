@@ -25,6 +25,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import junit.runner.Version;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -38,12 +40,13 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.compress.luban.Luban;
+import moni.anyou.com.view.tool.compress.luban.OnCompressListener;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.account.LoginActivity;
 import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
 import moni.anyou.com.view.widget.utils.imageload.ImageLoadUtil;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
+
 
 /**
  * 跟App相关的辅助类
@@ -483,20 +486,30 @@ public class AppTools {
     }
 
 
-    public static String likeUsers(ResDynamicsBean.ListBean bean) throws Exception {
+    public static String likeUsers(ResDynamicsBean.ListBean bean) {
         ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.getLikeuser());
         StringBuilder templikes = new StringBuilder();
         String userlike = bean.getLikeuser();
         String result;
-        templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
-        if (bean.getLikeuser().contains(SysConfig.uid)) {
-            if (tempArray.size() == 1) {
-                result = userlike.replace(templikes, "");
-            } else {
-                result = userlike.replace(templikes + "|", "");
-            }
+        try {
+            templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (tempArray == null) {
+            result = templikes.toString();
         } else {
-            result = templikes.append("|").append(bean.getLikeuser()).toString();
+
+            if (userlike.contains(SysConfig.uid)) {
+                if (tempArray.size() == 1) {
+                    result = userlike.replace(templikes, "");
+                } else {
+                    result = userlike.replace(templikes + "|", "");
+                }
+            } else {
+                result = templikes.append("|").append(bean.getLikeuser()).toString();
+            }
+
         }
         return result;
     }

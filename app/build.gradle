@@ -36,8 +36,6 @@ dependencies {
     compile 'com.miomin:shswiperefreshlayout:1.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-    compile 'top.zibin:Luban:1.0.9'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
-    compile 'com.github.bumptech.glide:glide:3.6.1'
     compile project(':gallerypicks')
 }

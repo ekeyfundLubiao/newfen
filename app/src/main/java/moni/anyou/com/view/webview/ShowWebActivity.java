@@ -35,7 +35,6 @@ import moni.anyou.com.view.config.SysConfig;
 public class ShowWebActivity extends BaseActivity implements OnClickListener {
     private long exitTime = 0;
     Intent intent;
-    TextView tvTitle;
     Context mcontext = null;
     WebView web;
     public int currIndex = 0;

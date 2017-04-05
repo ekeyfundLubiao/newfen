@@ -32,7 +32,7 @@ public class ResHomeData extends ResponseStandard {
     /**
      * companyID : 3
      * company : 未来强者分园1
-     * tel :
+     * icon_tel :
      * address : 11
      * summary : 日 - 百度贴吧是以兴趣主题聚合志同道合者的互动平台，同好网友聚集在这里交流话题、展示自我、结交朋友。贴吧主题涵盖了娱乐、游戏、小说、地区、生活等各方面 ...
      * username :

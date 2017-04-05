@@ -81,7 +81,6 @@
 
         </activity>
         <activity android:name=".view.living.ALivingActivity" />
-        <activity android:name=".webview.WebviewActivity" />
         <activity android:name=".view.daily.LoginActivity">
 
         </activity>
