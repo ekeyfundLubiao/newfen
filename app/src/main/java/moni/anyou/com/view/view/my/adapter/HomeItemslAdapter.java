@@ -13,14 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moni.anyou.com.view.R;
-import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.MyFragment;
 import moni.anyou.com.view.view.my.SystemsNoticeActivity;
 import moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity;
-import moni.anyou.com.view.view.my.invitefamily.InviteFamilyActivity;
-import moni.anyou.com.view.view.my.systemset.SystemSettingActivity;
 
 public class HomeItemslAdapter extends BaseAdapter {
     private MyFragment mContext;
@@ -113,7 +110,7 @@ public class HomeItemslAdapter extends BaseAdapter {
                         break;
                     case R.mipmap.home_icon_integralmall:
                         break;
-                    case R.mipmap.gonggao:
+                    case R.mipmap.icon_notice:
                         intent.setClass(mContext.mBaseActivity, SystemsNoticeActivity.class);
                         mContext.startActivity(intent);
                         mContext.activityAnimation(mContext.mBaseActivity.RIGHT_IN);

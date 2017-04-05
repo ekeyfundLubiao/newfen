@@ -2,21 +2,16 @@ package moni.anyou.com.view.view;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,7 +22,6 @@ import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.Tools;
-import moni.anyou.com.view.tool.contacts.LocalConstant;
 import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
 import moni.anyou.com.view.view.my.SuggestActivity;
 import moni.anyou.com.view.view.my.adapter.HomeItemslAdapter;
@@ -103,8 +97,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
         }
         itemBeens.add(new HomeItemBean(R.mipmap.tongxunlu, "通讯录"));
-        itemBeens.add(new HomeItemBean(R.mipmap.gonggao, "系统公告"));
-        itemBeens.add(new HomeItemBean(R.mipmap.bangzhu, "使用帮助"));
+        itemBeens.add(new HomeItemBean(R.mipmap.icon_notice, "系统公告"));
+        itemBeens.add(new HomeItemBean(R.mipmap.icon_help_center, "使用帮助"));
         myAdaper.setDatas(itemBeens);
 
     }

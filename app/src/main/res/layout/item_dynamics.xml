@@ -25,9 +25,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="23dp"
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
-            android:layout_marginBottom="23dp"
             android:layout_toEndOf="@+id/iv_headicon"
             android:layout_toRightOf="@+id/iv_headicon"
             android:orientation="vertical">
@@ -52,8 +52,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="13dp"
+                    android:drawableLeft="@mipmap/icon_delete_familynunber"
                     android:drawablePadding="5dp"
-                    android:drawableLeft="@mipmap/jia_shan"
                     android:text="删除"
                     android:textColor="@color/color_text_hiden"
                     android:textSize="14dp" />
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:maxLines="2"
-                android:text="开开心心每一天 多喝养乐多 给你的肠胃做早操开开心心每一天 多喝养乐多 给你的肠胃做早操开开心心每一天 多喝养乐多 给你的肠胃做早操开开心心每一天 多喝养乐多 给你的肠胃做早操"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
@@ -101,7 +101,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
                     android:layout_marginRight="35dp"
-                    android:background="@mipmap/zan" />
+                    android:background="@mipmap/icon_like" />
 
                 <ImageView
                     android:id="@+id/iv_share"
@@ -109,7 +109,7 @@
                     android:layout_height="23dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="6dp"
-                    android:background="@mipmap/zhuanfa_75" />
+                    android:background="@mipmap/zhuanfa" />
             </RelativeLayout>
 
 

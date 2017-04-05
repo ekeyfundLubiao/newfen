@@ -22,6 +22,6 @@
         android:layout_marginTop="5dp"
         android:scaleType="fitXY"
         android:layout_toRightOf="@id/iv_send"
-        android:background="@mipmap/shanchutupian"
+        android:background="@mipmap/icon_delete_dynamics_pic"
         android:visibility="visible" />
 </RelativeLayout>

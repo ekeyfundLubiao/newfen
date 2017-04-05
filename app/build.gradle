@@ -2,9 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "moni.anyou.com"
+//        applicationId "moni.anyou.com"
+        applicationId "com.guoyun.online"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
@@ -15,17 +16,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    signingConfigs {
-        releases {
-            keyAlias 'www.guoyuncaifu.com'
-            keyPassword '93ea95222b0ba70f3867de4036b221e5'
-            storeFile file('E:\\keystore\\guoyun_online_releases.jks')
-            storePassword 'a11e6f5ac50ad0c8121903cdfdf39646'
-        }
-        debug {
-            storeFile file('E:\\keystore\\guoyun_debug.jks')
         }
     }
 }
@@ -47,7 +37,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'top.zibin:Luban:1.0.9'
-    compile project(':gallerypick')
-
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
     compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile project(':gallerypicks')
 }

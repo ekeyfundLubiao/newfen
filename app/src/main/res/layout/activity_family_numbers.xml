@@ -20,7 +20,7 @@
         android:layout_height="100dp"
         android:layout_below="@id/topbar"
         android:layout_weight="0.16"
-        android:background="@mipmap/top_22">
+        android:background="@mipmap/bg_invite_family">
 
 
         <TextView

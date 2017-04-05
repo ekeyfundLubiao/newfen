@@ -141,8 +141,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     fileInfomsg.obj = 0;
                     upPicHandler.sendMessage(fileInfomsg);
                 }
-
-
                 break;
         }
     }
@@ -199,23 +197,14 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onSuccess(List<String> photoList) {
             if (null != photoList) {
-                final File file = new File(photoList.get(0));
+                //  final File file = new File(photoList.get(0));
                 for (String s : photoList) {
                     Log.i(TAG, s);
-
-                    mySentPicAdapter.addPic(new SentPicBean(s, AppTools.comparese(mContext,s)),0);
+                    mySentPicAdapter.addPic(new SentPicBean(s, AppTools.comparese(mContext, s)), 0);
                 }
                 if (mySentPicAdapter.getItemCount() == 10) {
                     mySentPicAdapter.remove();
                 }
-//                if (file.exists()) {
-//                    mVaule = file.getName();
-//                    upLoadfile = file;
-//                    SentPicBean pic = new SentPicBean(file.getName(), null);
-//                    mySentPicAdapter.addPic(pic);
-//                } else {
-//                    ToastTools.showShort(mContext, "头像文件不存在");
-//                }
 
 
             }
@@ -306,8 +295,12 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void run() {
-//            int success = UploadUtil.uploadFile(new File(Environment.getExternalStorageDirectory() + LocalConstant.Local_Photo_Path + "/crop/" + picArry.get(picName)), SysConfig.UploadUrl);
-              int success = UploadUtil.uploadFile(new File(mContext.getCacheDir()+"/luban_disk_cache/"+picArry.get(picName)), SysConfig.UploadUrl);
+            int success;
+            if (picArry.get(picName).length() > 30) {
+                success = UploadUtil.uploadFile(new File(picArry.get(picName)), SysConfig.UploadUrl);
+            } else {
+                success = UploadUtil.uploadFile(new File(mContext.getCacheDir() + "/luban_disk_cache/" + picArry.get(picName)), SysConfig.UploadUrl);
+            }
 
             if (success == 200) {
                 picName++;
@@ -333,10 +326,12 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         if (remps.size() > 0) {
             for (int i = 0, size = remps.size() - 1; i < size; i++) {
                 picInfo.add(remps.get(i).newFileNameMap);
+                String fileName = remps.get(i).newFileNameMap;
                 if (i == size - 1) {
-                    TempStr = TempStr + remps.get(i).newFileNameMap;
+
+                    TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap);
                 } else {
-                    TempStr = TempStr + remps.get(i).newFileNameMap + ",";
+                    TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap) + ",";
                 }
             }
             HelpBean helpBean = new HelpBean();
@@ -362,7 +357,6 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             super.handleMessage(msg);
             if (msg != null) {
                 picName = (Integer) msg.obj;
-                upLoadfile = new File(mContext.getCacheDir()+"/luban_disk_cache/"+picArry.get(picName));
                 UploadThread m = new UploadThread();
                 new Thread(m).start();
             }
@@ -370,10 +364,10 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     };
 
     public void notifyEnd() {
-       ArrayList<SentPicBean> arrayPic= mySentPicAdapter.getmItems();
+        ArrayList<SentPicBean> arrayPic = mySentPicAdapter.getmItems();
         int size = arrayPic.size();
-        if (!arrayPic.get(arrayPic.size()-1).filePathName.equals("")&&size==8) {
-            mySentPicAdapter.addPic(new SentPicBean(),8);
+        if (!arrayPic.get(arrayPic.size() - 1).filePathName.equals("") && size == 8) {
+            mySentPicAdapter.addPic(new SentPicBean(), 8);
         }
 
     }

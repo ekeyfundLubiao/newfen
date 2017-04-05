@@ -136,7 +136,7 @@
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="13dp"
-                    android:background="@mipmap/yijian" />
+                    android:background="@mipmap/icon_faceback" />
 
                 <TextView
                     android:id="@+id/tv_home_fankui"

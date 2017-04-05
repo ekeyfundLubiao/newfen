@@ -368,39 +368,45 @@ public class AppTools {
 
     public static String comparese(Context context, String file) {
 
-        String FileName = getPhotoFileName() + getRandomNum();
-        Luban.get(context)
-                .setFilename(FileName)
-                .load(new File(file))  //传人要压缩的图片
-                .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
-                .setCompressListener(new OnCompressListener() { //设置回调
+        if (new File(file).length() / 1024 > 100) {
 
-                    @Override
-                    public void onStart() {
-                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                    }
+            String FileName = getPhotoFileName() + getRandomNum();
+            Luban.get(context)
+                    .setFilename(FileName)
+                    .load(new File(file))  //传人要压缩的图片
+                    .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                    .setCompressListener(new OnCompressListener() { //设置回调
 
-                    @Override
-                    public void onSuccess(File file) {
-                        // TODO 压缩成功后调用，返回压缩后的图片文件
-                        Log.d("TAG", "onSuccess: " + file.getName());
-                    }
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        // TODO 当压缩过去出现问题时调用
-                    }
-                }).launch();    //启动压缩
-        if (file.contains("png")) {
-            FileName = FileName + ".png";
+                        @Override
+                        public void onSuccess(File file) {
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                            Log.d("TAG", "onSuccess: " + file.getName());
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过去出现问题时调用
+                        }
+                    }).launch();    //启动压缩
+            if (file.contains("png")) {
+                FileName = FileName + ".png";
+            }
+            if (file.contains("jpg")) {
+                FileName = FileName + ".jpg";
+            }
+            if (file.contains("gif")) {
+                FileName = FileName + ".gif";
+            }
+            return FileName;
+        } else {
+            return file;
         }
-        if (file.contains("jpg")) {
-            FileName = FileName + ".jpg";
-        }
-        if (file.contains("gif")) {
-            FileName = FileName + ".gif";
-        }
-        return FileName;
+
     }
 
     public static String getRandomNum() {

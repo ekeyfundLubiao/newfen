@@ -6,7 +6,7 @@
         android:layout_marginLeft="6dp"
         android:id="@+id/iv_left"
         style="@style/backvview_top_bar"
-        android:drawableLeft="@mipmap/fanhui" />
+        android:drawableLeft="@mipmap/icon_back" />
 
     <TextView
         android:id="@+id/page_title"

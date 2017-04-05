@@ -66,7 +66,7 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:layout_gravity="center"
-                    android:background="@mipmap/xiangji" />
+                    android:background="@mipmap/icon_camera" />
 
                 <TextView
                     android:layout_width="match_parent"

@@ -22,7 +22,7 @@
             android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_left"
-            android:background="@mipmap/zan"
+            android:background="@mipmap/icon_like"
             android:visibility="visible" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="28dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@mipmap/bianji"
+            android:background="@mipmap/icon_editor"
             android:visibility="visible" />
 
     </RelativeLayout>
@@ -67,7 +67,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="139dp"
-                    android:background="@mipmap/bj_dongtai">
+                    android:background="@mipmap/icon_dynamic_topbg">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civ_headIcon"
