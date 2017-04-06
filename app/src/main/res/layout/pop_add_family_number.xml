@@ -100,7 +100,7 @@
                     android:layout_height="64dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@mipmap/weixin" />
+                    android:background="@mipmap/icon_wechat" />
 
                 <TextView
                     android:layout_width="match_parent"

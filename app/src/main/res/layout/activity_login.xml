@@ -22,7 +22,7 @@
             android:layout_width="110dp"
             android:layout_height="98dp"
             android:layout_gravity="center"
-            android:background="@drawable/logo" />
+            android:background="@mipmap/logo" />
 
         <TextView
 
@@ -43,11 +43,11 @@
         android:layout_marginRight="46dp"
         android:layout_marginTop="28dp"
         android:background="@null"
-        android:singleLine="true"
         android:drawableLeft="@mipmap/home"
         android:drawablePadding="8dp"
-        android:hint="请输入手机号"
         android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:hint="请输入您的手机号"
         android:text="13671691500" />
 
     <View
@@ -71,7 +71,7 @@
         android:drawableLeft="@mipmap/home"
         android:hint="请输入您的密码"
         android:paddingLeft="10dp"
-        android:text="123456" />
+        />
 
     <View
         android:layout_width="match_parent"

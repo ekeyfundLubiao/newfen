@@ -346,6 +346,22 @@ public class Tools {
         return str;
     }
 
+    public static String getYeartoMiniteNowtime() {
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "yyyy-MM-dd  HH:mm");
+        Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+        String str = formatter.format(curDate);
+        return str;
+    }
+
+    public static String getYeartoDaytime() {
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "yyyy-MM-dd");
+        Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+        String str = formatter.format(curDate);
+        return str;
+    }
+
     public static String getForTime(String data) {
         SimpleDateFormat formatter = new SimpleDateFormat(
                 "MM-dd  HH:mm");

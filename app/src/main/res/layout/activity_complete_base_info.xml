@@ -41,13 +41,14 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="13dp"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/boy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:button="@null"
                 android:checked="true"
                 android:drawableLeft="@drawable/bg_radiobutton"
@@ -60,6 +61,7 @@
                 android:id="@+id/girl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="12dp"
                 android:button="@null"
                 android:checked="true"
@@ -68,10 +70,12 @@
                 android:text="女孩"
                 android:textColor="@color/color_text_color"
                 android:textSize="12dp" />
+
             <RadioButton
                 android:id="@+id/secret"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_marginLeft="12dp"
                 android:button="@null"
                 android:checked="true"
@@ -119,11 +123,12 @@
 
         <TextView
             android:id="@+id/tv_brithday"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
+            android:gravity="right"
             android:text="2012-1-1"
             android:textColor="@color/color_text_color"
             android:textSize="18dp" />
@@ -165,12 +170,13 @@
 
         <TextView
             android:id="@+id/tv_relatewithbaby"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
-            android:text="粑粑"
+            android:gravity="right"
+            android:text="爸爸"
             android:textColor="@color/color_text_color"
             android:textSize="18dp" />
 

@@ -26,11 +26,13 @@ import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.request.ReqCompleteFInishBabyInfoBean;
 import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.IndexActivity;
@@ -52,6 +54,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     String Typerole = "1";
     ArrayList<DataClassBean> relateArrays;
     String sexType = "3";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,13 +78,16 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
             public void handle(String time) {
                 tvBrithday.setText(time);
             }
-        }, "2010-01-01 00:00", "2018-12-31 00:00");
+        }, "2010-01-01 00:00", Tools.getYeartoMiniteNowtime());
     }
 
     @Override
     public void setData() {
         super.setData();
         relateArray = Tools.getModuleJsonArray("relative");
+        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+        tvRelatetobaby.setText(Tools.getRole(baseInfo.role));
+        tvBrithday.setText(Tools.getYeartoDaytime());
     }
 
     @Override
@@ -95,14 +101,16 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.boy) {
                     sexType = "1";
-                } else {
+                } else if (checkedId == R.id.girl) {
                     sexType = "2";
+                } else if (checkedId == R.id.secret) {
+                    sexType = "3";
                 }
-                ToastTools.showShort(mContext, "xingbie" + checkedId);
+
             }
         });
 
-       relateArrays = new Gson().fromJson(relateArray.toString(), new TypeToken<List<DataClassBean>>() {
+        relateArrays = new Gson().fromJson(relateArray.toString(), new TypeToken<List<DataClassBean>>() {
         }.getType());
 
         for (int i = 0, size = relateArrays.size(); i < size; i++) {
@@ -118,7 +126,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
             public void handle(int position) {
 
                 try {
-                    Typerole=relateArrays.get(position).getClassID();
+                    Typerole = relateArrays.get(position).getClassID();
                     ToastTools.showShort(mContext, mStringRelations.get(position));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -180,9 +188,9 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
                     Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        SysConfig.userInfoJson.put("childbirthday",tvBrithday.getText().toString());
+                        SysConfig.userInfoJson.put("childbirthday", tvBrithday.getText().toString());
                         SharedPreferences.Editor editor = SysConfig.prefs.edit();
-                        editor.putInt("setBaseInfo"+SysConfig.uid, 1);
+                        editor.putInt("setBaseInfo" + SysConfig.uid, 1);
                         editor.commit();
                         startActivity(new Intent(mContext, IndexActivity.class));
                         activityAnimation(RIGHT_OUT);

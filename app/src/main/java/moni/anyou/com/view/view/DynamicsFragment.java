@@ -187,14 +187,11 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
-                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         bean.setLikeuser(AppTools.likeUsers(bean));
                         dynamicsItemAdapter.notifyItemChanged(position, bean);
-                        // getData();
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
-
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
