@@ -213,4 +213,11 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,LoginActivity.class));
+        activityAnimation(RIGHT_IN);
+    }
 }

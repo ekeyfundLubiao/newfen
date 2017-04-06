@@ -1,6 +1,9 @@
 package moni.anyou.com.view.view.dynamics;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -41,6 +45,7 @@ import moni.anyou.com.view.bean.request.ReqSentDynamicsBean;
 import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.service.UpFileService;
 import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.KeyBoardTools;
 import moni.anyou.com.view.tool.PermissionTools;
@@ -48,6 +53,7 @@ import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.UploadUtil;
 import moni.anyou.com.view.tool.contacts.LocalConstant;
+import moni.anyou.com.view.view.account.LoginActivity;
 import moni.anyou.com.view.view.dynamics.adapter.SendPicAdapter;
 import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
 import moni.anyou.com.view.view.photo.PhotoDialog;
@@ -64,7 +70,13 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     private RecyclerView rcPic;
     private EditText etContentDynamic;
     private SendPicAdapter mySentPicAdapter;
-    private File upLoadfile;
+
+
+    public final static String ACTION_TYPE_SERVICE = "action.type.service";
+    public final static String ACTION_TYPE_THREAD = "action.type.thread";
+
+    private LocalBroadcastManager mLocalBroadcastManager;
+    private MyBroadcastReceiver mBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +96,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         etContentDynamic = (EditText) findViewById(R.id.et_content_dynamic);
 
         rcPic = (RecyclerView) findViewById(R.id.rc_pic);
-
+        initBordcast();
     }
 
     @Override
@@ -355,11 +367,22 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg != null) {
-                picName = (Integer) msg.obj;
-                UploadThread m = new UploadThread();
-                new Thread(m).start();
-            }
+//            if (msg != null) {
+//                picName = (Integer) msg.obj;
+//                UploadThread m = new UploadThread();
+//                new Thread(m).start();
+//            }
+            window.isShowing();
+            Intent startIntent = new Intent(mContext, UpFileService.class);
+            startIntent.putExtra("picArray", "123");
+            startIntent.putStringArrayListExtra("pic", picArry);
+            startService(startIntent);
+            rcPic.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    postSentDynamics();
+                }
+            }, 500);
         }
     };
 
@@ -375,5 +398,37 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 
     public SendPicAdapter getMySentPicAdapter() {
         return mySentPicAdapter;
+    }
+
+    public void initBordcast() {
+
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        mBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_TYPE_SERVICE);
+        intentFilter.addAction(ACTION_TYPE_THREAD);
+        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
+    public class MyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            switch (intent.getAction()) {
+                case ACTION_TYPE_SERVICE:
+                    ToastTools.showShort(mContext, intent.getStringExtra("status"));
+                    break;
+                case ACTION_TYPE_THREAD:
+                    ToastTools.showShort(mContext, intent.getStringExtra("status"));
+                    break;
+            }
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
     }
 }

@@ -94,7 +94,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.my.SuggestActivity" />
-        <activity android:name=".view.web.ShowInfoActivity" />
         <activity android:name=".view.my.SystemsNoticeActivity" />
         <activity android:name=".view.my.systemset.SelectGardenActivity" />
         <activity android:name=".view.dynamics.SentDynamicsActivity"></activity>
@@ -113,7 +112,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".webview.ShowWebActivity"/>
+        <activity android:name=".webview.ShowWebActivity" />
+
+        <service android:name=".service.UpFileService" />
     </application>
 
 </manifest>

@@ -492,7 +492,8 @@ public class AppTools {
         String userlike = bean.getLikeuser();
         String result;
         try {
-            templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
+            String nick = SysConfig.userInfoJson.getString("nick");
+            templikes.append(SysConfig.uid).append(":::").append(("".equals(nick) ? "匿名" : nick));
         } catch (JSONException e) {
             e.printStackTrace();
         }
