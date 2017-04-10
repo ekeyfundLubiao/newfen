@@ -264,14 +264,14 @@ public class Tools {
     }
 
     //取得分类数据
-    public static String getModuleJsonArray(String module) {
+    public static String getModuleJsonArray(String module, String classMeno) {
 
         JSONArray jsonArr = new JSONArray();
         try {
             for (int i = 0; i < SysConfig.dataJson.getJSONArray("ClassList")
                     .length(); i++) {
                 JSONObject json = (JSONObject) SysConfig.dataJson.getJSONArray("ClassList").get(i);
-                if ((json.getString("module").equals(module))) {
+                if ((json.getString("module").equals(module) && json.getString("classMemo").equals("4"))) {
                     jsonArr.put(json);
                 }
             }
@@ -386,7 +386,7 @@ public class Tools {
     public static ArrayList<DataClassBean> getBaseRelatenumberdatas() {
 
         try {
-            return new Gson().fromJson(getModuleJsonArray("relative"), new TypeToken<List<DataClassBean>>() {
+            return new Gson().fromJson(getModuleJsonArray("role", "4"), new TypeToken<List<DataClassBean>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();

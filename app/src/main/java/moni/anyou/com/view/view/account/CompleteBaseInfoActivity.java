@@ -84,7 +84,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     @Override
     public void setData() {
         super.setData();
-        relateArray = Tools.getModuleJsonArray("relative");
+        relateArray = Tools.getModuleJsonArray("role","4");
         BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
         tvRelatetobaby.setText(Tools.getRole(baseInfo.role));
         tvBrithday.setText(Tools.getYeartoDaytime());
