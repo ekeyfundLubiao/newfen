@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_video_item"
+    android:layout_width="match_parent"
+    android:layout_height="71dp"
+    android:background="@mipmap/bg_mark"
+    android:minHeight="71dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_contant"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+</RelativeLayout>

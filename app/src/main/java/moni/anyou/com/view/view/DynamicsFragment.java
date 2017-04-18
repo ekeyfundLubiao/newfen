@@ -140,8 +140,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
             @Override
             public void onSuccess(String t) {
-
-                Log.d(TAG, "onSuccess: " + t);
                 try {
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
@@ -149,7 +147,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     if (result >= 1) {
                         ResDynamicsBean temp = new Gson().fromJson(t, ResDynamicsBean.class);
                         if (pageNo > 1) {
-                            dynamicsItemAdapter.AddDatas(temp.list);
+                            dynamicsItemAdapter.AddDatas(AppTools.getDynamicsItemBean(temp));
                             swipeRefreshLayout.finishLoadmore();
                         } else {
                             swipeRefreshLayout.finishRefresh();

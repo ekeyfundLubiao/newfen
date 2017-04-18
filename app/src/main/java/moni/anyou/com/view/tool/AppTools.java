@@ -528,8 +528,6 @@ public class AppTools {
 
             return list;
         }
-
-
         return null;
     }
 

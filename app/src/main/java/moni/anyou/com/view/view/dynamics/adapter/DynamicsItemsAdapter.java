@@ -75,6 +75,11 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         } else {
             holder.iv_delete_dynamics.setVisibility(View.GONE);
         }
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext.mBaseActivity);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        holder.rc_contonts.setLayoutManager(linearLayoutManager);
+        ContactAdapter adapter = new ContactAdapter(mContext, temps.commentList);
+        holder.rc_contonts.setAdapter(adapter);
         addOnClick(holder, mView);
     }
 
@@ -162,6 +167,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         TextView tv_lots;
         LinearLayout ll_mark;
         TextView iv_delete_dynamics;
+        RecyclerView rc_contonts;
 
         public MyViewHold(View itemView) {
             super(itemView);
@@ -180,6 +186,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
             tv_lots = (TextView) itemView.findViewById(R.id.tv_lots);
             iv_delete_dynamics = (TextView) itemView.findViewById(R.id.iv_delete_dynamics);
             ll_mark = (LinearLayout) itemView.findViewById(R.id.ll_mark);
+            rc_contonts = (RecyclerView) itemView.findViewById(R.id.rc_contonts);
         }
     }
 }
