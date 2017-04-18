@@ -95,16 +95,16 @@ public class DynamicsItemAdapter extends BaseAdapter {
         mView.setTag(position);
         ResDynamicsBean.ListBean temps = getItem(position);
 
-        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.getPic().split(","));
+        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.pic.split(","));
 
         holder.rc_icon.setAdapter(tempRecAdapter);
-        mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.getIcon(), holder.iv_headicon);
-        holder.tv_sentTime.setText(Tools.main(temps.getAddtime()));
-        holder.tvnickname.setText(temps.getNick());
-        holder.tv_dynamicsContant.setText(temps.getContent());
-        holder.tv_lots.setText(temps.getLikeuser());
-        if (!TextUtil.isEmpty(temps.getLikeuser())) {
-            holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.getLikeuser()));
+        mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.icon, holder.iv_headicon);
+        holder.tv_sentTime.setText(Tools.main(temps.addtime));
+        holder.tvnickname.setText(temps.rolename);
+        holder.tv_dynamicsContant.setText(temps.content);
+        holder.tv_lots.setText(temps.likeuser);
+        if (!TextUtil.isEmpty(temps.likeuser)) {
+            holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.likeuser));
             holder.ll_mark.setVisibility(View.VISIBLE);
         } else {
             holder.ll_mark.setVisibility(View.GONE);
@@ -115,7 +115,7 @@ public class DynamicsItemAdapter extends BaseAdapter {
                 mContext.marklike(position, getItem(position));
             }
         });
-        if (SysConfig.uid.equals(temps.getUserid())) {
+        if (SysConfig.uid.equals(temps.userid)) {
             holder.iv_delete_dynamics.setVisibility(View.VISIBLE);
         } else {
             holder.iv_delete_dynamics.setVisibility(View.GONE);

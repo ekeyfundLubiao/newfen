@@ -487,9 +487,9 @@ public class AppTools {
 
 
     public static String likeUsers(ResDynamicsBean.ListBean bean) {
-        ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.getLikeuser());
+        ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.likeuser);
         StringBuilder templikes = new StringBuilder();
-        String userlike = bean.getLikeuser();
+        String userlike = bean.likeuser;
         String result;
         try {
             String nick = SysConfig.userInfoJson.getString("nick");
@@ -508,10 +508,45 @@ public class AppTools {
                     result = userlike.replace(templikes + "|", "");
                 }
             } else {
-                result = templikes.append("|").append(bean.getLikeuser()).toString();
+                result = templikes.append("|").append(bean.likeuser).toString();
             }
 
         }
         return result;
+    }
+
+
+    public static List<ResDynamicsBean.ListBean> getDynamicsItemBean(ResDynamicsBean bean) {
+        if (bean != null && bean.list != null) {
+            List<ResDynamicsBean.ListBean> list = bean.list;
+            int itemSize = list.size();
+
+            for (int i = 0; i < itemSize; i++) {
+                ResDynamicsBean.ListBean tempBean = list.get(i);
+                list.get(i).commentList.addAll(comparesSamearticleid(bean, tempBean.articleid));
+            }
+
+            return list;
+        }
+
+
+        return null;
+    }
+
+
+    public static ArrayList<ResDynamicsBean.CommentListBean> comparesSamearticleid(ResDynamicsBean bean, String id) {
+        if (bean.commentList == null) {
+            ArrayList<ResDynamicsBean.CommentListBean> tempListBean = new ArrayList<ResDynamicsBean.CommentListBean>();
+            List<ResDynamicsBean.CommentListBean> commentList = bean.commentList;
+            int sizeCommentList = commentList.size();
+            for (int i = 0; i < sizeCommentList; i++) {
+                ResDynamicsBean.CommentListBean tempbean = commentList.get(i);
+                if (id.equals(tempbean.getArticleid())) {
+                    tempListBean.add(tempbean);
+                }
+            }
+            return tempListBean;
+        }
+        return null;
     }
 }

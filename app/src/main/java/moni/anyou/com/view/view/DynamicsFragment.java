@@ -35,6 +35,7 @@ import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.DynamicsTempItems;
 import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SentPicBean;
+import moni.anyou.com.view.bean.request.ReqDynamicsCommentBean;
 import moni.anyou.com.view.bean.request.ReqLiveBean;
 import moni.anyou.com.view.bean.request.ReqPageBean;
 import moni.anyou.com.view.bean.request.ReqSentDynamicsBean;
@@ -148,11 +149,11 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     if (result >= 1) {
                         ResDynamicsBean temp = new Gson().fromJson(t, ResDynamicsBean.class);
                         if (pageNo > 1) {
-                            dynamicsItemAdapter.AddDatas(temp.getList());
+                            dynamicsItemAdapter.AddDatas(temp.list);
                             swipeRefreshLayout.finishLoadmore();
                         } else {
                             swipeRefreshLayout.finishRefresh();
-                            dynamicsItemAdapter.setDatas(temp.getList());
+                            dynamicsItemAdapter.setDatas(temp.list);
                         }
 
 
@@ -178,7 +179,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void postLikeArticle(final int position, final ResDynamicsBean.ListBean bean) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.getArticleid(), "article").ToJsonString();
+        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.addtime, "article").ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -189,7 +190,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        bean.setLikeuser(AppTools.likeUsers(bean));
+                        bean.likeuser=AppTools.likeUsers(bean);
                         dynamicsItemAdapter.notifyItemChanged(position, bean);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     } else {
@@ -287,7 +288,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void postDeleteDynamics(ResDynamicsBean.ListBean bean, final int position) {
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqSentDynamicsBean("18", SysConfig.uid, SysConfig.token, ReqSentDynamicsBean.TYPEID_DELETE, bean.getArticleid(), bean.getContent(), bean.getPic()).ToJsonString();
+        String cmdPara = new ReqSentDynamicsBean("18", SysConfig.uid, SysConfig.token, ReqSentDynamicsBean.TYPEID_DELETE, bean.articleid, bean.content, bean.pic).ToJsonString();
         params.put("sendMsg", cmdPara);
         window.ShowWindow();
         kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
@@ -301,6 +302,44 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     if (result >= 1) {
                         dynamicsItemAdapter.removeDynamics(position);
                         Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+
+                }
+                window.closeWindow();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+                window.closeWindow();
+            }
+        });
+
+
+    }
+
+
+    //添加评论
+    public void postAddCommentDynamics(ResDynamicsBean.ListBean bean, final int position) {
+        KJHttp kjh = new KJHttp();
+        KJStringParams params = new KJStringParams();
+        String cmdPara = new ReqDynamicsCommentBean("25", SysConfig.uid, SysConfig.token, bean.articleid, "真的很美").ToJsonString();
+        params.put("sendMsg", cmdPara);
+        window.ShowWindow();
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+            @Override
+            public void onSuccess(String t) {
+                Log.d(TAG, "onSuccess: " + t);
+                try {
+                    JSONObject jsonObject = new JSONObject(t);
+                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+                    int result = Integer.parseInt(jsonObject.getString("result"));
+                    if (result >= 1) {
+//                        dynamicsItemAdapter.removeDynamics(position);
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
