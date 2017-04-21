@@ -50,7 +50,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     @Override
     public void onBindViewHolder(final MyViewHold holder, final int position) {
         mView.setTag(position);
-        ResDynamicsBean.ListBean temps = mItems.get(position);
+        final ResDynamicsBean.ListBean temps = mItems.get(position);
         RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.pic.split(","));
         holder.rc_icon.setAdapter(tempRecAdapter);
         mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.icon, holder.iv_headicon);
@@ -67,7 +67,8 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.marklike(position, getItem(position));
+                //mContext.marklike(position, getItem(position));
+                mOnPraiseClickListener.onItemClick(position,temps);
             }
         });
         if (SysConfig.uid.equals(temps.userid)) {
@@ -80,7 +81,17 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         holder.rc_contonts.setLayoutManager(linearLayoutManager);
         ContactAdapter adapter = new ContactAdapter(mContext, temps.commentList);
         holder.rc_contonts.setAdapter(adapter);
-        addOnClick(holder, mView);
+
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mComentClickListener != null) {
+                    mComentClickListener.onItemClick(temps);
+                }
+            }
+        });
+
+//        addOnClick(holder, mView);
     }
 
     View mView;
@@ -191,11 +202,11 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
 
 
     private ComentClickListener mComentClickListener = null;
-    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private OnPraiseClickListener mOnPraiseClickListener = null;
 
     //define interface
-    public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(ResDynamicsBean.ListBean data);
+    public static interface OnPraiseClickListener {
+        void onItemClick(int position, ResDynamicsBean.ListBean data);
     }
 
     //define interface
@@ -203,8 +214,8 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         void onItemClick(ResDynamicsBean.ListBean data);
     }
 
-    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
+    public void setmOnPraiseClickListener(OnPraiseClickListener onPraiseClickListener) {
+        this.mOnPraiseClickListener = onPraiseClickListener;
     }
 
     public void setmOperationClickListener(ComentClickListener comentClickListener) {

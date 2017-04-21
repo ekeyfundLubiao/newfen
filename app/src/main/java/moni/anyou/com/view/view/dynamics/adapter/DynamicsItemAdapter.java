@@ -112,7 +112,7 @@ public class DynamicsItemAdapter extends BaseAdapter {
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.marklike(position, getItem(position));
+                // mContext.marklike(position, getItem(position));
             }
         });
         if (SysConfig.uid.equals(temps.userid)) {
