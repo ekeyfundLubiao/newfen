@@ -152,7 +152,6 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
 
     public void removeDynamics(int position) {
         mItems.remove(position);
-//        notifyItemRemoved(position);
         notifyDataSetChanged();
     }
 
@@ -188,5 +187,27 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
             ll_mark = (LinearLayout) itemView.findViewById(R.id.ll_mark);
             rc_contonts = (RecyclerView) itemView.findViewById(R.id.rc_contonts);
         }
+    }
+
+
+    private ComentClickListener mComentClickListener = null;
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    //define interface
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(ResDynamicsBean.ListBean data);
+    }
+
+    //define interface
+    public static interface ComentClickListener {
+        void onItemClick(ResDynamicsBean.ListBean data);
+    }
+
+    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    public void setmOperationClickListener(ComentClickListener comentClickListener) {
+        this.mComentClickListener = comentClickListener;
     }
 }

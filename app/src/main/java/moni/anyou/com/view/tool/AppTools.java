@@ -517,23 +517,26 @@ public class AppTools {
 
 
     public static List<ResDynamicsBean.ListBean> getDynamicsItemBean(ResDynamicsBean bean) {
+        ArrayList<ResDynamicsBean.ListBean> newListbean = new ArrayList<>();
         if (bean != null && bean.list != null) {
-            List<ResDynamicsBean.ListBean> list = bean.list;
-            int itemSize = list.size();
-
+            int itemSize = bean.list.size();
+            newListbean.addAll(bean.list);
             for (int i = 0; i < itemSize; i++) {
-                ResDynamicsBean.ListBean tempBean = list.get(i);
-                list.get(i).commentList.addAll(comparesSamearticleid(bean, tempBean.articleid));
+                ResDynamicsBean.ListBean tempBean = bean.list.get(i);
+                ArrayList<ResDynamicsBean.CommentListBean> tempList = comparesSamearticleid(bean, tempBean.articleid);
+                if (tempList != null && tempList.size() > 0) {
+                    newListbean.get(i).commentList.addAll(tempList);
+                }
+
             }
 
-            return list;
         }
-        return null;
+        return newListbean;
     }
 
 
     public static ArrayList<ResDynamicsBean.CommentListBean> comparesSamearticleid(ResDynamicsBean bean, String id) {
-        if (bean.commentList == null) {
+        if (bean.commentList != null) {
             ArrayList<ResDynamicsBean.CommentListBean> tempListBean = new ArrayList<ResDynamicsBean.CommentListBean>();
             List<ResDynamicsBean.CommentListBean> commentList = bean.commentList;
             int sizeCommentList = commentList.size();

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +46,14 @@ import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.AppTools;
+import moni.anyou.com.view.tool.KeyBoardTools;
+import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemAdapter;
 import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemsAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.NoListview;
+import moni.anyou.com.view.widget.dialog.PopCommentSent;
 import moni.anyou.com.view.widget.recycleview.MyRecycleView;
 
 
@@ -67,7 +71,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private SHSwipeRefreshLayout swipeRefreshLayout;
 
     private DynamicsItemsAdapter dynamicsItemAdapter;
-
+    private PopCommentSent mPopCommentSent;
     private List<DynamicsTempItems> mItems;
     private int pageSize = 5;
     private int pageNo = 1;
@@ -90,6 +94,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         super.initView();
         initSwipeRefreshLayout();
         window = new NetProgressWindowDialog(mContext);
+        mPopCommentSent = new PopCommentSent(mBaseActivity, this);
         tvLeft = (TextView) mView.findViewById(R.id.tv_left);
         tvTitle = (TextView) mView.findViewById(R.id.page_title);
         iv_icon = (ImageView) mView.findViewById(R.id.iv_icon);
@@ -151,7 +156,8 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                             swipeRefreshLayout.finishLoadmore();
                         } else {
                             swipeRefreshLayout.finishRefresh();
-                            dynamicsItemAdapter.setDatas(temp.list);
+                            List<ResDynamicsBean.ListBean> bean = AppTools.getDynamicsItemBean(temp);
+                            dynamicsItemAdapter.setDatas(bean);
                         }
 
 
@@ -188,7 +194,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-                        bean.likeuser=AppTools.likeUsers(bean);
+                        bean.likeuser = AppTools.likeUsers(bean);
                         dynamicsItemAdapter.notifyItemChanged(position, bean);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     } else {
@@ -216,6 +222,12 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
             case R.id.right_tv:
                 startActivity(new Intent(mContext, SendDynamicActivity.class));
                 activityAnimation(RIGHT_IN);
+                break;
+            case R.id.btn_pop_sent:
+                ToastTools.showShort(mContext, "发送");
+                KeyBoardTools.closeKeybord(mPopCommentSent.etComments, mContext);
+                mPopCommentSent.backgroundAlpha(1f);
+                mPopCommentSent.dismiss();
                 break;
         }
     }
@@ -323,37 +335,42 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
     //添加评论
     public void postAddCommentDynamics(ResDynamicsBean.ListBean bean, final int position) {
-        KJHttp kjh = new KJHttp();
-        KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqDynamicsCommentBean("25", SysConfig.uid, SysConfig.token, bean.articleid, "真的很美").ToJsonString();
-        params.put("sendMsg", cmdPara);
-        window.ShowWindow();
-        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
-            @Override
-            public void onSuccess(String t) {
-                Log.d(TAG, "onSuccess: " + t);
-                try {
-                    JSONObject jsonObject = new JSONObject(t);
-                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
-                    int result = Integer.parseInt(jsonObject.getString("result"));
-                    if (result >= 1) {
-//                        dynamicsItemAdapter.removeDynamics(position);
-                    } else {
-                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
 
-                }
-                window.closeWindow();
-            }
-
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-                window.closeWindow();
-            }
-        });
+        ToastTools.showShort(mContext, "" + position);
+        mPopCommentSent.showAtLocation(mView.findViewById(R.id.pop_need), Gravity.CENTER, 0, 0);
+        mPopCommentSent.isShowing();
+        KeyBoardTools.openKeybord(mPopCommentSent.etComments, mContext);
+//        KJHttp kjh = new KJHttp();
+//        KJStringParams params = new KJStringParams();
+//        String cmdPara = new ReqDynamicsCommentBean("25", SysConfig.uid, SysConfig.token, bean.articleid, "真的很美").ToJsonString();
+//        params.put("sendMsg", cmdPara);
+//        window.ShowWindow();
+//        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+//            @Override
+//            public void onSuccess(String t) {
+//                Log.d(TAG, "onSuccess: " + t);
+//                try {
+//                    JSONObject jsonObject = new JSONObject(t);
+//                    //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
+//                    int result = Integer.parseInt(jsonObject.getString("result"));
+//                    if (result >= 1) {
+////                        dynamicsItemAdapter.removeDynamics(position);
+//                    } else {
+//                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (Exception ex) {
+//                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+//
+//                }
+//                window.closeWindow();
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+//                window.closeWindow();
+//            }
+//        });
 
 
     }

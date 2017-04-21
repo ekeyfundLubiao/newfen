@@ -1,5 +1,6 @@
 package moni.anyou.com.view.bean.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import moni.anyou.com.view.bean.response.base.ResponseStandard;
@@ -60,7 +61,7 @@ public class ResDynamicsBean extends ResponseStandard {
         public String nick;
         public String rolename;
         public String likeuser;
-        public List<CommentListBean> commentList;
+        public List<CommentListBean> commentList=new ArrayList<>();
 
     }
 
