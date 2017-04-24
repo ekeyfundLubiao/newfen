@@ -18,10 +18,10 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_marginTop="20dp"
             android:layout_width="110dp"
             android:layout_height="98dp"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:background="@mipmap/logo" />
 
         <TextView
@@ -45,10 +45,11 @@
         android:background="@null"
         android:drawableLeft="@mipmap/home"
         android:drawablePadding="8dp"
+        android:hint="请输入您的手机号"
         android:paddingLeft="10dp"
         android:singleLine="true"
-        android:hint="请输入您的手机号"
-        android:text="13671691500" />
+        android:text="13671691500"
+        android:textSize="12dp" />
 
     <View
         android:layout_width="match_parent"
@@ -65,13 +66,13 @@
         android:layout_marginRight="46dp"
         android:layout_marginTop="22dp"
         android:background="@null"
-        android:singleLine="true"
-        android:password="true"
-        android:drawablePadding="8dp"
         android:drawableLeft="@mipmap/home"
+        android:drawablePadding="8dp"
         android:hint="请输入您的密码"
         android:paddingLeft="10dp"
-        />
+        android:password="true"
+        android:singleLine="true"
+        android:textSize="12dp" />
 
     <View
         android:layout_width="match_parent"
@@ -98,8 +99,8 @@
         android:layout_marginLeft="46dp"
         android:layout_marginRight="46dp"
         android:layout_marginTop="13dp"
-        android:singleLine="true"
         android:background="@drawable/drawable_btn_appcolor"
+        android:singleLine="true"
         android:text="登录"
         android:textColor="@color/white" />
 </LinearLayout>

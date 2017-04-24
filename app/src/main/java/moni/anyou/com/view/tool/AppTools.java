@@ -261,6 +261,20 @@ public class AppTools {
                     down_folder.delete();
                 }
             }
+
+            File down_folder_headicon = StorageUtils
+                    .getOwnCacheDirectory(mContext, LocalConstant.Local_Photo_Path);
+            if ((down_folder_headicon != null) && (down_folder_headicon.exists())) {
+                if (down_folder_headicon.isDirectory()) {
+                    deleteDir(down_folder_headicon);
+                } else {
+                    down_folder_headicon.delete();
+                }
+            }
+
+
+
+
         } catch (Exception e) {
 
         }

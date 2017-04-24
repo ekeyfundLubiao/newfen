@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.Window;
+
 import org.json.JSONObject;
 
 import java.util.List;
@@ -124,7 +125,7 @@ public class StartActivity extends BaseActivity {
                     startActivity(new Intent(mcontext, MainActivity.class));
                     finish();
                 }
-              //  StartActivity.this.finish();
+                //  StartActivity.this.finish();
 
             }
 
@@ -220,7 +221,7 @@ public class StartActivity extends BaseActivity {
     public void initView() {
         super.initView();
         mPDialog = new MessgeDialog((StartActivity) mBaseActivity);
-        mPDialog.setMRL("获取读写权限","取消","立即获取");
+        mPDialog.setMRL("获取读写权限", "取消", "立即获取");
         mPDialog.setListener();
         mPDialog.setMsgDialogListener(new MessgeDialog.MsgDialogListener() {
             @Override
@@ -230,32 +231,35 @@ public class StartActivity extends BaseActivity {
 
             @Override
             public void OnLeftClick() {
-onBack();
+                onBack();
             }
 
             @Override
             public void OnRightClick() {
-openPermissionSettingPage(RequestCode);
+                openPermissionSettingPage(RequestCode);
             }
 
             @Override
             public void onDismiss() {
-onBack();
+                onBack();
             }
         });
     }
 
-    MessgeDialog mPDialog ;
+    MessgeDialog mPDialog;
+
     @Override
     public void permissionAlreadyRefuse(String permissionName) {
         super.permissionAlreadyRefuse(permissionName);
-            mPDialog.show();
+        finish();
+        //            mPDialog.show();
     }
 
     @Override
     public void permissionRefuse(String permissionName) {
         super.permissionRefuse(permissionName);
-        mPDialog.show();
+        finish();
+        //        mPDialog.show();
     }
 
     @Override
@@ -275,7 +279,7 @@ onBack();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==RequestCode) {
+        if (requestCode == RequestCode) {
             requestPermission(PermissionTools.readExternalStorage);
             mPDialog.dismiss();
         }
