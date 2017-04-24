@@ -57,7 +57,7 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
     public void initView() {
         super.initView();
         initTitle();
-        dialogT = new MessgeDialog((InviteFamilyActivity) mBaseActivity);
+//        dialogT = new MessgeDialog((InviteFamilyActivity) mBaseActivity);
         initDialog();
         window = new NetProgressWindowDialog(mContext);
         tvInvitedNumbers = (TextView) findViewById(R.id.tv_who);
@@ -83,12 +83,12 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
                     ToastTools.showShort(mContext, "邀请号码不能为空");
                     return;
                 }
-                if (!VerificationTools.isMobile(etPhoneNum.getText().toString())&&etPhoneNum.getText().toString().length()!=11) {
+                if (!VerificationTools.isMobile(etPhoneNum.getText().toString()) && etPhoneNum.getText().toString().length() != 11) {
                     ToastTools.showShort(mContext, "请输入正确的手机号码");
                     return;
                 }
                 getAddNumber();
-                 break;
+                break;
             case R.id.btn_sheach_invitephonebook:
                 requestPermission(PermissionTools.writeContacts);
                 break;
@@ -175,45 +175,47 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void permissionRefuse(String permissionName) {
         super.permissionRefuse(permissionName);
-        dialogT.show();
+        ToastTools.showShort(mContext, "需要获取权限读取联系人权限");
+//        dialogT.show();
     }
 
     @Override
     public void permissionAlreadyRefuse(String permissionName) {
         super.permissionAlreadyRefuse(permissionName);
-        dialogT.show();
+        ToastTools.showShort(mContext, "需要获取权限读取联系人权限");
+//        dialogT.show();
     }
 
 
-    MessgeDialog dialogT;
+//    MessgeDialog dialogT;
 
     public void initDialog() {
 
-        dialogT.setMessage("立马获取权限");
-        dialogT.setLeft("暂不获取");
-        dialogT.setRight("立马获取");
-        dialogT.setListener();
-        dialogT.setMsgDialogListener(new MessgeDialog.MsgDialogListener() {
-            @Override
-            public void OnMsgClick() {
-
-            }
-
-            @Override
-            public void OnLeftClick() {
-                dialogT.dismiss();
-            }
-
-            @Override
-            public void OnRightClick() {
-                openPermissionSettingPage(0x1234);
-            }
-
-            @Override
-            public void onDismiss() {
-                dialogT.dismiss();
-            }
-        });
+//        dialogT.setMessage("立马获取权限");
+//        dialogT.setLeft("暂不获取");
+//        dialogT.setRight("立马获取");
+//        dialogT.setListener();
+//        dialogT.setMsgDialogListener(new MessgeDialog.MsgDialogListener() {
+//            @Override
+//            public void OnMsgClick() {
+//
+//            }
+//
+//            @Override
+//            public void OnLeftClick() {
+//                dialogT.dismiss();
+//            }
+//
+//            @Override
+//            public void OnRightClick() {
+//                openPermissionSettingPage(0x1234);
+//            }
+//
+//            @Override
+//            public void onDismiss() {
+//                dialogT.dismiss();
+//            }
+//        });
     }
 
 

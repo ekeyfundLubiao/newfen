@@ -131,7 +131,7 @@
             android:gravity="right"
             android:text="2012-1-1"
             android:textColor="@color/color_text_color"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
 
         <View
             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
             android:gravity="right"
             android:text="爸爸"
             android:textColor="@color/color_text_color"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
 
         <View
             android:layout_width="match_parent"

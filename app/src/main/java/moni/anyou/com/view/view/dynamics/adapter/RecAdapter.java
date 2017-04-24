@@ -16,6 +16,7 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.SentPicBean;
+import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.view.DynamicsFragment;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
@@ -61,12 +62,19 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.MyViewHold> impl
 
 
         //mViewHold.ivSentPic.setImageBitmap(item.bitmap);
-        mContext.setBitmaptoImageView(SysConfig.PicUrl+mItems[position],
+        mContext.setBitmaptoImageView(SysConfig.PicUrl + mItems[position],
                 mViewHold.ivSentPic,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
-
+        mViewHold.llItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onPositionClickListener != null) {
+                    onPositionClickListener.onItemClick(position, mItems);
+                }
+            }
+        });
 
     }
 
@@ -118,4 +126,15 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.MyViewHold> impl
         notifyDataSetChanged();
     }
 
+
+    public OnPositionClickListener onPositionClickListener;
+
+    //define interface
+    public static interface OnPositionClickListener {
+        void onItemClick(int position, String[] url);
+    }
+
+    public void setOnPositionClickListener(OnPositionClickListener onPositionClickListener) {
+        this.onPositionClickListener = onPositionClickListener;
+    }
 }

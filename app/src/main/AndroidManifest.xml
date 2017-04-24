@@ -115,6 +115,7 @@
         <activity android:name=".webview.ShowWebActivity" />
 
         <service android:name=".service.UpFileService" />
+        <activity android:name="moni.anyou.com.view.view.dynamics.detail.image.ImagePagerActivity" />
     </application>
 
 </manifest>

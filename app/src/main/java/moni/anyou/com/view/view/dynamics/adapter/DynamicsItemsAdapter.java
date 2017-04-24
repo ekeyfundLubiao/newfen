@@ -22,6 +22,7 @@ import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.DynamicsFragment;
+import moni.anyou.com.view.view.dynamics.detail.image.ImagePagerActivity;
 import moni.anyou.com.view.view.living.adapter.VideoPublicAdapter;
 import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
@@ -56,6 +57,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.icon, holder.iv_headicon);
         holder.tv_sentTime.setText(Tools.main(temps.addtime));
         holder.tvnickname.setText(temps.nick);
+        holder.tvRoleName.setText("(" + temps.rolename + ")");
         holder.tv_dynamicsContant.setText(temps.content);
         holder.tv_lots.setText(temps.likeuser);
         if (!TextUtil.isEmpty(temps.likeuser)) {
@@ -81,17 +83,33 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         holder.rc_contonts.setLayoutManager(linearLayoutManager);
         ContactAdapter adapter = new ContactAdapter(mContext, temps.commentList);
         holder.rc_contonts.setAdapter(adapter);
-
         holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mComentClickListener != null) {
-                    mComentClickListener.onItemClick(temps);
+                    mComentClickListener.onItemClick(position, temps);
                 }
+
             }
         });
 
-//        addOnClick(holder, mView);
+        holder.iv_delete_dynamics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mOnDeleteClickListener != null) {
+                    mComentClickListener.onItemClick(position, temps);
+                }
+
+            }
+        });
+        tempRecAdapter.setOnPositionClickListener(new RecAdapter.OnPositionClickListener() {
+            @Override
+            public void onItemClick(int position, String[] url) {
+                imageBrower(position, url);
+            }
+        });
+
     }
 
     View mView;
@@ -137,25 +155,6 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         notifyDataSetChanged();
     }
 
-    private void addOnClick(final DynamicsItemsAdapter.MyViewHold holder, final View mView) {
-
-        holder.iv_delete_dynamics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (Integer) mView.getTag();
-                mContext.postDeleteDynamics(getItem(position), position);
-
-            }
-        });
-        holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (Integer) mView.getTag();
-                mContext.postAddCommentDynamics(getItem(position), position);
-
-            }
-        });
-    }
 
     private ResDynamicsBean.ListBean getItem(int position) {
         return mItems.get(position);
@@ -178,6 +177,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         LinearLayout ll_mark;
         TextView iv_delete_dynamics;
         RecyclerView rc_contonts;
+        TextView tvRoleName;
 
         public MyViewHold(View itemView) {
             super(itemView);
@@ -196,29 +196,39 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
             tv_lots = (TextView) itemView.findViewById(R.id.tv_lots);
             iv_delete_dynamics = (TextView) itemView.findViewById(R.id.iv_delete_dynamics);
             ll_mark = (LinearLayout) itemView.findViewById(R.id.ll_mark);
+            tvRoleName = (TextView) itemView.findViewById(R.id.tv_roleName);
             rc_contonts = (RecyclerView) itemView.findViewById(R.id.rc_contonts);
         }
     }
 
 
     private ComentClickListener mComentClickListener = null;
-    private OnPraiseClickListener mOnPraiseClickListener = null;
+    private OnDeleteClickListener mOnDeleteClickListener = null;
 
     //define interface
-    public static interface OnPraiseClickListener {
+    public static interface OnDeleteClickListener {
         void onItemClick(int position, ResDynamicsBean.ListBean data);
     }
 
     //define interface
     public static interface ComentClickListener {
-        void onItemClick(ResDynamicsBean.ListBean data);
+        void onItemClick(int position, ResDynamicsBean.ListBean data);
     }
 
-    public void setmOnPraiseClickListener(OnPraiseClickListener onPraiseClickListener) {
-        this.mOnPraiseClickListener = onPraiseClickListener;
+    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     public void setmOperationClickListener(ComentClickListener comentClickListener) {
         this.mComentClickListener = comentClickListener;
+    }
+
+
+    private void imageBrower(int position, String[] urls) {
+        Intent intent = new Intent(mContext.mBaseActivity, ImagePagerActivity.class);
+        // 图片url,为了演示这里使用常量，一般从数据库中或网络中获取
+        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls);
+        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
+        mContext.startActivity(intent);
     }
 }

@@ -74,6 +74,11 @@ public class ResDynamicsBean extends ResponseStandard {
         private String articleid;
         private String nick;
         public String nickandcontent;
+        public String rolename;
+
+        public String getRolename() {
+            return rolename;
+        }
 
         public String getId() {
             return id;

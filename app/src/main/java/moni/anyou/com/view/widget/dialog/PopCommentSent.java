@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 
 import moni.anyou.com.view.R;
+import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.tool.KeyBoardTools;
 
 /**
@@ -25,6 +26,8 @@ public class PopCommentSent extends PopupWindow {
     public EditText etComments;
     private View mView;
     Activity mContext;
+    public int position;
+    public ResDynamicsBean.ListBean data;
 
     public PopCommentSent(Activity context, View.OnClickListener itemsOnClick) {
         super(context);
@@ -58,10 +61,10 @@ public class PopCommentSent extends PopupWindow {
                 int height = mView.findViewById(R.id.pop_layout).getTop();
                 int y = (int) event.getY();
 //                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (y > height) {
-                        dismiss();
-                        backgroundAlpha(1f);
-                    }
+                if (y > height) {
+                    dismiss();
+                    backgroundAlpha(1f);
+                }
 //                }
                 return true;
             }
@@ -83,7 +86,7 @@ public class PopCommentSent extends PopupWindow {
         @Override
         public void onDismiss() {
             backgroundAlpha(1f);
-            KeyBoardTools.closeKeybord(etComments,mContext);
+            KeyBoardTools.closeKeybord(etComments, mContext);
         }
 
     }
