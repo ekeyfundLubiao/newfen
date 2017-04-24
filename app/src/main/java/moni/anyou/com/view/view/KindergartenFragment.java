@@ -17,11 +17,9 @@ import com.google.gson.Gson;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 import org.json.JSONObject;
-import org.kymjs.aframe.database.utils.Id;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +88,7 @@ public class KindergartenFragment extends BaseFragment {
     public void initView() {
         super.initView();
         initTitle(mView);
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         ivBack.setVisibility(View.GONE);
 //        root = (PtrClassicFrameLayout) mView.findViewById(R.id.root);
 //        root.disableWhenHorizontalMove(true);
@@ -142,7 +140,7 @@ public class KindergartenFragment extends BaseFragment {
         //ToastTools.showShort(this.getContext(), "位置" + teacher.getNick());
         Intent intent = new Intent();
         intent.putExtra("title", teacher.getNick());
-        intent.putExtra("url", mCompanyInfoBean.getUrl());
+        intent.putExtra("url", teacher.getUrl());
         intent.setClass(mContext, ShowWebActivity.class);
         startActivity(intent);
         activityAnimation(RIGHT_IN);

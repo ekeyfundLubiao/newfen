@@ -1,15 +1,16 @@
 package moni.anyou.com.view.view.dynamics.adapter;
 
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,9 +24,9 @@ import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.DynamicsFragment;
 import moni.anyou.com.view.view.dynamics.detail.image.ImagePagerActivity;
-import moni.anyou.com.view.view.living.adapter.VideoPublicAdapter;
 import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
+import moni.anyou.com.view.widget.recycleview.NoSMRecycleView;
 
 /**
  * Created by Administrator on 2016/11/21.
@@ -41,6 +42,12 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     public DynamicsItemsAdapter(DynamicsFragment context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
+        linearLayoutManager = new LinearLayoutManager(mContext.mContext) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
     }
 
     public DynamicsItemsAdapter(DynamicsFragment context, ArrayList<ResDynamicsBean.ListBean> mItems) {
@@ -52,8 +59,16 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     public void onBindViewHolder(final MyViewHold holder, final int position) {
         mView.setTag(position);
         final ResDynamicsBean.ListBean temps = mItems.get(position);
-        RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.pic.split(","));
-        holder.rc_icon.setAdapter(tempRecAdapter);
+        if (!"".equals(temps.pic)) {
+            RecAdapter tempRecAdapter = new RecAdapter(mContext,temps.pic.split(","));
+            holder.rc_icon.setAdapter(tempRecAdapter);
+            tempRecAdapter.setOnPositionClickListener(new RecAdapter.OnPositionClickListener() {
+                @Override
+                public void onItemClick(int position, String[] url) {
+                    imageBrower(position, url);
+                }
+            });
+        }
         mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.icon, holder.iv_headicon);
         holder.tv_sentTime.setText(Tools.main(temps.addtime));
         holder.tvnickname.setText(temps.nick);
@@ -63,14 +78,16 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         if (!TextUtil.isEmpty(temps.likeuser)) {
             holder.tv_lots.setText(Tools.getLikeNikeNameStr(temps.likeuser));
             holder.ll_mark.setVisibility(View.VISIBLE);
+            holder.v_line.setVisibility(View.VISIBLE);
         } else {
             holder.ll_mark.setVisibility(View.GONE);
+            holder.v_line.setVisibility(View.GONE);
         }
         holder.ivZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //mContext.marklike(position, getItem(position));
-                mOnPraiseClickListener.onItemClick(position,temps);
+                IPraiseClickListener.onItemClick(position, temps);
             }
         });
         if (SysConfig.uid.equals(temps.userid)) {
@@ -81,7 +98,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext.mBaseActivity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.rc_contonts.setLayoutManager(linearLayoutManager);
-        ContactAdapter adapter = new ContactAdapter(mContext, temps.commentList);
+        CommentAdapter adapter = new CommentAdapter(mContext, temps.commentList);
         holder.rc_contonts.setAdapter(adapter);
         holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +106,6 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
                 if (mComentClickListener != null) {
                     mComentClickListener.onItemClick(position, temps);
                 }
-
             }
         });
 
@@ -98,17 +114,12 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
             public void onClick(View v) {
 
                 if (mOnDeleteClickListener != null) {
-                    mComentClickListener.onItemClick(position, temps);
+                    mOnDeleteClickListener.onItemClick(position, temps);
                 }
 
             }
         });
-        tempRecAdapter.setOnPositionClickListener(new RecAdapter.OnPositionClickListener() {
-            @Override
-            public void onItemClick(int position, String[] url) {
-                imageBrower(position, url);
-            }
-        });
+
 
     }
 
@@ -169,15 +180,16 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         CircleImageView iv_headicon;
         TextView tvnickname;
         TextView tv_dynamicsContant;
-        RecyclerView rc_icon;
+        NoSMRecycleView rc_icon;
         TextView tv_sentTime;
         ImageView ivZan;
         ImageView ivShare;
         TextView tv_lots;
-        LinearLayout ll_mark;
+        RelativeLayout ll_mark;
         TextView iv_delete_dynamics;
-        RecyclerView rc_contonts;
+        NoSMRecycleView rc_contonts;
         TextView tvRoleName;
+        View v_line;
 
         public MyViewHold(View itemView) {
             super(itemView);
@@ -185,7 +197,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
             iv_headicon = (CircleImageView) itemView.findViewById(R.id.iv_headicon);
             ivShare = (ImageView) itemView.findViewById(R.id.iv_share);
             ivZan = (ImageView) itemView.findViewById(R.id.iv_zan);
-            rc_icon = (RecyclerView) itemView.findViewById(R.id.rc_icon);
+            rc_icon = (NoSMRecycleView) itemView.findViewById(R.id.rc_icon);
             tv_sentTime = (TextView) itemView.findViewById(R.id.tv_sentTime);
             tvnickname = (TextView) itemView.findViewById(R.id.tv_nickName);
             tv_dynamicsContant = (TextView) itemView.findViewById(R.id.tv_dynamicsContant);
@@ -195,15 +207,25 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
             rc_icon.setLayoutManager(gridLayoutManager);
             tv_lots = (TextView) itemView.findViewById(R.id.tv_lots);
             iv_delete_dynamics = (TextView) itemView.findViewById(R.id.iv_delete_dynamics);
-            ll_mark = (LinearLayout) itemView.findViewById(R.id.ll_mark);
+            ll_mark = (RelativeLayout) itemView.findViewById(R.id.ll_mark);
             tvRoleName = (TextView) itemView.findViewById(R.id.tv_roleName);
-            rc_contonts = (RecyclerView) itemView.findViewById(R.id.rc_contonts);
+            rc_contonts = (NoSMRecycleView) itemView.findViewById(R.id.rc_contonts);
+            v_line = itemView.findViewById(R.id.v_line);
+            linearLayoutManager = new LinearLayoutManager(mContext.mContext,
+                    LinearLayoutManager.VERTICAL, false) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+
+            };
         }
     }
 
 
     private ComentClickListener mComentClickListener = null;
     private OnDeleteClickListener mOnDeleteClickListener = null;
+    private IPraiseClickListener IPraiseClickListener = null;
 
     //define interface
     public static interface OnDeleteClickListener {
@@ -215,14 +237,21 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         void onItemClick(int position, ResDynamicsBean.ListBean data);
     }
 
-    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
+    public static interface IPraiseClickListener {
+        void onItemClick(int position, ResDynamicsBean.ListBean data);
     }
 
-    public void setmOperationClickListener(ComentClickListener comentClickListener) {
+    public void setOnDeleteClickListener(OnDeleteClickListener mOnItemClickListener) {
+        this.mOnDeleteClickListener = mOnItemClickListener;
+    }
+
+    public void setComentClickListener(ComentClickListener comentClickListener) {
         this.mComentClickListener = comentClickListener;
     }
 
+    public void setIPraiseClickListener(IPraiseClickListener iPraiseClickListener) {
+        this.IPraiseClickListener = iPraiseClickListener;
+    }
 
     private void imageBrower(int position, String[] urls) {
         Intent intent = new Intent(mContext.mBaseActivity, ImagePagerActivity.class);
@@ -231,4 +260,8 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
         mContext.startActivity(intent);
     }
+
+
+    LinearLayoutManager linearLayoutManager ;
+
 }

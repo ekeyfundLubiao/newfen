@@ -251,7 +251,7 @@ public class StartActivity extends BaseActivity {
     @Override
     public void permissionAlreadyRefuse(String permissionName) {
         super.permissionAlreadyRefuse(permissionName);
-        finish();
+//        finish();
         //            mPDialog.show();
     }
 

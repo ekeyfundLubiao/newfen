@@ -1,6 +1,5 @@
 package moni.anyou.com.view.view.my.systemset;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,10 +19,6 @@ import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.request.ReqExitBean;
-import moni.anyou.com.view.bean.request.ReqHomeBean;
-import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
-import moni.anyou.com.view.bean.request.base.RequestStandard;
-import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
@@ -58,7 +53,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         listview = (NoListview) findViewById(R.id.lv_setsys);
         myAdapter = new SettingItemslAdapter(this);
         listview.setAdapter(myAdapter);
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
     }
 
     @Override

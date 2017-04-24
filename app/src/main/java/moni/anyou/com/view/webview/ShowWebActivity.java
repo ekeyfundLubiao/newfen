@@ -62,6 +62,7 @@ public class ShowWebActivity extends BaseActivity implements OnClickListener {
         super.initView();
         initTitle();
         tvTitle.setText(title);
+        ivBack.setOnClickListener(this);
         try {
             CookieSyncManager.createInstance(mcontext);
             CookieManager cookieManager = CookieManager.getInstance();
@@ -134,33 +135,35 @@ public class ShowWebActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-
+            case R.id.iv_left:
+                onBack();
+                break;
             default:
                 break;
         }
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > 2000
-                    && currIndex == 0) {
-
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",
-                        Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-
-                System.exit(0);
-
-            }
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-
-    }
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//
+//        if (keyCode == KeyEvent.KEYCODE_BACK
+//                && event.getAction() == KeyEvent.ACTION_DOWN) {
+//            if ((System.currentTimeMillis() - exitTime) > 2000
+//                    && currIndex == 0) {
+//
+//                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+//                        Toast.LENGTH_SHORT).show();
+//                exitTime = System.currentTimeMillis();
+//            } else {
+//
+//                System.exit(0);
+//
+//            }
+//            return true;
+//        }
+//
+//        return super.onKeyDown(keyCode, event);
+//
+//    }
 
     /**
      * 清除WebView缓存

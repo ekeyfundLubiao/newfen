@@ -118,7 +118,7 @@
         <!-- 半透明 -->
         <item name="android:windowNoTitle">true</item>
         <!-- 无标题 -->
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/color_dialog_bg</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
@@ -158,4 +158,16 @@
         <item name="android:windowExitAnimation">@anim/dialog_out</item>
         <item name="android:windowBackground">@color/color_dialog_bg</item>
     </style>
+
+
+    <style name="loading_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.8</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>

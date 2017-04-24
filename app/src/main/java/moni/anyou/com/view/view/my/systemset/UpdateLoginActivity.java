@@ -1,16 +1,12 @@
 package moni.anyou.com.view.view.my.systemset;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
@@ -19,10 +15,7 @@ import org.kymjs.aframe.http.StringCallBack;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
-import moni.anyou.com.view.bean.DataClassBean;
-import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.request.ReqsUpdateLoginPwdBean;
-import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
@@ -51,7 +44,7 @@ public class UpdateLoginActivity extends BaseActivity implements View.OnClickLis
         etNewPwd = (EditText) findViewById(R.id.et_newpwd);
         etConfrimPwd = (EditText) findViewById(R.id.et_renewpwd);
         btnCommit = (Button) findViewById(R.id.btn_commit);
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
     }
 
     @Override

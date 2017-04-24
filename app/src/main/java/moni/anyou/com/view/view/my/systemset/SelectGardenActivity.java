@@ -1,6 +1,5 @@
 package moni.anyou.com.view.view.my.systemset;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -14,7 +13,6 @@ import org.kymjs.aframe.http.StringCallBack;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.request.ReqHomeBean;
-import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -40,7 +38,8 @@ public class SelectGardenActivity extends BaseActivity {
     @Override
     public void setData() {
         super.setData();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog
+                (mBaseActivity);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class SelectGardenActivity extends BaseActivity {
     }
 
     public void postTeacherInfo() {
-        JSONObject a= SysConfig.dataJson;
+        JSONObject a = SysConfig.dataJson;
         KJHttp kjh = new KJHttp();
         KJStringParams params = new KJStringParams();
         String cmdPara = new ReqHomeBean("12", SysConfig.uid, SysConfig.token).ToJsonString();
@@ -70,7 +69,6 @@ public class SelectGardenActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(t);
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
-
 
 
                     } else {

@@ -1,24 +1,15 @@
 package moni.anyou.com.view.view.my.invitefamily;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,7 +17,6 @@ import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
@@ -38,38 +28,27 @@ import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.InvitedInfo;
-import moni.anyou.com.view.bean.RelationBean;
 import moni.anyou.com.view.bean.SelectFamily;
 import moni.anyou.com.view.bean.request.ReqUnbindFBean;
 import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
-import moni.anyou.com.view.config.AnyouerApplication;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.PermissionTools;
-import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
-import moni.anyou.com.view.tool.VerificationTools;
-import moni.anyou.com.view.view.StartActivity;
-import moni.anyou.com.view.view.account.CompleteBaseInfoActivity;
 import moni.anyou.com.view.view.my.invitefamily.adapter.FamilyNumberAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.dialog.PopAddSuccess;
 import moni.anyou.com.view.widget.dialog.PopunbindFamily;
-import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 import moni.anyou.com.view.wxapi.wxutil.Util;
-
-import static moni.anyou.com.view.tool.Tools.getBaseRelatenumberdatas;
 
 public class FamilyNumbersActivity extends BaseActivity implements View.OnClickListener, IWXAPIEventHandler {
 
@@ -105,7 +84,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         rcFamilyNumbers = (RecyclerView) findViewById(R.id.rc_numbers);
         tvTitle.setText("邀请家人");
         ivBack.setOnClickListener(this);

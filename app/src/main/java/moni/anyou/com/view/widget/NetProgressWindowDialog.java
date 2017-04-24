@@ -1,84 +1,62 @@
 package moni.anyou.com.view.widget;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.PopupWindow;
-import android.widget.TextView;
+import android.view.animation.Animation;
+import android.widget.ProgressBar;
 
 import moni.anyou.com.view.R;
+import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.base.BaseDialog;
 
 
-public class NetProgressWindowDialog extends WindowDialog {
+/**
+ * Created by Administrator on 2017/2/17.
+ */
+public class NetProgressWindowDialog extends BaseDialog {
+    private ProgressBar pb1;
+    private Animation mLoadingAnimation;
 
-    public NetProgressWindowDialog(Context context) {
-        super(context);
-    }
-    View view = inflater.inflate(R.layout.dialog_progress, null);
-    {
-        view.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                if (window != null) window.dismiss();
-            }
-        });
+    public NetProgressWindowDialog(BaseActivity activity) {
+        super(activity, R.style.loading_dialog);
+        setContentView(R.layout.progress_loading);
+        initWRAPDialog(R.style.dialog_animation, false);
     }
 
-    @SuppressLint("NewApi")
     @Override
-    public PopupWindow getWindow(int i, Object tag, PopupWindow window) {
-
-        switch (i) {
-            case 0:
-                if (window == null) {
-                    window = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
-                            LayoutParams.WRAP_CONTENT);
-                }
-                if (tag != null) {
-                    TextView textview = (TextView) view.findViewById(R.id.text1);
-                    textview.setText(tag.toString());
-                }
-                try {
-                    window.showAtLocation(view, Gravity.CENTER,
-                            LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                    window.update();
-                } catch (Exception ex) {
-
-                }
-                break;
-            case -1:
-
-                if (window != null) {
-                    try {
-                        window.dismiss();
-                    } catch (Exception ex) {
-
-                    }
-                }
-
-                break;
-        }
-        return window;
+    public void initView() {
+        super.initView();
+        pb1 = (ProgressBar) findViewById(R.id.pb1);
+//        mLoadingAnimation = AnimationUtils.loadAnimation(mContext,
+//                R.anim.loading_animation);
     }
 
-
-    public boolean isShowing() {
-        int temp = view.getVisibility();
-        boolean tempStatus = false;
-        switch (temp) {
-            case 0:
-                tempStatus = false;
-                break;
-            default:
-                tempStatus = true;
-                break;
-        }
-        return tempStatus;
+    @Override
+    public void setData() {
+        super.setData();
+        setLayoutBg(R.color.transparent);
     }
 
+    @Override
+    public void setListener() {
+        super.setListener();
+    }
+
+    @Override
+    public void dismiss() {
+        //  ProgressBar.clearAnimation();
+        super.dismiss();
+    }
+
+    @Override
+    public void show() {
+        //  ProgressBar.startAnimation(mLoadingAnimation);
+        super.show();
+    }
+
+    public void ShowWindow() {
+        this.show();
+    }
+
+    public void closeWindow(){
+        this.dismiss();
+    }
 }

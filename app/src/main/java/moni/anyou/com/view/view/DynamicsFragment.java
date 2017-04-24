@@ -82,7 +82,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     public void initView() {
         super.initView();
         initSwipeRefreshLayout();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         mPopCommentSent = new PopCommentSent(mBaseActivity, this);
         tvLeft = (TextView) mView.findViewById(R.id.tv_left);
         tvTitle = (TextView) mView.findViewById(R.id.page_title);
@@ -92,21 +92,22 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
         tvTitle.setText("动态");
         lvDynamics = (MyRecycleView) mView.findViewById(R.id.lv_dynamics);
+
+        cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
+
+        mItems = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         lvDynamics.setLayoutManager(linearLayoutManager);
-        cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
         dynamicsItemAdapter = new DynamicsItemsAdapter(this);
         lvDynamics.setAdapter(dynamicsItemAdapter);
-        mItems = new ArrayList<>();
-
     }
 
     @Override
     public void setAction() {
         super.setAction();
         ivRight.setOnClickListener(this);
-        dynamicsItemAdapter.setmOperationClickListener(new DynamicsItemsAdapter.ComentClickListener() {
+        dynamicsItemAdapter.setComentClickListener(new DynamicsItemsAdapter.ComentClickListener() {
             @Override
             public void onItemClick(int position, ResDynamicsBean.ListBean data) {
                 ToastTools.showShort(mContext, "" + position);
@@ -114,7 +115,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 mPopCommentSent.position = position;
                 mPopCommentSent.data = data;
                 mPopCommentSent.isShowing();
-//                KeyBoardTools.openKeybord(mPopCommentSent.etComments, mContext);
+                KeyBoardTools.openKeybord(mPopCommentSent.etComments, mContext);
 
             }
         });
@@ -124,10 +125,12 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 postDeleteDynamics(data, position);
             }
         });
-    }
-
-    public void marklike(int position, ResDynamicsBean.ListBean bean) {
-        postLikeArticle(position, bean);
+        dynamicsItemAdapter.setIPraiseClickListener(new DynamicsItemsAdapter.IPraiseClickListener() {
+            @Override
+            public void onItemClick(int position, ResDynamicsBean.ListBean data) {
+                postLikeArticle(position, data);
+            }
+        });
     }
 
     @Override

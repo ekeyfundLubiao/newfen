@@ -1,7 +1,6 @@
 package moni.anyou.com.view.view.my.invitefamily;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
@@ -21,20 +18,15 @@ import org.kymjs.aframe.http.StringCallBack;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
-import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.request.ReqAddFamilyBean;
-import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
 import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.TextTool;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
-import moni.anyou.com.view.view.StartActivity;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
-import moni.anyou.com.view.widget.dialog.MessgeDialog;
 
 public class InviteFamilyActivity extends BaseActivity implements View.OnClickListener {
 
@@ -59,7 +51,7 @@ public class InviteFamilyActivity extends BaseActivity implements View.OnClickLi
         initTitle();
 //        dialogT = new MessgeDialog((InviteFamilyActivity) mBaseActivity);
         initDialog();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         tvInvitedNumbers = (TextView) findViewById(R.id.tv_who);
         btnAddnumber = (Button) findViewById(R.id.btn_addnumber);
         btnSearchTelephoneBook = (Button) findViewById(R.id.btn_sheach_invitephonebook);

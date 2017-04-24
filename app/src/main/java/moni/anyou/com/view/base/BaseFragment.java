@@ -141,13 +141,13 @@ public class BaseFragment extends Fragment {
 
     public void showProgressBar() {
         if (mLoadingDialog == null) {
-            mLoadingDialog = new NetProgressWindowDialog(mContext);
+            mLoadingDialog = new NetProgressWindowDialog(mBaseActivity);
         }
-        mLoadingDialog.ShowWindow();
+        mLoadingDialog.show();
     }
 
     public void closeProgressBar() {
-        mLoadingDialog.closeWindow();
+        mLoadingDialog.dismiss();
     }
 
 
@@ -171,7 +171,7 @@ public class BaseFragment extends Fragment {
     private void initBase(View view) {
         isCreate = true;
         mViewUtil = new ViewUtil(getActivity());
-        mLoadingDialog = new NetProgressWindowDialog(mContext);
+        mLoadingDialog = new NetProgressWindowDialog(mBaseActivity);
     }
 
     @Override

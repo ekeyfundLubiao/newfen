@@ -3,14 +3,10 @@ package moni.anyou.com.view.view.my;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,19 +31,14 @@ import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.ToastTools;
-import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.UploadUtil;
-import moni.anyou.com.view.view.StartActivity;
 import moni.anyou.com.view.view.my.systemset.UpdateLoginActivity;
-import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.view.photo.PhotoDialog;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
-import moni.anyou.com.view.widget.NoListview;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.pikerview.TimeSelector;
 import moni.anyou.com.view.widget.pikerview.view.RelationSeletor;
 
-import static moni.anyou.com.view.config.SysConfig.dataJson;
 import static moni.anyou.com.view.tool.Tools.getBaseRelatenumberdatas;
 
 public class PersonInfoSettingActivity extends BaseActivity implements View.OnClickListener {
@@ -97,7 +88,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         initTitle();
         baseFamily = getBaseRelatenumberdatas();
         mPhotoDialog = new PhotoDialog(mBaseActivity);
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         tvTitle.setText("个人资料");
         rlGarden = (RelativeLayout) findViewById(R.id.rl_garden);
         rlAccount = (RelativeLayout) findViewById(R.id.rl_accout);

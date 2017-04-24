@@ -27,12 +27,13 @@ import moni.anyou.com.view.view.living.LivingChildRightFragment;
 public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.MyViewHold> implements View.OnClickListener {
     private BaseFragment mContext;
     private LayoutInflater mInflater;
-    private List<ResLiveBean.LiveBean> mItems=new ArrayList<>();
+    private List<ResLiveBean.LiveBean> mItems = new ArrayList<>();
 
     public VideoPublicAdapter(LivingChildRightFragment context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
     }
+
     public VideoPublicAdapter(LivingChildRightFragment context, List<ResLiveBean.LiveBean> items) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
@@ -61,13 +62,14 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
         mViewHold.itemView.setTag(position);
         ResLiveBean.LiveBean bean = mItems.get(position);
 
-        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.pic,
+//        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.pic,
+        mContext.setBitmaptoImageView(bean.pic,
                 mViewHold.videoIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
                 R.drawable.loading_err_21);
         mViewHold.tvAlivestatus.setText(bean.onlinenum);
-        mViewHold.className.setText("["+bean.liveName+"]");
+        mViewHold.className.setText("[" + bean.liveName + "]");
         if (bean.status == 1) {
             mViewHold.tvAlivestatus.setText(bean.onlinenum);
             mViewHold.tvAlivestatus.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.drawable_btn_ff));
@@ -106,9 +108,9 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
             className = (TextView) itemView.findViewById(R.id.tv_classname);
             llvideo = (LinearLayout) itemView.findViewById(R.id.ll_video_item);
 
-            mContext.mViewUtil.setViewWidth(llvideo, mContext.mViewUtil.getScreenWidth() / 2-6);
-           // mContext.mViewUtil.setViewHight(videoIcon, mContext.mViewUtil.getScreenWidth() / 4);
-           // mContext.mViewUtil.setViewWidth(videoIcon, mContext.mViewUtil.getScreenWidth() / 2);
+//            mContext.mViewUtil.setViewWidth(llvideo, mContext.mViewUtil.getScreenWidth() / 2);
+            // mContext.mViewUtil.setViewHight(videoIcon, mContext.mViewUtil.getScreenWidth() / 4);
+            // mContext.mViewUtil.setViewWidth(videoIcon, mContext.mViewUtil.getScreenWidth() / 2);
         }
     }
 
@@ -122,14 +124,16 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
-    public void addDatas(List<ResLiveBean.LiveBean>result) {
+
+    public void addDatas(List<ResLiveBean.LiveBean> result) {
 
         if (mItems != null && result != null) {
             mItems.addAll(result);
         }
         notifyDataSetChanged();
     }
-    public void setDatas(List<ResLiveBean.LiveBean>result) {
+
+    public void setDatas(List<ResLiveBean.LiveBean> result) {
         if (result != null && mItems != null) {
             mItems.clear();
         }

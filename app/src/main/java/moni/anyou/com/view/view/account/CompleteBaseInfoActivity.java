@@ -2,11 +2,9 @@ package moni.anyou.com.view.view.account;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,8 +12,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -29,10 +25,7 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.request.ReqCompleteFInishBabyInfoBean;
-import moni.anyou.com.view.bean.request.ReqsFaimilyNunbersBean;
-import moni.anyou.com.view.bean.response.ResFamilyNumer;
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.IndexActivity;
@@ -66,7 +59,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
     public void initView() {
         super.initView();
         initTitle();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("完成");
         tvTitle.setText("完善信息");

@@ -17,7 +17,6 @@ import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.view.living.LivingChildFragment;
-import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 /**
  * Created by Administrator on 2016/11/21.

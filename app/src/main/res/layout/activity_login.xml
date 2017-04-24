@@ -48,7 +48,7 @@
         android:hint="请输入您的手机号"
         android:paddingLeft="10dp"
         android:singleLine="true"
-        android:text="13671691500"
+        android:text="13651691505"
         android:textSize="12dp" />
 
     <View

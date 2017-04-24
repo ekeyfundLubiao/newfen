@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:minHeight="200dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -81,7 +80,7 @@
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
-            <android.support.v7.widget.RecyclerView
+            <moni.anyou.com.view.widget.recycleview.NoSMRecycleView
                 android:id="@+id/rc_icon"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -124,12 +123,13 @@
             </RelativeLayout>
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_mark"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_marginRight="18dp"
-                android:background="@mipmap/bg_mark">
+                android:background="@mipmap/bg_mark"
+                >
 
                 <TextView
                     android:id="@+id/tv_lots"
@@ -137,25 +137,34 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="12dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="5dp"
                     android:drawableLeft="@mipmap/icon_mark_dynamics"
                     android:drawablePadding="6dp"
+                    android:paddingTop="8dp"
                     android:gravity="center_vertical"
                     android:text="小红，小花"
                     android:textColor="#546993" />
-            </LinearLayout>
+
+
+            </RelativeLayout>
 
             <View
+                android:id="@+id/v_line"
+                android:layout_below="@id/tv_lots"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:layout_marginRight="18dp"
-                android:background="#f1f2f2" />
-
-            <android.support.v7.widget.RecyclerView
+                android:layout_alignParentBottom="true"
+                android:background="@color/fenge" />
+            <moni.anyou.com.view.widget.recycleview.NoSMRecycleView
                 android:id="@+id/rc_contonts"
+                android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="18dp" />
+                android:layout_marginRight="18dp"
+                android:background="@mipmap/bg_comment"
+                android:clickable="false" />
         </LinearLayout>
     </RelativeLayout>
 

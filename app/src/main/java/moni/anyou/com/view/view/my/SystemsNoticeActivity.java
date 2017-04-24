@@ -1,7 +1,5 @@
 package moni.anyou.com.view.view.my;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,16 +18,11 @@ import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
 import org.kymjs.aframe.http.StringCallBack;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
-import moni.anyou.com.view.bean.request.ReqExitBean;
 import moni.anyou.com.view.bean.request.ReqPageBean;
 import moni.anyou.com.view.bean.response.ResNoticeData;
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.view.my.adapter.NoticeItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -58,7 +49,7 @@ public class SystemsNoticeActivity extends BaseActivity {
     @Override
     public void initView() {
         super.initView();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         initTitle();
         tvTitle.setText("系统公告");
         mNoticeItemslAdapter = new NoticeItemslAdapter(this);

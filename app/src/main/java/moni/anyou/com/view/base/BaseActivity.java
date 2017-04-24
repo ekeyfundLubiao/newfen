@@ -1,31 +1,21 @@
 package moni.anyou.com.view.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import moni.anyou.com.view.R;
-import moni.anyou.com.view.bean.SentPicBean;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
-import moni.anyou.com.view.widget.WindowDialog;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
 import moni.anyou.com.view.widget.utils.imageload.ImageLoadUtil;
 import moni.anyou.com.view.widget.utils.view.SystemStatusManager;
@@ -81,7 +71,7 @@ public class BaseActivity extends FragmentActivity {
         mBaseActivity = this;
         mViewUtil = new ViewUtil(this);
 
-        // mLoadingDialog = new NetProgressWindowDialog(this.getApplicationContext());
+         mLoadingDialog = new NetProgressWindowDialog(mBaseActivity);
 //        mListFooterView = LayoutInflater.from(mContext).inflate(
 //                R.layout.view_list_footer, null);
 //        mFooterTextView = (TextView) mListFooterView
@@ -162,13 +152,13 @@ public class BaseActivity extends FragmentActivity {
 
     public void showProgressBar() {
         if (mLoadingDialog == null) {
-            mLoadingDialog = new NetProgressWindowDialog(mContext);
+            mLoadingDialog = new NetProgressWindowDialog(mBaseActivity);
         }
-        mLoadingDialog.ShowWindow();
+        mLoadingDialog.show();
     }
 
     public void closeProgressBar() {
-        mLoadingDialog.closeWindow();
+        mLoadingDialog.dismiss();
     }
 
 

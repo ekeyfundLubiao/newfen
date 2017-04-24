@@ -4,28 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
@@ -34,39 +24,27 @@ import org.kymjs.aframe.http.StringCallBack;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.SentPicBean;
-import moni.anyou.com.view.bean.request.ReqPageBean;
 import moni.anyou.com.view.bean.request.ReqSentDynamicsBean;
-import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
-import moni.anyou.com.view.bean.response.ResDynamicsBean;
 import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.service.UpFileService;
 import moni.anyou.com.view.tool.AppTools;
-import moni.anyou.com.view.tool.KeyBoardTools;
 import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.ToastTools;
-import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.UploadUtil;
-import moni.anyou.com.view.tool.contacts.LocalConstant;
-import moni.anyou.com.view.view.account.LoginActivity;
 import moni.anyou.com.view.view.dynamics.adapter.SendPicAdapter;
-import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
 import moni.anyou.com.view.view.photo.PhotoDialog;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 import moni.anyou.com.view.widget.dialog.MessgeDialog;
-import moni.anyou.com.view.widget.dialog.PopSelectPicture;
-import moni.anyou.com.view.widget.pikerview.Utils.TextUtil;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
-import static moni.anyou.com.view.widget.dialog.PopSelectPicture.IMAGE_OPEN_2;
-
 public class SendDynamicActivity extends BaseActivity implements View.OnClickListener {
-    private NetProgressWindowDialog window;
+    private NetProgressWindowDialog
+            window;
     private RecyclerView rcPic;
     private EditText etContentDynamic;
     private SendPicAdapter mySentPicAdapter;
@@ -89,7 +67,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     public void initView() {
         super.initView();
         initTitle();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         tvTitle.setText("");
         tvRight.setText("发送");
         tvRight.setVisibility(View.VISIBLE);
@@ -149,10 +127,12 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                     showProgressBar();
                     picSize = bean.picArray.size();
                     picArry = bean.picArray;
-                    Message fileInfomsg = new Message();
-                    fileInfomsg.obj = 0;
-                    upPicHandler.sendMessage(fileInfomsg);
+
                 }
+
+                Message fileInfomsg = new Message();
+                fileInfomsg.obj = 0;
+                upPicHandler.sendMessage(fileInfomsg);
                 break;
         }
     }
@@ -164,7 +144,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    private String mPic;
+    private String mPic = "";
 
     public void postSentDynamics() {
         KJHttp kjh = new KJHttp();
@@ -335,12 +315,11 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         ArrayList<String> picInfo = new ArrayList<>();
         String TempStr = "";
         ArrayList<SentPicBean> remps = mySentPicAdapter.getmItems();
-        if (remps.size() > 0) {
+        if (remps.size() > 1) {
             for (int i = 0, size = remps.size() - 1; i < size; i++) {
                 picInfo.add(remps.get(i).newFileNameMap);
                 String fileName = remps.get(i).newFileNameMap;
                 if (i == size - 1) {
-
                     TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap);
                 } else {
                     TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap) + ",";
@@ -373,10 +352,13 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
 //                new Thread(m).start();
 //            }
             window.isShowing();
-            Intent startIntent = new Intent(mContext, UpFileService.class);
-            startIntent.putExtra("picArray", "123");
-            startIntent.putStringArrayListExtra("pic", picArry);
-            startService(startIntent);
+            if (picArry != null) {
+                Intent startIntent = new Intent(mContext, UpFileService.class);
+                startIntent.putExtra("picArray", "123");
+                startIntent.putStringArrayListExtra("pic", picArry);
+                startService(startIntent);
+            }
+
             rcPic.postDelayed(new Runnable() {
                 @Override
                 public void run() {

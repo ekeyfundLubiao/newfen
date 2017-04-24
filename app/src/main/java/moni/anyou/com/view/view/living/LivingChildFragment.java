@@ -2,10 +2,8 @@ package moni.anyou.com.view.view.living;
 
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.kymjs.aframe.http.KJHttp;
 import org.kymjs.aframe.http.KJStringParams;
@@ -26,13 +23,9 @@ import java.util.List;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
-import moni.anyou.com.view.bean.VideoBean;
 import moni.anyou.com.view.bean.request.ReqLiveBean;
-import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
-import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.living.adapter.VideoRecycleAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -74,7 +67,7 @@ public class LivingChildFragment extends BaseFragment {
         super.initView();
 
         initSwipeRefreshLayout();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         rvBabyVideo = (RecyclerView) mView.findViewById(R.id.rv_baby_video);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);

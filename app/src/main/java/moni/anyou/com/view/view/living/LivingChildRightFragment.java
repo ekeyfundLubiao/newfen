@@ -7,10 +7,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,16 +26,13 @@ import java.util.ArrayList;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseFragment;
-import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.VideoBean;
 import moni.anyou.com.view.bean.request.ReqLiveBean;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
-import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.view.living.adapter.SpacesItemDecoration;
 import moni.anyou.com.view.view.living.adapter.VideoPublicAdapter;
-import moni.anyou.com.view.view.my.systemset.adapter.SettingItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
-import moni.anyou.com.view.widget.NoListview;
 import moni.anyou.com.view.widget.recycleview.DividerItemDecoration;
 
 
@@ -76,13 +73,9 @@ public class LivingChildRightFragment extends BaseFragment {
     public void initView() {
         super.initView();
         initSwipeRefreshLayout();
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
         mVideoArray = new ArrayList<>();
-        listview = (RecyclerView) mView.findViewById(R.id.listview);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
-        listview.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.HORIZONTAL));
-        listview.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
-        listview.setLayoutManager(gridLayoutManager);
+        initRvContent();
     }
 
     @Override
@@ -123,6 +116,18 @@ public class LivingChildRightFragment extends BaseFragment {
         super.setAction();
     }
 
+    String[] picArry = {"http://img07.tooopen.com/images/20170316/tooopen_sy_202028912158.jpg",
+            "http://img04.tooopen.com/images/20121109/tooopen_201211091418005900.jpg", "http://img04.tooopen.com/images/20130617/tooopen_21382885.jpg",
+            "http://img03.tooopen.com/images/20130509/tooopen_09413727.jpg",
+            "http://img04.tooopen.com/images/20130417/tooopen_15321807.jpg",
+            "http://img04.tooopen.com/images/20130228/tooopen_12120276.jpg",
+            "http://img07.tooopen.com/images/20170320/tooopen_sy_202527818519.jpg",
+            "http://img06.tooopen.com/images/20161214/tooopen_sy_190570171299.jpg",
+            "http://img06.tooopen.com/images/20161106/tooopen_sy_185050549459.jpg",
+            "http://img06.tooopen.com/images/20161101/tooopen_sy_184377491944.jpg",
+            "http://img06.tooopen.com/images/20160906/tooopen_sy_177992564428.jpg",
+            "http://img06.tooopen.com/images/20160906/tooopen_sy_177973146222.jpg"
+            , "http://img06.tooopen.com/images/20160710/tooopen_sy_169923037699.jpg"};
 
     public void getData(final int Type) {
         KJHttp kjh = new KJHttp();
@@ -145,7 +150,17 @@ public class LivingChildRightFragment extends BaseFragment {
                         switch (Type) {
                             case 1:
                                 swipeRefreshLayout.finishRefresh();
-                                publicAdapter.setDatas(temp.getList());
+                                ArrayList<ResLiveBean.LiveBean> Arrylist = new ArrayList<ResLiveBean.LiveBean>();
+                                for (int i = 0; i < 12; i++) {
+                                    ResLiveBean.LiveBean tempBean = new ResLiveBean.LiveBean();
+                                    tempBean.pic = picArry[i];
+                                    tempBean.onlinenum = "" + i;
+                                    tempBean.status = i / 2;
+                                    tempBean.liveName = "跳跳蛙" + i;
+                                    Arrylist.add(tempBean);
+                                }
+                                publicAdapter.setDatas(Arrylist);
+//                                publicAdapter.setDatas(temp.getList());
                                 break;
                             case 2:
                                 swipeRefreshLayout.finishLoadmore();
@@ -235,4 +250,33 @@ public class LivingChildRightFragment extends BaseFragment {
             }
         });
     }
+
+
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    private void initRvContent() {
+
+
+        listview = (RecyclerView) mView.findViewById(R.id.listview);
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
+//        listview.addItemDecoration(new DividerItemDecoration(mContext, GridLayoutManager.HORIZONTAL));
+//        listview.addItemDecoration(new DividerItemDecoration(mContext, GridLayoutManager.VERTICAL));
+//        listview.setLayoutManager(gridLayoutManager);
+        mLayoutManager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
+        listview.setLayoutManager(mLayoutManager);
+
+        //添加ItemDecoration，item之间的间隔
+        int leftRight = dip2px(5);
+        int topBottom = dip2px(5);
+
+        listview.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom,getResources().getColor(R.color.white)));
+        //    rv_content.addItemDecoration(new SpacesItemDecoration(dip2px(1), dip2px(1), Color.BLUE));
+
+    }
+
+    public int dip2px(float dpValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, getResources().getDisplayMetrics());
+    }
+
+
 }

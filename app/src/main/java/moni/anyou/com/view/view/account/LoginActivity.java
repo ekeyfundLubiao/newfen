@@ -30,11 +30,7 @@ import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.tool.VerificationTools;
 import moni.anyou.com.view.view.IndexActivity;
-import moni.anyou.com.view.view.my.PersonInfoSettingActivity;
-import moni.anyou.com.view.view.my.systemset.SelectGardenActivity;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
-
-import static android.content.ContentValues.TAG;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -86,7 +82,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         etUserPwd = (EditText) findViewById(R.id.et_userpwd);
         tvforgetPwd = (TextView) findViewById(R.id.tv_forgetpwd);
         btnLogin = (Button) findViewById(R.id.btn_login);
-        window = new NetProgressWindowDialog(mContext);
+        window = new NetProgressWindowDialog(mBaseActivity);
     }
 
     @Override
