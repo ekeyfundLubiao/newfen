@@ -316,7 +316,11 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         String TempStr = "";
         ArrayList<SentPicBean> remps = mySentPicAdapter.getmItems();
         if (remps.size() > 1) {
-            for (int i = 0, size = remps.size() - 1; i < size; i++) {
+            int size = remps.size();
+            if (size!=9) {
+                size = size - 1;
+            }
+            for (int i = 0; i < size; i++) {
                 picInfo.add(remps.get(i).newFileNameMap);
                 String fileName = remps.get(i).newFileNameMap;
                 if (i == size - 1) {
