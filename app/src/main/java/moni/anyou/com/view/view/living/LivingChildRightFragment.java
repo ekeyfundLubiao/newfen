@@ -150,17 +150,17 @@ public class LivingChildRightFragment extends BaseFragment {
                         switch (Type) {
                             case 1:
                                 swipeRefreshLayout.finishRefresh();
-                                ArrayList<ResLiveBean.LiveBean> Arrylist = new ArrayList<ResLiveBean.LiveBean>();
-                                for (int i = 0; i < 12; i++) {
-                                    ResLiveBean.LiveBean tempBean = new ResLiveBean.LiveBean();
-                                    tempBean.pic = picArry[i];
-                                    tempBean.onlinenum = "" + i;
-                                    tempBean.status = i / 2;
-                                    tempBean.liveName = "跳跳蛙" + i;
-                                    Arrylist.add(tempBean);
-                                }
-                                publicAdapter.setDatas(Arrylist);
-//                                publicAdapter.setDatas(temp.getList());
+//                                ArrayList<ResLiveBean.LiveBean> Arrylist = new ArrayList<ResLiveBean.LiveBean>();
+//                                for (int i = 0; i < 12; i++) {
+//                                    ResLiveBean.LiveBean tempBean = new ResLiveBean.LiveBean();
+//                                    tempBean.pic = picArry[i];
+//                                    tempBean.onlinenum = "" + i;
+//                                    tempBean.status = i / 2;
+//                                    tempBean.liveName = "跳跳蛙" + i;
+//                                    Arrylist.add(tempBean);
+//                                }
+//                                publicAdapter.setDatas(Arrylist);
+                                publicAdapter.setDatas(temp.getList());
                                 break;
                             case 2:
                                 swipeRefreshLayout.finishLoadmore();

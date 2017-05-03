@@ -321,7 +321,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
                 size = size - 1;
             }
             for (int i = 0; i < size; i++) {
-                picInfo.add(remps.get(i).newFileNameMap);
+                picInfo.add("anyou".equals(remps.get(i).newFileNameMap)?remps.get(i).newFileNameMap:remps.get(i).filePathName);
                 String fileName = remps.get(i).newFileNameMap;
                 if (i == size - 1) {
                     TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap);

@@ -62,8 +62,8 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
         mViewHold.itemView.setTag(position);
         ResLiveBean.LiveBean bean = mItems.get(position);
 
-//        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.pic,
-        mContext.setBitmaptoImageView(bean.pic,
+        mContext.setBitmaptoImageView(SysConfig.PicUrl+bean.pic,
+//        mContext.setBitmaptoImageView(bean.pic,
                 mViewHold.videoIcon,
                 R.drawable.loading_null_21,
                 R.drawable.loading_null_21,
