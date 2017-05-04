@@ -72,7 +72,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         mContext.setBitmaptoImageView11(SysConfig.PicUrl + temps.icon, holder.iv_headicon);
         holder.tv_sentTime.setText(Tools.main(temps.addtime));
         holder.tvnickname.setText(temps.nick);
-        holder.tvRoleName.setText("(" + temps.rolename + ")");
+        holder.tvRoleName.setText("（" + temps.rolename + "）");
         holder.tv_dynamicsContant.setText(temps.content);
         holder.tv_lots.setText(temps.likeuser);
         if (!TextUtil.isEmpty(temps.likeuser)) {

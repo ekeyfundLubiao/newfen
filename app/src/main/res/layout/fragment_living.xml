@@ -43,6 +43,7 @@
                     android:text="宝宝在线"
                     android:textColor="@color/message_radio_text_color"
                     android:textSize="16dp" />
+
                 <RadioButton
                     android:id="@+id/radioBtn2"
                     android:layout_width="match_parent"
@@ -54,12 +55,13 @@
                     android:text="公共直播"
                     android:textColor="@color/message_radio_text_color"
                     android:textSize="16dp" />
-             </RadioGroup>
+            </RadioGroup>
         </HorizontalScrollView>
         <LinearLayout
             android:background="@color/bgcolor"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_order_form"
                 android:layout_width="match_parent"

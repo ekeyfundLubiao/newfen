@@ -73,12 +73,14 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
                 R.drawable.loading_err_21);
         mViewHold.ivMark.setVisibility(View.GONE);
         // String temp=Tools.getRole(bean.role);
-        mViewHold.tvRelation.setText("[ " + bean.role + " ]");
+
         //设置颜色
         if (bean.getStatus() == 0) {
+            mViewHold.tvRelation.setText("[未邀请]");
             mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_invite_text));
             mViewHold.ivMark.setVisibility(View.VISIBLE);
         } else {
+            mViewHold.tvRelation.setText("[已邀请]");
             mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_99999));
             mViewHold.ivMark.setVisibility(View.GONE);
         }
@@ -96,7 +98,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
             mViewHold.tvRelation.setText("[ " + "自己" + " ]");
         }
         mViewHold.tvPhoneNum.setText(bean.getMobile());
-        mViewHold.tvName.setText(bean.getNick());
+        mViewHold.tvName.setText(bean.role);
         mViewHold.llItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

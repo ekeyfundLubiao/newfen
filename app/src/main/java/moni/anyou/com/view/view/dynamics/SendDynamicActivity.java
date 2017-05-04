@@ -283,33 +283,7 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
         });
     }
 
-    class UploadThread implements Runnable {
 
-        @Override
-        public void run() {
-            int success;
-            if (picArry.get(picName).length() > 30) {
-                success = UploadUtil.uploadFile(new File(picArry.get(picName)), SysConfig.UploadUrl);
-            } else {
-                success = UploadUtil.uploadFile(new File(mContext.getCacheDir() + "/anyouFile/" + picArry.get(picName)), SysConfig.UploadUrl);
-            }
-
-            if (success == 200) {
-                picName++;
-                if (picSize > picName) {
-                    Message fileInfomsg = new Message();
-                    fileInfomsg.obj = picName;
-                    upPicHandler.sendMessage(fileInfomsg);
-
-                } else {
-                    postSentDynamics();
-                    closeProgressBar();
-                    return;
-                }
-
-            }
-        }
-    }
 
     private HelpBean getPics() {
         ArrayList<String> picInfo = new ArrayList<>();
@@ -322,16 +296,23 @@ public class SendDynamicActivity extends BaseActivity implements View.OnClickLis
             }
             for (int i = 0; i < size; i++) {
                 picInfo.add("anyou".equals(remps.get(i).newFileNameMap)?remps.get(i).newFileNameMap:remps.get(i).filePathName);
+//                picInfo.add(remps.get(i).filePathName);
                 String fileName = remps.get(i).newFileNameMap;
+                String oldFileName = remps.get(i).filePathName;
                 if (i == size - 1) {
-                    TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap);
+                    TempStr = TempStr + (fileName.contains("anyou") ? new File(fileName).getName() : new File(oldFileName).getName());
                 } else {
-                    TempStr = TempStr + (fileName.contains("storage") ? new File(fileName).getName() : remps.get(i).newFileNameMap) + ",";
+                    TempStr = TempStr + (fileName.contains("anyou") ? new File(fileName).getName() : new File(oldFileName).getName()) + ",";
                 }
             }
             HelpBean helpBean = new HelpBean();
             helpBean.picArray = picInfo;
+
+            for (String s:helpBean.picArray) {
+                Log.d("TAG", s);
+            }
             helpBean.sentpic = TempStr;
+            Log.d("TAG", TempStr);
             return helpBean;
         }
 

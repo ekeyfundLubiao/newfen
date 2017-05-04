@@ -59,14 +59,17 @@
                     android:id="@+id/iv_delete_dynamics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="8dp"
-                    android:layout_marginTop="13dp"
-                    android:drawableLeft="@mipmap/icon_delete_familynunber"
+                    android:drawableLeft="@mipmap/icon_delete"
                     android:drawablePadding="5dp"
                     android:text="删除"
                     android:textColor="@color/color_text_hiden"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:layout_alignBaseline="@+id/tv_nickName"
+                    android:layout_alignBottom="@+id/tv_nickName"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp" />
             </RelativeLayout>
 
 
@@ -102,24 +105,28 @@
                     android:id="@+id/tv_sentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="#6c6c6c"
                     android:text="2小时前" />
 
                 <ImageView
                     android:id="@+id/iv_zan"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
-                    android:layout_marginRight="35dp"
+                    android:layout_marginRight="45dp"
                     android:background="@mipmap/icon_like" />
 
                 <ImageView
                     android:id="@+id/iv_share"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ping"
+                    android:layout_alignTop="@+id/tv_sentTime"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="6dp"
-                    android:background="@mipmap/ping" />
+                    android:layout_marginRight="18dp"
+                    />
             </RelativeLayout>
 
 

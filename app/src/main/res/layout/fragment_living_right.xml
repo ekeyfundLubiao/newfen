@@ -10,7 +10,6 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="6dp"
         app:guidance_text_color="@color/color_text_color"
         app:guidance_view_bg_color="@color/bgcolor"
         app:load_text="加载更多"

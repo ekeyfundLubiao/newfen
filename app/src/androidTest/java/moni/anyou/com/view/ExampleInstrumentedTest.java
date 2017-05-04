@@ -28,22 +28,21 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("moni.anyou.com.a", appContext.getPackageName());
-        Tools.main("2017-01-11 11:00:00.0");
-        likeusers(new ResDynamicsBean.ListBean());
+//        Tools.main("2017-01-11 11:00:00.0")、、likeusers(new ResDynamicsBean.ListBean());
     }
 
 
-    public String likeusers(ResDynamicsBean.ListBean bean) throws Exception {
-        ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.getLikeuser());
-        StringBuilder templikes = new StringBuilder();
-        String userlike = "12:::小红|||56:::小吕";
-        String result;
-        templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
-        if (bean.getLikeuser().contains("12")) {
-            result = userlike.replace(templikes, "");
-        } else {
-            result = templikes.append(bean.getLikeuser()).toString();
-        }
-        return result;
-    }
+//    public String likeusers(ResDynamicsBean.ListBean bean) throws Exception {
+//        ArrayList<Tools.KeyVaule> tempArray = Tools.getLikeNikeName(bean.getLikeuser());
+//        StringBuilder templikes = new StringBuilder();
+//        String userlike = "12:::小红|||56:::小吕";
+//        String result;
+//        templikes.append(SysConfig.uid).append(":::").append(SysConfig.userInfoJson.getString("nick"));
+//        if (bean.getLikeuser().contains("12")) {
+//            result = userlike.replace(templikes, "");
+//        } else {
+//            result = templikes.append(bean.getLikeuser()).toString();
+//        }
+//        return result;
+//    }
 }

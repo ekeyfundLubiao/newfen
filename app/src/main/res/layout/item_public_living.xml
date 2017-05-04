@@ -13,12 +13,6 @@
         android:layout_height="100dp"
         android:layout_gravity="center">
 
-        <ImageView
-            android:id="@+id/iv_video"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/loading_err_21"
-            android:scaleType="fitXY" />
         <TextView
             android:background="@drawable/drawable_btn_ff"
             android:id="@+id/tv_alivestatus"
@@ -45,5 +39,15 @@
             android:layout_marginBottom="6dp"
             android:textColor="@color/white"
             />
+
+        <ImageView
+            android:id="@+id/iv_video"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/loading_err_21"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </LinearLayout>

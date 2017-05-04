@@ -100,10 +100,10 @@ public class LivingFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(int arg0) {
-            RadioButton selectButton=   ((RadioButton)mRadioGroup.getChildAt(arg0));
+            RadioButton selectButton=   ((RadioButton)mRadioGroup.getChildAt(0));
             RadioButton selectButton2=   ((RadioButton)mRadioGroup.getChildAt(1));
             if (arg0 == 0) {
-                ToastTools.showShort(mBaseActivity,"pageOne");
+
                 selectButton.setChecked(true);
                 selectButton.setTextSize(18);
                 selectButton2.setTextSize(16);
@@ -113,7 +113,7 @@ public class LivingFragment extends BaseFragment {
                 selectButton2.setChecked(true);
                 selectButton.setTextSize(16);
                 selectButton2.setTextSize(18);
-                ToastTools.showShort(mBaseActivity,"pageTwo");
+
             }
 
         }

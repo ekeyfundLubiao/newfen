@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class IndexActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_index);
         init();
     }

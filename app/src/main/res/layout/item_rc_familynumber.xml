@@ -35,10 +35,11 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
                 android:text="称谓"
                 android:maxLength="3"
-                android:textColor="@color/appcolor" />
+                android:textColor="@color/appcolor"
+                android:layout_alignLeft="@+id/tv_phonenum"
+                android:layout_alignStart="@+id/tv_phonenum" />
 
             <TextView
                 android:id="@+id/tv_relation"
