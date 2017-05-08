@@ -35,10 +35,5 @@ public class NoSMRecycleView extends RecyclerView {
     }
 
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-
-        return false;
-    }
 }
 

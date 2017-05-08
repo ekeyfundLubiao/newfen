@@ -176,7 +176,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             if (SysConfig.userInfoJson.getInt("recommendId") > 0) {
                                 startActivity(new Intent(mContext, IndexActivity.class));
                             } else {
-                                if (SysConfig.prefs.getInt("setBaseInfo" + SysConfig.uid, 0) == 0) {
+                                if (SysConfig.userInfoJson.getInt("status")  != 2) {
                                     startActivity(new Intent(mContext, CompleteBaseInfoActivity.class));
                                 } else {
                                     startActivity(new Intent(mContext, IndexActivity.class));

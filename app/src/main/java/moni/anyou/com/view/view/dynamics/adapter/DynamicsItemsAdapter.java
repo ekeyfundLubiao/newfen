@@ -42,12 +42,6 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     public DynamicsItemsAdapter(DynamicsFragment context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
-        linearLayoutManager = new LinearLayoutManager(mContext.mContext) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
     }
 
     public DynamicsItemsAdapter(DynamicsFragment context, ArrayList<ResDynamicsBean.ListBean> mItems) {
@@ -215,7 +209,7 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
                     LinearLayoutManager.VERTICAL, false) {
                 @Override
                 public boolean canScrollVertically() {
-                    return false;
+                    return true;
                 }
 
             };

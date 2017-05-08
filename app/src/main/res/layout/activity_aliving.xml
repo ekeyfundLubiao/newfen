@@ -12,29 +12,94 @@
 
     <include layout="@layout/com_top_bar" />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="212dp"
-        android:background="@mipmap/banner" />
+        android:layout_height="212dp">
+
+        <SurfaceView
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="212dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading_21"
+            android:fitsSystemWindows="true" />
+
+        <RelativeLayout
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading_bg_rect">
+
+            <ProgressBar
+                android:id="@+id/pb1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/tv_contant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/pb1"
+                android:gravity="center"
+                android:text="载入中..."
+                android:textColor="@color/white" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/layout_index_points"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:alpha="180"
+            android:background="@color/bgcolor"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/video_start"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/icon_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/iv_zone"
+                android:src="@mipmap/suofang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="13dp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
     <WebView
         android:id="@+id/wv_alivinginfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
     <TextView
-        android:layout_marginTop="16dp"
-        android:textSize="14dp"
-        android:layout_marginLeft="13dp"
-        android:textColor="#3B3A38"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="视频介绍"/>
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="16dp"
+        android:text="视频介绍"
+        android:textColor="#3B3A38"
+        android:textSize="14dp" />
+
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:textColor="#898987"
+        android:lineSpacingExtra="5dp"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="5dp"
-        android:text="        原型图只做为美工设计的参考图，界面颜色、图标、字体以及布局 等需按原型图设计，尽量使软件在android和ios，及布局等需及布局等需及布局等需原型图只做为美工设计的参考图，界面颜色、图标、字体以及布局 等需按原型图设计，尽量使软件在android和ios，及布局等需及布局等需及布局等需"/>
+        android:text="        原型图只做为美工设计的参考图，界面颜色、图标、字体以及布局 等需按原型图设计，尽量使软件在android和ios，及布局等需及布局等需及布局等需原型图只做为美工设计的参考图，界面颜色、图标、字体以及布局 等需按原型图设计，尽量使软件在android和ios，及布局等需及布局等需及布局等需"
+        android:textColor="#898987" />
 </LinearLayout>
