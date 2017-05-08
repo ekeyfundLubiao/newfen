@@ -1,6 +1,7 @@
 package moni.anyou.com.view.config;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -11,7 +12,7 @@ import moni.anyou.com.view.tool.DBUtils;
  * Created by lubiao on 2016/10/28.
  */
 public class AnyouerApplication extends Application {
-    private static AnyouerApplication mAppApplication;
+    private static Context mAppApplication;
     public static DBUtils db;
     public static IWXAPI mIWXAPI = null;
 
@@ -30,4 +31,7 @@ public class AnyouerApplication extends Application {
     }
 
 
+   public static Context getAppContext() {
+        return mAppApplication;
+    }
 }

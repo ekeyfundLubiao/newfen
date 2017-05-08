@@ -56,6 +56,7 @@ public class ResLiveBean extends ResponseStandard {
         public String pic;//": "live_small.png",
         public String onlinenum;//": "0",
         public String gradename;//":
+        public String url;
 
 
     }

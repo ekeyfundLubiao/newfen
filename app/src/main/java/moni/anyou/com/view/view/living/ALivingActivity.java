@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
 public class ALivingActivity extends BaseActivity implements View.OnClickListener {
@@ -20,6 +21,8 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     private SurfaceView surfaceView;
 
     private boolean boolStart = false;
+    ResLiveBean.LiveBean mBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         surfaceView = (SurfaceView) findViewById(R.id.video);
     }
 
+
     @Override
     public void setAction() {
         super.setAction();
@@ -53,7 +57,10 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
             case R.id.btn_left:
                 break;
             case R.id.iv_zone:
-                startActivity(new Intent());
+                Intent i = new Intent();
+                i.putExtra("data", mBean);
+                i.setClass(mBaseActivity, VlcVideoActivity.class);
+                startActivity(i);
                 break;
             case R.id.video_start:
                 boolStart = !boolStart;
@@ -69,5 +76,6 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void setData() {
         super.setData();
+        mBean = (ResLiveBean.LiveBean) getIntent().getSerializableExtra("data");
     }
 }
