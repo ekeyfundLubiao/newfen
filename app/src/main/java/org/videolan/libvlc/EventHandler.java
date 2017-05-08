@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-package videolan.libvlc;
+package org.videolan.libvlc;
 
 import android.os.Bundle;
 import android.os.Handler;

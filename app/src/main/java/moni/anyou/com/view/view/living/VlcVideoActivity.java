@@ -1,6 +1,5 @@
 package moni.anyou.com.view.view.living;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
@@ -15,11 +14,11 @@ import android.view.ViewGroup;
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.response.ResLiveBean;
-import videolan.libvlc.EventHandler;
-import videolan.libvlc.IVideoPlayer;
-import videolan.libvlc.LibVLC;
-import videolan.libvlc.LibVlcException;
-import videolan.vlc.util.VLCInstance;
+import org.videolan.libvlc.EventHandler;
+import org.videolan.libvlc.IVideoPlayer;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.LibVlcException;
+import org.videolan.vlc.util.VLCInstance;
 
 
 public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Callback, IVideoPlayer {

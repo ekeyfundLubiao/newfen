@@ -18,15 +18,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-package videolan.vlc.util;
+package org.videolan.vlc.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.LibVlcException;
+
 import moni.anyou.com.view.config.AnyouerApplication;
-import videolan.libvlc.LibVLC;
-import videolan.libvlc.LibVlcException;
 
 
 public class VLCInstance {

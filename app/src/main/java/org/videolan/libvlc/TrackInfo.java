@@ -1,7 +1,7 @@
 /*****************************************************************************
- * LibVlcException.java
+ * TrackInfo.java
  *****************************************************************************
- * Copyright © 2011-2012 VLC authors and VideoLAN
+ * Copyright © 2010-2013 VLC authors and VideoLAN
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
@@ -18,45 +18,36 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-/**
- * LibVlcException: exceptions thrown by the native LibVLC interface
- */
-package videolan.libvlc;
+package org.videolan.libvlc;
 
-/**
- * @author jpeg
- *
- */
-public class LibVlcException extends Exception {
-    private static final long serialVersionUID = -1909522348226924189L;
+public class TrackInfo {
 
-    /**
-     * Create an empty error
-     */
-    public LibVlcException() {
-        super();
-    }
+    public static final int TYPE_UNKNOWN = -1;
+    public static final int TYPE_AUDIO = 0;
+    public static final int TYPE_VIDEO = 1;
+    public static final int TYPE_TEXT = 2;
+    public static final int TYPE_META = 3;
 
-    /**
-     * @param detailMessage
-     */
-    public LibVlcException(String detailMessage) {
-        super(detailMessage);
-    }
+    public int Type;
+    public int Id;
+    public String Codec;
+    public String Language;
+    public int Bitrate;
 
-    /**
-     * @param throwable
-     */
-    public LibVlcException(Throwable throwable) {
-        super(throwable);
-    }
+    /* Video */
+    public int Height;
+    public int Width;
+    public float Framerate;
 
-    /**
-     * @param detailMessage
-     * @param throwable
-     */
-    public LibVlcException(String detailMessage, Throwable throwable) {
-        super(detailMessage, throwable);
-    }
+    /* Audio */
+    public int Channels;
+    public int Samplerate;
 
+    /* MetaData */
+    public long Length;
+    public String Title;
+    public String Artist;
+    public String Album;
+    public String Genre;
+    public String ArtworkURL;
 }

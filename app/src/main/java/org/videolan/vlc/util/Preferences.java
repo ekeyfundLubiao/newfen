@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-package videolan.vlc.util;
+package org.videolan.vlc.util;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
