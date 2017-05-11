@@ -63,7 +63,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         initTitle();
         wvAlivinginfo = (WebView) findViewById(R.id.wv_alivinginfo);
         ivStart = (ImageView) findViewById(R.id.video_start);
-        ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.zanting));
+        ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
         ivZoon = (ImageView) findViewById(R.id.iv_zone);
         mSurfaceView = (SurfaceView) findViewById(R.id.video);
         mLoadingView = (RelativeLayout) findViewById(R.id.v_loading);
@@ -116,7 +116,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
                 boolStart = !boolStart;
                 if (boolStart) {
                     mMediaPlayer.play();
-                    ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.zanting));
+                    ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
                 } else {
                     ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_start));
                     mMediaPlayer.stop();

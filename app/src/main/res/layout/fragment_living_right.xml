@@ -18,6 +18,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listview"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>

@@ -83,7 +83,7 @@
     </style>
 
     <style name="text_top_bar_title" parent="style_wrap_wrap">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:maxWidth">250dp</item>
