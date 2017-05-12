@@ -121,7 +121,7 @@ public class VideoPublicAdapter extends RecyclerView.Adapter<VideoPublicAdapter.
         void onItemClick(View view, ResLiveBean.LiveBean data);
     }
 
-    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 

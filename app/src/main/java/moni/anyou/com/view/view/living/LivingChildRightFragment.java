@@ -84,7 +84,7 @@ public class LivingChildRightFragment extends BaseFragment {
         mVideoArray.clear();
         publicAdapter = new VideoPublicAdapter(this);
         listview.setAdapter(publicAdapter);
-        publicAdapter.setmOnItemClickListener(new VideoPublicAdapter.OnRecyclerViewItemClickListener() {
+        publicAdapter.setOnItemClickListener(new VideoPublicAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, ResLiveBean.LiveBean data) {
                 Intent i = new Intent();

@@ -1,6 +1,7 @@
 package moni.anyou.com.view.view.living;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,6 +77,15 @@ public class LivingChildFragment extends BaseFragment {
         mVideoArray = new ArrayList<>();
         mVideoRecycleAdapter = new VideoRecycleAdapter(this);
         rvBabyVideo.setAdapter(mVideoRecycleAdapter);
+        mVideoRecycleAdapter.setmOnItemClickListener(new VideoRecycleAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, ResLiveBean.LiveBean data) {
+                Intent i = new Intent();
+                i.putExtra("data", data);
+                i.setClass(mBaseActivity, ALivingActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public static String[] appArrays;
@@ -133,7 +143,8 @@ public class LivingChildFragment extends BaseFragment {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
-                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show(); swipeRefreshLayout.finishRefresh();
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+                    swipeRefreshLayout.finishRefresh();
                     swipeRefreshLayout.finishLoadmore();
 
                 }
