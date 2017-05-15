@@ -48,7 +48,6 @@ public class NetProgressWindowDialog extends BaseDialog {
 
     @Override
     public void show() {
-        //  ProgressBar.startAnimation(mLoadingAnimation);
         super.show();
     }
 

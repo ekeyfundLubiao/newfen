@@ -4,16 +4,31 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import moni.anyou.com.view.R;
 import moni.anyou.com.view.base.BaseActivity;
+import moni.anyou.com.view.bean.request.ReqGetLivingBean;
 import moni.anyou.com.view.bean.response.ResLiveBean;
+import moni.anyou.com.view.bean.response.UrlBean;
+import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.ToastTools;
+
+import org.json.JSONObject;
+import org.kymjs.aframe.http.KJHttp;
+import org.kymjs.aframe.http.KJStringParams;
+import org.kymjs.aframe.http.StringCallBack;
 import org.videolan.libvlc.EventHandler;
 import org.videolan.libvlc.IVideoPlayer;
 import org.videolan.libvlc.LibVLC;
@@ -21,7 +36,7 @@ import org.videolan.libvlc.LibVlcException;
 import org.videolan.vlc.util.VLCInstance;
 
 
-public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Callback, IVideoPlayer {
+public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Callback, IVideoPlayer, View.OnClickListener {
 
     private final static String TAG = "[VlcVideoActivity]";
 
@@ -30,6 +45,8 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
     private SurfaceHolder mSurfaceHolder;
 
     private View mLoadingView;
+    private RelativeLayout mReLoad;
+    private ImageView videoStart;
 
     private int mVideoHeight;
     private int mVideoWidth;
@@ -37,6 +54,10 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
     private int mVideoVisibleWidth;
     private int mSarNum;
     private int mSarDen;
+    ResLiveBean.LiveBean mBean;
+    String mUrl;
+    boolean boolStart = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +66,9 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
 
         mSurfaceView = (SurfaceView) findViewById(R.id.video);
         mLoadingView = findViewById(R.id.video_loading);
+        mReLoad = (RelativeLayout) findViewById(R.id.v_reload);
+        videoStart = (ImageView) findViewById(R.id.video_start);
+        videoStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
         try {
             mMediaPlayer = VLCInstance.getLibVlcInstance();
         } catch (LibVlcException e) {
@@ -66,8 +90,33 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
         //		mMediaPlayer.getMediaList().add(new Media(mMediaPlayer, "http://live.3gv.ifeng.com/zixun.m3u8"), false);
         //		mMediaPlayer.playIndex(0);
 //		                       "url": "rtmp://b7399783.server.topvdn.com:1935/live/537015780_134283008_1494212363_5df4a9dbce85ab545f39aed8a3356169",
-        ResLiveBean.LiveBean mBean = (ResLiveBean.LiveBean) getIntent().getSerializableExtra("data");
+        mBean = (ResLiveBean.LiveBean) getIntent().getSerializableExtra("data");
         mMediaPlayer.playMRL(mBean.url);
+        mReLoad.setOnClickListener(this);
+        mReLoad.setVisibility(View.GONE);
+        videoStart.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.v_reload:
+                getNewUrl();
+                break;
+            case R.id.video_start:
+                boolStart = !boolStart;
+                if (boolStart) {
+                    // playMedia();
+                    // showLoading();
+                    mMediaPlayer.play();
+                    videoStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
+                } else {
+                    videoStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_start));
+                    mMediaPlayer.stop();
+                    hideLoading();
+                }
+                break;
+        }
     }
 
     @Override
@@ -78,6 +127,21 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
             mMediaPlayer.stop();
             mSurfaceView.setKeepScreenOn(false);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (!mMediaPlayer.isPlaying()) {
+        try {
+            timer.start();
+        } catch (Exception e) {
+            ToastTools.showShort(this, e.getMessage());
+        }
+
+//        }
+
+
     }
 
     @Override
@@ -251,5 +315,73 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
         lp.height = dh;
         mSurfaceView.setLayoutParams(lp);
         mSurfaceView.invalidate();
+    }
+
+    CountDownTimer timer = new CountDownTimer(11000, 1000) {
+        @Override
+        public void onTick(long l) {
+//            ToastTools.showShort(VlcVideoActivity.this, "" + (l + 15) / 1000 + "在播放" + mMediaPlayer.isPlaying());
+        }
+
+        @Override
+        public void onFinish() {
+
+            if (mMediaPlayer.isPlaying() == false) {
+                mReLoad.setVisibility(View.VISIBLE);
+                mLoadingView.setVisibility(View.GONE);
+            }
+        }
+    };
+
+    public void getNewUrl() {
+
+        KJHttp kjh = new KJHttp();
+        KJStringParams params = new KJStringParams();
+        String cmdPara = new ReqGetLivingBean("31", SysConfig.uid, SysConfig.token, mBean.liveID).ToJsonString();
+        params.put("sendMsg", cmdPara);
+//        window.ShowWindow();
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+            @Override
+            public void onSuccess(String t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t);
+                    int result = Integer.parseInt(jsonObject.getString("result"));
+                    if (result >= 1) {
+                        UrlBean bean = new Gson().fromJson(t, UrlBean.class);
+                        if (bean != null && bean.getList().size() > 0) {
+                            mUrl = bean.getList().get(0).getUrl();
+                            showLoading();
+                            mMediaPlayer.playMRL(mUrl);
+                            mReLoad.setVisibility(View.GONE);
+                        }
+                    } else {
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+
+                }
+//                window.closeWindow();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+
+//                window.closeWindow();
+            }
+        });
+    }
+
+    @Override
+    public void onBack() {
+        super.onBack();
+
+        if (mMediaPlayer != null) {
+            mMediaPlayer.eventVideoPlayerActivityCreated(false);
+            EventHandler em = EventHandler.getInstance();
+            em.removeHandler(mVlcHandler);
+        }
+        finish();
     }
 }
