@@ -29,7 +29,7 @@ public class DataClassBean {
     private String module;
 
     public String tellPhoneNum="";
-    public int status;
+    public int status=-1;
     public String nickname="";
 
     public DataClassBean(String id, String pic, String classID, String className, String classIDList, String tellPhoneNum, int status, String nickname) {

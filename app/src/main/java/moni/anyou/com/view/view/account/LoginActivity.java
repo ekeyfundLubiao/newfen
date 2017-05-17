@@ -176,7 +176,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             if (SysConfig.userInfoJson.getInt("recommendId") > 0) {
                                 startActivity(new Intent(mContext, IndexActivity.class));
                             } else {
-                                if (SysConfig.userInfoJson.getInt("status")  != 2) {
+                                if (SysConfig.userInfoJson.getInt("status") != 2) {
                                     startActivity(new Intent(mContext, CompleteBaseInfoActivity.class));
                                 } else {
                                     startActivity(new Intent(mContext, IndexActivity.class));
@@ -187,6 +187,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         }
 
+                    }else {
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
                     Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
@@ -194,6 +196,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 window.closeWindow();
             }
+
+
+
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {

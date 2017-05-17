@@ -148,13 +148,13 @@
 
             <TextView
                 android:id="@+id/tv_account"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_relation"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="13dp"
                 android:gravity="left"
-                android:text="18321805753"
+                android:text=""
                 android:textColor="@color/color_7f7f7f"
                 android:textSize="18dp" />
             <!--android:text="账号：1390883210"-->

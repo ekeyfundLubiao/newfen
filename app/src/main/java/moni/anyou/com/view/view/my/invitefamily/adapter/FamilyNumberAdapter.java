@@ -75,24 +75,38 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
         // String temp=Tools.getRole(bean.role);
 
         //设置颜色
-        if (bean.getStatus() == 0) {
+        if (bean.getStatus() ==-1) {
             mViewHold.tvRelation.setText("[未邀请]");
             mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_invite_text));
             mViewHold.ivMark.setVisibility(View.VISIBLE);
         } else {
-            mViewHold.tvRelation.setText("[已邀请]");
-            mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_99999));
-            mViewHold.ivMark.setVisibility(View.GONE);
+            if (bean.status == 1) {
+                mViewHold.tvRelation.setText("[已邀请]");
+                mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_99999));
+                mViewHold.ivMark.setVisibility(View.GONE);
+            } else {
+                mViewHold.tvRelation.setText("[邀请中]");
+                mViewHold.tvRelation.setTextColor(mContext.getResources().getColor(R.color.color_99999));
+                mViewHold.ivMark.setVisibility(View.GONE);
+            }
+
+
         }
 
-        if (bean.boolDelete && bean.getStatus() == 1) {
+        if (bean.boolDelete && bean.getStatus() == 1||bean.boolDelete && bean.getStatus() == 0) {
             mViewHold.ivDelete.setVisibility(View.VISIBLE);
         } else {
             mViewHold.ivDelete.setVisibility(View.GONE);
         }
-        if (bean.getStatus() == 1 && !bean.boolDelete) {
+        if (bean.getStatus() == 1 && !bean.boolDelete||bean.boolDelete && bean.getStatus() == 0) {
             mViewHold.ivDelete.setVisibility(View.GONE);
         }
+        if (bean.boolDelete && bean.getStatus() == 1||bean.boolDelete && bean.getStatus() == 0) {
+            mViewHold.ivDelete.setVisibility(View.VISIBLE);
+        } else {
+            mViewHold.ivDelete.setVisibility(View.GONE);
+        }
+
         if (bean.getUser_id().equals(SysConfig.uid)) {
             mViewHold.ivDelete.setVisibility(View.GONE);
             mViewHold.tvRelation.setText("[ " + "自己" + " ]");
@@ -105,7 +119,7 @@ public class FamilyNumberAdapter extends RecyclerView.Adapter<FamilyNumberAdapte
                 int position = (Integer) mViewHold.itemView.getTag();
                 ResFamilyNumer.RelationBean temp = mItems.get(position);
                 if (mViewHold.ivDelete.getVisibility() == View.VISIBLE) {
-                    temp.status = 0;
+                    temp.status = -1;
                     temp.boolDelete = false;
                     mContext.removeFamoilyNumbers(new SelectFamily(position, temp));
                 }

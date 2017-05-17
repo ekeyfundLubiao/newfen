@@ -96,7 +96,6 @@
         <activity android:name=".view.my.SuggestActivity" />
         <activity android:name=".view.my.SystemsNoticeActivity" />
         <activity android:name=".view.my.systemset.SelectGardenActivity" />
-        <activity android:name=".view.dynamics.SentDynamicsActivity"></activity>
         <activity android:name=".view.my.invitefamily.SelectActivity"></activity>
 
 

@@ -197,7 +197,7 @@ public class BaseFragment extends Fragment {
      * @param imageview
      */
     public void setBitmaptoImageView21(String url, ImageView imageview) {
-        setBitmaptoImageView(url, imageview, R.drawable.loading_21,
+        setBitmaptoImageView(url, imageview, R.drawable.loading_bg_rect,
                 R.drawable.loading_err_21, R.drawable.loading_null_21);
     }
 

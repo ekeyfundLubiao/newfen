@@ -121,6 +121,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 
                 }
                 int size = getList(isChecked).size();
+
                 for (int i = 0; i < size; i++) {
                     SelectFamily tempBean = (SelectFamily) checkBeans.get(i);
                     MyAdapter.notifyItemChanged(tempBean.positon, tempBean.bean);
@@ -224,7 +225,7 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
         int size = numberBeans.size();
         for (int i = 0; i < size; i++) {
             ResFamilyNumer.RelationBean tempBean = numberBeans.get(i);
-            if (tempBean.status == 1) {
+            if (tempBean.status == 1||tempBean.status == 0) {
                 tempBean.boolDelete = isCheck;
                 checkBeans.add(new SelectFamily(i, tempBean));
             }
@@ -266,8 +267,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
                                             ? Tools.getRoledefaultIcon(tempbean.getClassID()) : tempbean.getPic()),
                                     Tools.getRole(tempbean.getClassID())));
                         }
-                        Log.d(TAG, "numbeansize:" + numberBeans.size());
-                        ToastTools.showShort(mContext, "numbeansize:" + numberBeans.size());
+//                        Log.d(TAG, "numbeansize:" + numberBeans.size());
+//                        ToastTools.showShort(mContext, "numbeansize:" + numberBeans.size());
                         numberBeans = changdataArray;
                         MyAdapter.setDatas(numberBeans);
                         //testpop();

@@ -547,7 +547,13 @@ public class Tools {
 
     public static ArrayList<DataClassBean> replaceNum(ArrayList<ResFamilyNumer.RelationBean> relationsHad) {
         ArrayList<DataClassBean> baseFamily = getBaseRelatenumberdatas();
+
         int baseFamilySize = baseFamily.size();
+        for (int i = 0; i < baseFamilySize; i++) {
+            DataClassBean temp = baseFamily.get(i);
+            temp.setStatus(-1);
+            baseFamily.set(i,temp);
+        }
         for (int i = 0; i < baseFamilySize; i++) {
             for (int j = 0, size = relationsHad.size(); j < size; j++) {
                 if (baseFamily.get(i).getClassID().equals(relationsHad.get(j).role)) {

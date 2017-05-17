@@ -15,7 +15,7 @@ public class NoSMRecycleView extends RecyclerView {
 
 
     private boolean mIsVpDragger;
-    private  int mTouchSlop;
+    private int mTouchSlop;
     private float startY;
     private float startX;
 
@@ -34,6 +34,15 @@ public class NoSMRecycleView extends RecyclerView {
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
 
+        return false;
+    }
+
+    @Override
+    public boolean onInterceptHoverEvent(MotionEvent event) {
+        return super.onInterceptHoverEvent(event);
+    }
 }
 

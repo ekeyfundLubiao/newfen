@@ -53,7 +53,7 @@ public class ResFamilyNumer extends ResponseStandard {
 
         private String user_id;
         private String recommendId;
-        public int status;
+        public int status=-1;
         private String nick = "匿名";
         private String mobile;
         private String icon;
