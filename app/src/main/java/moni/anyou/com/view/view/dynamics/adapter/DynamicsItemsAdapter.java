@@ -72,8 +72,8 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         DynamicsItemsAdapter.MyViewHold holder = (DynamicsItemsAdapter.MyViewHold) vholder;
         final ResDynamicsBean.ListBean temps = mItems.get(position);
-        if (!"".equals(temps.pic)) {
-            RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.pic.split(","));
+        if (!"".equals(temps.smallpic)) {
+            RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.smallpic.split(","),temps.pic.split(","));
             holder.rc_icon.setAdapter(tempRecAdapter);
             tempRecAdapter.setOnPositionClickListener(new RecAdapter.OnPositionClickListener() {
                 @Override

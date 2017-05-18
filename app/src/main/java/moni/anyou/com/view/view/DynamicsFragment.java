@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ import moni.anyou.com.view.config.SysConfig;
 import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.KeyBoardTools;
 import moni.anyou.com.view.tool.ToastTools;
+import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.dynamics.SendDynamicActivity;
 import moni.anyou.com.view.view.dynamics.adapter.DynamicsItemsAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
@@ -65,7 +67,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private int pageSize = 5;
     private int pageNo = 1;
     int totalCount = 0;
-
+    BaseInfo mBaseInfo;
 
     public DynamicsFragment() {
 
@@ -133,9 +135,16 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+
     @Override
     public void setData() {
         super.setData();
+        try {
+            mBaseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+        } catch (Exception e) {
+
+        }
+
     }
 
     @Override
@@ -193,42 +202,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    public void postLikeArticle(final int position, final ResDynamicsBean.ListBean bean) {
-        KJHttp kjh = new KJHttp();
-        KJStringParams params = new KJStringParams();
-        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.articleid, "article").ToJsonString();
-        params.put("sendMsg", cmdPara);
-        window.ShowWindow();
-        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
-            @Override
-            public void onSuccess(String t) {
-                Log.d(TAG, "onSuccess: " + t);
-                try {
-                    JSONObject jsonObject = new JSONObject(t);
-                    int result = Integer.parseInt(jsonObject.getString("result"));
-                    if (result >= 1) {
-                        bean.likeuser = AppTools.likeUsers(bean);
-                        dynamicsItemAdapter.notifyItemChanged(position, bean);
-                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
-                    } else {
-                        AppTools.jumptoLogin(mBaseActivity, result);
-                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
-
-                }
-                window.closeWindow();
-            }
-
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
-
-                window.closeWindow();
-            }
-        });
-    }
 
     @Override
     public void onClick(View view) {
@@ -239,8 +212,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.btn_pop_sent:
                 postAddCommentDynamics(mPopCommentSent.data, mPopCommentSent.position);
-                mPopCommentSent.etComments.setText("");
-                ToastTools.showShort(mContext, "发送");
+
                 KeyBoardTools.closeKeybord(mPopCommentSent.etComments, mContext);
                 mPopCommentSent.backgroundAlpha(1f);
                 mPopCommentSent.dismiss();
@@ -270,7 +242,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     getData();
                 } else {
                     swipeRefreshLayout.finishLoadmore();
-                    ToastTools.showShort(mContext,"没有更多了");
+                    ToastTools.showShort(mContext, "没有更多了");
                 }
             }
 
@@ -352,7 +324,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
 
 
     //添加评论
-    public void postAddCommentDynamics(ResDynamicsBean.ListBean bean, final int position) {
+    public void postAddCommentDynamics(final ResDynamicsBean.ListBean bean, final int position) {
 
 
         if (TextUtils.isEmpty(mPopCommentSent.etComments.getText())) {
@@ -374,8 +346,10 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                         //Toast.makeText(mContext, t, Toast.LENGTH_LONG).show();
                         int result = Integer.parseInt(jsonObject.getString("result"));
                         if (result >= 1) {
-                            getData();
-                            Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                            String tempstr = mPopCommentSent.etComments.getText().toString();
+                            bean.commentList.add(new ResDynamicsBean.CommentListBean(tempstr, mBaseInfo.nick));
+                            mPopCommentSent.etComments.setText("");
+                            dynamicsItemAdapter.notifyItemChanged(position, bean);
                         } else {
                             AppTools.jumptoLogin(mBaseActivity, result);
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
@@ -395,5 +369,41 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
             });
 
         }
+    }
+
+    public void postLikeArticle(final int position, final ResDynamicsBean.ListBean bean) {
+        KJHttp kjh = new KJHttp();
+        KJStringParams params = new KJStringParams();
+        String cmdPara = new ReqsLikeTeacherBean("15", SysConfig.uid, SysConfig.token, bean.articleid, "article").ToJsonString();
+        params.put("sendMsg", cmdPara);
+        window.ShowWindow();
+        kjh.urlGet(SysConfig.ServerUrl, params, new StringCallBack() {
+            @Override
+            public void onSuccess(String t) {
+                Log.d(TAG, "onSuccess: " + t);
+                try {
+                    JSONObject jsonObject = new JSONObject(t);
+                    int result = Integer.parseInt(jsonObject.getString("result"));
+                    if (result >= 1) {
+                        bean.likeuser = AppTools.likeUsers(bean);
+                        dynamicsItemAdapter.notifyItemChanged(position, bean);
+                    } else {
+                        AppTools.jumptoLogin(mBaseActivity, result);
+                        Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(mContext, "数据请求失败", Toast.LENGTH_LONG).show();
+
+                }
+                window.closeWindow();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Toast.makeText(mContext, "网络异常，请稍后再试", Toast.LENGTH_LONG).show();
+
+                window.closeWindow();
+            }
+        });
     }
 }

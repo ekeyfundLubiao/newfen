@@ -47,6 +47,7 @@
                 android:text="载入中..."
                 android:textColor="@color/white" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/v_reload"
             android:layout_width="90dp"
@@ -55,10 +56,10 @@
             android:background="@drawable/loading_bg_rect">
 
             <TextView
-                android:drawableLeft="@mipmap/icon_start"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
+                android:drawableLeft="@mipmap/icon_start"
                 android:gravity="center"
                 android:text="点击重新加载视频"
                 android:textColor="@color/white" />
@@ -79,8 +80,16 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                />
+                android:layout_marginLeft="20dp" />
+
+            <TextView
+                android:id="@+id/tv_garden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
 
             <ImageView
                 android:id="@+id/iv_zone"

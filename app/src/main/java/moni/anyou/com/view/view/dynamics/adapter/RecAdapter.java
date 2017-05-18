@@ -31,11 +31,13 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.MyViewHold> impl
     private BaseFragment mContext;
     private LayoutInflater mInflater;
     private String mItems[];
+    private String mbigPicitems[];
 
-    public RecAdapter(DynamicsFragment context, String items[]) {
+    public RecAdapter(DynamicsFragment context, String items[],String bigPicitems[]) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext.mBaseActivity);
         mItems = items;
+        mbigPicitems = bigPicitems;
     }
 
     View mView;
@@ -71,7 +73,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.MyViewHold> impl
             @Override
             public void onClick(View view) {
                 if (onPositionClickListener != null) {
-                    onPositionClickListener.onItemClick(position, mItems);
+                    onPositionClickListener.onItemClick(position, mbigPicitems);
                 }
             }
         });

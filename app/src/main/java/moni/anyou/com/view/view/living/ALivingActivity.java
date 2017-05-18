@@ -54,6 +54,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     private ImageView ivZoon;
     private SurfaceView mSurfaceView;
     private TextView tvContants;
+    private TextView tvGarden;
     NetProgressWindowDialog window;
 
     private LibVLC mMediaPlayer;
@@ -84,6 +85,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     public void initView() {
         super.initView();
         initTitle();
+        tvGarden = (TextView) findViewById(R.id.tv_garden);
         wvAlivinginfo = (WebView) findViewById(R.id.wv_alivinginfo);
         ivStart = (ImageView) findViewById(R.id.video_start);
         ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
@@ -114,6 +116,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mSurfaceView.setKeepScreenOn(false);
         ResLiveBean.LiveBean mBean = (ResLiveBean.LiveBean) getIntent().getSerializableExtra("data");
+        tvGarden.setText(mBean.gradename);
         tvContants.setText(mBean.contents);
         tvContants.setText(Html.fromHtml(mBean.contents));
     }

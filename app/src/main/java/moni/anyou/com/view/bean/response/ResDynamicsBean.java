@@ -76,6 +76,12 @@ public class ResDynamicsBean extends ResponseStandard {
         public String nickandcontent;
         public String rolename;
 
+
+        public CommentListBean(String content, String nick) {
+            this.content = content;
+            this.nick = nick;
+        }
+
         public String getRolename() {
             return rolename;
         }
