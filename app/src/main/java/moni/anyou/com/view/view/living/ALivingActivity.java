@@ -53,6 +53,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     private ImageView ivStart;
     private ImageView ivZoon;
     private SurfaceView mSurfaceView;
+    private TextView tvBack;
     private TextView tvContants;
     private TextView tvGarden;
     NetProgressWindowDialog window;
@@ -86,6 +87,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         super.initView();
         initTitle();
         tvGarden = (TextView) findViewById(R.id.tv_garden);
+        tvBack = (TextView) findViewById(R.id.iv_left);
         wvAlivinginfo = (WebView) findViewById(R.id.wv_alivinginfo);
         ivStart = (ImageView) findViewById(R.id.video_start);
         ivStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
@@ -93,7 +95,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         mSurfaceView = (SurfaceView) findViewById(R.id.video);
         mReLoad = (RelativeLayout) findViewById(R.id.v_reload);
         mLoadingView = (RelativeLayout) findViewById(R.id.v_loading);
-        tvContants=(TextView) findViewById(R.id.tv_contants);
+        tvContants = (TextView) findViewById(R.id.tv_contants);
         RelativeLayout layout_index_points = (RelativeLayout) findViewById(R.id.layout_index_points);
         layout_index_points.getBackground().setAlpha(180);
 
@@ -129,6 +131,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         ivZoon.setOnClickListener(this);
         ivStart.setOnClickListener(this);
         mReLoad.setOnClickListener(this);
+
         tvTitle.setText("直播");
     }
 
@@ -136,7 +139,8 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_left:
+            case R.id.iv_left:
+                onBack();
                 break;
             case R.id.iv_zone:
                 Intent i = new Intent();
@@ -393,7 +397,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
                             mReLoad.setVisibility(View.GONE);
                         }
                     } else {
-                        AppTools.jumptoLogin(mBaseActivity,result);
+                        AppTools.jumptoLogin(mBaseActivity, result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

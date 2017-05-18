@@ -72,7 +72,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
     ArrayList<String> mStringSexs = new ArrayList<>();
 
     private String mType;
-    private   String mVaule;
+    private String mVaule;
     private File upLoadfile;
     private ArrayList<DataClassBean> baseFamily = null;
 
@@ -83,12 +83,13 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         setContentView(R.layout.activity_person_info_setting);
         init();
     }
+
     @Override
     public void initView() {
         super.initView();
         initTitle();
         baseFamily = getBaseRelatenumberdatas();
-        mPhotoDialog = new PhotoDialog(mBaseActivity);
+        mPhotoDialog = new PhotoDialog(mBaseActivity, PhotoDialog.SmallSize);
         window = new NetProgressWindowDialog(mBaseActivity);
         tvTitle.setText("个人资料");
         rlGarden = (RelativeLayout) findViewById(R.id.rl_garden);
@@ -114,6 +115,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         viewforFamiy();
         initSeleterData();
     }
+
     @Override
     public void setAction() {
         super.setAction();
@@ -125,6 +127,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         tvSex.setOnClickListener(this);
         mPhotoDialog.setPhotoListener(mPhotoListener);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -187,20 +190,20 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                     int result = Integer.parseInt(jsonObject.getString("result"));
                     if (result >= 1) {
                         if (mType.equals(TYPE_ICON)) {
-                            SysConfig.userInfoJson.put("icon",mVaule);
-                        } else  if (mType == TYPE_BIRTHDAY) {
-                            SysConfig.userInfoJson.put("childbirthday",mVaule);
+                            SysConfig.userInfoJson.put("icon", mVaule);
+                        } else if (mType == TYPE_BIRTHDAY) {
+                            SysConfig.userInfoJson.put("childbirthday", mVaule);
                         } else if (mType == TYPE_CONTETS) {
-                            SysConfig.userInfoJson.put("icon",mVaule);
+                            SysConfig.userInfoJson.put("icon", mVaule);
                         } else if (mType == TYPE_SEX) {
-                            SysConfig.userInfoJson.put("childsex",mVaule);
+                            SysConfig.userInfoJson.put("childsex", mVaule);
                         } else if (mType == TYPE_ROLE) {
-                            SysConfig.userInfoJson.put("role",mVaule);
+                            SysConfig.userInfoJson.put("role", mVaule);
                         }
                         SysConfig.userInfoJson.toString();
                         Toast.makeText(mContext, "修改成功", Toast.LENGTH_LONG).show();
                     } else {
-                        AppTools.jumptoLogin(mBaseActivity,result);
+                        AppTools.jumptoLogin(mBaseActivity, result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
@@ -253,10 +256,10 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         });
 
 
-        mTimeSelector  = new TimeSelector(mContext, new TimeSelector.ResultHandler() {
+        mTimeSelector = new TimeSelector(mContext, new TimeSelector.ResultHandler() {
             @Override
             public void handle(String time) {
-                if (time!=null) {
+                if (time != null) {
                     mType = TYPE_BIRTHDAY;
                     tvBrithday.setText(time);
                     mVaule = time;
@@ -290,7 +293,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         @Override
         public void onSuccess(List<String> photoList) {
             if (null != photoList) {
-               final File file = new File(photoList.get(0));
+                final File file = new File(photoList.get(0));
 
                 if (file.exists()) {
                     mVaule = file.getName();
@@ -320,8 +323,6 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         }
     };
-
-
 
 
     //不需要授权
@@ -392,8 +393,8 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void run() {
-            int code=UploadUtil.uploadFile(upLoadfile,SysConfig.UploadUrl);
-            if (code==200) {
+            int code = UploadUtil.uploadFile(upLoadfile, SysConfig.UploadUrl);
+            if (code == 200) {
                 Message msg = new Message();
                 msg.obj = 1;
                 changeIconHandler.sendMessage(msg);
@@ -401,11 +402,11 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private Handler changeIconHandler = new Handler(){
+    private Handler changeIconHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg!=null) {
+            if (msg != null) {
                 BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
                 setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, tvHeadIcon);
             }
