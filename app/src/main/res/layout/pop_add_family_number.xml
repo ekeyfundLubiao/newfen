@@ -169,7 +169,6 @@
                 android:text="密码：883210"
                 android:textColor="@color/color_7f7f7f"
                 android:textSize="18dp" />
-
         </RelativeLayout>
 
 

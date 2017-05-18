@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -50,6 +52,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
     private ImageView ivStart;
     private ImageView ivZoon;
     private SurfaceView mSurfaceView;
+    private TextView tvContants;
     NetProgressWindowDialog window;
 
     private LibVLC mMediaPlayer;
@@ -87,6 +90,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         mSurfaceView = (SurfaceView) findViewById(R.id.video);
         mReLoad = (RelativeLayout) findViewById(R.id.v_reload);
         mLoadingView = (RelativeLayout) findViewById(R.id.v_loading);
+        tvContants=(TextView) findViewById(R.id.tv_contants);
         RelativeLayout layout_index_points = (RelativeLayout) findViewById(R.id.layout_index_points);
         layout_index_points.getBackground().setAlpha(180);
 
@@ -109,7 +113,8 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mSurfaceView.setKeepScreenOn(false);
         ResLiveBean.LiveBean mBean = (ResLiveBean.LiveBean) getIntent().getSerializableExtra("data");
-
+        tvContants.setText(mBean.contents);
+        tvContants.setText(Html.fromHtml(mBean.contents));
     }
 
 
@@ -134,7 +139,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
                 i.putExtra("data", mBean);
                 i.setClass(mBaseActivity, VlcVideoActivity.class);
                 startActivity(i);
-                finish();
+
                 break;
             case R.id.video_start:
                 boolStart = !boolStart;

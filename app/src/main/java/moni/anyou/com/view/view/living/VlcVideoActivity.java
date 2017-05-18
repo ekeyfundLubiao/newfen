@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -47,6 +48,8 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
     private View mLoadingView;
     private RelativeLayout mReLoad;
     private ImageView videoStart;
+    private ImageView ivFinish;
+    private TextView tvGarden;
 
     private int mVideoHeight;
     private int mVideoWidth;
@@ -68,6 +71,8 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
         mLoadingView = findViewById(R.id.video_loading);
         mReLoad = (RelativeLayout) findViewById(R.id.v_reload);
         videoStart = (ImageView) findViewById(R.id.video_start);
+        tvGarden = (TextView) findViewById(R.id.tv_garden);
+        ivFinish = (ImageView) findViewById(R.id.iv_finish);
         videoStart.setBackgroundDrawable(getResources().getDrawable(R.mipmap.icon_stop));
         try {
             mMediaPlayer = VLCInstance.getLibVlcInstance();
@@ -95,6 +100,9 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
         mReLoad.setOnClickListener(this);
         mReLoad.setVisibility(View.GONE);
         videoStart.setOnClickListener(this);
+        ivFinish.setOnClickListener(this);
+        tvGarden.setText(mBean.gradename);
+
     }
 
     @Override
@@ -115,6 +123,9 @@ public class VlcVideoActivity extends BaseActivity implements SurfaceHolder.Call
                     mMediaPlayer.stop();
                     hideLoading();
                 }
+                break;
+            case R.id.iv_finish:
+                finish();
                 break;
         }
     }

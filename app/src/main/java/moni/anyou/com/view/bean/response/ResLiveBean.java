@@ -57,6 +57,7 @@ public class ResLiveBean extends ResponseStandard {
         public String onlinenum;//": "0",
         public String gradename;//":
         public String url;
+        public String contents;
 
 
     }

@@ -99,7 +99,7 @@
                     android:layout_marginLeft="13dp"
                     android:layout_marginRight="13dp"
                     android:drawableLeft="@mipmap/icon_address"
-                    android:drawablePadding="13dp"
+                    android:drawablePadding="7dp"
                     android:gravity="left|center_vertical"
                     android:text="地址：     上海市普陀区长城大厦2609"
                     android:textColor="@color/color_text_color"

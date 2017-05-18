@@ -141,8 +141,12 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-        setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, cvHeadIcon);
+        try {
+            BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+            setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, cvHeadIcon);
+        } catch (Exception e) {
+        }
+
         getData();
     }
 
