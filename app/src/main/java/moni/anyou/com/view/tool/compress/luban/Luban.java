@@ -468,7 +468,7 @@ public class Luban {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File file = new File(SDPATH + "/anyou" + "/" +filename);
+        File file = new File(SDPATH + "/anyou/" +filename);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(stream.toByteArray());

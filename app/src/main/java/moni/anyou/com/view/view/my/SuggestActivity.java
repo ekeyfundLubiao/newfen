@@ -18,6 +18,7 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.request.ReqFacebackBean;
 import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -89,6 +90,7 @@ public class SuggestActivity extends BaseActivity implements View.OnClickListene
                         Toast.makeText(mContext, "反馈成功", Toast.LENGTH_LONG).show();
                         onBack();
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity, result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

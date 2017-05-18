@@ -2,125 +2,126 @@ package moni.anyou.com.view.widget.recycleview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.EventLog;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 
 /**
  * Created by Administrator on 2017/4/1.
  */
 
-public class MyRecycleView extends RecyclerView {
+public class MyRecycleView extends RecyclerView implements NestedScrollingChild {
 
-    private boolean mIsVpDragger;
-    private int mTouchSlop;
-    private int startY;
-    private int startX;
+    private NestedScrollingChildHelper childHelper;
+    private float ox;
+    private float oy;
+    private int[] consumed = new int[2];
+    private int[] offsetInWindow = new int[2];
+
+    private void init() {
+        this.setWillNotDraw(false);
+        this.childHelper = new NestedScrollingChildHelper(this);
+        this.childHelper.setNestedScrollingEnabled(true);
+    }
 
     public MyRecycleView(Context context) {
         super(context);
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        this.init();
     }
 
     public MyRecycleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        this.init();
     }
 
     public MyRecycleView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        this.init();
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
-                MeasureSpec.AT_MOST);
-        super.onMeasure(widthMeasureSpec, expandSpec);
-    }
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        int x = (int) ev.getX();
-//        int y = (int) ev.getY();
-//
-//        switch (ev.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                getParent().requestDisallowInterceptTouchEvent(true);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                int deltax = x - startX;
-//                int deltay = y - startY;
-//                if (Math.abs(deltax)>Math.abs(deltay)) {
-//                    getParent().requestDisallowInterceptTouchEvent(false);
-//                    return false;
-//                }
-//
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                break;
-//            default:
-//                break;
-//        }
-//        startX = x;
-//        startY = y;
-//        return super.dispatchTouchEvent(ev);
-//    }
-//
 
 
-    private float FistXLocation;
-    private float FistYlocation;
-    private boolean Istrigger = false;
-
-    private final int TRIGER_LENTH = 20;
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        // TODO Auto-generated method stub
-
-
-        int deltaX = 0;
-        int deltaY = 0;
-
-        final float x = ev.getX();
-        final float y = ev.getY();
-
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-                deltaX = (int)(FistXLocation - x);
-                deltaY = (int)(FistYlocation - y);
-                if (Math.abs(deltaY) > TRIGER_LENTH) {
-
-                    Istrigger = true;
-                    return super.onInterceptTouchEvent(ev);
-                    //拦截这个手势剩下的部分  ，使他不会响应viewpager的相关手势
-                }
-
-                return false;//没有触发拦截条件，不拦截事件，继续分发至viewpager
-
-            case MotionEvent.ACTION_DOWN:
-                FistXLocation = x;
-                FistYlocation = y;
-                if(getScaleY()<-400){
-                    System.out.println(getScaleY());
-                }
-                requestDisallowInterceptTouchEvent(false);
-                return  super.onInterceptTouchEvent(ev);
-
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                if (Istrigger) {
-
-                    Istrigger = false;
-                    return  super.onInterceptTouchEvent(ev);
-                }
-
-                break;
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == 0) {
+            this.ox = ev.getX();
+            this.oy = ev.getY();
+            this.startNestedScroll(3);
         }
-        return super.onInterceptTouchEvent(ev);
 
+        if (ev.getAction() == 1 || ev.getAction() == 3) {
+            this.stopNestedScroll();
+        }
+
+        if (ev.getAction() == 2) {
+            float clampedX = ev.getX();
+            float clampedY = ev.getY();
+            int dx = (int) (this.ox - clampedX);
+            int dy = (int) (this.oy - clampedY);
+            if (this.dispatchNestedPreScroll(dx, dy, this.consumed, this.offsetInWindow)) {
+                ev.setLocation(clampedX + (float) this.consumed[0], clampedY + (float) this.consumed[1]);
+            }
+
+            this.ox = ev.getX();
+            this.oy = ev.getY();
+        }
+
+        return super.onTouchEvent(ev);
+    }
+
+    public void setNestedScrollingEnabled(boolean enabled) {
+        if (childHelper != null) {
+            this.childHelper.setNestedScrollingEnabled(enabled);
+        }
+
+    }
+
+    public boolean isNestedScrollingEnabled() {
+        return this.childHelper.isNestedScrollingEnabled();
+    }
+
+    public boolean startNestedScroll(int axes) {
+        return this.childHelper.startNestedScroll(axes);
+    }
+
+    public void stopNestedScroll() {
+        this.childHelper.stopNestedScroll();
+    }
+
+    public boolean hasNestedScrollingParent() {
+        return this.childHelper.hasNestedScrollingParent();
+    }
+
+    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int[] offsetInWindow) {
+        return this.childHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow);
+    }
+
+    public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow) {
+        return this.childHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow);
+    }
+
+    public boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed) {
+        return this.childHelper.dispatchNestedFling(velocityX, velocityY, consumed);
+    }
+
+    public boolean dispatchNestedPreFling(float velocityX, float velocityY) {
+        return this.childHelper.dispatchNestedPreFling(velocityX, velocityY);
+    }
+
+    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+        return this.dispatchNestedPreFling(velocityX, velocityY);
+    }
+
+    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
+        return this.dispatchNestedFling(velocityX, velocityY, consumed);
+    }
+
+    @Override
+    public boolean fling(int velocityX, int velocityY) {
+        return super.fling(velocityX, velocityY);
     }
 }

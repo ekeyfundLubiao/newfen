@@ -29,6 +29,7 @@ import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.HomeItemBean;
 import moni.anyou.com.view.bean.request.ReqUpdateChildBaseInfoBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.PermissionTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.UploadUtil;
@@ -199,6 +200,7 @@ public class PersonInfoSettingActivity extends BaseActivity implements View.OnCl
                         SysConfig.userInfoJson.toString();
                         Toast.makeText(mContext, "修改成功", Toast.LENGTH_LONG).show();
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

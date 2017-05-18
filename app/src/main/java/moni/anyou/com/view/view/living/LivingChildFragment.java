@@ -27,6 +27,7 @@ import moni.anyou.com.view.base.BaseFragment;
 import moni.anyou.com.view.bean.request.ReqLiveBean;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.view.living.adapter.VideoRecycleAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -140,6 +141,7 @@ public class LivingChildFragment extends BaseFragment {
                                 break;
                         }
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

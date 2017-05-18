@@ -13,11 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.yancy.gallerypick.adapter.PhotoAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import moni.anyou.com.view.R;
+import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.response.ResDynamicsBean;
 
 import moni.anyou.com.view.config.SysConfig;
@@ -32,12 +36,16 @@ import moni.anyou.com.view.widget.recycleview.NoSMRecycleView;
  * Created by Administrator on 2016/11/21.
  */
 
-public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdapter.MyViewHold> {
+public class DynamicsItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private DynamicsFragment mContext;
     private LayoutInflater mInflater;
     private ArrayList<ResDynamicsBean.ListBean> mItems = new ArrayList<>();
+
+
+    private final static int HEAD = 0;    // 头布局
+    private final static int ITEM = 1;    // item布局
 
     public DynamicsItemsAdapter(DynamicsFragment context) {
         this.mContext = context;
@@ -50,11 +58,22 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHold holder, final int position) {
-        mView.setTag(position);
+    public void onBindViewHolder(final RecyclerView.ViewHolder vholder, final int position) {
+        if (getItemViewType(position) == HEAD) {
+            DynamicsItemsAdapter.HeadHolder holder = (DynamicsItemsAdapter.HeadHolder) vholder;
+
+            try {
+                BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
+                mContext.setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, holder.cvHeadIcon);
+            } catch (Exception e) {
+            }
+            return;
+        }
+
+        DynamicsItemsAdapter.MyViewHold holder = (DynamicsItemsAdapter.MyViewHold) vholder;
         final ResDynamicsBean.ListBean temps = mItems.get(position);
         if (!"".equals(temps.pic)) {
-            RecAdapter tempRecAdapter = new RecAdapter(mContext,temps.pic.split(","));
+            RecAdapter tempRecAdapter = new RecAdapter(mContext, temps.pic.split(","));
             holder.rc_icon.setAdapter(tempRecAdapter);
             tempRecAdapter.setOnPositionClickListener(new RecAdapter.OnPositionClickListener() {
                 @Override
@@ -120,7 +139,11 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     View mView;
 
     @Override
-    public MyViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        if (viewType == HEAD) {
+            return new HeadHolder(mInflater.inflate(R.layout.dynamic_header, parent, false));
+        }
         DynamicsItemsAdapter.MyViewHold holder = null;
         if (holder == null) {
             mView = mInflater.inflate(R.layout.item_dynamics, parent, false);
@@ -140,6 +163,13 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         return 0;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return HEAD;
+        }
+        return ITEM;
+    }
 
     public void setDatas(List<ResDynamicsBean.ListBean> result) {
         if (result != null && mItems != null) {
@@ -169,6 +199,16 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
         mItems.remove(position);
         notifyDataSetChanged();
     }
+
+    private class HeadHolder extends RecyclerView.ViewHolder {
+        CircleImageView cvHeadIcon;
+
+        private HeadHolder(View itemView) {
+            super(itemView);
+            cvHeadIcon = (CircleImageView) itemView.findViewById(R.id.civ_headIcon);
+        }
+    }
+
 
     class MyViewHold extends RecyclerView.ViewHolder {
         CircleImageView iv_headicon;
@@ -256,6 +296,6 @@ public class DynamicsItemsAdapter extends RecyclerView.Adapter<DynamicsItemsAdap
     }
 
 
-    LinearLayoutManager linearLayoutManager ;
+    LinearLayoutManager linearLayoutManager;
 
 }

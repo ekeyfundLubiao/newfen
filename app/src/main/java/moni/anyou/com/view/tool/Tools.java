@@ -504,8 +504,14 @@ public class Tools {
                     }
 
                 } else if (isSameDay(curDate, someDate)) {
-                    int distanceTime = cal1.get(Calendar.HOUR) - cal2.get(Calendar.HOUR);
+                    int distanceTime;
+                    if (cal1.get(Calendar.HOUR) < cal2.get(Calendar.HOUR)) {
+                        distanceTime = cal1.get(Calendar.HOUR) - cal2.get(Calendar.HOUR) + 12;
+                    } else {
+                        distanceTime = cal1.get(Calendar.HOUR) - cal2.get(Calendar.HOUR);
+                    }
                     return distanceTime + "小时前";
+
                 } else {
                     if (isSameMonth) {
                         int distanceDay = cal1.get(Calendar.DAY_OF_MONTH) - cal2.get(Calendar.DAY_OF_MONTH);
@@ -552,7 +558,7 @@ public class Tools {
         for (int i = 0; i < baseFamilySize; i++) {
             DataClassBean temp = baseFamily.get(i);
             temp.setStatus(-1);
-            baseFamily.set(i,temp);
+            baseFamily.set(i, temp);
         }
         for (int i = 0; i < baseFamilySize; i++) {
             for (int j = 0, size = relationsHad.size(); j < size; j++) {

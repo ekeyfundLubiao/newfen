@@ -30,6 +30,7 @@ import moni.anyou.com.view.bean.VideoBean;
 import moni.anyou.com.view.bean.request.ReqLiveBean;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.view.living.adapter.SpacesItemDecoration;
 import moni.anyou.com.view.view.living.adapter.VideoPublicAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
@@ -150,16 +151,6 @@ public class LivingChildRightFragment extends BaseFragment {
                         switch (Type) {
                             case 1:
                                 swipeRefreshLayout.finishRefresh();
-//                                ArrayList<ResLiveBean.LiveBean> Arrylist = new ArrayList<ResLiveBean.LiveBean>();
-//                                for (int i = 0; i < 12; i++) {
-//                                    ResLiveBean.LiveBean tempBean = new ResLiveBean.LiveBean();
-//                                    tempBean.pic = picArry[i];
-//                                    tempBean.onlinenum = "" + i;
-//                                    tempBean.status = i / 2;
-//                                    tempBean.liveName = "跳跳蛙" + i;
-//                                    Arrylist.add(tempBean);
-//                                }
-//                                publicAdapter.setDatas(Arrylist);
                                 publicAdapter.setDatas(temp.getList());
                                 break;
                             case 2:
@@ -168,6 +159,7 @@ public class LivingChildRightFragment extends BaseFragment {
                                 break;
                         }
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

@@ -26,6 +26,7 @@ import moni.anyou.com.view.bean.BaseInfo;
 import moni.anyou.com.view.bean.DataClassBean;
 import moni.anyou.com.view.bean.request.ReqCompleteFInishBabyInfoBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.tool.Tools;
 import moni.anyou.com.view.view.IndexActivity;
@@ -189,6 +190,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements View.OnCli
                         activityAnimation(RIGHT_OUT);
                         onBack();
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

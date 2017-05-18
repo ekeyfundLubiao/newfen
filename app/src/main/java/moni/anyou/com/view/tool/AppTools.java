@@ -273,8 +273,6 @@ public class AppTools {
             }
 
 
-
-
         } catch (Exception e) {
 
         }
@@ -372,9 +370,18 @@ public class AppTools {
     }
 
     public static void jumptoLogin(BaseActivity mActivity) {
+
         ExitLogin();
         mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
     }
+
+    public static void jumptoLogin(BaseActivity mActivity, int t) {
+        if (t == -1) {
+            ExitLogin();
+            mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+        }
+    }
+
 
     public static String getTwoDouble(double number) {
         DecimalFormat df = new DecimalFormat("######0.00");

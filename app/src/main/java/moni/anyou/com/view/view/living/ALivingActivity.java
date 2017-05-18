@@ -43,6 +43,7 @@ import moni.anyou.com.view.bean.request.ReqGetLivingBean;
 import moni.anyou.com.view.bean.response.ResLiveBean;
 import moni.anyou.com.view.bean.response.UrlBean;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.tool.ToastTools;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -389,6 +390,7 @@ public class ALivingActivity extends BaseActivity implements View.OnClickListene
                             mReLoad.setVisibility(View.GONE);
                         }
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

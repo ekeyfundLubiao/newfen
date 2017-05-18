@@ -42,6 +42,7 @@
             android:visibility="visible" />
 
     </RelativeLayout>
+
     <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -52,41 +53,13 @@
         app:progress_bar_color="@color/appcolor"
         app:refresh_text="下拉刷新">
 
-        <moni.anyou.com.view.widget.xListView.ShareScrollView
-            android:id="@+id/scrollView"
+
+        <moni.anyou.com.view.widget.recycleview.MyRecycleView
+            android:id="@+id/lv_dynamics"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:divider="@color/bgcolor"
+            android:dividerHeight="2dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="139dp"
-                    android:background="@mipmap/icon_dynamic_topbg">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/civ_headIcon"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="13dp"
-                        android:src="@mipmap/jiaoshifengcai"
-                        app:civ_border_color="@color/white"
-                        app:civ_border_width="2dp" />
-                </RelativeLayout>
-
-                <moni.anyou.com.view.widget.recycleview.MyRecycleView
-                    android:id="@+id/lv_dynamics"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="6dp"
-                    android:divider="@color/bgcolor"
-                    android:dividerHeight="2dp" />
-            </LinearLayout>
-        </moni.anyou.com.view.widget.xListView.ShareScrollView>
     </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
 </LinearLayout>

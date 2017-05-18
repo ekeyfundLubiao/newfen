@@ -23,6 +23,7 @@ import moni.anyou.com.view.base.BaseActivity;
 import moni.anyou.com.view.bean.request.ReqPageBean;
 import moni.anyou.com.view.bean.response.ResNoticeData;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.view.my.adapter.NoticeItemslAdapter;
 import moni.anyou.com.view.widget.NetProgressWindowDialog;
 
@@ -106,6 +107,7 @@ public class SystemsNoticeActivity extends BaseActivity {
                     } else {
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         swipeRefreshLayout.finishRefresh();
+                        AppTools.jumptoLogin(mBaseActivity, result);
                     }
                 } catch (Exception ex) {
                     swipeRefreshLayout.finishRefresh();

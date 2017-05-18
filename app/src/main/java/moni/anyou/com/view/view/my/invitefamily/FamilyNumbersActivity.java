@@ -271,8 +271,8 @@ public class FamilyNumbersActivity extends BaseActivity implements View.OnClickL
 //                        ToastTools.showShort(mContext, "numbeansize:" + numberBeans.size());
                         numberBeans = changdataArray;
                         MyAdapter.setDatas(numberBeans);
-                        //testpop();
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {

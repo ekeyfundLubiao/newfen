@@ -301,5 +301,4 @@ public class BaseFragment extends Fragment {
         intent.setData(uri);
         startActivity(intent);
     }
-
 }

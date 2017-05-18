@@ -4,6 +4,7 @@ package moni.anyou.com.view.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,7 +52,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     private static int LoadMore = 2;
     private View mView;
     private NetProgressWindowDialog window;
-    private CircleImageView cvHeadIcon;
     private TextView tvLeft;
     private TextView tvTitle;
     private ImageView iv_icon;
@@ -93,7 +93,6 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
         tvTitle.setText("动态");
         lvDynamics = (MyRecycleView) mView.findViewById(R.id.lv_dynamics);
 
-        cvHeadIcon = (CircleImageView) mView.findViewById(R.id.civ_headIcon);
 
         mItems = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
@@ -131,6 +130,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                 postLikeArticle(position, data);
             }
         });
+
     }
 
     @Override
@@ -141,11 +141,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        try {
-            BaseInfo baseInfo = new Gson().fromJson(SysConfig.userInfoJson.toString(), BaseInfo.class);
-            setBitmaptoImageView11(SysConfig.PicUrl + baseInfo.icon, cvHeadIcon);
-        } catch (Exception e) {
-        }
+
 
         getData();
     }
@@ -170,12 +166,15 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                             swipeRefreshLayout.finishLoadmore();
                         } else {
                             swipeRefreshLayout.finishRefresh();
-                            List<ResDynamicsBean.ListBean> bean = AppTools.getDynamicsItemBean(temp);
+                            List<ResDynamicsBean.ListBean> bean = new ArrayList<ResDynamicsBean.ListBean>();
+                            bean.add(new ResDynamicsBean.ListBean());
+                            bean.addAll(AppTools.getDynamicsItemBean(temp));
                             dynamicsItemAdapter.setDatas(bean);
                         }
 
 
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity, result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
@@ -212,6 +211,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                         dynamicsItemAdapter.notifyItemChanged(position, bean);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity, result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
@@ -270,6 +270,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                     getData();
                 } else {
                     swipeRefreshLayout.finishLoadmore();
+                    ToastTools.showShort(mContext,"没有更多了");
                 }
             }
 
@@ -329,6 +330,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                         dynamicsItemAdapter.removeDynamics(position);
                         Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity, result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
@@ -375,6 +377,7 @@ public class DynamicsFragment extends BaseFragment implements View.OnClickListen
                             getData();
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         } else {
+                            AppTools.jumptoLogin(mBaseActivity, result);
                             Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception ex) {

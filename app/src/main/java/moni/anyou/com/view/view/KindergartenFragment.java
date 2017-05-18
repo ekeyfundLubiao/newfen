@@ -30,6 +30,7 @@ import moni.anyou.com.view.bean.request.ReqHomeBean;
 import moni.anyou.com.view.bean.request.ReqsLikeTeacherBean;
 import moni.anyou.com.view.bean.response.ResHomeData;
 import moni.anyou.com.view.config.SysConfig;
+import moni.anyou.com.view.tool.AppTools;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.KindergardenImageTextAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.RecyclerViewAdapter;
 import moni.anyou.com.view.view.kindergarten.adapter.adpater.TeacherShowAdapter;
@@ -243,6 +244,7 @@ public class KindergartenFragment extends BaseFragment {
                     if (result >= 1) {
                         getdata(position);
                     } else {
+                        AppTools.jumptoLogin(mBaseActivity,result);
                         Toast.makeText(mContext, jsonObject.get("retmsg").toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
