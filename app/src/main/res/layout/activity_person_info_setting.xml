@@ -106,7 +106,7 @@
             android:background="@color/bgcolor" />
     </LinearLayout>
 
-    <moni.anyou.com.view.widget.NoListview
+    <com.m086.ad.mobi.widget.NoListview
         android:id="@+id/lv_setselfInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

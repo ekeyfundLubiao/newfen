@@ -8,7 +8,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.daily.LoginActivity">
+    tools:context="com.m086.ad.mobi.view.daily.LoginActivity">
 
     <include
         android:id="@+id/topbar"

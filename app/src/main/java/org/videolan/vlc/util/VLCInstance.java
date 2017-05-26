@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.LibVlcException;
 
-import moni.anyou.com.view.config.AnyouerApplication;
+import com.m086.ad.mobi.config.AnyouerApplication;
 
 
 public class VLCInstance {

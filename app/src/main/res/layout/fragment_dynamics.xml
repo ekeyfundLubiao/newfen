@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.KindergartenFragment">
+    tools:context="com.m086.ad.mobi.view.KindergartenFragment">
 
     <RelativeLayout style="@style/layout_top_bar">
 
@@ -54,7 +54,7 @@
         app:refresh_text="下拉刷新">
 
 
-        <moni.anyou.com.view.widget.recycleview.MyRecycleView
+        <com.m086.ad.mobi.widget.recycleview.MyRecycleView
             android:id="@+id/lv_dynamics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

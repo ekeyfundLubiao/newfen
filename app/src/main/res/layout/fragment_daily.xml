@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgcolor"
-    tools:context="moni.anyou.com.view.view.KindergartenFragment">
+    tools:context="com.m086.ad.mobi.view.KindergartenFragment">
 
     <include layout="@layout/com_top_bar" />
 

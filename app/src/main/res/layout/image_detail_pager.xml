@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <moni.anyou.com.view.view.dynamics.detail.image.HackyViewPager
+    <com.m086.ad.mobi.view.dynamics.detail.image.HackyViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

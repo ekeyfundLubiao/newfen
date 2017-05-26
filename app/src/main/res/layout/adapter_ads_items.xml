@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bgcolor"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_video_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_video"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="fitXY" />
+
+
+        <TextView
+            android:id="@+id/tv_alivenum"
+            android:layout_width="44dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/drawable_btn_ff"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_classname"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:drawableLeft="@mipmap/icon_class"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="7dp"
+            android:text="终极一班"
+            android:textColor="#999999"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:id="@+id/iv_del_ads"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/icon_dynamicdel" />
+
+        <ImageView
+            android:id="@+id/iv_eff_ads"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@id/iv_del_ads"
+            android:src="@mipmap/icon_like" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/listviewfenge" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="@color/white" />
+</LinearLayout>

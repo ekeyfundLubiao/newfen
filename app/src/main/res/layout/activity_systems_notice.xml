@@ -9,7 +9,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.my.SystemsNoticeActivity">
+    tools:context="com.m086.ad.mobi.view.my.SystemsNoticeActivity">
     <include layout="@layout/com_top_bar" />
 
     <View

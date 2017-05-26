@@ -8,11 +8,11 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.kindergarten.adapter.picshow.NewsPicDetaiActivity">
+    tools:context="com.m086.ad.mobi.view.kindergarten.adapter.picshow.NewsPicDetaiActivity">
 
     <include layout="@layout/com_top_bar" />
 
-    <moni.anyou.com.view.widget.banner.AutoScrollViewPager
+    <com.m086.ad.mobi.widget.banner.AutoScrollViewPager
         android:id="@+id/banner_news_pics"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

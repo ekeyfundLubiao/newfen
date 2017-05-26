@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="moni.anyou.com.view">
+    package="com.m086.ad.mobi">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
 
     <application
-        android:name=".config.AnyouerApplication"
+        android:name="com.m086.ad.mobi.config.AnyouerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -42,65 +42,65 @@
         </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.m086.ad.mobi.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.IndexActivity"
+            android:name="com.m086.ad.mobi.view.IndexActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.account.LoginActivity"
+            android:name="com.m086.ad.mobi.view.account.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.kindergarten.adapter.picshow.NewsPicDetaiActivity"
+            android:name="com.m086.ad.mobi.view.kindergarten.adapter.picshow.NewsPicDetaiActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.my.PersonInfoSettingActivity"
+            android:name="com.m086.ad.mobi.view.my.PersonInfoSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.my.invitefamily.InviteFamilyActivity"
+            android:name="com.m086.ad.mobi.view.my.invitefamily.InviteFamilyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.my.systemset.SystemSettingActivity"
+            android:name="com.m086.ad.mobi.view.my.systemset.SystemSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.CbTestActivity"
+            android:name="com.m086.ad.mobi.test.CbTestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.my.invitefamily.FamilyNumbersActivity"
+            android:name="com.m086.ad.mobi.view.my.invitefamily.FamilyNumbersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.my.systemset.UpdateLoginActivity"
+            android:name="com.m086.ad.mobi.view.my.systemset.UpdateLoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.account.CompleteBaseInfoActivity"
+            android:name="com.m086.ad.mobi.view.account.CompleteBaseInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.dynamics.SendDynamicActivity"
+            android:name="com.m086.ad.mobi.view.dynamics.SendDynamicActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".view.living.ALivingActivity" />
-        <activity android:name=".view.daily.LoginActivity">
+        <activity android:name="com.m086.ad.mobi.view.living.ALivingActivity" />
 
-        </activity>
-        <activity android:name=".view.kindergarten.TeacherDetailActivity" />
+
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name="com.m086.ad.mobi.view.kindergarten.TeacherDetailActivity" />
         <activity
-            android:name=".view.StartActivity"
+            android:name="com.m086.ad.mobi.view.StartActivity"
             android:label="@string/title_activity_start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.my.SuggestActivity" />
-        <activity android:name=".view.my.SystemsNoticeActivity" />
-        <activity android:name=".view.my.systemset.SelectGardenActivity" />
-        <activity android:name=".view.my.invitefamily.SelectActivity"></activity>
-
+        <activity android:name="com.m086.ad.mobi.view.my.SuggestActivity" />
+        <activity android:name="com.m086.ad.mobi.view.my.SystemsNoticeActivity" />
+        <activity android:name="com.m086.ad.mobi.view.my.systemset.SelectGardenActivity" />
+        <activity android:name="com.m086.ad.mobi.view.my.invitefamily.SelectActivity"></activity>
+        <activity android:name=".view.ads.AddAdsActivity" />
 
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.m086.ad.mobi.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="微信分享"
             android:screenOrientation="portrait"
@@ -111,14 +111,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".webview.ShowWebActivity" />
+        <activity android:name="com.m086.ad.mobi.webview.ShowWebActivity" />
 
-        <service android:name=".service.UpFileService" />
+        <service android:name="com.m086.ad.mobi.service.UpFileService" />
 
-        <activity android:name="moni.anyou.com.view.view.dynamics.detail.image.ImagePagerActivity" />
+        <activity android:name="com.m086.ad.mobi.view.dynamics.detail.image.ImagePagerActivity" />
         <activity
-            android:name=".view.living.VlcVideoActivity"
+            android:name="com.m086.ad.mobi.view.living.VlcVideoActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".view.ads.text.SentTextAdsActivity">
+
+        </activity>
     </application>
 
 </manifest>

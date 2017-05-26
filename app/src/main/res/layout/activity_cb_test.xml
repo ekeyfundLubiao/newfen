@@ -4,7 +4,7 @@
     android:id="@+id/activity_cb_test"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="moni.anyou.com.view.test.CbTestActivity">
+    tools:context="com.m086.ad.mobi.test.CbTestActivity">
 
     <TextView
         android:layout_width="match_parent"

@@ -8,7 +8,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.living.ALivingActivity">
+    tools:context="com.m086.ad.mobi.view.living.ALivingActivity">
 
     <include layout="@layout/com_top_bar" />
 

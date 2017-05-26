@@ -83,7 +83,7 @@
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 
-            <moni.anyou.com.view.widget.recycleview.NoSMRecycleView
+            <com.m086.ad.mobi.widget.recycleview.NoSMRecycleView
                 android:id="@+id/rc_icon"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                 android:layout_marginRight="18dp"
                 android:layout_alignParentBottom="true"
                 android:background="@color/fenge" />
-            <moni.anyou.com.view.widget.recycleview.NoSMRecycleView
+            <com.m086.ad.mobi.widget.recycleview.NoSMRecycleView
                 android:id="@+id/rc_contonts"
                 android:overScrollMode="never"
                 android:layout_width="match_parent"

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_integrate_mail_order_form"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/appcolor"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:background="@color/appcolor"
+            android:scrollbars="none">
+
+            <RadioGroup
+                android:id="@+id/title_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appcolor"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:scrollbars="none">
+
+                <RadioButton
+                    android:id="@+id/radioBtn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/message_radio_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="文件夹一"
+                    android:textColor="@color/message_radio_text_color"
+                    android:textSize="16dp" />
+
+                <RadioButton
+                    android:id="@+id/radioBtn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/message_radio_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="文件夹二"
+                    android:textColor="@color/message_radio_text_color"
+                    android:textSize="16dp" />
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bgcolor">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_order_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="13dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/add" />
+</RelativeLayout>

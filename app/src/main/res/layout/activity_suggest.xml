@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    tools:context="moni.anyou.com.view.view.my.SuggestActivity">
+    tools:context="com.m086.ad.mobi.view.my.SuggestActivity">
     <include
         android:id="@+id/topbar"
         layout="@layout/com_top_bar" />

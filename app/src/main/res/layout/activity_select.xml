@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.my.invitefamily.SelectActivity">
+    tools:context="com.m086.ad.mobi.view.my.invitefamily.SelectActivity">
 
     <include layout="@layout/com_top_bar" />
      <View

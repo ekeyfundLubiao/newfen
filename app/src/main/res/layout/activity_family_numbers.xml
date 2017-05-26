@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="moni.anyou.com.view.view.my.invitefamily.FamilyNumbersActivity">
+    tools:context="com.m086.ad.mobi.view.my.invitefamily.FamilyNumbersActivity">
 
     <include
         android:id="@+id/topbar"

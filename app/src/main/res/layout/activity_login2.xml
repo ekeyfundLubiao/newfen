@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context="moni.anyou.com.view.view.daily.LoginActivity">
+    android:orientation="vertical">
 
     <include
         android:id="@+id/topbar"
@@ -23,8 +22,8 @@
     <Button
         android:id="@+id/btn_camera"
         android:layout_width="match_parent"
-        android:text="打开相机"
-        android:layout_height="55dp" />
+        android:layout_height="55dp"
+        android:text="打开相机" />
 
     <Button
         android:id="@+id/btn_time"
@@ -35,8 +34,8 @@
     <Button
         android:id="@+id/btn_grelly"
         android:layout_width="match_parent"
-        android:text="打开相册"
-        android:layout_height="55dp" />
+        android:layout_height="55dp"
+        android:text="打开相册" />
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
